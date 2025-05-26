@@ -6,6 +6,6 @@
     "start": "botpress start"
   },
   "dependencies": {
-    "@botpress/core": "^12.30.0"
+    "@botpress/core": "12.27.1"
   }
 }
