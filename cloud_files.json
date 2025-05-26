@@ -1,0 +1,1053 @@
+[
+  {
+    "id": "file_01JW56CSHNXZ6ZYWF7CK101HPR",
+    "accessPolicies": [
+      "public_content"
+    ],
+    "contentType": "text/html; charset=utf-8",
+    "size": 1810,
+    "status": "upload_completed",
+    "tags": {
+      "system": "true",
+      "purpose": "webchat_mobile_share",
+      "htmlVersion": "359955614"
+    },
+    "key": "webchat/mobile/share.html",
+    "index": false,
+    "updatedAt": "2025-05-26T02:22:52.460Z"
+  },
+  {
+    "id": "file_01JW54PN1G37XJT0ZPZC5NQ1NS",
+    "accessPolicies": [],
+    "contentType": "application/json",
+    "size": 197289,
+    "status": "upload_completed",
+    "tags": {
+      "dm": "studio/dialog-manager",
+      "dmHash": "90498bbcb09061726c8d81678356a4cf77d27e60bde20c8d8b0d99994138ac5b",
+      "system": "true",
+      "purpose": "bot-content"
+    },
+    "key": "deployments/1748224398341.json",
+    "index": false,
+    "updatedAt": "2025-05-26T01:53:18.375Z"
+  },
+  {
+    "id": "file_01JW54C3FBD47FPD7AP3W7QEE8",
+    "accessPolicies": [],
+    "contentType": "application/json; charset=utf-8",
+    "size": 26685,
+    "status": "upload_completed",
+    "tags": {
+      "uri": "workflow://wf-main/nd-54aa0c19de",
+      "origin": "integration",
+      "userId": "user-2",
+      "eventId": "none",
+      "purpose": "iteration",
+      "executionId": "llmz_01JW54BTYP8D0E7W2FEH5JQGCE",
+      "integration": "Int_Improvement",
+      "iterationId": "llmz_01JW54BTYP8D0E7W2FEH5JQGCE_1",
+      "conversationId": "convo-1"
+    },
+    "key": "improvements/iterations/llmz_01JW54BTYP8D0E7W2FEH5JQGCE_1.json",
+    "index": false,
+    "updatedAt": "2025-05-26T01:47:32.708Z"
+  },
+  {
+    "id": "file_01JW54BCV4NC5BTCRZBRBKTRAE",
+    "accessPolicies": [],
+    "contentType": "application/json; charset=utf-8",
+    "size": 26382,
+    "status": "upload_completed",
+    "tags": {
+      "uri": "workflow://wf-main/nd-54aa0c19de",
+      "origin": "integration",
+      "userId": "user-2",
+      "eventId": "none",
+      "purpose": "iteration",
+      "executionId": "llmz_01JW54B9ESQP7RN2GKWDQ7XBPR",
+      "integration": "Int_Improvement",
+      "iterationId": "llmz_01JW54B9ESQP7RN2GKWDQ7XBPR_1",
+      "conversationId": "convo-1"
+    },
+    "key": "improvements/iterations/llmz_01JW54B9ESQP7RN2GKWDQ7XBPR_1.json",
+    "index": false,
+    "updatedAt": "2025-05-26T01:47:09.532Z"
+  },
+  {
+    "id": "file_01JW54AXE64WFXKY0PESHFM3MK",
+    "accessPolicies": [],
+    "contentType": "application/json; charset=utf-8",
+    "size": 26154,
+    "status": "upload_completed",
+    "tags": {
+      "uri": "workflow://wf-main/nd-54aa0c19de",
+      "origin": "integration",
+      "userId": "user-2",
+      "eventId": "none",
+      "purpose": "iteration",
+      "executionId": "llmz_01JW54AQHWBJD8KMP5K0CYDGZJ",
+      "integration": "Int_Improvement",
+      "iterationId": "llmz_01JW54AQHWBJD8KMP5K0CYDGZJ_1",
+      "conversationId": "convo-1"
+    },
+    "key": "improvements/iterations/llmz_01JW54AQHWBJD8KMP5K0CYDGZJ_1.json",
+    "index": false,
+    "updatedAt": "2025-05-26T01:46:53.758Z"
+  },
+  {
+    "id": "file_01JW545SNY0Q7H6EX5NVFB6TM7",
+    "accessPolicies": [
+      "public_content"
+    ],
+    "contentType": "image/png",
+    "size": 210341,
+    "status": "upload_completed",
+    "tags": {
+      "source": "integration",
+      "integration": "webchat"
+    },
+    "key": "bot-3283d4af-d2d1-4385-9ba6-408deb39f00d-avatar-kgwxYI",
+    "index": false,
+    "updatedAt": "2025-05-26T01:44:06.069Z"
+  },
+  {
+    "id": "file_01JW53ZDNJG4ETKF9X3496SDB7",
+    "accessPolicies": [],
+    "contentType": "application/json",
+    "size": 197289,
+    "status": "upload_completed",
+    "tags": {
+      "dm": "studio/dialog-manager",
+      "dmHash": "90498bbcb09061726c8d81678356a4cf77d27e60bde20c8d8b0d99994138ac5b",
+      "system": "true",
+      "purpose": "bot-content"
+    },
+    "key": "deployments/1748223637011.json",
+    "index": false,
+    "updatedAt": "2025-05-26T01:40:37.145Z"
+  },
+  {
+    "id": "file_01JW51TNADSZJ62SCBACKP94HJ",
+    "accessPolicies": [
+      "public_content"
+    ],
+    "contentType": "application/json",
+    "size": 470,
+    "status": "upload_completed",
+    "tags": {
+      "source": "integration",
+      "system": "true",
+      "integrationName": "webchat",
+      "webchatConfigVersion": "1"
+    },
+    "key": "webchatConfig.json",
+    "index": false,
+    "updatedAt": "2025-05-26T01:53:32.677Z"
+  },
+  {
+    "id": "file_01JW51TN5SDGGACTFDQD7S251F",
+    "accessPolicies": [
+      "public_content"
+    ],
+    "contentType": "application/javascript",
+    "size": 493,
+    "status": "upload_completed",
+    "tags": {
+      "source": "integration",
+      "system": "true",
+      "integrationName": "webchat",
+      "webchatInjectConfigVersion": "1"
+    },
+    "key": "webchatConfigInject.js",
+    "index": false,
+    "updatedAt": "2025-05-26T01:53:32.522Z"
+  },
+  {
+    "id": "file_01JW50YVBRWKNX3GNEHMWVCSYC",
+    "accessPolicies": [],
+    "contentType": "application/json; charset=utf-8",
+    "size": 27139,
+    "status": "upload_completed",
+    "tags": {
+      "uri": "workflow://wf-main/nd-54aa0c19de",
+      "origin": "integration",
+      "userId": "user-2",
+      "eventId": "none",
+      "purpose": "iteration",
+      "executionId": "llmz_01JW50YP2EHETMHX1J4FKMRJY1",
+      "integration": "Int_Improvement",
+      "iterationId": "llmz_01JW50YP2EHETMHX1J4FKMRJY1_1",
+      "conversationId": "convo-10"
+    },
+    "key": "improvements/iterations/llmz_01JW50YP2EHETMHX1J4FKMRJY1_1.json",
+    "index": false,
+    "updatedAt": "2025-05-26T00:47:52.688Z"
+  },
+  {
+    "id": "file_01JW50Y9J4V11EV7CK69PCQ3N3",
+    "accessPolicies": [],
+    "contentType": "application/json; charset=utf-8",
+    "size": 26807,
+    "status": "upload_completed",
+    "tags": {
+      "uri": "workflow://wf-main/nd-54aa0c19de",
+      "origin": "integration",
+      "userId": "user-2",
+      "eventId": "none",
+      "purpose": "iteration",
+      "executionId": "llmz_01JW50Y5DJBRG9RXJZRXGT43N4",
+      "integration": "Int_Improvement",
+      "iterationId": "llmz_01JW50Y5DJBRG9RXJZRXGT43N4_1",
+      "conversationId": "convo-10"
+    },
+    "key": "improvements/iterations/llmz_01JW50Y5DJBRG9RXJZRXGT43N4_1.json",
+    "index": false,
+    "updatedAt": "2025-05-26T00:47:34.459Z"
+  },
+  {
+    "id": "file_01JW50XNKSPMH17A0KJWENZGT0",
+    "accessPolicies": [],
+    "contentType": "application/json; charset=utf-8",
+    "size": 26424,
+    "status": "upload_completed",
+    "tags": {
+      "uri": "workflow://wf-main/nd-54aa0c19de",
+      "origin": "integration",
+      "userId": "user-2",
+      "eventId": "none",
+      "purpose": "iteration",
+      "executionId": "llmz_01JW50XHFCPAYTTFRG8J7CTKZY",
+      "integration": "Int_Improvement",
+      "iterationId": "llmz_01JW50XHFCPAYTTFRG8J7CTKZY_1",
+      "conversationId": "convo-10"
+    },
+    "key": "improvements/iterations/llmz_01JW50XHFCPAYTTFRG8J7CTKZY_1.json",
+    "index": false,
+    "updatedAt": "2025-05-26T00:47:14.033Z"
+  },
+  {
+    "id": "file_01JW50XEP1TG3DWKA7EFD3S8RE",
+    "accessPolicies": [],
+    "contentType": "application/json; charset=utf-8",
+    "size": 26155,
+    "status": "upload_completed",
+    "tags": {
+      "uri": "workflow://wf-main/nd-54aa0c19de",
+      "origin": "integration",
+      "userId": "user-2",
+      "eventId": "none",
+      "purpose": "iteration",
+      "executionId": "llmz_01JW50XC95TWGJJHQGVJF7B360",
+      "integration": "Int_Improvement",
+      "iterationId": "llmz_01JW50XC95TWGJJHQGVJF7B360_1",
+      "conversationId": "convo-10"
+    },
+    "key": "improvements/iterations/llmz_01JW50XC95TWGJJHQGVJF7B360_1.json",
+    "index": false,
+    "updatedAt": "2025-05-26T00:47:06.937Z"
+  },
+  {
+    "id": "file_01JW50RY185AFRVKMHT6B5KJH9",
+    "accessPolicies": [],
+    "contentType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    "size": 18443,
+    "status": "indexing_completed",
+    "tags": {
+      "kbId": "kb-2f0a7ea639",
+      "title": "Writing Rubric - FOR STUDENTS.docx",
+      "source": "knowledge-base",
+      "modalities": "[]"
+    },
+    "key": "kb-2f0a7ea639/Writing Rubric - FOR STUDENTS.docx",
+    "index": true,
+    "updatedAt": "2025-05-26T00:44:38.816Z"
+  },
+  {
+    "id": "file_01JW50PZ6F6MCJ3MENWACSVPEW",
+    "accessPolicies": [],
+    "contentType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    "size": 165961,
+    "status": "indexing_completed",
+    "tags": {
+      "kbId": "kb-2f0a7ea639",
+      "title": "Reading Comprehension Rubric - B1+ & B2  Level.docx",
+      "source": "knowledge-base",
+      "modalities": "[]"
+    },
+    "key": "kb-2f0a7ea639/Reading Comprehension Rubric - B1+ & B2  Level.docx",
+    "index": true,
+    "updatedAt": "2025-05-26T00:43:34.471Z"
+  },
+  {
+    "id": "file_01JW50PYBZTNKSCVHK8ZFT6QED",
+    "accessPolicies": [],
+    "contentType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    "size": 166023,
+    "status": "indexing_completed",
+    "tags": {
+      "kbId": "kb-2f0a7ea639",
+      "title": "Reading Comprehension Rubric - B1 Level.docx",
+      "source": "knowledge-base",
+      "modalities": "[]"
+    },
+    "key": "kb-2f0a7ea639/Reading Comprehension Rubric - B1 Level.docx",
+    "index": true,
+    "updatedAt": "2025-05-26T00:43:33.623Z"
+  },
+  {
+    "id": "file_01JW50PXTEKK8YJ86XPQCC73KV",
+    "accessPolicies": [],
+    "contentType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    "size": 165801,
+    "status": "indexing_completed",
+    "tags": {
+      "kbId": "kb-2f0a7ea639",
+      "title": "Reading Comprehension Rubric - A2 Level.docx",
+      "source": "knowledge-base",
+      "modalities": "[]"
+    },
+    "key": "kb-2f0a7ea639/Reading Comprehension Rubric - A2 Level.docx",
+    "index": true,
+    "updatedAt": "2025-05-26T00:43:33.063Z"
+  },
+  {
+    "id": "file_01JW50PAXF12H9W4PDQ385XZ6Q",
+    "accessPolicies": [],
+    "contentType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    "size": 165868,
+    "status": "indexing_completed",
+    "tags": {
+      "kbId": "kb-2f0a7ea639",
+      "title": "Reading Comprehension Rubric - A1 Level.docx",
+      "source": "knowledge-base",
+      "modalities": "[]"
+    },
+    "key": "kb-2f0a7ea639/Reading Comprehension Rubric - A1 Level.docx",
+    "index": true,
+    "updatedAt": "2025-05-26T00:43:13.704Z"
+  },
+  {
+    "id": "file_01JW50MHF3TA5S3E3WZC734XDQ",
+    "accessPolicies": [],
+    "contentType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    "size": 937988,
+    "status": "indexing_completed",
+    "tags": {
+      "kbId": "kb-2f0a7ea639",
+      "title": "Conversation Rubric - B1+ & B2 levels.docx",
+      "source": "knowledge-base",
+      "modalities": "[]"
+    },
+    "key": "kb-2f0a7ea639/Conversation Rubric - B1+ & B2 levels.docx",
+    "index": true,
+    "updatedAt": "2025-05-26T00:42:14.875Z"
+  },
+  {
+    "id": "file_01JW50KRK039HNQ4T5M2D3C5BW",
+    "accessPolicies": [],
+    "contentType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    "size": 937610,
+    "status": "indexing_completed",
+    "tags": {
+      "kbId": "kb-2f0a7ea639",
+      "title": "Conversation Rubric - B1 level.docx",
+      "source": "knowledge-base",
+      "modalities": "[]"
+    },
+    "key": "kb-2f0a7ea639/Conversation Rubric - B1 level.docx",
+    "index": true,
+    "updatedAt": "2025-05-26T00:41:49.400Z"
+  },
+  {
+    "id": "file_01JW50KABWTR3QXGFFXVTPWRWC",
+    "accessPolicies": [],
+    "contentType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    "size": 215957,
+    "status": "indexing_completed",
+    "tags": {
+      "kbId": "kb-2f0a7ea639",
+      "title": "Oral Presentation Rubric - B1+_B2  level.docx",
+      "source": "knowledge-base",
+      "modalities": "[]"
+    },
+    "key": "kb-2f0a7ea639/Oral Presentation Rubric - B1+_B2  level.docx",
+    "index": true,
+    "updatedAt": "2025-05-26T00:41:34.835Z"
+  },
+  {
+    "id": "file_01JW50K9DTEPP7F1HCT41493M4",
+    "accessPolicies": [],
+    "contentType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    "size": 215941,
+    "status": "indexing_completed",
+    "tags": {
+      "kbId": "kb-2f0a7ea639",
+      "title": "Oral Presentation Rubric - B1 level.docx",
+      "source": "knowledge-base",
+      "modalities": "[]"
+    },
+    "key": "kb-2f0a7ea639/Oral Presentation Rubric - B1 level.docx",
+    "index": true,
+    "updatedAt": "2025-05-26T00:41:33.875Z"
+  },
+  {
+    "id": "file_01JW50K8G9WBXZGX0ZFA0N58C8",
+    "accessPolicies": [],
+    "contentType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    "size": 215935,
+    "status": "indexing_completed",
+    "tags": {
+      "kbId": "kb-2f0a7ea639",
+      "title": "Oral Presentation Rubric - A2 level.docx",
+      "source": "knowledge-base",
+      "modalities": "[]"
+    },
+    "key": "kb-2f0a7ea639/Oral Presentation Rubric - A2 level.docx",
+    "index": true,
+    "updatedAt": "2025-05-26T00:41:32.928Z"
+  },
+  {
+    "id": "file_01JW50K7CPCZ0KB9CNKMKXZH66",
+    "accessPolicies": [],
+    "contentType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    "size": 215906,
+    "status": "indexing_completed",
+    "tags": {
+      "kbId": "kb-2f0a7ea639",
+      "title": "Oral Presentation Rubric - A1 level.docx",
+      "source": "knowledge-base",
+      "modalities": "[]"
+    },
+    "key": "kb-2f0a7ea639/Oral Presentation Rubric - A1 level.docx",
+    "index": true,
+    "updatedAt": "2025-05-26T00:41:31.789Z"
+  },
+  {
+    "id": "file_01JW50JSZ4ERRXY880P85C751F",
+    "accessPolicies": [],
+    "contentType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    "size": 937575,
+    "status": "indexing_completed",
+    "tags": {
+      "kbId": "kb-2f0a7ea639",
+      "title": "Conversation Rubric - A2 level.docx",
+      "source": "knowledge-base",
+      "modalities": "[]"
+    },
+    "key": "kb-2f0a7ea639/Conversation Rubric - A2 level.docx",
+    "index": true,
+    "updatedAt": "2025-05-26T00:41:18.044Z"
+  },
+  {
+    "id": "file_01JW50J5XGGGQ24JSMX8QNGV7N",
+    "accessPolicies": [],
+    "contentType": "application/json; charset=utf-8",
+    "size": 26976,
+    "status": "upload_completed",
+    "tags": {
+      "uri": "workflow://wf-main/nd-54aa0c19de",
+      "origin": "integration",
+      "userId": "user-2",
+      "eventId": "none",
+      "purpose": "iteration",
+      "executionId": "llmz_01JW50J0HPJMFGP4TCGCK3BESH",
+      "integration": "Int_Improvement",
+      "iterationId": "llmz_01JW50J0HPJMFGP4TCGCK3BESH_1",
+      "conversationId": "convo-9"
+    },
+    "key": "improvements/iterations/llmz_01JW50J0HPJMFGP4TCGCK3BESH_1.json",
+    "index": false,
+    "updatedAt": "2025-05-26T00:40:57.512Z"
+  },
+  {
+    "id": "file_01JW50HC7RQBAN8T2WGA7VGZ83",
+    "accessPolicies": [],
+    "contentType": "application/json; charset=utf-8",
+    "size": 26645,
+    "status": "upload_completed",
+    "tags": {
+      "uri": "workflow://wf-main/nd-54aa0c19de",
+      "origin": "integration",
+      "userId": "user-2",
+      "eventId": "none",
+      "purpose": "iteration",
+      "executionId": "llmz_01JW50H20CR3FAMHMXBN2B57SM",
+      "integration": "Int_Improvement",
+      "iterationId": "llmz_01JW50H20CR3FAMHMXBN2B57SM_1",
+      "conversationId": "convo-9"
+    },
+    "key": "improvements/iterations/llmz_01JW50H20CR3FAMHMXBN2B57SM_1.json",
+    "index": false,
+    "updatedAt": "2025-05-26T00:40:31.217Z"
+  },
+  {
+    "id": "file_01JW50GWB06H82H1Y3G0YPPWBH",
+    "accessPolicies": [],
+    "contentType": "application/json; charset=utf-8",
+    "size": 26332,
+    "status": "upload_completed",
+    "tags": {
+      "uri": "workflow://wf-main/nd-54aa0c19de",
+      "origin": "integration",
+      "userId": "user-2",
+      "eventId": "none",
+      "purpose": "iteration",
+      "executionId": "llmz_01JW50GKHZW6NTCCQTWRN2BT2Z",
+      "integration": "Int_Improvement",
+      "iterationId": "llmz_01JW50GKHZW6NTCCQTWRN2BT2Z_1",
+      "conversationId": "convo-9"
+    },
+    "key": "improvements/iterations/llmz_01JW50GKHZW6NTCCQTWRN2BT2Z_1.json",
+    "index": false,
+    "updatedAt": "2025-05-26T00:40:14.937Z"
+  },
+  {
+    "id": "file_01JW50GG64MJN4GDRRZJDPQJRS",
+    "accessPolicies": [],
+    "contentType": "application/json; charset=utf-8",
+    "size": 26154,
+    "status": "upload_completed",
+    "tags": {
+      "uri": "workflow://wf-main/nd-54aa0c19de",
+      "origin": "integration",
+      "userId": "user-2",
+      "eventId": "none",
+      "purpose": "iteration",
+      "executionId": "llmz_01JW50G8WE926VD14XSGGHH5WP",
+      "integration": "Int_Improvement",
+      "iterationId": "llmz_01JW50G8WE926VD14XSGGHH5WP_1",
+      "conversationId": "convo-9"
+    },
+    "key": "improvements/iterations/llmz_01JW50G8WE926VD14XSGGHH5WP_1.json",
+    "index": false,
+    "updatedAt": "2025-05-26T00:40:02.492Z"
+  },
+  {
+    "id": "file_01JW50D9YFP7BBGPVSTXHAJ42G",
+    "accessPolicies": [],
+    "contentType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    "size": 937536,
+    "status": "indexing_completed",
+    "tags": {
+      "kbId": "kb-2f0a7ea639",
+      "title": "Conversation Rubric - A1 level.docx",
+      "source": "knowledge-base",
+      "modalities": "[]"
+    },
+    "key": "kb-2f0a7ea639/Conversation Rubric - A1 level.docx",
+    "index": true,
+    "updatedAt": "2025-05-26T00:38:17.799Z"
+  },
+  {
+    "id": "file_01JW50CEPEF6FBGYX77VGTKQH3",
+    "accessPolicies": [],
+    "contentType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    "size": 165986,
+    "status": "indexing_completed",
+    "tags": {
+      "kbId": "kb-2f0a7ea639",
+      "title": "Listening Comprehension Rubric - B1+_B2 Levels.docx",
+      "source": "knowledge-base",
+      "modalities": "[]"
+    },
+    "key": "kb-2f0a7ea639/Listening Comprehension Rubric - B1+_B2 Levels.docx",
+    "index": true,
+    "updatedAt": "2025-05-26T00:37:49.895Z"
+  },
+  {
+    "id": "file_01JW50C3ZE25TZ322BR61QMRER",
+    "accessPolicies": [],
+    "contentType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    "size": 165883,
+    "status": "indexing_completed",
+    "tags": {
+      "kbId": "kb-2f0a7ea639",
+      "title": "Listening Comprehension Rubric - B1 Level.docx",
+      "source": "knowledge-base",
+      "modalities": "[]"
+    },
+    "key": "kb-2f0a7ea639/Listening Comprehension Rubric - B1 Level.docx",
+    "index": true,
+    "updatedAt": "2025-05-26T00:37:38.916Z"
+  },
+  {
+    "id": "file_01JW50BQXXYHCD92PGNJD2H92H",
+    "accessPolicies": [],
+    "contentType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    "size": 165818,
+    "status": "indexing_completed",
+    "tags": {
+      "kbId": "kb-2f0a7ea639",
+      "title": "Listening Comprehension Rubric - A2 Level.docx",
+      "source": "knowledge-base",
+      "modalities": "[]"
+    },
+    "key": "kb-2f0a7ea639/Listening Comprehension Rubric - A2 Level.docx",
+    "index": true,
+    "updatedAt": "2025-05-26T00:37:26.580Z"
+  },
+  {
+    "id": "file_01JW50BA80WF2971C5H9SDME4C",
+    "accessPolicies": [],
+    "contentType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    "size": 165794,
+    "status": "indexing_completed",
+    "tags": {
+      "kbId": "kb-2f0a7ea639",
+      "title": "Listening Comprehension Rubric - A1 Level.docx",
+      "source": "knowledge-base",
+      "modalities": "[]"
+    },
+    "key": "kb-2f0a7ea639/Listening Comprehension Rubric - A1 Level.docx",
+    "index": true,
+    "updatedAt": "2025-05-26T00:37:12.567Z"
+  },
+  {
+    "id": "file_01JW509XYNZSAXMX4FWV0ATHHV",
+    "accessPolicies": [],
+    "contentType": "application/pdf",
+    "size": 163769,
+    "status": "indexing_completed",
+    "tags": {
+      "kbId": "kb-2f0a7ea639",
+      "title": "5° & 6°  Writing Rubrics.pdf",
+      "source": "knowledge-base",
+      "modalities": "[]"
+    },
+    "key": "kb-2f0a7ea639/5° & 6°  Writing Rubrics.pdf",
+    "index": true,
+    "updatedAt": "2025-05-26T00:36:27.213Z"
+  },
+  {
+    "id": "file_01JW509XE2ZX3MRKAVZN8YPQVV",
+    "accessPolicies": [],
+    "contentType": "application/pdf",
+    "size": 154945,
+    "status": "indexing_completed",
+    "tags": {
+      "kbId": "kb-2f0a7ea639",
+      "title": "3° & 4° Writing Rubrics.pdf",
+      "source": "knowledge-base",
+      "modalities": "[]"
+    },
+    "key": "kb-2f0a7ea639/3° & 4° Writing Rubrics.pdf",
+    "index": true,
+    "updatedAt": "2025-05-26T00:36:26.682Z"
+  },
+  {
+    "id": "file_01JW509X1WWKN8GZTZRQZFNVXK",
+    "accessPolicies": [],
+    "contentType": "application/pdf",
+    "size": 125275,
+    "status": "indexing_completed",
+    "tags": {
+      "kbId": "kb-2f0a7ea639",
+      "title": "2° Writing Rubrics - Bim III & IV.pdf",
+      "source": "knowledge-base",
+      "modalities": "[]"
+    },
+    "key": "kb-2f0a7ea639/2° Writing Rubrics - Bim III & IV.pdf",
+    "index": true,
+    "updatedAt": "2025-05-26T00:36:26.293Z"
+  },
+  {
+    "id": "file_01JW509WAJ55TZ2EBFWSTM51AG",
+    "accessPolicies": [],
+    "contentType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    "size": 920759,
+    "status": "indexing_completed",
+    "tags": {
+      "kbId": "kb-2f0a7ea639",
+      "title": "2° Writing Rubrics - Bim III & IV.docx",
+      "source": "knowledge-base",
+      "modalities": "[]"
+    },
+    "key": "kb-2f0a7ea639/2° Writing Rubrics - Bim III & IV.docx",
+    "index": true,
+    "updatedAt": "2025-05-26T00:36:25.546Z"
+  },
+  {
+    "id": "file_01JW509VSPDVJZ1QH60C1JQFHZ",
+    "accessPolicies": [],
+    "contentType": "application/pdf",
+    "size": 114277,
+    "status": "indexing_completed",
+    "tags": {
+      "kbId": "kb-2f0a7ea639",
+      "title": "2° Writing Rubrics - Bim I & II.pdf",
+      "source": "knowledge-base",
+      "modalities": "[]"
+    },
+    "key": "kb-2f0a7ea639/2° Writing Rubrics - Bim I & II.pdf",
+    "index": true,
+    "updatedAt": "2025-05-26T00:36:25.006Z"
+  },
+  {
+    "id": "file_01JW509SFF6FTQKZC89RJCDXZQ",
+    "accessPolicies": [],
+    "contentType": "application/pdf",
+    "size": 112458,
+    "status": "indexing_completed",
+    "tags": {
+      "kbId": "kb-2f0a7ea639",
+      "title": "1° Writing Rubrics .pdf",
+      "source": "knowledge-base",
+      "modalities": "[]"
+    },
+    "key": "kb-2f0a7ea639/1° Writing Rubrics .pdf",
+    "index": true,
+    "updatedAt": "2025-05-26T00:36:22.632Z"
+  },
+  {
+    "id": "file_01JW508ZG0TE0ZVCFKMSP2YG9B",
+    "accessPolicies": [],
+    "contentType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    "size": 19470,
+    "status": "indexing_completed",
+    "tags": {
+      "kbId": "kb-2f0a7ea639",
+      "title": "6° Reading Rubrics.docx",
+      "source": "knowledge-base",
+      "modalities": "[]"
+    },
+    "key": "kb-2f0a7ea639/6° Reading Rubrics.docx",
+    "index": true,
+    "updatedAt": "2025-05-26T00:35:56.023Z"
+  },
+  {
+    "id": "file_01JW508Z36G4WMWQ2KE5VHTTPD",
+    "accessPolicies": [],
+    "contentType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    "size": 19532,
+    "status": "indexing_completed",
+    "tags": {
+      "kbId": "kb-2f0a7ea639",
+      "title": "5° Reading Rubrics.docx",
+      "source": "knowledge-base",
+      "modalities": "[]"
+    },
+    "key": "kb-2f0a7ea639/5° Reading Rubrics.docx",
+    "index": true,
+    "updatedAt": "2025-05-26T00:35:55.615Z"
+  },
+  {
+    "id": "file_01JW508YNZHSYCZ1M2QHC7BCDE",
+    "accessPolicies": [],
+    "contentType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    "size": 20123,
+    "status": "indexing_completed",
+    "tags": {
+      "kbId": "kb-2f0a7ea639",
+      "title": "4° Reading Rubrics.docx",
+      "source": "knowledge-base",
+      "modalities": "[]"
+    },
+    "key": "kb-2f0a7ea639/4° Reading Rubrics.docx",
+    "index": true,
+    "updatedAt": "2025-05-26T00:35:55.192Z"
+  },
+  {
+    "id": "file_01JW508XSV6JVM08H8W02TNYBB",
+    "accessPolicies": [],
+    "contentType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    "size": 19973,
+    "status": "indexing_completed",
+    "tags": {
+      "kbId": "kb-2f0a7ea639",
+      "title": "3° Reading Rubrics.docx",
+      "source": "knowledge-base",
+      "modalities": "[]"
+    },
+    "key": "kb-2f0a7ea639/3° Reading Rubrics.docx",
+    "index": true,
+    "updatedAt": "2025-05-26T00:35:54.291Z"
+  },
+  {
+    "id": "file_01JW508WV5552GN4A1VKNCZGG5",
+    "accessPolicies": [],
+    "contentType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    "size": 19207,
+    "status": "indexing_completed",
+    "tags": {
+      "kbId": "kb-2f0a7ea639",
+      "title": "2° Reading Rubrics.docx",
+      "source": "knowledge-base",
+      "modalities": "[]"
+    },
+    "key": "kb-2f0a7ea639/2° Reading Rubrics.docx",
+    "index": true,
+    "updatedAt": "2025-05-26T00:35:53.309Z"
+  },
+  {
+    "id": "file_01JW508V87ETC3SJA1ENNC2ZSM",
+    "accessPolicies": [],
+    "contentType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    "size": 19161,
+    "status": "indexing_completed",
+    "tags": {
+      "kbId": "kb-2f0a7ea639",
+      "title": "1° Reading Rubrics.docx",
+      "source": "knowledge-base",
+      "modalities": "[]"
+    },
+    "key": "kb-2f0a7ea639/1° Reading Rubrics.docx",
+    "index": true,
+    "updatedAt": "2025-05-26T00:35:51.677Z"
+  },
+  {
+    "id": "file_01JW507SRT2GCH3WW3CRH2G780",
+    "accessPolicies": [],
+    "contentType": "application/pdf",
+    "size": 149671,
+    "status": "indexing_completed",
+    "tags": {
+      "kbId": "kb-2f0a7ea639",
+      "title": "4° & 6° Speaking Rubrics (Conversation).pdf",
+      "source": "knowledge-base",
+      "modalities": "[]"
+    },
+    "key": "kb-2f0a7ea639/4° & 6° Speaking Rubrics (Conversation).pdf",
+    "index": true,
+    "updatedAt": "2025-05-26T00:35:17.394Z"
+  },
+  {
+    "id": "file_01JW507S7WQ3XAJ0B8RBPB1JY3",
+    "accessPolicies": [],
+    "contentType": "application/pdf",
+    "size": 119831,
+    "status": "indexing_completed",
+    "tags": {
+      "kbId": "kb-2f0a7ea639",
+      "title": "3° Speaking Rubrics (Conversation).pdf",
+      "source": "knowledge-base",
+      "modalities": "[]"
+    },
+    "key": "kb-2f0a7ea639/3° Speaking Rubrics (Conversation).pdf",
+    "index": true,
+    "updatedAt": "2025-05-26T00:35:16.852Z"
+  },
+  {
+    "id": "file_01JW507Q341RW8BA2P41PQ51W9",
+    "accessPolicies": [],
+    "contentType": "application/pdf",
+    "size": 119755,
+    "status": "indexing_completed",
+    "tags": {
+      "kbId": "kb-2f0a7ea639",
+      "title": "1° & 2° Speaking Rubrics (Conversation).pdf",
+      "source": "knowledge-base",
+      "modalities": "[]"
+    },
+    "key": "kb-2f0a7ea639/1° & 2° Speaking Rubrics (Conversation).pdf",
+    "index": true,
+    "updatedAt": "2025-05-26T00:35:14.578Z"
+  },
+  {
+    "id": "file_01JW5074J7XZKDNYABHRTJAJ3A",
+    "accessPolicies": [],
+    "contentType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    "size": 922697,
+    "status": "indexing_completed",
+    "tags": {
+      "kbId": "kb-2f0a7ea639",
+      "title": "3° & 6° Speaking Rubrics (Oral Presentation).docx",
+      "source": "knowledge-base",
+      "modalities": "[]"
+    },
+    "key": "kb-2f0a7ea639/3° & 6° Speaking Rubrics (Oral Presentation).docx",
+    "index": true,
+    "updatedAt": "2025-05-26T00:34:55.680Z"
+  },
+  {
+    "id": "file_01JW5071H6RZP22SFKS2RGF4DP",
+    "accessPolicies": [],
+    "contentType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    "size": 921247,
+    "status": "indexing_completed",
+    "tags": {
+      "kbId": "kb-2f0a7ea639",
+      "title": "1° & 2° Speaking Rubrics (Oral Presentation).docx",
+      "source": "knowledge-base",
+      "modalities": "[]"
+    },
+    "key": "kb-2f0a7ea639/1° & 2° Speaking Rubrics (Oral Presentation).docx",
+    "index": true,
+    "updatedAt": "2025-05-26T00:34:52.572Z"
+  },
+  {
+    "id": "file_01JW505ZKTBJT5CH2G7CGJV24P",
+    "accessPolicies": [],
+    "contentType": "application/json; charset=utf-8",
+    "size": 19697,
+    "status": "upload_completed",
+    "tags": {
+      "uri": "workflow://wf-main/nd-54aa0c19de",
+      "origin": "integration",
+      "userId": "user-2",
+      "eventId": "none",
+      "purpose": "iteration",
+      "executionId": "llmz_01JW505Q93F7QH3R6Q15DDWQ0Z",
+      "integration": "Int_Improvement",
+      "iterationId": "llmz_01JW505Q93F7QH3R6Q15DDWQ0Z_1",
+      "conversationId": "convo-1"
+    },
+    "key": "improvements/iterations/llmz_01JW505Q93F7QH3R6Q15DDWQ0Z_1.json",
+    "index": false,
+    "updatedAt": "2025-05-26T00:34:17.841Z"
+  },
+  {
+    "id": "file_01JW505HP1EXS5D15TH7JJC76N",
+    "accessPolicies": [],
+    "contentType": "application/json; charset=utf-8",
+    "size": 19470,
+    "status": "upload_completed",
+    "tags": {
+      "uri": "workflow://wf-main/nd-54aa0c19de",
+      "origin": "integration",
+      "userId": "user-2",
+      "eventId": "none",
+      "purpose": "iteration",
+      "executionId": "llmz_01JW505BJK0A7TCE6Q3NBEE5KS",
+      "integration": "Int_Improvement",
+      "iterationId": "llmz_01JW505BJK0A7TCE6Q3NBEE5KS_1",
+      "conversationId": "convo-1"
+    },
+    "key": "improvements/iterations/llmz_01JW505BJK0A7TCE6Q3NBEE5KS_1.json",
+    "index": false,
+    "updatedAt": "2025-05-26T00:34:03.577Z"
+  },
+  {
+    "id": "file_01JW504NQRMDRJQMHYR2VB2D09",
+    "accessPolicies": [],
+    "contentType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    "size": 165950,
+    "status": "indexing_completed",
+    "tags": {
+      "kbId": "kb-2f0a7ea639",
+      "title": "6° Listening Rubrics.docx",
+      "source": "knowledge-base",
+      "modalities": "[]"
+    },
+    "key": "kb-2f0a7ea639/6° Listening Rubrics.docx",
+    "index": true,
+    "updatedAt": "2025-05-26T00:33:34.934Z"
+  },
+  {
+    "id": "file_01JW504N66E6NCJ9NBSBW0GVQ3",
+    "accessPolicies": [],
+    "contentType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    "size": 165883,
+    "status": "indexing_completed",
+    "tags": {
+      "kbId": "kb-2f0a7ea639",
+      "title": "5° Listening Rubrics.docx",
+      "source": "knowledge-base",
+      "modalities": "[]"
+    },
+    "key": "kb-2f0a7ea639/5° Listening Rubrics.docx",
+    "index": true,
+    "updatedAt": "2025-05-26T00:34:29.652Z"
+  },
+  {
+    "id": "file_01JW504MMXF0HJ0QATETWBECJ3",
+    "accessPolicies": [],
+    "contentType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    "size": 165972,
+    "status": "indexing_completed",
+    "tags": {
+      "kbId": "kb-2f0a7ea639",
+      "title": "4° Listening Rubrics.docx",
+      "source": "knowledge-base",
+      "modalities": "[]"
+    },
+    "key": "kb-2f0a7ea639/4° Listening Rubrics.docx",
+    "index": true,
+    "updatedAt": "2025-05-26T00:33:33.846Z"
+  },
+  {
+    "id": "file_01JW504M28EB2MAVFZ323ZTA9R",
+    "accessPolicies": [],
+    "contentType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    "size": 165894,
+    "status": "indexing_completed",
+    "tags": {
+      "kbId": "kb-2f0a7ea639",
+      "title": "3° Listening Rubrics.docx",
+      "source": "knowledge-base",
+      "modalities": "[]"
+    },
+    "key": "kb-2f0a7ea639/3° Listening Rubrics.docx",
+    "index": true,
+    "updatedAt": "2025-05-26T00:33:33.247Z"
+  },
+  {
+    "id": "file_01JW504KHGMEHEN706PHVKDCYS",
+    "accessPolicies": [],
+    "contentType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    "size": 165513,
+    "status": "indexing_completed",
+    "tags": {
+      "kbId": "kb-2f0a7ea639",
+      "title": "2° Listening Rubrics.docx",
+      "source": "knowledge-base",
+      "modalities": "[]"
+    },
+    "key": "kb-2f0a7ea639/2° Listening Rubrics.docx",
+    "index": true,
+    "updatedAt": "2025-05-26T00:33:32.713Z"
+  },
+  {
+    "id": "file_01JW504H6BEK1SKJ3HYBNJ7GXC",
+    "accessPolicies": [],
+    "contentType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    "size": 165589,
+    "status": "indexing_completed",
+    "tags": {
+      "kbId": "kb-2f0a7ea639",
+      "title": "1° Listening Rubrics.docx",
+      "source": "knowledge-base",
+      "modalities": "[]"
+    },
+    "key": "kb-2f0a7ea639/1° Listening Rubrics.docx",
+    "index": true,
+    "updatedAt": "2025-05-26T00:33:30.308Z"
+  },
+  {
+    "id": "file_01JW500Q3DR4982Q80F8RYBXP0",
+    "accessPolicies": [],
+    "contentType": "application/json; charset=utf-8",
+    "size": 19269,
+    "status": "upload_completed",
+    "tags": {
+      "uri": "workflow://wf-main/nd-54aa0c19de",
+      "origin": "integration",
+      "userId": "user-2",
+      "eventId": "none",
+      "purpose": "iteration",
+      "executionId": "llmz_01JW500JTARHKW71PZRE5RMPG5",
+      "integration": "Int_Improvement",
+      "iterationId": "llmz_01JW500JTARHKW71PZRE5RMPG5_1",
+      "conversationId": "convo-1"
+    },
+    "key": "improvements/iterations/llmz_01JW500JTARHKW71PZRE5RMPG5_1.json",
+    "index": false,
+    "updatedAt": "2025-05-26T00:31:25.285Z"
+  },
+  {
+    "id": "file_01JW4ZQGH58CAJSF8FV8PRVDPK",
+    "accessPolicies": [],
+    "contentType": "application/json",
+    "size": 155764,
+    "status": "upload_completed",
+    "tags": {
+      "dm": "studio/dialog-manager",
+      "dmHash": "90498bbcb09061726c8d81678356a4cf77d27e60bde20c8d8b0d99994138ac5b",
+      "system": "true",
+      "purpose": "bot-content"
+    },
+    "key": "deployments/1748219183598.json",
+    "index": false,
+    "updatedAt": "2025-05-26T00:26:23.642Z"
+  }
+]
