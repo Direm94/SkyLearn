@@ -1,4 +1,5 @@
-FROM node:18  # Actualizado a Node 18
+# Usa Node.js 18 como imagen base
+FROM node:18
 WORKDIR /app
 COPY package*.json ./
 RUN npm install
