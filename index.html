@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Chatbot Escolar</title>
+</head>
+<body>
+  <h1>Bienvenido al Chatbot Escolar</h1>
+  
+<!-- In your <head> tag -->
+<script src="https://cdn.botpress.cloud/webchat/v2.4/inject.js"></script>
+<style>
+  #webchat .bpWebchat {
+    position: unset;
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+    max-width: 100%;
+  }
+
+  #webchat .bpFab {
+    display: none;
+  }
+</style>
+
+<!-- Put this on your page BEFORE the script below -->
+<div id="webchat" style="width: 500px; height: 500px;"></div>
+
+<!-- In your <body> tag -->
+<script>
+  window.botpress.on("webchat:ready", () => {
+    window.botpress.open();
+  });
+  window.botpress.init({
+  "botId": "3283d4af-d2d1-4385-9ba6-408deb39f00d",
+  "configuration": {
+    "botName": "Docbot",
+    "botAvatar": "https://files.bpcontent.cloud/2025/05/26/01/20250526014406-PM266LHG.png",
+    "website": {},
+    "email": {},
+    "phone": {},
+    "termsOfService": {},
+    "privacyPolicy": {},
+    "color": "#5eb1ef",
+    "variant": "soft",
+    "themeMode": "light",
+    "fontFamily": "inter",
+    "radius": 1
+  },
+  "clientId": "740cc2d3-ee32-4fe5-922b-a2af61fa61b8",
+  "selector": "#webchat"
+});
+</script>
+
+  <script src="https://cdn.botpress.cloud/webchat/v1/inject.js"></script>
+  <script>
+    window.botpressWebChat.init({
+      "composerPlaceholder": "Escribe tu mensaje...",
+      "3283d4af-d2d1-4385-9ba6-408deb39f00d": "TU_BOT_ID",
+      "hostUrl": "https://cdn.botpress.cloud/webchat/v1",
+      "messagingUrl": "https://messaging.botpress.cloud",
+      "clientId": "740cc2d3-ee32-4fe5-922b-a2af61fa61b8",
+      "enableConversationDeletion": true,
+      "showPoweredBy": false
+    });
+  </script>
+</body>
+</html>
