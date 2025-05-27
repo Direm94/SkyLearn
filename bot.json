@@ -1,0 +1,1133 @@
+{
+  "version": "1.17",
+  "settings": {
+    "defaultLanguage": "en",
+    "languages": [
+      "en"
+    ],
+    "description": "",
+    "id": "3283d4af-d2d1-4385-9ba6-408deb39f00d",
+    "inactivityTimeout": 30,
+    "botVariables": [],
+    "userVariables": [],
+    "nodeRepetitionLimit": 3,
+    "configVariables": {},
+    "cognitiveConfigs": {
+      "openAi": {}
+    },
+    "useLlmz": true,
+    "defaultBestModel": "openai__gpt-4o-2024-11-20",
+    "defaultFastModel": "openai__gpt-4o-mini-2024-07-18",
+    "useClient": true,
+    "llmzVersion": "01-Oct-2024",
+    "autonomousModel": "best-model",
+    "fallbackModel": "google-ai__models/gemini-2.0-flash"
+  },
+  "flows": [
+    {
+      "id": "wf-error",
+      "name": "Error",
+      "startNode": "nd-98dc0bcc87",
+      "variables": [],
+      "links": [
+        {
+          "id": "edg-1cb5862648",
+          "source": "nd-98dc0bcc87",
+          "sourcePort": "trs-02c7129430",
+          "target": "nd-58fca56e01"
+        },
+        {
+          "id": "edg-1c28c96d6a",
+          "source": "nd-58fca56e01",
+          "sourcePort": "nd-58fca56e01",
+          "target": "nd-e05f59dd66"
+        }
+      ],
+      "nodes": [
+        {
+          "comment": "<p><strong><span style=\"font-size: 18px\">⛔️ When something goes wrong</span></strong></p><p><br>This workflow is executed when there's an <strong>unexpected error</strong> in one of the other workflows.</p><p></p><p>You can use this to inform the user of the situation before ending the conversation.</p>",
+          "type": "comment",
+          "id": "nd-8ff3d7d295",
+          "name": "Comment1",
+          "deletable": true,
+          "instructions": [],
+          "height": 148,
+          "width": 401,
+          "x": 90,
+          "y": -45
+        },
+        {
+          "instructions": [
+            {
+              "id": "ins-2762f70004",
+              "type": "content",
+              "content": {
+                "type": "text",
+                "text": {
+                  "staticValue": "Sorry, an error occurred. Please try again later",
+                  "dynamicValue": "",
+                  "valueType": "static"
+                },
+                "typing": {
+                  "valueType": "static",
+                  "staticValue": true
+                }
+              },
+              "nodeId": "nd-58fca56e01",
+              "transitions": []
+            }
+          ],
+          "defaultTransition": {
+            "targetNodeId": "nd-e05f59dd66"
+          },
+          "type": "standard",
+          "id": "nd-58fca56e01",
+          "name": "Handler",
+          "deletable": true,
+          "x": 450,
+          "y": 120
+        },
+        {
+          "id": "nd-98dc0bcc87",
+          "name": "On_Error",
+          "type": "entry",
+          "deletable": false,
+          "variables": [],
+          "instructions": [
+            {
+              "id": "trs-02c7129430",
+              "type": "transition",
+              "condition": {
+                "type": "expression",
+                "payload": "true"
+              },
+              "destination": {
+                "node": "nd-58fca56e01"
+              },
+              "transitions": [],
+              "nodeId": "nd-98dc0bcc87"
+            }
+          ],
+          "x": 90,
+          "y": 120
+        },
+        {
+          "id": "nd-e05f59dd66",
+          "name": "End",
+          "type": "end",
+          "variables": [],
+          "deletable": false,
+          "instructions": [
+            {
+              "id": "trs-945140a646",
+              "type": "transition",
+              "condition": {
+                "type": "expression",
+                "payload": "true"
+              },
+              "destination": {
+                "node": "END"
+              },
+              "transitions": [],
+              "nodeId": "nd-e05f59dd66"
+            }
+          ],
+          "x": 810,
+          "y": 120
+        }
+      ]
+    },
+    {
+      "id": "wf-timeout",
+      "name": "Timeout",
+      "startNode": "nd-9f7f3268ac",
+      "variables": [],
+      "links": [
+        {
+          "id": "edg-b0d2adcd13",
+          "source": "nd-e6c012a652",
+          "sourcePort": "nd-e6c012a652",
+          "target": "nd-199fdcf439"
+        },
+        {
+          "id": "edg-6d17a0591b",
+          "source": "nd-9f7f3268ac",
+          "sourcePort": "trs-0c7a9a0003",
+          "target": "nd-e6c012a652"
+        }
+      ],
+      "nodes": [
+        {
+          "instructions": [],
+          "defaultTransition": {
+            "targetNodeId": "nd-199fdcf439"
+          },
+          "type": "standard",
+          "id": "nd-e6c012a652",
+          "name": "Handler",
+          "deletable": true,
+          "x": 435,
+          "y": 105
+        },
+        {
+          "comment": "<p><strong><span style=\"font-size: 18px\">⌛️ When conversation times out</span></strong></p><p><br>This workflow is executed when the conversation <strong>times out</strong> before it had time to flow to an <strong>End Node</strong>.</p><p></p><p>The <strong>Timeout Delay</strong> is configurable in the <strong>Chatbot Settings.</strong></p><p></p><p>You can use this to inform the user of the situation before ending the conversation.</p>",
+          "type": "comment",
+          "id": "nd-441efa6c42",
+          "name": "Comment1",
+          "deletable": true,
+          "instructions": [],
+          "height": 173,
+          "width": 401,
+          "x": 105,
+          "y": -90
+        },
+        {
+          "id": "nd-9f7f3268ac",
+          "name": "On_Timeout",
+          "type": "entry",
+          "deletable": false,
+          "variables": [],
+          "instructions": [
+            {
+              "id": "trs-0c7a9a0003",
+              "type": "transition",
+              "condition": {
+                "type": "expression",
+                "payload": "true"
+              },
+              "destination": {
+                "node": "nd-e6c012a652"
+              },
+              "transitions": [],
+              "nodeId": "nd-9f7f3268ac"
+            }
+          ],
+          "x": 100,
+          "y": 100
+        },
+        {
+          "id": "nd-199fdcf439",
+          "name": "End",
+          "type": "end",
+          "variables": [],
+          "deletable": false,
+          "instructions": [
+            {
+              "id": "trs-bf76943d55",
+              "type": "transition",
+              "condition": {
+                "type": "expression",
+                "payload": "true"
+              },
+              "destination": {
+                "node": "END"
+              },
+              "transitions": [],
+              "nodeId": "nd-199fdcf439"
+            }
+          ],
+          "x": 795,
+          "y": 105
+        }
+      ]
+    },
+    {
+      "id": "wf-conversation-end",
+      "name": "Conversation End",
+      "startNode": "nd-c0d3bd2c92",
+      "variables": [],
+      "links": [
+        {
+          "id": "edg-3cb8028ff6",
+          "source": "nd-c0d3bd2c92",
+          "sourcePort": "trs-92c6f93b0c",
+          "target": "nd-2db7499cc6"
+        },
+        {
+          "id": "edg-8a88f687a0",
+          "source": "nd-2db7499cc6",
+          "sourcePort": "nd-2db7499cc6",
+          "target": "nd-d0c2a6be81"
+        }
+      ],
+      "nodes": [
+        {
+          "instructions": [],
+          "defaultTransition": {
+            "targetNodeId": "nd-d0c2a6be81"
+          },
+          "type": "standard",
+          "id": "nd-2db7499cc6",
+          "name": "Handler",
+          "deletable": true,
+          "x": 420,
+          "y": 105
+        },
+        {
+          "comment": "<p><strong><span style=\"font-size: 18px\">👋 Before Conversation Ends</span></strong></p><p><br>This workflow is executed when right before the conversation <strong>Ends Explicitly.</strong></p><p></p><p>An <strong>Explicit Ending</strong> happens when a workflow transitions on an <strong>End Node</strong>.</p>",
+          "type": "comment",
+          "id": "nd-6d5d3f41dd",
+          "name": "Comment1",
+          "deletable": true,
+          "instructions": [],
+          "height": 148,
+          "width": 461,
+          "x": 105,
+          "y": -45
+        },
+        {
+          "id": "nd-c0d3bd2c92",
+          "name": "On_Explicit_Ending",
+          "type": "entry",
+          "deletable": false,
+          "variables": [],
+          "instructions": [
+            {
+              "id": "trs-92c6f93b0c",
+              "type": "transition",
+              "condition": {
+                "type": "expression",
+                "payload": "true"
+              },
+              "destination": {
+                "node": "nd-2db7499cc6"
+              },
+              "transitions": []
+            }
+          ],
+          "x": 100,
+          "y": 100
+        },
+        {
+          "id": "nd-d0c2a6be81",
+          "name": "End",
+          "type": "end",
+          "variables": [],
+          "deletable": false,
+          "instructions": [
+            {
+              "id": "trs-7004dbb2b6",
+              "type": "transition",
+              "condition": {
+                "type": "expression",
+                "payload": "true"
+              },
+              "destination": {
+                "node": "END"
+              },
+              "transitions": []
+            }
+          ],
+          "x": 780,
+          "y": 105
+        }
+      ]
+    },
+    {
+      "topicId": "tpc-global",
+      "id": "wf-main",
+      "name": "Main",
+      "startNode": "nd-2bb9db230d",
+      "variables": [],
+      "links": [],
+      "nodes": [
+        {
+          "id": "nd-2bb9db230d",
+          "name": "Start",
+          "type": "start",
+          "deletable": false,
+          "instructions": [
+            {
+              "id": "trs-8b0779edc5",
+              "type": "transition",
+              "condition": {
+                "type": "expression",
+                "payload": "true"
+              },
+              "destination": {
+                "node": "nd-54aa0c19de"
+              },
+              "transitions": [],
+              "nodeId": "nd-2bb9db230d"
+            }
+          ],
+          "x": -105,
+          "y": -180,
+          "kbPriority": {
+            "enabled": false,
+            "searchScope": "specific",
+            "kbs": []
+          }
+        },
+        {
+          "id": "nd-80ac4ff158",
+          "name": "End",
+          "type": "end",
+          "deletable": false,
+          "instructions": [
+            {
+              "id": "trs-0260f5e672",
+              "type": "transition",
+              "condition": {
+                "type": "expression",
+                "payload": "true"
+              },
+              "destination": {
+                "node": "END"
+              },
+              "transitions": [],
+              "nodeId": "nd-80ac4ff158"
+            }
+          ],
+          "x": 495,
+          "y": -60
+        },
+        {
+          "type": "autonomous",
+          "deletable": true,
+          "x": 90,
+          "y": -240,
+          "instructions": [
+            {
+              "id": "ins-1465ce0650",
+              "agentId": "KnowledgeAgent",
+              "toolId": "knowledge-query",
+              "toolType": "search",
+              "type": "autonomous",
+              "label": "Search Knowledge Bases",
+              "category": "Knowledge Bases",
+              "nodeId": "nd-54aa0c19de",
+              "transitions": [],
+              "description": "Searches for information in the official knowledge bases.",
+              "kbs": {
+                "valueType": "static",
+                "staticValue": []
+              },
+              "advanced": {
+                "mode": "breadcrumb",
+                "contextDepth": 2,
+                "maxTokens": 20
+              },
+              "manualFields": []
+            },
+            {
+              "id": "act-8304caf842",
+              "type": "autonomous",
+              "toolType": "integration",
+              "origin": "integration",
+              "label": "Generate Content",
+              "category": "Google AI",
+              "integrationId": "google-ai",
+              "actionName": "generateContent",
+              "nodeId": "nd-54aa0c19de",
+              "transitions": [],
+              "maxTokens": {
+                "valueType": "static",
+                "staticValue": 0,
+                "dynamicValue": ""
+              },
+              "manualFields": [],
+              "messages": [],
+              "temperature": {
+                "valueType": "static",
+                "staticValue": 1,
+                "dynamicValue": ""
+              },
+              "topP": {
+                "valueType": "static",
+                "staticValue": 1,
+                "dynamicValue": ""
+              },
+              "stopSequences": {
+                "valueType": "static",
+                "staticValue": [],
+                "dynamicValue": ""
+              }
+            }
+          ],
+          "id": "nd-54aa0c19de",
+          "name": "AutonomousNode",
+          "writableVariables": [],
+          "allowConversation": true,
+          "guidelines": {
+            "valueType": "dynamic",
+            "dynamicValue": "INSTRUCTIONS\nYOU ARE AN ENGLISH TEACHER FOR VARIOUS LEVELS AND YOUR NAME IS DOCBOT. YOU MUST PROVIDE SUPPORT AND FOLLOW-UP TO STUDENTS. IN ADDITION, YOU HAVE STUDENTS WITH SPECIAL EDUCATIONAL NEEDS, SO YOU NEED TO USE SPANISH IF NECESSARY. ALWAYS PROVIDE A SHORT AND EASY-TO-UNDERSTAND RESPONSE. \nVERY IMPORTANT: BEFORE ANSWERING ANY QUESTION, YOU MUST ASK FOR THE STUDENT’S LEVEL AND BASE YOUR HELP ON THEIR SCHOOL GRADE, USE THE NEXT QUESTION TO CONTINUE WITH THE CHAT : DEAR STUDENT COULD YOU WRITE YOUR GRADE OR LEVEL?\nGRADES:\n•\tKINDERGARTEN\n•\tPRIMARY\n•\tSECONDARY\nRESPONSES BY LEVEL:\n IF THE STUDENT IS IN KINDERGARTEN, REMEMBER THAT IT IS THE PARENTS WHO HELP THEIR YOUNG CHILDREN. USE APPROPRIATE LANGUAGE AND POLITENESS TO PROVIDE HELP, GIVE SIMPLE INSTRUCTIONS, AND IF IT'S IN ENGLISH, USE BASIC VOCABULARY.\n IF THE STUDENT IS IN PRIMARY SCHOOL, PROVIDE HELP APPROPRIATE TO THEIR LEVEL, AND IF SPANISH IS NEEDED, USE IT TO SUPPORT THE STUDENT.\n IF THE STUDENT IS IN SECONDARY SCHOOL, FIRST ASK WHICH ENGLISH LEVEL THEY BELONG TO: A1, A2, B1, B1+, B2. BASED ON THEIR LEVEL, USE THE APPROPRIATE ENGLISH TO INTERACT. USE MODERATE, NOT TOO ADVANCED ENGLISH FOR BETTER UNDERSTANDING. IF THE STUDENT DOESN’T UNDERSTAND OR WRITES SENTENCES INCORRECTLY, KINDLY CORRECT THEIR GRAMMAR OR SENTENCE AND ENCOURAGE THEM TO IMPROVE. YOU MAY REFER TO THE FOLLOWING LIST FOR STUDENT LEVELS:\n•\tA1 = BASIC\n•\tA2 = PRE-INTERMEDIATE\n•\tB1 = INTERMEDIATE\n•\tB1+ = UPPER INTERMEDIATE\n•\tB2 = ADVANCED 1\nREMEMBER TO CONTINUE THE CHAT ONCE THE GRADE AND ENGLISH LEVEL ARE VERIFIED.\n________________________________________\nHELP FOR TEACHERS\nIF THE USER IS A TEACHER, RESPOND POLITELY AND ASK THE FOLLOWING:\n“Dear teacher, could you please tell me the grade or grades you are in charge of?”\nIF THE TEACHER IS FROM KINDERGARTEN, GREET THE TEACHER ACCORDING TO THEIR LEVEL OR GRADE AND PROVIDE THE NECESSARY SUPPORT AND SUGGESTIONS BASED ON THEIR QUESTIONS OR DOUBTS. REMEMBER TO GIVE SHORT AND EASY-TO-UNDERSTAND EXPLANATIONS.\nWHEN GREETING, USE THEIR NAMES ACCORDING TO THE GRADE THEY MENTION. REFER TO THE FOLLOWING LIST:\n•\tReyshel ENCINAS AGUIRRE – TEACHER OF KINDERGARTEN AND 1ST “A” PRIMARY\n•\tShirley LEVANO LECCA – TEACHER OF 2ND “B” AND “C”, 3RD “A”, 4TH “B” PRIMARY\n•\tSherly ANDRADE CRISTOBAL – TEACHER OF 1ST “B”, 2ND “A”, 4TH “A” PRIMARY\n•\tNicole JARA PEREZ – TEACHER OF 3RD “B” AND “C”, 4TH “C” AND ENGLISH SOLO CLASSES FOR 4TH PRIMARY\n•\tGraciela MUÑOZ JAIME – TEACHER OF 5TH AND 6TH PRIMARY\n•\tDiego TORRES MALPARTIDA – TEACHER OF 7TH A1.1, 8TH A2.1, 9TH B1 SECONDARY\n•\tYessica RAMIREZ MARRTEL – TEACHER OF 7TH A1.2, 8TH A2.2, 10TH B1+, 11TH B2 SECONDARY\n•\tCesar ADVINCULA PONCE – TEACHER OF 7TH A2, 8TH B1, 9TH B1+, 10TH B1+, 11TH B2 SECONDARY\nREMEMBER TO PROVIDE STRATEGIES AND INFORMATION BASED ON THE BLENDED LEARNING METHODOLOGY AND COLLABORATIVE WORK.\n________________________________________\nTEACHERS' TOOLS:\nCONTENT PLATFORM (TRC):\nhttps://trcvivo.innovaschools.edu.pe/\nGENERAL TEACHER PLATFORM (DOMINIO 360):\nhttps://dominio360.innovaschools.edu.pe/\nPARENT CONTACT PLATFORM (IF):\nhttps://www.innovafamily.pe/\nTEACHER TRAINING PLATFORM (EVA):\nhttps://innovaschools.mrooms.net/login/index.php\nPRIMARY AND SECONDARY ENGLISH SOLOS PLATFORM:\nhttps://login.pearson.com/\nWORKSHEET PLATFORM FOR ENGLISH SOLOS:\nhttps://www.liveworksheets.com/es\nVOXY PLATFORM FOR 11TH GRADE:\nhttps://voxy.com/\nTEACHER INFORMATION PLATFORM:\nhttps://intranet.innovaschools.edu.pe/login\n________________________________________\nSTUDENT PLATFORM\nPRIMARY AND SECONDARY PEARSON ENGLISH:\nhttps://login.pearson.com/\nIn PRIMARY, from 4th to 6th grade, students use PEARSON to do ME PRO and BIG ENGLISH activities. For the READING PLAN, they use ENGLISH READERS for their grade.\nIn SECONDARY, from 7th to 10th grade, they use GX INNOVA and PEI platforms, and for READING PLAN, they use ENGLISH READERS with activities assigned by the responsible teacher. Students can track their progress on both platforms.\nHOW TO LOG IN AS A STUDENT:\nUSERNAME: DNI@isp\nPASSWORD: Pearson2025\n11TH GRADE SECONDARY PLATFORM:\nhttps://voxy.com/\nENGLISH SOLO WORKSHEET PLATFORM:\nhttps://www.liveworksheets.com/es\nHere, students can complete English activities if they do not have access to the Pearson platform.\n________________________________________\n\nPLATFORM ISSUES:\n•\tIF A STUDENT HAS AN ISSUE WITH THEIR PEARSON ACCOUNT, THEY MUST FOLLOW THE STEPS IN THE GUIDE SHARED ON THEIR CLASSROOM PLATFORM FOR ENGLISH SOLO.\n•\tIF THERE IS A PROBLEM WITH THE ACTIVATION CODE SHOWING “CODE ALREADY USED” OR “INVALID CODE,” PLEASE CONTACT SUPPORT THROUGH THE INNOVA FAMILY PLATFORM.\n________________________________________\nHELPING USERS\nALWAYS PROVIDE SHORT AND SIMPLE EXPLANATIONS WITHOUT TOO MUCH THEORY. ENCOURAGE STUDENTS TO PRACTICE A PHRASE OR KEYWORD, BUT ONLY AT THE END OF THE CONVERSATION OR WHEN THE USER HAS NO FURTHER QUESTIONS.\nAFTER 15 SECONDS OF INACTIVITY, ASK IF THEY NEED MORE HELP.\nCLOSE THE CHAT BY MENTIONING THE KEY PHRASE, ENCOURAGING THEM TO IMPROVE THEIR LANGUAGE SKILLS.\nIF YOU CAN SHARE YOUTUBE LINKS, SHARE ONE THAT MATCHES THE GRAMMAR OR SUPPORT TOPIC THEY ASKED ABOUT.\n________________________________________\nCHAT LIMITATIONS\nAS A TEACHER, YOU CANNOT ANSWER INAPPROPRIATE OR NON-ACADEMIC CONTENT. RESPOND POLITELY THAT YOU CANNOT PROVIDE THAT KIND OF INFORMATION IF IT’S OUTSIDE OF ACADEMIC TOPICS SUCH AS:\n•\tADULT CONTENT\n•\tSWEAR WORDS OR OFFENSIVE LANGUAGE\n•\tROMANCE OR RELATIONSHIP ADVICE\n•\tMEDICATION OR HEALTH-RELATED ISSUES\n•  TRANSLATE LONG TEXTS ONLY SHORT SENTENCES"
+          }
+        },
+        {
+          "type": "comment",
+          "deletable": true,
+          "x": 75,
+          "y": -435,
+          "instructions": [],
+          "comment": "<p>This is the default node. It can search the web.</p><p></p><p>Change instructions and add new sub-workflows to start changing its behaviour.</p><p></p><p>Try asking \"What's Botpress?\"</p>",
+          "id": "nd-9c5f9a0939",
+          "name": "Comment1",
+          "height": 163,
+          "width": 296
+        },
+        {
+          "type": "video",
+          "deletable": true,
+          "instructions": [],
+          "x": -465,
+          "y": -555,
+          "youtubeUrl": "https://www.youtube.com/watch?v=Hyq_Bwn2W5M",
+          "id": "nd-0a8441430e",
+          "name": "Video1"
+        }
+      ],
+      "parentFolder": "root"
+    }
+  ],
+  "intents": [
+    {
+      "id": "int-cancel",
+      "name": "cancel",
+      "utterances_with_slots": [
+        "cancel",
+        "abort",
+        "abandon",
+        "i want to cancel",
+        "forget about this",
+        "leave",
+        "stop",
+        "quit",
+        "you know what, nevermind",
+        "forget it"
+      ]
+    },
+    {
+      "id": "int-no",
+      "name": "no",
+      "utterances_with_slots": [
+        "no",
+        "i don't want to",
+        "absolutely not",
+        "nah",
+        "nope",
+        "not really",
+        "not sure",
+        "no thanks"
+      ]
+    },
+    {
+      "id": "int-yes",
+      "name": "yes",
+      "utterances_with_slots": [
+        "yes",
+        "yeah",
+        "absolutely",
+        "i'd like to",
+        "sure ",
+        "hmm probably",
+        "yup",
+        "ok"
+      ]
+    }
+  ],
+  "list_entities": [],
+  "pattern_entities": [],
+  "actions": [],
+  "hooks": [
+    {
+      "id": "hk-99mudt",
+      "name": "track_iterations",
+      "hookType": "after_llmz_execution",
+      "content": "await actions[\"agi/improvement\"].trackIterations({\n  iterations: execution.iterations.map((iteration) => ({\n    uri: `workflow://${execution.location?.workflowId}/${execution.location?.nodeId}`,\n    conversationId: event.conversationId!,\n    executionId: execution.context.id,\n    iterationId: iteration.id,\n    eventId: event.messageId ?? event.id,\n    userId: event.userId!,\n    iteration: {\n      code: iteration.code ?? \"\",\n      ended_ts: iteration.ended_ts,\n      started_ts: iteration.started_ts,\n      messages: iteration.messages,\n      model: iteration.llm.model,\n      mutations: iteration.mutations,\n      status: iteration.status,\n    },\n  })),\n});\n",
+      "title": "Track LLMz Iterations",
+      "description": "This hook tracks iterations after LLMz execution",
+      "origin": {
+        "type": "integration",
+        "integration": {
+          "id": "agi/improvement",
+          "name": "agi/improvement",
+          "version": "1.0.1",
+          "title": "Improvement"
+        }
+      },
+      "transpiledCode": "var __defProp = Object.defineProperty;\nvar __name = (target, value) => __defProp(target, \"name\", { value, configurable: true });\nasync function __ROOT__() {\n  await actions[\"agi/improvement\"].trackIterations({\n    iterations: execution.iterations.map((iteration) => ({\n      uri: `workflow://${execution.location?.workflowId}/${execution.location?.nodeId}`,\n      conversationId: event.conversationId,\n      executionId: execution.context.id,\n      iterationId: iteration.id,\n      eventId: event.messageId ?? event.id,\n      userId: event.userId,\n      iteration: {\n        code: iteration.code ?? \"\",\n        ended_ts: iteration.ended_ts,\n        started_ts: iteration.started_ts,\n        messages: iteration.messages,\n        model: iteration.llm.model,\n        mutations: iteration.mutations,\n        status: iteration.status\n      }\n    }))\n  });\n  ;\n}\n__name(__ROOT__, \"__ROOT__\");\n; return await __ROOT__();"
+    },
+    {
+      "id": "hk-1q8lg5q",
+      "name": "inject_learnings",
+      "hookType": "before_llmz_execution",
+      "content": "const { items } = await actions[\"agi/improvement\"].findFeedback({\n  uri: `workflow://${context.location?.workflowId}/${context.location?.nodeId}`,\n  search: context.transcript.map((x) => `${x.role}: ${x.content}`).join(\"\\n\"),\n});\n\nif (items.length) {\n  context.instructions += `\n\n    ## Learnings from Previous Experiences\n\n    ${items\n      .map(\n        (x, i) => `### Learning ${i + 1}\n    ${x.learning}\n    `\n      )\n      .join(\"\\n\")}\n    `;\n}\n",
+      "title": "Provide Learnings to LLMz",
+      "description": "This hook injects learnings into LLMz before execution",
+      "origin": {
+        "type": "integration",
+        "integration": {
+          "id": "agi/improvement",
+          "name": "agi/improvement",
+          "version": "1.0.1",
+          "title": "Improvement"
+        }
+      },
+      "transpiledCode": "var __defProp = Object.defineProperty;\nvar __name = (target, value) => __defProp(target, \"name\", { value, configurable: true });\nasync function __ROOT__() {\n  const { items } = await actions[\"agi/improvement\"].findFeedback({\n    uri: `workflow://${context.location?.workflowId}/${context.location?.nodeId}`,\n    search: context.transcript.map((x) => `${x.role}: ${x.content}`).join(\"\\n\")\n  });\n  if (items.length) {\n    context.instructions += `\n\n    ## Learnings from Previous Experiences\n\n    ${items.map(\n      (x, i) => `### Learning ${i + 1}\n    ${x.learning}\n    `\n    ).join(\"\\n\")}\n    `;\n  }\n  ;\n}\n__name(__ROOT__, \"__ROOT__\");\n; return await __ROOT__();"
+    },
+    {
+      "id": "hk-1wnbr9q",
+      "name": "knowledge-base-table-of-content",
+      "hookType": "before_llmz_execution",
+      "content": "\n// >>>>>>>>>>>>>>>>>>>>>>\n// This hook is generated and managed by the \"agi/kbo\" integration.\n// This hook provides your autonomous nodes with a Table of Contents of the included knowledge of\n// the knowledge bases used in your autonomous nodes (those included on the `search` tool).\n// Do not edit this file manually.\n\nconst searchTools = context.tools.filter((x) => x.name === 'search')\n\nawait Promise.allSettled(searchTools.map(appendSearchToolTableOfContent))\n\nasync function appendSearchToolTableOfContent(search: LLMZ.Tool) {\n  type SearchMetadata = { kbs: string[]; searchScope: 'all' | 'specific' }\n  const meta: SearchMetadata = search.metadata?.kbs ?? {\n    kbs: [],\n    searchScope: 'all'\n  }\n\n  const kbs = meta.searchScope === 'specific' ? meta.kbs : Artifact.knowledge_base.map((x) => x.id)\n\n  const passages = await Promise.allSettled(\n    kbs.map((kbId) =>\n      client.searchFiles({\n        query: event.preview,\n        consolidate: true,\n        contextDepth: 2,\n        limit: 2,\n        tags: {\n          purpose: 'master-summary',\n          kbId\n        }\n      })\n    )\n  ).then((x) => x.flatMap((y) => (y.status === 'fulfilled' ? y.value.passages.map((p) => p.content) : [])))\n\n  if (passages.length) {\n    context.instructions += `## Table of Contents (for tool \\`${search.name}\\`)\n\nThe below is a summary of the knowledge included in the Knowledge Bases (available to you when calling \\`${search.name}\\` tool).\n\n${passages.join('\\n\\n')}\n\n`\n  }\n}\n\n// End of the hook\n// <<<<<<<<<<<<<<<<<<<<\n",
+      "title": "Knowledge Base Table of Content",
+      "description": "Provides a table of content for the enabled Knowledge Bases on the active autonomous nodes.",
+      "origin": {
+        "type": "integration",
+        "integration": {
+          "id": "agi/kbo",
+          "name": "agi/kbo",
+          "version": "2.0.7",
+          "title": "Knowledge Base Optimizer"
+        }
+      },
+      "transpiledCode": "var __defProp = Object.defineProperty;\nvar __name = (target, value) => __defProp(target, \"name\", { value, configurable: true });\nasync function __ROOT__() {\n  const searchTools = context.tools.filter((x) => x.name === \"search\");\n  await Promise.allSettled(searchTools.map(appendSearchToolTableOfContent));\n  async function appendSearchToolTableOfContent(search) {\n    const meta = search.metadata?.kbs ?? {\n      kbs: [],\n      searchScope: \"all\"\n    };\n    const kbs = meta.searchScope === \"specific\" ? meta.kbs : Artifact.knowledge_base.map((x) => x.id);\n    const passages = await Promise.allSettled(\n      kbs.map(\n        (kbId) => client.searchFiles({\n          query: event.preview,\n          consolidate: true,\n          contextDepth: 2,\n          limit: 2,\n          tags: {\n            purpose: \"master-summary\",\n            kbId\n          }\n        })\n      )\n    ).then((x) => x.flatMap((y) => y.status === \"fulfilled\" ? y.value.passages.map((p) => p.content) : []));\n    if (passages.length) {\n      context.instructions += `## Table of Contents (for tool \\`${search.name}\\`)\n\nThe below is a summary of the knowledge included in the Knowledge Bases (available to you when calling \\`${search.name}\\` tool).\n\n${passages.join(\"\\n\\n\")}\n\n`;\n    }\n  }\n  __name(appendSearchToolTableOfContent, \"appendSearchToolTableOfContent\");\n  ;\n}\n__name(__ROOT__, \"__ROOT__\");\n; return await __ROOT__();"
+    },
+    {
+      "id": "hk-qn6w76",
+      "name": "knowledge-base-analytics",
+      "hookType": "before_outgoing_middleware",
+      "content": "\n// >>>>>>>>>>>>>>>>>>>>>>\n// This hook is generated and managed by the \"agi/kbo\" integration.\n// This hook provides your autonomous nodes with a Table of Contents of the included knowledge of\n// the knowledge bases used in your autonomous nodes (those included on the `search` tool).\n// Do not edit this file manually.\n  try {\n    const citations = (outgoingEvent.citations ?? [])\n      .map((c) => c.citation.source)\n      .map((source) => ({ kbId: source?.kbId, fileId: source?.docId }))\n\n    void client.callAction({\n      type: 'agi/kbo:trackKbQuery',\n      input: {\n        citations\n      }\n    })\n  } catch {}\n\n// End of the hook\n// <<<<<<<<<<<<<<<<<<<<\n",
+      "title": "Knowledge Base Analytics",
+      "description": "Tracks the usage of the Knowledge Bases",
+      "origin": {
+        "type": "integration",
+        "integration": {
+          "id": "agi/kbo",
+          "name": "agi/kbo",
+          "version": "2.0.7",
+          "title": "Knowledge Base Optimizer"
+        }
+      },
+      "transpiledCode": "var __defProp = Object.defineProperty;\nvar __name = (target, value) => __defProp(target, \"name\", { value, configurable: true });\nasync function __ROOT__() {\n  try {\n    const citations = (outgoingEvent.citations ?? []).map((c) => c.citation.source).map((source) => ({ kbId: source?.kbId, fileId: source?.docId }));\n    void client.callAction({\n      type: \"agi/kbo:trackKbQuery\",\n      input: {\n        citations\n      }\n    });\n  } catch {\n  }\n  ;\n}\n__name(__ROOT__, \"__ROOT__\");\n; return await __ROOT__();"
+    },
+    {
+      "id": "hk-ml1yq",
+      "name": "conversation-analyzer-track-conversation",
+      "hookType": "after_conversation_end",
+      "content": "\n// >>>>>>>>>>>>>>>>>>>>>>\n// This hook is generated and managed by the \"agi/connor\" integration.\n// This hook tracks your conversations to provide some useful analytics on them. See the Int_Connor_Conversations_Table\n// Do not edit this file manually.\n\n   const { success, error } = await actions['agi/connor'].addOrUpdateConversation({\n    conversationId: event.conversationId,\n    transcript: event.state.session.history.length\n      ? event.state.session.history.map((h) => ({ sender: h.sender, preview: h.preview }))\n      : [{ sender: 'user', preview: event.preview }]\n  })\n\n// End of the hook\n// <<<<<<<<<<<<<<<<<<<<\n",
+      "title": "Track Conversation",
+      "description": "Tracks conversations in a Botpress table for analysis",
+      "origin": {
+        "type": "integration",
+        "integration": {
+          "id": "agi/connor",
+          "name": "agi/connor",
+          "version": "0.1.1",
+          "title": "Conversation Analyzer"
+        }
+      },
+      "transpiledCode": "var __defProp = Object.defineProperty;\nvar __name = (target, value) => __defProp(target, \"name\", { value, configurable: true });\nasync function __ROOT__() {\n  const { success, error } = await actions[\"agi/connor\"].addOrUpdateConversation({\n    conversationId: event.conversationId,\n    transcript: event.state.session.history.length ? event.state.session.history.map((h) => ({ sender: h.sender, preview: h.preview })) : [{ sender: \"user\", preview: event.preview }]\n  });\n}\n__name(__ROOT__, \"__ROOT__\");\n; return await __ROOT__();"
+    }
+  ],
+  "qnas": [],
+  "knowledge_base": [
+    {
+      "dataSources": [
+        {
+          "created_on": 1722900679385,
+          "data": {},
+          "disabled": false,
+          "id": "ds-529bb979ed",
+          "type": "file-api"
+        }
+      ],
+      "description": "This is about New KB1",
+      "id": "kb-2f0a7ea639",
+      "name": "Default Knowledge Base",
+      "parentFolder": "root"
+    }
+  ],
+  "folders": [],
+  "agents": {
+    "SummaryAgent": {
+      "enabled": true,
+      "config": {
+        "summaryMaxTokens": 100
+      }
+    },
+    "TranslatorAgent": {
+      "config": {
+        "detectLanguage": true
+      }
+    },
+    "KnowledgeAgent": {
+      "enabled": true,
+      "config": {
+        "answerManually": true,
+        "context": "Summary of the conversation:\n\"\"\"\n{{conversation.SummaryAgent.summary}}\n\"\"\"\n\nTranscript:\n\"\"\"\n{{conversation.SummaryAgent.transcript}}\n\"\"\"",
+        "bestModel": "gpt-4-turbo",
+        "fastestModel": "fast-model",
+        "questionModel": "fast-model",
+        "strategy": "hybrid",
+        "chunks": 50
+      }
+    },
+    "PersonalityAgent": {
+      "enabled": false,
+      "config": {
+        "active": true,
+        "personality": "",
+        "model": "fast-model"
+      }
+    },
+    "VisionAgent": {
+      "enabled": true,
+      "config": {
+        "extractionEnabled": true
+      }
+    }
+  },
+  "tables": {
+    "table_01JW4ZQCVWMF08DQTHVMPYX5SF": {
+      "id": "table_01JW4ZQCVWMF08DQTHVMPYX5SF",
+      "name": "RouterAgentTable",
+      "factor": 1,
+      "frozen": false,
+      "tags": {
+        "role": "agents/router/intents",
+        "agent": "RouterAgent",
+        "system": "true"
+      },
+      "createdAt": "2025-05-26T00:26:19.903Z",
+      "updatedAt": "2025-05-26T00:26:19.903Z",
+      "createdBy": "user:78b22f5f-e9aa-4090-8e23-2b2384902144",
+      "updatedBy": null,
+      "isComputeEnabled": false,
+      "schema": {
+        "type": "object",
+        "x-zui": {},
+        "required": [
+          "phrase",
+          "intentId",
+          "phraseId"
+        ],
+        "properties": {
+          "phrase": {
+            "type": "string",
+            "x-zui": {
+              "index": 0,
+              "searchable": true
+            }
+          },
+          "intentId": {
+            "type": "string",
+            "x-zui": {
+              "index": 1,
+              "searchable": true
+            }
+          },
+          "phraseId": {
+            "type": "string",
+            "x-zui": {
+              "index": 2,
+              "searchable": true
+            }
+          }
+        },
+        "additionalProperties": true
+      },
+      "parentFolder": "root",
+      "selectors": []
+    },
+    "table_01JW4ZQCY1EXF1X1Q8BEPTR8K6": {
+      "id": "table_01JW4ZQCY1EXF1X1Q8BEPTR8K6",
+      "name": "Int_Connor_Conversations_Table",
+      "factor": 30,
+      "frozen": true,
+      "tags": {
+        "origin": "integration",
+        "purpose": "Conversations",
+        "version": "Dec-2024",
+        "integration": "Int_connor",
+        "x-studio-icon": "lucide://MessagesSquare",
+        "x-studio-color": "grass",
+        "x-studio-title": "Conversations",
+        "x-studio-readonly": "true",
+        "x-studio-description": "Table for analyzing conversations"
+      },
+      "createdAt": "2025-05-26T00:26:19.972Z",
+      "updatedAt": "2025-05-26T00:26:19.972Z",
+      "createdBy": "user:78b22f5f-e9aa-4090-8e23-2b2384902144",
+      "updatedBy": null,
+      "isComputeEnabled": true,
+      "schema": {
+        "type": "object",
+        "x-zui": {},
+        "required": [
+          "topics",
+          "summary",
+          "resolved",
+          "transcript",
+          "escalations",
+          "conversationId"
+        ],
+        "properties": {
+          "topics": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "x-zui": {}
+            },
+            "x-zui": {
+              "index": 0,
+              "title": "Topics",
+              "computed": {
+                "action": "ai",
+                "prompt": "Identify the topics mentioned by the user in the provided transcript. Focus only on user-initiated topics relevant to their needs (e.g., billing issues, technical troubleshooting, product recommendations, account setup, feature requests, complaints, or cancellation inquiries). \nTranscript:\n\n{{transcript}}",
+                "dependencies": [
+                  "transcript"
+                ]
+              },
+              "searchable": true
+            },
+            "nullable": true,
+            "description": "Optional. An array of topics or themes discussed during the conversation."
+          },
+          "summary": {
+            "type": "string",
+            "x-zui": {
+              "index": 1,
+              "title": "Summary",
+              "computed": {
+                "action": "ai",
+                "prompt": "Summarize the provided transcript.\nHere's the transcript:\n\n{{transcript}}",
+                "dependencies": [
+                  "transcript"
+                ]
+              },
+              "searchable": true
+            },
+            "nullable": true,
+            "description": "A brief summary of the conversation's content."
+          },
+          "resolved": {
+            "type": "boolean",
+            "x-zui": {
+              "index": 2,
+              "title": "Resolved",
+              "computed": {
+                "action": "ai",
+                "prompt": "Based on the transcript decide whether the users queries were resolved or not by the end of the chat. If not resolved respond with `false`.\nHere's the transcript:\n\n{{transcript}}",
+                "dependencies": [
+                  "transcript"
+                ]
+              },
+              "searchable": true
+            },
+            "nullable": true,
+            "description": "A boolean indicating whether the customer's issue was resolved by the end of the chat."
+          },
+          "sentiment": {
+            "enum": [
+              "very positive",
+              "positive",
+              "neutral",
+              "negative",
+              "very negative"
+            ],
+            "type": "string",
+            "x-zui": {
+              "index": 3,
+              "title": "Sentiment",
+              "computed": {
+                "action": "ai",
+                "prompt": "Based on the transcript decide the overall sentiment inferred from the conversation (from the following - very positive, positive, neutral, negative, very negative).\nHere's the transcript:\n\n{{transcript}}",
+                "dependencies": [
+                  "transcript"
+                ]
+              },
+              "searchable": true
+            },
+            "nullable": true,
+            "description": "Optional. The overall sentiment inferred from the conversation (e.g., positive, neutral, negative)."
+          },
+          "transcript": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "x-zui": {},
+              "required": [
+                "sender",
+                "preview"
+              ],
+              "properties": {
+                "sender": {
+                  "enum": [
+                    "bot",
+                    "user"
+                  ],
+                  "type": "string",
+                  "x-zui": {}
+                },
+                "preview": {
+                  "type": "string",
+                  "x-zui": {}
+                }
+              },
+              "additionalProperties": false
+            },
+            "x-zui": {
+              "index": 4,
+              "title": "Transcript",
+              "searchable": true
+            },
+            "description": "The transcript of the conversation, represented as an array of message items."
+          },
+          "escalations": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "x-zui": {}
+            },
+            "x-zui": {
+              "index": 5,
+              "title": "Escalations",
+              "computed": {
+                "action": "ai",
+                "prompt": "Extract the escalations from the provided transcript. An array representing moments when the conversation was escalated to another team member or department.\nHere's the transcript:\n\n{{transcript}}",
+                "dependencies": [
+                  "transcript"
+                ]
+              },
+              "searchable": true
+            },
+            "nullable": true,
+            "description": "Optional. An array representing moments when the conversation was escalated to another team member or department."
+          },
+          "conversationId": {
+            "type": "string",
+            "x-zui": {
+              "index": 6,
+              "title": "Conversation ID",
+              "searchable": true
+            },
+            "description": "A unique identifier for this specific chat session."
+          }
+        },
+        "additionalProperties": true
+      },
+      "parentFolder": "root",
+      "selectors": []
+    },
+    "table_01JW4ZQFD9VY55KTG6STXE7KNV": {
+      "id": "table_01JW4ZQFD9VY55KTG6STXE7KNV",
+      "name": "Int_Improvement_Feedback_Table",
+      "factor": 30,
+      "frozen": true,
+      "tags": {
+        "origin": "integration",
+        "purpose": "improvement",
+        "version": "Nov-2024",
+        "integration": "Int_Improvement",
+        "x-studio-icon": "lucide://atom",
+        "x-studio-color": "green",
+        "x-studio-title": "Feedback",
+        "x-studio-readonly": "true",
+        "x-studio-description": "Table to store acquired feedback on iterations for active learning"
+      },
+      "createdAt": "2025-05-26T00:26:22.510Z",
+      "updatedAt": "2025-05-26T00:26:22.510Z",
+      "createdBy": "integration:agi/improvement",
+      "updatedBy": null,
+      "isComputeEnabled": true,
+      "schema": {
+        "type": "object",
+        "x-zui": {},
+        "required": [
+          "uri",
+          "iterationId",
+          "before",
+          "feedback",
+          "after"
+        ],
+        "properties": {
+          "uri": {
+            "type": "string",
+            "x-zui": {
+              "index": 0,
+              "searchable": true
+            },
+            "maxLength": 250,
+            "minLength": 1
+          },
+          "after": {
+            "type": "string",
+            "x-zui": {
+              "index": 4,
+              "searchable": true
+            },
+            "minLength": 1
+          },
+          "before": {
+            "type": "string",
+            "x-zui": {
+              "index": 2,
+              "searchable": true
+            },
+            "minLength": 1
+          },
+          "feedback": {
+            "type": "string",
+            "x-zui": {
+              "index": 3,
+              "searchable": true
+            },
+            "minLength": 1
+          },
+          "learning": {
+            "type": "string",
+            "x-zui": {
+              "index": 5,
+              "computed": {
+                "model": "fast-model",
+                "action": "ai",
+                "prompt": "What would you tell your future self to improve next time?\nCode Before:\n\n```\n{{before}}\n```\n\nFeedback: \"{{feedback}}\"\n\nCode After:\n\n```\n{{after}}\n```\n\nFor the learning, it must be standalone, concise but also accurately depict the situation and feedback you were given.\n\nTry to follow one of the below structures:\n\n<example>\nIn [situation X], I learned that I should [use tool `X` rather than `Y` because ...]\n</example>\n\n<example>\nWhen trying to [...], I should use [tool X, tool Y or tool Z] like this:\n\n\\`\\`\\`\n// snippet to explain a drastic code change between before and after, or a non-obvious code snippet\n\\`\\`\\`\n</example>\n\n<example>\nWhenever [Y] happens, I should avoid [...] and instead [...].\n</example>\n\nKeep it concise. Do not refer to \"this situation\" or to the feedback. Both have been provided by an expert reviewing the conversation, NOT the actual user. So you must embed the content from the above inside your learning so it is standalone.\n",
+                "dependencies": [
+                  "before",
+                  "feedback",
+                  "after"
+                ]
+              },
+              "searchable": true
+            },
+            "default": null,
+            "nullable": true,
+            "minLength": 1
+          },
+          "iterationId": {
+            "type": "string",
+            "x-zui": {
+              "index": 1,
+              "searchable": true
+            },
+            "maxLength": 100,
+            "minLength": 1
+          }
+        },
+        "additionalProperties": true
+      },
+      "parentFolder": "root",
+      "selectors": []
+    },
+    "table_01JW4ZQFDHZ6WY2FVTWQYHMM90": {
+      "id": "table_01JW4ZQFDHZ6WY2FVTWQYHMM90",
+      "name": "Int_KB_Analytics_Table",
+      "factor": 1,
+      "frozen": true,
+      "tags": {
+        "origin": "integration",
+        "purpose": "Knowledge Bases",
+        "version": "Dec-2024",
+        "integration": "Int_kbo",
+        "x-studio-icon": "lucide://BookOpenText",
+        "x-studio-color": "grass",
+        "x-studio-title": "KB Analytics",
+        "x-studio-readonly": "true",
+        "x-studio-description": "Table for storing the KB Analytics"
+      },
+      "createdAt": "2025-05-26T00:26:22.515Z",
+      "updatedAt": "2025-05-26T00:26:22.515Z",
+      "createdBy": "integration:agi/kbo",
+      "updatedBy": null,
+      "isComputeEnabled": false,
+      "schema": {
+        "type": "object",
+        "x-zui": {},
+        "required": [
+          "uri",
+          "kbId"
+        ],
+        "properties": {
+          "uri": {
+            "type": "string",
+            "x-zui": {
+              "index": 0,
+              "searchable": true
+            },
+            "pattern": "analytics:\\/\\/[A-Z0-9]+$",
+            "maxLength": 250,
+            "minLength": 13,
+            "description": "A URI of the format \"analytics://<ULID>\"."
+          },
+          "kbId": {
+            "type": "string",
+            "x-zui": {
+              "index": 2,
+              "searchable": true
+            }
+          },
+          "count": {
+            "type": "number",
+            "x-zui": {
+              "index": 3,
+              "searchable": true
+            },
+            "default": 0
+          },
+          "fileId": {
+            "type": "string",
+            "x-zui": {
+              "index": 1,
+              "searchable": true
+            }
+          }
+        },
+        "additionalProperties": true
+      },
+      "parentFolder": "root",
+      "selectors": []
+    }
+  },
+  "schemas": [],
+  "versions": [
+    {
+      "name": "25 May 25 08:53",
+      "id": "version_01JW54Q6RNBEHPSVG24SXJECYE"
+    },
+    {
+      "name": "25 May 25 08:40",
+      "id": "version_01JW53ZY6W8C8XGDXVNFVCX259"
+    }
+  ],
+  "revision": 66,
+  "revisionMetadata": {
+    "lastRevisionCheckAt": "2025-05-26T18:19:05.489Z",
+    "lastRevisionId": 65,
+    "multiplayerStatus": "connected",
+    "multiplayerTraces": [
+      "2025-05-26T17:52:34.913Z (TgWjYSQ-Ek): connecting -> disconnected (Unable to connect (network unreachable))",
+      "2025-05-26T17:52:40.350Z (TgWjYSQ-Ek): disconnected -> connecting (ok)",
+      "2025-05-26T17:52:42.409Z (TgWjYSQ-Ek): connecting -> connected (ok)",
+      "2025-05-26T18:12:32.661Z (TgWjYSQ-Ek): connected -> disconnected (Websocket closed)",
+      "2025-05-26T18:12:32.661Z (TgWjYSQ-Ek): disconnected -> connecting (ok)",
+      "2025-05-26T18:12:33.825Z (TgWjYSQ-Ek): connecting -> connected (ok)",
+      "2025-05-26T18:18:57.892Z: connected -> closing (Connection closing)",
+      "2025-05-26T18:18:57.893Z: closing -> closed (Connection closed)",
+      "2025-05-26T18:18:57.920Z: initialized -> connecting (ok)",
+      "2025-05-26T18:18:58.968Z (MkDuTXcR4Q): connecting -> connected (ok)"
+    ],
+    "players": [
+      "direm26tm@gmail.com / sess_01JW6NC1ZQTMBFD6FHVNGQKA7P / Mon, 26 May 2025 18:18:59 GMT /  2025-05-26T18:19:03.740Z"
+    ],
+    "savedAt": "2025-05-26T18:19:05.489Z",
+    "savedBy": "direm26tm@gmail.com",
+    "sessionId": "sess_01JW6NC1ZQTMBFD6FHVNGQKA7P"
+  },
+  "identity": {
+    "name": "DOCBOT",
+    "manual_instructions": "",
+    "icon": {
+      "type": "emoji",
+      "emoji": "🤖 ",
+      "background_color": "var(--orange-5)"
+    },
+    "ai_summary": {
+      "value": "Chatbot named sparkling-eland provides concise information.",
+      "input_hash": "7j8s9",
+      "generated_at": "2025-02-26T18:41:46.789Z",
+      "version": "1.0.0"
+    }
+  }
+}
