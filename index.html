@@ -4,22 +4,32 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Chatbot Escolar</title>
+  <script src="https://cdn.botpress.cloud/webchat/v2.4/inject.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f8ff;
+      text-align: center;
+      padding-top: 50px;
+    }
+
+    h1 {
+      color: #0056b3;
+      margin-bottom: 40px;
+    }
+
+    #webchat {
+      margin: auto;
+    }
+  </style>
 </head>
 <body>
-  <h1>WELOCOME TO ENGLISH CHATBOT</h1>
+  <h1>Welcome to English Chatbot</h1>
 
-  <script src="https://cdn.botpress.cloud/webchat/v1/inject.js"></script>
+  <!-- Botpress Webchat v2.4 init -->
   <script>
     window.botpressWebChat.init({
-      "composerPlaceholder": "Escribe tu mensaje...",
-      "botId": "3283d4af-d2d1-4385-9ba6-408deb39f00d",
-      "hostUrl": "https://cdn.botpress.cloud/webchat/v1",
-      "messagingUrl": "https://messaging.botpress.cloud",
-      "clientId": "740cc2d3-ee32-4fe5-922b-a2af61fa61b8",
-      "enableConversationDeletion": true,
-      "showPoweredBy": false,
-      "botName": "Docbot",
-      "avatarUrl": "https://files.bpcontent.cloud/2025/05/26/01/20250526014406-PM266LHG.png"
+      configUrl: "https://files.bpcontent.cloud/2025/05/26/01/20250526010304-97N5GZI2.json"
     });
   </script>
 </body>
