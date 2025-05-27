@@ -4,28 +4,43 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Chatbot Escolar</title>
+
+  <!-- Carga el Webchat de Botpress -->
   <script src="https://cdn.botpress.cloud/webchat/v2.4/inject.js"></script>
+
   <style>
     body {
       font-family: Arial, sans-serif;
       background-color: #f0f8ff;
       text-align: center;
-      padding-top: 50px;
+      padding: 40px;
     }
 
     h1 {
       color: #0056b3;
-      margin-bottom: 40px;
+      margin-bottom: 30px;
+    }
+
+    #webchat {
+      width: 400px;
+      height: 500px;
+      margin: 0 auto;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      overflow: hidden;
     }
   </style>
 </head>
 <body>
   <h1>Welcome to English Chatbot</h1>
 
-  <!-- Inicia Webchat flotante automáticamente -->
+  <!-- Aquí se incrusta el bot -->
+  <div id="webchat"></div>
+
   <script>
     window.botpressWebChat.init({
-      configUrl: "https://files.bpcontent.cloud/2025/05/26/01/20250526010304-97N5GZI2.json"
+      configUrl: "https://files.bpcontent.cloud/2025/05/26/01/20250526010304-97N5GZI2.json",
+      selector: "#webchat"  // INSTRUCCIÓN IMPORTANTE PARA INSERTAR EN DIV
     });
   </script>
 </body>
