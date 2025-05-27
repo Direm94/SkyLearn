@@ -5,9 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Chatbot Escolar</title>
 
-  <!-- Carga el Webchat de Botpress -->
-  <script src="https://cdn.botpress.cloud/webchat/v2.4/inject.js"></script>
-
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -21,27 +18,23 @@
       margin-bottom: 30px;
     }
 
-    #webchat {
-      width: 400px;
-      height: 500px;
-      margin: 0 auto;
-      border: 1px solid #ccc;
+    iframe {
+      border: none;
+      width: 100%;
+      max-width: 400px;
+      height: 600px;
       border-radius: 10px;
-      overflow: hidden;
     }
   </style>
 </head>
 <body>
   <h1>Welcome to English Chatbot</h1>
 
-  <!-- Aquí se incrusta el bot -->
-  <div id="webchat"></div>
+  <!-- 👇 Incrustación 100% funcional en versión gratuita -->
+  <iframe 
+    src="https://cdn.botpress.cloud/webchat/v2.4/shareable.html?configUrl=https://files.bpcontent.cloud/2025/05/26/01/20250526010304-97N5GZI2.json"
+    allow="microphone; camera">
+  </iframe>
 
-  <script>
-    window.botpressWebChat.init({
-      configUrl: "https://files.bpcontent.cloud/2025/05/26/01/20250526010304-97N5GZI2.json",
-      selector: "#webchat"  // INSTRUCCIÓN IMPORTANTE PARA INSERTAR EN DIV
-    });
-  </script>
 </body>
 </html>
