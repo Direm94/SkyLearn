@@ -4,18 +4,21 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>School Chatbot</title>
-
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-image: url('https://i.postimg.cc/vmNxrq2c/fondo-web.png');
       background-size: cover;
       background-position: center;
+      background-attachment: fixed;
       color: #fff;
       display: flex;
       flex-direction: column;
-      align-items: center;
       min-height: 100vh;
       overflow-x: hidden;
     }
@@ -27,87 +30,120 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.8);
+      background: rgba(0, 0, 0, 0.85);
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       z-index: 1000;
+      text-align: center;
+      padding: 20px;
     }
 
     .lock-screen-content {
-      background: rgba(255, 255, 255, 0.9);
-      padding: 30px;
-      border-radius: 10px;
+      background: linear-gradient(135deg, #1a2a6c, #b21f1f, #1a2a6c);
+      padding: 40px;
+      border-radius: 15px;
       text-align: center;
-      max-width: 400px;
+      max-width: 500px;
       width: 90%;
-      color: #333;
+      color: white;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     }
 
     .lock-screen h2 {
       margin-top: 0;
-      color: #0056b3;
+      font-size: 2.2rem;
+      margin-bottom: 10px;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .lock-screen p {
+      font-size: 1.1rem;
+      margin-bottom: 25px;
     }
 
     .lock-screen input {
       width: 100%;
-      padding: 12px;
+      padding: 15px;
       margin: 15px 0;
-      border: 2px solid #0056b3;
-      border-radius: 5px;
-      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      background: rgba(255, 255, 255, 0.9);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
 
     .lock-screen button {
-      background-color: #0056b3;
+      background: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
       color: white;
       border: none;
-      padding: 12px 25px;
-      border-radius: 5px;
+      padding: 15px 30px;
+      border-radius: 8px;
       cursor: pointer;
-      font-size: 1rem;
-      transition: background-color 0.3s;
+      font-size: 1.1rem;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      margin-top: 10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     }
 
     .lock-screen button:hover {
-      background-color: #003d80;
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+      background: linear-gradient(to right, #3a7bd5 0%, #00d2ff 100%);
     }
 
-    /* Contenido principal (oculto inicialmente) */
+    /* Contenido principal */
     .main-content {
       display: none;
       width: 100%;
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 20px;
     }
 
-    header {
+    /* Header centrado con logos */
+    .header-container {
       display: flex;
       justify-content: space-between;
-      width: 90%;
-      max-width: 1200px;
-      padding: 20px 0;
+      align-items: center;
+      width: 100%;
+      margin-bottom: 20px;
     }
 
-    header img {
-      height: 80px;
+    .header-logo {
+      height: 90px;
       width: auto;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
     }
 
-    h1 {
-      margin: 10px 0;
-      font-size: 2rem;
-      background: rgba(0, 0, 0, 0.5);
-      padding: 10px 20px;
-      border-radius: 10px;
+    .header-center {
       text-align: center;
+      flex-grow: 1;
     }
 
+    .welcome-title {
+      font-size: 2.2rem;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 15px 30px;
+      border-radius: 12px;
+      display: inline-block;
+      margin: 0;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .welcome-title span {
+      color: #4facfe;
+      text-shadow: 0 0 10px rgba(79, 172, 254, 0.7);
+    }
+
+    /* Contenedor principal centrado */
     .main-container {
       display: flex;
-      gap: 20px;
-      width: 90%;
-      max-width: 1200px;
       justify-content: center;
+      gap: 30px;
       margin: 20px 0;
     }
 
@@ -116,60 +152,71 @@
       flex-direction: column;
       align-items: center;
       flex: 1;
-      min-width: 0;
+      max-width: 500px;
     }
 
     iframe {
       border: none;
       width: 100%;
-      min-width: 450px;
       height: 650px;
-      border-radius: 10px;
+      border-radius: 15px;
       background: white;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
     }
 
     /* Estilos para la sección de comentarios */
     .comments-section {
-      width: 250px;
-      background: rgba(0, 0, 0, 0.5);
-      border-radius: 10px;
-      padding: 15px;
+      width: 300px;
+      background: rgba(0, 0, 0, 0.6);
+      border-radius: 15px;
+      padding: 20px;
       height: 650px;
       display: flex;
       flex-direction: column;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     .comments-section h3 {
       margin-top: 0;
       text-align: center;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-      padding-bottom: 10px;
+      padding-bottom: 15px;
+      border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+      font-size: 1.5rem;
+      color: #4facfe;
     }
 
     .comments-list {
       flex-grow: 1;
       overflow-y: auto;
-      margin-bottom: 15px;
-      padding-right: 5px;
+      margin-bottom: 20px;
+      padding-right: 10px;
     }
 
     .comment {
       background: rgba(255, 255, 255, 0.1);
-      border-radius: 5px;
-      padding: 8px;
-      margin-bottom: 10px;
-      font-size: 0.9rem;
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 15px;
+      font-size: 0.95rem;
+      border-left: 3px solid #4facfe;
+      transition: transform 0.3s ease;
+    }
+
+    .comment:hover {
+      transform: translateX(5px);
+      background: rgba(255, 255, 255, 0.15);
     }
 
     .comment strong {
-      color: #4CAF50;
+      color: #4facfe;
     }
 
     .comment small {
       display: block;
-      font-size: 0.7rem;
+      font-size: 0.75rem;
       color: #aaa;
-      margin-top: 3px;
+      margin-top: 5px;
     }
 
     .comment-input {
@@ -179,57 +226,66 @@
 
     .comment-input input,
     .comment-input textarea {
-      margin-bottom: 10px;
-      padding: 8px;
-      border-radius: 5px;
+      margin-bottom: 15px;
+      padding: 12px;
+      border-radius: 8px;
       border: none;
       background: rgba(255, 255, 255, 0.9);
-      font-size: 0.9rem;
+      font-size: 1rem;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
 
     .comment-input textarea {
       resize: none;
-      height: 60px;
+      height: 80px;
     }
 
     .comment-input button {
-      background-color: #4CAF50;
+      background: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
       color: white;
       border: none;
-      padding: 8px;
-      border-radius: 5px;
+      padding: 12px;
+      border-radius: 8px;
       cursor: pointer;
-      transition: background-color 0.3s;
+      font-size: 1rem;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     }
 
     .comment-input button:hover {
-      background-color: #3e8e41;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+      background: linear-gradient(to right, #3a7bd5 0%, #00d2ff 100%);
     }
 
     footer {
       margin-top: auto;
       padding: 20px;
-      background-color: rgba(0, 0, 0, 0.4);
+      background-color: rgba(0, 0, 0, 0.5);
       width: 100%;
       text-align: center;
-      font-size: 0.9rem;
+      font-size: 1rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     /* Scrollbar personalizada */
     ::-webkit-scrollbar {
-      width: 6px;
+      width: 8px;
     }
 
     ::-webkit-scrollbar-track {
       background: rgba(0, 0, 0, 0.2);
+      border-radius: 4px;
     }
 
     ::-webkit-scrollbar-thumb {
-      background: rgba(255, 255, 255, 0.3);
-      border-radius: 3px;
+      background: linear-gradient(to bottom, #4facfe, #00f2fe);
+      border-radius: 4px;
     }
 
-    @media (max-width: 900px) {
+    /* Responsive */
+    @media (max-width: 1100px) {
       .main-container {
         flex-direction: column;
         align-items: center;
@@ -237,14 +293,41 @@
       
       .comments-section {
         width: 100%;
-        max-width: 450px;
-        margin-top: 20px;
-        height: 400px;
+        max-width: 500px;
+        margin-top: 30px;
+        height: 500px;
       }
+      
+      .header-container {
+        flex-direction: column;
+        gap: 15px;
+      }
+      
+      .header-logo {
+        height: 70px;
+      }
+    }
 
+    @media (max-width: 600px) {
+      .lock-screen-content {
+        padding: 30px 20px;
+      }
+      
+      .lock-screen h2 {
+        font-size: 1.8rem;
+      }
+      
+      .welcome-title {
+        font-size: 1.8rem;
+        padding: 12px 20px;
+      }
+      
       iframe {
-        height: 600px;
-        min-width: 100%;
+        height: 550px;
+      }
+      
+      .comments-section {
+        height: 450px;
       }
     }
   </style>
@@ -255,21 +338,24 @@
   <div class="lock-screen" id="lockScreen">
     <div class="lock-screen-content">
       <h2>Welcome to English Chatbot</h2>
-      <p>Please enter your name to continue:</p>
-      <input type="text" id="userNameInput" placeholder="Your name" autofocus>
-      <button onclick="registerUser()">Continue</button>
+      <p>Please enter your name to start your learning experience</p>
+      <input type="text" id="userNameInput" placeholder="Your full name" autofocus>
+      <button onclick="registerUser()">Continue to Chatbot</button>
     </div>
   </div>
 
-  <!-- Contenido principal (visible después de ingresar nombre) -->
+  <!-- Contenido principal -->
   <div class="main-content" id="mainContent">
-    <header>
-      <img src="https://i.postimg.cc/GpkMdTmx/is.png" alt="Left Logo">
-      <img src="https://i.postimg.cc/8C5rrQH2/logo-2.png" alt="Right Logo">
-    </header>
+    <!-- Header con logos ordenados -->
+    <div class="header-container">
+      <img src="https://i.postimg.cc/GpkMdTmx/is.png" alt="Left Logo" class="header-logo">
+      <div class="header-center">
+        <h1 class="welcome-title">Welcome, <span id="welcomeUserName"></span>!</h1>
+      </div>
+      <img src="https://i.postimg.cc/8C5rrQH2/logo-2.png" alt="Right Logo" class="header-logo">
+    </div>
 
-    <h1>Welcome, <span id="welcomeUserName"></span>!</h1>
-
+    <!-- Contenedor principal centrado -->
     <div class="main-container">
       <div class="chatbot-column">
         <iframe 
@@ -291,7 +377,7 @@
     </div>
 
     <footer>
-      Created by: <strong>English Team</strong>
+      Created by: <strong>English Team</strong> | Comments are automatically deleted after 24 hours
     </footer>
   </div>
 
@@ -357,10 +443,13 @@
         commentDiv.innerHTML = `
           <strong>${comment.user}:</strong> 
           <span>${comment.text}</span>
-          <small>${new Date(comment.timestamp).toLocaleString()}</small>
+          <small>Posted at ${new Date(comment.timestamp).toLocaleTimeString()}</small>
         `;
         commentsList.appendChild(commentDiv);
       });
+      
+      // Scroll al final de los comentarios
+      commentsList.scrollTop = commentsList.scrollHeight;
     }
 
     function postComment() {
