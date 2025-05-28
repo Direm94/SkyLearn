@@ -19,40 +19,42 @@
       min-height: 100vh;
     }
 
-    .top-container {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      width: 90%;
-      max-width: 1200px;
-      padding: 20px;
-    }
-
-    .top-container img {
-      width: 300px;
-      height: auto;
-    }
-
-    .center-content {
-      text-align: center;
-    }
-
     h1 {
-      margin-top: 0;
+      margin-top: 30px;
       font-size: 2rem;
       background: rgba(0, 0, 0, 0.5);
       padding: 10px 20px;
       border-radius: 10px;
-      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .main-content {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 30px 0;
+      width: 100%;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      width: 300px;
+      height: auto;
+    }
+
+    .chatbox {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
     iframe {
-      border: none;
-      width: 100%;
-      max-width: 400px;
+      width: 400px;
       height: 600px;
+      border: none;
       border-radius: 10px;
-      background: white;
+      background-color: #fff;
     }
 
     button {
@@ -64,6 +66,10 @@
       background-color: #007bff;
       color: white;
       cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
     }
 
     footer {
@@ -78,33 +84,30 @@
 </head>
 <body>
 
-  <div class="top-container">
+  <h1>Welcome to English Chatbot</h1>
+
+  <div class="main-content">
     <!-- Logo izquierdo -->
-    <img src="https://i.postimg.cc/GpkMdTmx/is.png" alt="Logo 1">
-    
+    <img class="logo" src="https://i.postimg.cc/GpkMdTmx/is.png" alt="Logo 1">
+
+    <!-- Chatbot y botón -->
+    <div class="chatbox">
+      <iframe 
+        id="bp-webchat"
+        src="https://cdn.botpress.cloud/webchat/v2.4/shareable.html?configUrl=https://files.bpcontent.cloud/2025/05/26/01/20250526010304-97N5GZI2.json"
+        allow="microphone; camera">
+      </iframe>
+      <button onclick="limpiarChat()">Reiniciar Chat</button>
+    </div>
+
     <!-- Logo derecho -->
-    <img src="https://i.postimg.cc/8C5rrQH2/logo-2.png" alt="Logo 2">
-  </div>
-
-  <div class="center-content">
-    <h1>Welcome to English Chatbot</h1>
-
-    <!-- Chatbot embebido -->
-    <iframe 
-      id="bp-webchat"
-      src="https://cdn.botpress.cloud/webchat/v2.4/shareable.html?configUrl=https://files.bpcontent.cloud/2025/05/26/01/20250526010304-97N5GZI2.json"
-      allow="microphone; camera">
-    </iframe>
-
-    <!-- Botón de reiniciar -->
-    <button onclick="limpiarChat()">Reiniciar Chat</button>
+    <img class="logo" src="https://i.postimg.cc/8C5rrQH2/logo-2.png" alt="Logo 2">
   </div>
 
   <footer>
     Created by: <strong>[English Team]</strong>
   </footer>
 
-  <!-- Script para reiniciar el chat -->
   <script>
     function limpiarChat() {
       const iframe = document.getElementById('bp-webchat');
