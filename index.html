@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Chatbot Escolar</title>
+  <title>School Chatbot</title>
 
   <style>
     body {
@@ -19,57 +19,53 @@
       min-height: 100vh;
     }
 
-    h1 {
-      margin-top: 30px;
-      font-size: 2rem;
-      background: rgba(0, 0, 0, 0.5);
-      padding: 10px 20px;
-      border-radius: 10px;
-      text-align: center;
-    }
-
-    .main-content {
+    header {
       display: flex;
-      justify-content: center;
-      align-items: center;
-      margin: 30px 0;
-      width: 100%;
-      gap: 30px;
-      flex-wrap: wrap;
+      justify-content: space-between;
+      width: 90%;
+      padding: 20px;
     }
 
-    .logo {
+    header img {
       width: 300px;
       height: auto;
     }
 
-    .chatbox {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+    h1 {
+      margin-top: 0;
+      font-size: 2rem;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 10px 20px;
+      border-radius: 10px;
     }
 
     iframe {
-      width: 400px;
-      height: 600px;
       border: none;
+      width: 100%;
+      max-width: 400px;
+      height: 600px;
       border-radius: 10px;
-      background-color: #fff;
+      background: white;
+      margin: 20px 0;
     }
 
-    button {
-      margin-top: 15px;
-      padding: 10px 20px;
-      font-size: 1rem;
+    .button-group {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .button-group button {
+      padding: 10px 15px;
       border: none;
-      border-radius: 8px;
-      background-color: #007bff;
+      border-radius: 5px;
+      background-color: #0056b3;
       color: white;
       cursor: pointer;
     }
 
-    button:hover {
-      background-color: #0056b3;
+    .button-group button:hover {
+      background-color: #003d80;
     }
 
     footer {
@@ -84,35 +80,37 @@
 </head>
 <body>
 
+  <header>
+    <img src="https://i.postimg.cc/GpkMdTmx/is.png" alt="Left Logo">
+    <img src="https://i.postimg.cc/8C5rrQH2/logo-2.png" alt="Right Logo">
+  </header>
+
   <h1>Welcome to English Chatbot</h1>
 
-  <div class="main-content">
-    <!-- Logo izquierdo -->
-    <img class="logo" src="https://i.postimg.cc/GpkMdTmx/is.png" alt="Logo 1">
-
-    <!-- Chatbot y botón -->
-    <div class="chatbox">
-      <iframe 
-        id="bp-webchat"
-        src="https://cdn.botpress.cloud/webchat/v2.4/shareable.html?configUrl=https://files.bpcontent.cloud/2025/05/26/01/20250526010304-97N5GZI2.json"
-        allow="microphone; camera">
-      </iframe>
-      <button onclick="limpiarChat()">Reiniciar Chat</button>
-    </div>
-
-    <!-- Logo derecho -->
-    <img class="logo" src="https://i.postimg.cc/8C5rrQH2/logo-2.png" alt="Logo 2">
+  <div class="button-group">
+    <button onclick="window.open('https://forms.gle/your_google_form_url', '_blank')">Leave Feedback</button>
+    <button onclick="registerUser()">Register Name</button>
   </div>
 
+  <iframe 
+    id="chatbotFrame"
+    src="https://cdn.botpress.cloud/webchat/v2.4/shareable.html?configUrl=https://files.bpcontent.cloud/2025/05/26/01/20250526010304-97N5GZI2.json"
+    allow="microphone; camera">
+  </iframe>
+
   <footer>
-    Created by: <strong>[English Team]</strong>
+    Created by: <strong>English Team</strong>
   </footer>
 
   <script>
-    function limpiarChat() {
-      const iframe = document.getElementById('bp-webchat');
-      iframe.contentWindow.postMessage({ type: "event", event: { type: "reset" } }, "*");
+    function registerUser() {
+      const name = prompt("Please enter your name:");
+      if (name) {
+        localStorage.setItem("userName", name);
+        alert("Thank you, " + name + "! Your name has been registered.");
+      }
     }
   </script>
+
 </body>
 </html>
