@@ -23,50 +23,76 @@
       display: flex;
       justify-content: space-between;
       width: 90%;
-      padding: 20px;
+      max-width: 1200px;
+      padding: 20px 0;
     }
 
     header img {
-      width: 300px;
-      height: auto;
+      height: 80px;
+      width: auto;
     }
 
     h1 {
-      margin-top: 0;
+      margin: 10px 0;
       font-size: 2rem;
       background: rgba(0, 0, 0, 0.5);
       padding: 10px 20px;
       border-radius: 10px;
+      text-align: center;
     }
 
     .main-container {
       display: flex;
-      gap: 30px;
+      gap: 20px;
       width: 90%;
       max-width: 1200px;
       justify-content: center;
+      margin: 20px 0;
     }
 
     .chatbot-column {
       display: flex;
       flex-direction: column;
       align-items: center;
+      flex: 1;
+      min-width: 0;
     }
 
     iframe {
       border: none;
       width: 100%;
-      max-width: 400px;
-      height: 600px;
+      min-width: 450px;
+      height: 650px;
       border-radius: 10px;
       background: white;
-      margin: 20px 0;
+    }
+
+    .register-section {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .register-btn {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      background-color: #0056b3;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      font-size: 1rem;
+      margin: 0 10px;
+    }
+
+    .register-btn:hover {
+      background-color: #003d80;
     }
 
     .button-group {
       display: flex;
       gap: 15px;
-      margin-bottom: 20px;
+      margin-top: 15px;
+      justify-content: center;
     }
 
     .button-group button {
@@ -85,11 +111,11 @@
 
     /* Estilos para la sección de comentarios */
     .comments-section {
-      width: 300px;
+      width: 250px;
       background: rgba(0, 0, 0, 0.5);
       border-radius: 10px;
       padding: 15px;
-      height: 600px;
+      height: 650px;
       display: flex;
       flex-direction: column;
     }
@@ -113,6 +139,7 @@
       border-radius: 5px;
       padding: 8px;
       margin-bottom: 10px;
+      font-size: 0.9rem;
     }
 
     .comment strong {
@@ -138,6 +165,7 @@
       border-radius: 5px;
       border: none;
       background: rgba(255, 255, 255, 0.9);
+      font-size: 0.9rem;
     }
 
     .comment-input textarea {
@@ -190,8 +218,14 @@
       
       .comments-section {
         width: 100%;
-        max-width: 400px;
+        max-width: 450px;
         margin-top: 20px;
+        height: 400px;
+      }
+
+      iframe {
+        height: 600px;
+        min-width: 100%;
       }
     }
   </style>
@@ -207,9 +241,8 @@
 
   <div class="main-container">
     <div class="chatbot-column">
-      <div class="button-group">
-        <button onclick="window.open('https://forms.gle/your_google_form_url', '_blank')">Leave Feedback</button>
-        <button onclick="registerUser()">Register Name</button>
+      <div class="register-section">
+        <button class="register-btn" onclick="registerUser()">Register Your Name</button>
       </div>
 
       <iframe 
@@ -217,6 +250,10 @@
         src="https://cdn.botpress.cloud/webchat/v2.4/shareable.html?configUrl=https://files.bpcontent.cloud/2025/05/26/01/20250526010304-97N5GZI2.json"
         allow="microphone; camera">
       </iframe>
+
+      <div class="button-group">
+        <button onclick="window.open('https://forms.gle/your_google_form_url', '_blank')">Leave Feedback</button>
+      </div>
     </div>
 
     <div class="comments-section">
