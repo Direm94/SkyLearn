@@ -14,31 +14,31 @@
       background-position: center;
       background-repeat: no-repeat;
       color: #fff;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
-      min-height: 100vh;
-      text-align: center;
     }
 
     h1 {
-      margin: 30px 0 20px;
+      margin-top: 30px;
       font-size: 2.2rem;
       background: rgba(0, 0, 0, 0.6);
       padding: 12px 24px;
       border-radius: 12px;
+      text-align: center;
     }
 
-    .main-content {
+    .chat-container {
       display: flex;
-      justify-content: center;
       align-items: center;
-      gap: 40px;
+      justify-content: center;
+      gap: 30px;
+      margin: 40px 20px;
       flex-wrap: wrap;
-      padding: 20px;
     }
 
-    .main-content img {
+    .chat-container img {
       width: 300px;
       height: auto;
       max-width: 90vw;
@@ -54,12 +54,19 @@
     }
 
     footer {
-      margin-top: 30px;
-      padding: 15px;
+      margin-top: auto;
+      padding: 20px;
       background-color: rgba(0, 0, 0, 0.4);
       width: 100%;
       text-align: center;
       font-size: 1rem;
+      color: #fff;
+    }
+
+    @media (max-width: 1000px) {
+      .chat-container {
+        flex-direction: column;
+      }
     }
   </style>
 </head>
@@ -67,9 +74,9 @@
 
   <h1>Welcome to English Chatbot</h1>
 
-  <div class="main-content">
+  <div class="chat-container">
     <!-- Logo izquierdo -->
-    <img src="https://i.postimg.cc/GpkMdTmx/is.png" alt="Logo Izquierdo">
+    <img src="https://i.postimg.cc/GpkMdTmx/is.png" alt="Logo izquierdo">
 
     <!-- Chatbot embebido al centro -->
     <iframe 
@@ -78,7 +85,7 @@
     </iframe>
 
     <!-- Logo derecho -->
-    <img src="https://i.postimg.cc/8C5rrQH2/logo-2.png" alt="Logo Derecho">
+    <img src="https://i.postimg.cc/8C5rrQH2/logo-2.png" alt="Logo derecho">
   </div>
 
   <footer>
