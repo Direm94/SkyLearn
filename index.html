@@ -17,6 +17,67 @@
       flex-direction: column;
       align-items: center;
       min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Pantalla de bloqueo */
+    .lock-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .lock-screen-content {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 30px;
+      border-radius: 10px;
+      text-align: center;
+      max-width: 400px;
+      width: 90%;
+      color: #333;
+    }
+
+    .lock-screen h2 {
+      margin-top: 0;
+      color: #0056b3;
+    }
+
+    .lock-screen input {
+      width: 100%;
+      padding: 12px;
+      margin: 15px 0;
+      border: 2px solid #0056b3;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+
+    .lock-screen button {
+      background-color: #0056b3;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background-color 0.3s;
+    }
+
+    .lock-screen button:hover {
+      background-color: #003d80;
+    }
+
+    /* Contenido principal (oculto inicialmente) */
+    .main-content {
+      display: none;
+      width: 100%;
     }
 
     header {
@@ -65,48 +126,6 @@
       height: 650px;
       border-radius: 10px;
       background: white;
-    }
-
-    .register-section {
-      margin-bottom: 20px;
-      text-align: center;
-    }
-
-    .register-btn {
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      background-color: #0056b3;
-      color: white;
-      cursor: pointer;
-      transition: background-color 0.3s;
-      font-size: 1rem;
-      margin: 0 10px;
-    }
-
-    .register-btn:hover {
-      background-color: #003d80;
-    }
-
-    .button-group {
-      display: flex;
-      gap: 15px;
-      margin-top: 15px;
-      justify-content: center;
-    }
-
-    .button-group button {
-      padding: 10px 15px;
-      border: none;
-      border-radius: 5px;
-      background-color: #0056b3;
-      color: white;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-
-    .button-group button:hover {
-      background-color: #003d80;
     }
 
     /* Estilos para la sección de comentarios */
@@ -232,62 +251,87 @@
 </head>
 <body>
 
-  <header>
-    <img src="https://i.postimg.cc/GpkMdTmx/is.png" alt="Left Logo">
-    <img src="https://i.postimg.cc/8C5rrQH2/logo-2.png" alt="Right Logo">
-  </header>
-
-  <h1>Welcome to English Chatbot</h1>
-
-  <div class="main-container">
-    <div class="chatbot-column">
-      <div class="register-section">
-        <button class="register-btn" onclick="registerUser()">Register Your Name</button>
-      </div>
-
-      <iframe 
-        id="chatbotFrame"
-        src="https://cdn.botpress.cloud/webchat/v2.4/shareable.html?configUrl=https://files.bpcontent.cloud/2025/05/26/01/20250526010304-97N5GZI2.json"
-        allow="microphone; camera">
-      </iframe>
-
-      <div class="button-group">
-        <button onclick="window.open('https://forms.gle/your_google_form_url', '_blank')">Leave Feedback</button>
-      </div>
-    </div>
-
-    <div class="comments-section">
-      <h3>Live Comments</h3>
-      <div class="comments-list" id="commentsList"></div>
-      <div class="comment-input">
-        <input type="text" id="commentName" placeholder="Your name (optional)" value="Anonymous">
-        <textarea id="commentInput" placeholder="Write your comment..."></textarea>
-        <button onclick="postComment()">Send Comment</button>
-      </div>
+  <!-- Pantalla de bloqueo para ingresar nombre -->
+  <div class="lock-screen" id="lockScreen">
+    <div class="lock-screen-content">
+      <h2>Welcome to English Chatbot</h2>
+      <p>Please enter your name to continue:</p>
+      <input type="text" id="userNameInput" placeholder="Your name" autofocus>
+      <button onclick="registerUser()">Continue</button>
     </div>
   </div>
 
-  <footer>
-    Created by: <strong>English Team</strong>
-  </footer>
+  <!-- Contenido principal (visible después de ingresar nombre) -->
+  <div class="main-content" id="mainContent">
+    <header>
+      <img src="https://i.postimg.cc/GpkMdTmx/is.png" alt="Left Logo">
+      <img src="https://i.postimg.cc/8C5rrQH2/logo-2.png" alt="Right Logo">
+    </header>
+
+    <h1>Welcome, <span id="welcomeUserName"></span>!</h1>
+
+    <div class="main-container">
+      <div class="chatbot-column">
+        <iframe 
+          id="chatbotFrame"
+          src="https://cdn.botpress.cloud/webchat/v2.4/shareable.html?configUrl=https://files.bpcontent.cloud/2025/05/26/01/20250526010304-97N5GZI2.json"
+          allow="microphone; camera">
+        </iframe>
+      </div>
+
+      <div class="comments-section">
+        <h3>Live Comments</h3>
+        <div class="comments-list" id="commentsList"></div>
+        <div class="comment-input">
+          <input type="text" id="commentName" placeholder="Your name (optional)">
+          <textarea id="commentInput" placeholder="Write your comment..."></textarea>
+          <button onclick="postComment()">Send Comment</button>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      Created by: <strong>English Team</strong>
+    </footer>
+  </div>
 
   <script>
-    // Cargar nombre registrado si existe
+    // Verificar si ya hay un nombre registrado
     document.addEventListener('DOMContentLoaded', function() {
       const savedName = localStorage.getItem("userName");
       if (savedName) {
-        document.getElementById('commentName').value = savedName;
+        unlockApp(savedName);
       }
-      loadComments();
     });
 
     function registerUser() {
-      const name = prompt("Please enter your name:");
-      if (name) {
-        localStorage.setItem("userName", name);
-        document.getElementById('commentName').value = name;
-        alert("Thank you, " + name + "! Your name has been registered.");
+      const nameInput = document.getElementById('userNameInput');
+      const name = nameInput.value.trim();
+      
+      if (!name) {
+        alert("Please enter your name to continue.");
+        return;
       }
+      
+      localStorage.setItem("userName", name);
+      unlockApp(name);
+    }
+
+    function unlockApp(name) {
+      // Ocultar pantalla de bloqueo
+      document.getElementById('lockScreen').style.display = 'none';
+      
+      // Mostrar contenido principal
+      document.getElementById('mainContent').style.display = 'block';
+      
+      // Establecer nombre de bienvenida
+      document.getElementById('welcomeUserName').textContent = name;
+      
+      // Establecer nombre predeterminado en comentarios
+      document.getElementById('commentName').value = name;
+      
+      // Cargar comentarios
+      loadComments();
     }
 
     // Sistema de comentarios
@@ -346,6 +390,13 @@
       commentInput.value = ''; // Limpiar el textarea
       commentInput.focus(); // Volver al campo de comentario
     }
+
+    // Permitir usar Enter en el campo de nombre
+    document.getElementById('userNameInput').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        registerUser();
+      }
+    });
   </script>
 
 </body>
