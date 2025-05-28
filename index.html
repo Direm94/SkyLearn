@@ -21,20 +21,6 @@
       text-align: center;
     }
 
-    .logo-container {
-      display: flex;
-      justify-content: center;
-      gap: 40px;
-      flex-wrap: wrap;
-      margin-top: 30px;
-    }
-
-    .logo-container img {
-      width: 300px;
-      height: auto;
-      max-width: 90vw;
-    }
-
     h1 {
       margin: 30px 0 20px;
       font-size: 2.2rem;
@@ -43,17 +29,32 @@
       border-radius: 12px;
     }
 
+    .main-content {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 40px;
+      flex-wrap: wrap;
+      padding: 20px;
+    }
+
+    .main-content img {
+      width: 300px;
+      height: auto;
+      max-width: 90vw;
+    }
+
     iframe {
       border: none;
       width: 100%;
-      max-width: 420px;
-      height: 620px;
+      max-width: 600px;
+      height: 700px;
       border-radius: 10px;
       background: white;
-      margin: 20px 0 40px;
     }
 
     footer {
+      margin-top: 30px;
       padding: 15px;
       background-color: rgba(0, 0, 0, 0.4);
       width: 100%;
@@ -64,19 +65,21 @@
 </head>
 <body>
 
-  <!-- Logos centrados -->
-  <div class="logo-container">
-    <img src="https://i.postimg.cc/GpkMdTmx/is.png" alt="Logo 1">
-    <img src="https://i.postimg.cc/8C5rrQH2/logo-2.png" alt="Logo 2">
-  </div>
-
   <h1>Welcome to English Chatbot</h1>
 
-  <!-- Chatbot embebido -->
-  <iframe 
-    src="https://cdn.botpress.cloud/webchat/v2.4/shareable.html?configUrl=https://files.bpcontent.cloud/2025/05/26/01/20250526010304-97N5GZI2.json"
-    allow="microphone; camera">
-  </iframe>
+  <div class="main-content">
+    <!-- Logo izquierdo -->
+    <img src="https://i.postimg.cc/GpkMdTmx/is.png" alt="Logo Izquierdo">
+
+    <!-- Chatbot embebido al centro -->
+    <iframe 
+      src="https://cdn.botpress.cloud/webchat/v2.4/shareable.html?configUrl=https://files.bpcontent.cloud/2025/05/26/01/20250526010304-97N5GZI2.json"
+      allow="microphone; camera">
+    </iframe>
+
+    <!-- Logo derecho -->
+    <img src="https://i.postimg.cc/8C5rrQH2/logo-2.png" alt="Logo Derecho">
+  </div>
 
   <footer>
     Created by: <strong>English Team</strong>
