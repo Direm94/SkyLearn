@@ -12,47 +12,58 @@
       background-image: url('https://i.postimg.cc/vmNxrq2c/fondo-web.png');
       background-size: cover;
       background-position: center;
-      background-repeat: no-repeat;
       color: #fff;
-      min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
+      min-height: 100vh;
     }
 
-    .main-content {
+    .top-container {
       display: flex;
+      justify-content: space-between;
       align-items: center;
-      justify-content: center;
-      gap: 30px;
-      margin: 40px 0;
-      flex-wrap: nowrap;
+      width: 90%;
+      max-width: 1200px;
+      padding: 20px;
     }
 
-    .logo {
+    .top-container img {
       width: 300px;
       height: auto;
     }
 
-    .chatbox {
+    .center-content {
       text-align: center;
     }
 
     h1 {
-      font-size: 2.2rem;
-      background: rgba(0, 0, 0, 0.6);
-      padding: 12px 24px;
-      border-radius: 12px;
+      margin-top: 0;
+      font-size: 2rem;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 10px 20px;
+      border-radius: 10px;
       margin-bottom: 20px;
     }
 
     iframe {
       border: none;
       width: 100%;
-      max-width: 600px;
-      height: 700px;
+      max-width: 400px;
+      height: 600px;
       border-radius: 10px;
       background: white;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      background-color: #007bff;
+      color: white;
+      cursor: pointer;
     }
 
     footer {
@@ -61,41 +72,44 @@
       background-color: rgba(0, 0, 0, 0.4);
       width: 100%;
       text-align: center;
-      font-size: 1rem;
-    }
-
-    @media (max-width: 1024px) {
-      .main-content {
-        flex-direction: column;
-      }
-      .logo {
-        width: 200px;
-      }
+      font-size: 0.9rem;
     }
   </style>
 </head>
 <body>
 
-  <div class="main-content">
+  <div class="top-container">
     <!-- Logo izquierdo -->
-    <img src="https://i.postimg.cc/GpkMdTmx/is.png" alt="Logo izquierdo" class="logo">
-
-    <!-- Chat al centro -->
-    <div class="chatbox">
-      <h1>Welcome to English Chatbot</h1>
-      <iframe 
-        src="https://cdn.botpress.cloud/webchat/v2.4/shareable.html?configUrl=https://files.bpcontent.cloud/2025/05/26/01/20250526010304-97N5GZI2.json"
-        allow="microphone; camera">
-      </iframe>
-    </div>
-
+    <img src="https://i.postimg.cc/GpkMdTmx/is.png" alt="Logo 1">
+    
     <!-- Logo derecho -->
-    <img src="https://i.postimg.cc/8C5rrQH2/logo-2.png" alt="Logo derecho" class="logo">
+    <img src="https://i.postimg.cc/8C5rrQH2/logo-2.png" alt="Logo 2">
+  </div>
+
+  <div class="center-content">
+    <h1>Welcome to English Chatbot</h1>
+
+    <!-- Chatbot embebido -->
+    <iframe 
+      id="bp-webchat"
+      src="https://cdn.botpress.cloud/webchat/v2.4/shareable.html?configUrl=https://files.bpcontent.cloud/2025/05/26/01/20250526010304-97N5GZI2.json"
+      allow="microphone; camera">
+    </iframe>
+
+    <!-- Botón de reiniciar -->
+    <button onclick="limpiarChat()">Reiniciar Chat</button>
   </div>
 
   <footer>
-    Created by: <strong>English Team</strong>
+    Created by: <strong>[English Team]</strong>
   </footer>
 
+  <!-- Script para reiniciar el chat -->
+  <script>
+    function limpiarChat() {
+      const iframe = document.getElementById('bp-webchat');
+      iframe.contentWindow.postMessage({ type: "event", event: { type: "reset" } }, "*");
+    }
+  </script>
 </body>
 </html>
