@@ -20,29 +20,115 @@
       overflow-x: hidden;
     }
 
-    .main-container {
+    /* Pantalla de bloqueo */
+    .lock-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
-      width: 90%;
-      max-width: 1200px;
-      margin: 20px auto; /* Centrar en la página */
+      z-index: 1000;
     }
 
-    .chatbot-column, .comments-section {
+    .lock-screen-content {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 30px;
+      border-radius: 10px;
+      text-align: center;
+      max-width: 400px;
+      width: 90%;
+      color: #333;
+    }
+
+    .lock-screen h2 {
+      margin-top: 0;
+      color: #0056b3;
+    }
+
+    .lock-screen input {
+      width: 100%;
+      padding: 12px;
+      margin: 15px 0;
+      border: 2px solid #0056b3;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+
+    .lock-screen button {
+      background-color: #0056b3;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background-color 0.3s;
+    }
+
+    .lock-screen button:hover {
+      background-color: #003d80;
+    }
+
+    /* Contenido principal (oculto inicialmente) */
+    .main-content {
+      display: none;
+      width: 100%;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      width: 90%;
+      max-width: 1200px;
+      padding: 20px 0;
+    }
+
+    header img {
+      height: 80px;
+      width: auto;
+    }
+
+    h1 {
+      margin: 10px 0;
+      font-size: 2rem;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 10px 20px;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    .main-container {
+      display: flex;
+      gap: 20px;
+      width: 90%;
+      max-width: 1200px;
+      justify-content: center;
+      margin: 20px 0;
+    }
+
+    .chatbot-column {
       display: flex;
       flex-direction: column;
       align-items: center;
+      flex: 1;
+      min-width: 0;
     }
 
     iframe {
       border: none;
-      width: 450px;
+      width: 100%;
+      min-width: 450px;
       height: 650px;
       border-radius: 10px;
       background: white;
     }
 
+    /* Estilos para la sección de comentarios */
     .comments-section {
       width: 250px;
       background: rgba(0, 0, 0, 0.5);
@@ -51,10 +137,10 @@
       height: 650px;
       display: flex;
       flex-direction: column;
-      align-items: center;
     }
 
     .comments-section h3 {
+      margin-top: 0;
       text-align: center;
       border-bottom: 1px solid rgba(255, 255, 255, 0.2);
       padding-bottom: 10px;
@@ -67,9 +153,86 @@
       padding-right: 5px;
     }
 
+    .comment {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 5px;
+      padding: 8px;
+      margin-bottom: 10px;
+      font-size: 0.9rem;
+    }
+
+    .comment strong {
+      color: #4CAF50;
+    }
+
+    .comment small {
+      display: block;
+      font-size: 0.7rem;
+      color: #aaa;
+      margin-top: 3px;
+    }
+
+    .comment-input {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .comment-input input,
+    .comment-input textarea {
+      margin-bottom: 10px;
+      padding: 8px;
+      border-radius: 5px;
+      border: none;
+      background: rgba(255, 255, 255, 0.9);
+      font-size: 0.9rem;
+    }
+
+    .comment-input textarea {
+      resize: none;
+      height: 60px;
+    }
+
+    .comment-input button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 8px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .comment-input button:hover {
+      background-color: #3e8e41;
+    }
+
+    footer {
+      margin-top: auto;
+      padding: 20px;
+      background-color: rgba(0, 0, 0, 0.4);
+      width: 100%;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+
+    /* Scrollbar personalizada */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.2);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 3px;
+    }
+
     @media (max-width: 900px) {
       .main-container {
         flex-direction: column;
+        align-items: center;
       }
       
       .comments-section {
@@ -81,15 +244,31 @@
 
       iframe {
         height: 600px;
-        width: 100%;
+        min-width: 100%;
       }
     }
   </style>
 </head>
 <body>
 
-  <div class="main-content">
-    <h1>Welcome to English Chatbot</h1>
+  <!-- Pantalla de bloqueo para ingresar nombre -->
+  <div class="lock-screen" id="lockScreen">
+    <div class="lock-screen-content">
+      <h2>Welcome to English Chatbot</h2>
+      <p>Please enter your name to continue:</p>
+      <input type="text" id="userNameInput" placeholder="Your name" autofocus>
+      <button onclick="registerUser()">Continue</button>
+    </div>
+  </div>
+
+  <!-- Contenido principal (visible después de ingresar nombre) -->
+  <div class="main-content" id="mainContent">
+    <header>
+      <img src="https://i.postimg.cc/GpkMdTmx/is.png" alt="Left Logo">
+      <img src="https://i.postimg.cc/8C5rrQH2/logo-2.png" alt="Right Logo">
+    </header>
+
+    <h1>Welcome, <span id="welcomeUserName"></span>!</h1>
 
     <div class="main-container">
       <div class="chatbot-column">
@@ -117,6 +296,73 @@
   </div>
 
   <script>
+    // Verificar si ya hay un nombre registrado
+    document.addEventListener('DOMContentLoaded', function() {
+      const savedName = localStorage.getItem("userName");
+      if (savedName) {
+        unlockApp(savedName);
+      }
+    });
+
+    function registerUser() {
+      const nameInput = document.getElementById('userNameInput');
+      const name = nameInput.value.trim();
+      
+      if (!name) {
+        alert("Please enter your name to continue.");
+        return;
+      }
+      
+      localStorage.setItem("userName", name);
+      unlockApp(name);
+    }
+
+    function unlockApp(name) {
+      // Ocultar pantalla de bloqueo
+      document.getElementById('lockScreen').style.display = 'none';
+      
+      // Mostrar contenido principal
+      document.getElementById('mainContent').style.display = 'block';
+      
+      // Establecer nombre de bienvenida
+      document.getElementById('welcomeUserName').textContent = name;
+      
+      // Establecer nombre predeterminado en comentarios
+      document.getElementById('commentName').value = name;
+      
+      // Cargar comentarios
+      loadComments();
+    }
+
+    // Sistema de comentarios
+    function loadComments() {
+      const commentsList = document.getElementById('commentsList');
+      commentsList.innerHTML = '';
+      let comments = JSON.parse(localStorage.getItem('chatbotComments')) || [];
+
+      // Filtrar comentarios mayores a 24 horas
+      const now = new Date();
+      comments = comments.filter(comment => {
+        const commentDate = new Date(comment.timestamp);
+        return (now - commentDate) < 24 * 60 * 60 * 1000; // 24 horas en ms
+      });
+
+      // Actualizar localStorage
+      localStorage.setItem('chatbotComments', JSON.stringify(comments));
+
+      // Mostrar comentarios (los más nuevos primero)
+      comments.reverse().forEach(comment => {
+        const commentDiv = document.createElement('div');
+        commentDiv.className = 'comment';
+        commentDiv.innerHTML = `
+          <strong>${comment.user}:</strong> 
+          <span>${comment.text}</span>
+          <small>${new Date(comment.timestamp).toLocaleString()}</small>
+        `;
+        commentsList.appendChild(commentDiv);
+      });
+    }
+
     function postComment() {
       const userInput = document.getElementById('commentName');
       const commentInput = document.getElementById('commentInput');
@@ -128,6 +374,7 @@
         return;
       }
 
+      // Guardar comentario
       const comment = {
         user,
         text,
@@ -138,8 +385,18 @@
       comments.push(comment);
       localStorage.setItem('chatbotComments', JSON.stringify(comments));
 
-      commentInput.value = '';
+      // Recargar comentarios
+      loadComments();
+      commentInput.value = ''; // Limpiar el textarea
+      commentInput.focus(); // Volver al campo de comentario
     }
+
+    // Permitir usar Enter en el campo de nombre
+    document.getElementById('userNameInput').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        registerUser();
+      }
+    });
   </script>
 
 </body>
