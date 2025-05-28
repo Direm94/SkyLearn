@@ -39,6 +39,20 @@
       border-radius: 10px;
     }
 
+    .main-container {
+      display: flex;
+      gap: 30px;
+      width: 90%;
+      max-width: 1200px;
+      justify-content: center;
+    }
+
+    .chatbot-column {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
     iframe {
       border: none;
       width: 100%;
@@ -62,10 +76,87 @@
       background-color: #0056b3;
       color: white;
       cursor: pointer;
+      transition: background-color 0.3s;
     }
 
     .button-group button:hover {
       background-color: #003d80;
+    }
+
+    /* Estilos para la sección de comentarios */
+    .comments-section {
+      width: 300px;
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 10px;
+      padding: 15px;
+      height: 600px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .comments-section h3 {
+      margin-top: 0;
+      text-align: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      padding-bottom: 10px;
+    }
+
+    .comments-list {
+      flex-grow: 1;
+      overflow-y: auto;
+      margin-bottom: 15px;
+      padding-right: 5px;
+    }
+
+    .comment {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 5px;
+      padding: 8px;
+      margin-bottom: 10px;
+    }
+
+    .comment strong {
+      color: #4CAF50;
+    }
+
+    .comment small {
+      display: block;
+      font-size: 0.7rem;
+      color: #aaa;
+      margin-top: 3px;
+    }
+
+    .comment-input {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .comment-input input,
+    .comment-input textarea {
+      margin-bottom: 10px;
+      padding: 8px;
+      border-radius: 5px;
+      border: none;
+      background: rgba(255, 255, 255, 0.9);
+    }
+
+    .comment-input textarea {
+      resize: none;
+      height: 60px;
+    }
+
+    .comment-input button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 8px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .comment-input button:hover {
+      background-color: #3e8e41;
     }
 
     footer {
@@ -75,6 +166,33 @@
       width: 100%;
       text-align: center;
       font-size: 0.9rem;
+    }
+
+    /* Scrollbar personalizada */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.2);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 3px;
+    }
+
+    @media (max-width: 900px) {
+      .main-container {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .comments-section {
+        width: 100%;
+        max-width: 400px;
+        margin-top: 20px;
+      }
     }
   </style>
 </head>
@@ -87,28 +205,109 @@
 
   <h1>Welcome to English Chatbot</h1>
 
-  <div class="button-group">
-    <button onclick="window.open('https://forms.gle/your_google_form_url', '_blank')">Leave Feedback</button>
-    <button onclick="registerUser()">Register Name</button>
-  </div>
+  <div class="main-container">
+    <div class="chatbot-column">
+      <div class="button-group">
+        <button onclick="window.open('https://forms.gle/your_google_form_url', '_blank')">Leave Feedback</button>
+        <button onclick="registerUser()">Register Name</button>
+      </div>
 
-  <iframe 
-    id="chatbotFrame"
-    src="https://cdn.botpress.cloud/webchat/v2.4/shareable.html?configUrl=https://files.bpcontent.cloud/2025/05/26/01/20250526010304-97N5GZI2.json"
-    allow="microphone; camera">
-  </iframe>
+      <iframe 
+        id="chatbotFrame"
+        src="https://cdn.botpress.cloud/webchat/v2.4/shareable.html?configUrl=https://files.bpcontent.cloud/2025/05/26/01/20250526010304-97N5GZI2.json"
+        allow="microphone; camera">
+      </iframe>
+    </div>
+
+    <div class="comments-section">
+      <h3>Live Comments</h3>
+      <div class="comments-list" id="commentsList"></div>
+      <div class="comment-input">
+        <input type="text" id="commentName" placeholder="Your name (optional)" value="Anonymous">
+        <textarea id="commentInput" placeholder="Write your comment..."></textarea>
+        <button onclick="postComment()">Send Comment</button>
+      </div>
+    </div>
+  </div>
 
   <footer>
     Created by: <strong>English Team</strong>
   </footer>
 
   <script>
+    // Cargar nombre registrado si existe
+    document.addEventListener('DOMContentLoaded', function() {
+      const savedName = localStorage.getItem("userName");
+      if (savedName) {
+        document.getElementById('commentName').value = savedName;
+      }
+      loadComments();
+    });
+
     function registerUser() {
       const name = prompt("Please enter your name:");
       if (name) {
         localStorage.setItem("userName", name);
+        document.getElementById('commentName').value = name;
         alert("Thank you, " + name + "! Your name has been registered.");
       }
+    }
+
+    // Sistema de comentarios
+    function loadComments() {
+      const commentsList = document.getElementById('commentsList');
+      commentsList.innerHTML = '';
+      let comments = JSON.parse(localStorage.getItem('chatbotComments')) || [];
+
+      // Filtrar comentarios mayores a 24 horas
+      const now = new Date();
+      comments = comments.filter(comment => {
+        const commentDate = new Date(comment.timestamp);
+        return (now - commentDate) < 24 * 60 * 60 * 1000; // 24 horas en ms
+      });
+
+      // Actualizar localStorage
+      localStorage.setItem('chatbotComments', JSON.stringify(comments));
+
+      // Mostrar comentarios (los más nuevos primero)
+      comments.reverse().forEach(comment => {
+        const commentDiv = document.createElement('div');
+        commentDiv.className = 'comment';
+        commentDiv.innerHTML = `
+          <strong>${comment.user}:</strong> 
+          <span>${comment.text}</span>
+          <small>${new Date(comment.timestamp).toLocaleString()}</small>
+        `;
+        commentsList.appendChild(commentDiv);
+      });
+    }
+
+    function postComment() {
+      const userInput = document.getElementById('commentName');
+      const commentInput = document.getElementById('commentInput');
+      const user = userInput.value.trim() || 'Anonymous';
+      const text = commentInput.value.trim();
+
+      if (!text) {
+        alert("Please write a comment before sending.");
+        return;
+      }
+
+      // Guardar comentario
+      const comment = {
+        user,
+        text,
+        timestamp: new Date().toISOString()
+      };
+
+      let comments = JSON.parse(localStorage.getItem('chatbotComments')) || [];
+      comments.push(comment);
+      localStorage.setItem('chatbotComments', JSON.stringify(comments));
+
+      // Recargar comentarios
+      loadComments();
+      commentInput.value = ''; // Limpiar el textarea
+      commentInput.focus(); // Volver al campo de comentario
     }
   </script>
 
