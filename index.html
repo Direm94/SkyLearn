@@ -20,28 +20,30 @@
       align-items: center;
     }
 
-    h1 {
-      margin-top: 30px;
-      font-size: 2.2rem;
-      background: rgba(0, 0, 0, 0.6);
-      padding: 12px 24px;
-      border-radius: 12px;
-      text-align: center;
-    }
-
-    .chat-container {
+    .main-content {
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 30px;
-      margin: 40px 20px;
-      flex-wrap: wrap;
+      margin: 40px 0;
+      flex-wrap: nowrap;
     }
 
-    .chat-container img {
+    .logo {
       width: 300px;
       height: auto;
-      max-width: 90vw;
+    }
+
+    .chatbox {
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 12px 24px;
+      border-radius: 12px;
+      margin-bottom: 20px;
     }
 
     iframe {
@@ -60,32 +62,35 @@
       width: 100%;
       text-align: center;
       font-size: 1rem;
-      color: #fff;
     }
 
-    @media (max-width: 1000px) {
-      .chat-container {
+    @media (max-width: 1024px) {
+      .main-content {
         flex-direction: column;
+      }
+      .logo {
+        width: 200px;
       }
     }
   </style>
 </head>
 <body>
 
-  <h1>Welcome to English Chatbot</h1>
-
-  <div class="chat-container">
+  <div class="main-content">
     <!-- Logo izquierdo -->
-    <img src="https://i.postimg.cc/GpkMdTmx/is.png" alt="Logo izquierdo">
+    <img src="https://i.postimg.cc/GpkMdTmx/is.png" alt="Logo izquierdo" class="logo">
 
-    <!-- Chatbot embebido al centro -->
-    <iframe 
-      src="https://cdn.botpress.cloud/webchat/v2.4/shareable.html?configUrl=https://files.bpcontent.cloud/2025/05/26/01/20250526010304-97N5GZI2.json"
-      allow="microphone; camera">
-    </iframe>
+    <!-- Chat al centro -->
+    <div class="chatbox">
+      <h1>Welcome to English Chatbot</h1>
+      <iframe 
+        src="https://cdn.botpress.cloud/webchat/v2.4/shareable.html?configUrl=https://files.bpcontent.cloud/2025/05/26/01/20250526010304-97N5GZI2.json"
+        allow="microphone; camera">
+      </iframe>
+    </div>
 
     <!-- Logo derecho -->
-    <img src="https://i.postimg.cc/8C5rrQH2/logo-2.png" alt="Logo derecho">
+    <img src="https://i.postimg.cc/8C5rrQH2/logo-2.png" alt="Logo derecho" class="logo">
   </div>
 
   <footer>
