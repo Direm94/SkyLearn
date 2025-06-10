@@ -4,27 +4,64 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>School Chatbot Ilimitado</title>
-  <!-- Firebase -->
-  <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore-compat.js"></script>
+  
+  <!-- Botpress v3 CSS y Script -->
+  <script src="https://cdn.botpress.cloud/webchat/v3.0/inject.js"></script>
   <style>
-    /* [Pega aquí TODO el CSS de tu código original] */
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-image: url('https://i.postimg.cc/vmNxrq2c/fondo-web.png');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Estilos específicos para Botpress v3 */
+    #webchat .bpWebchat {
+      position: unset;
+      width: 100%;
+      height: 100%;
+      max-height: 100%;
+      max-width: 100%;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    #webchat .bpFab {
+      display: none;
+    }
+
+    /* [MANTÉN TODOS TUS ESTILOS ORIGINALES AQUÍ] */
+    .lock-screen { /* ... */ }
+    .main-content { /* ... */ }
+    /* ... resto de tus estilos CSS ... */
   </style>
 </head>
 <body>
 
-  <!-- Pantalla de bloqueo -->
+  <!-- Pantalla de bloqueo para ingresar nombre -->
   <div class="lock-screen" id="lockScreen">
     <div class="lock-screen-content">
       <h2>Welcome to English Chatbot</h2>
-      <p>Please enter your name to start</p>
+      <p>Please enter your name to start your learning experience</p>
       <input type="text" id="userNameInput" placeholder="Your full name" autofocus>
-      <button onclick="registerUser()">Continue</button>
+      <button onclick="registerUser()">Continue to Chatbot</button>
     </div>
   </div>
 
   <!-- Contenido principal -->
   <div class="main-content" id="mainContent">
+    <!-- Header con logos ordenados -->
     <div class="header-container">
       <img src="https://i.postimg.cc/GpkMdTmx/is.png" alt="Left Logo" class="header-logo">
       <div class="header-center">
@@ -33,14 +70,11 @@
       <img src="https://i.postimg.cc/8C5rrQH2/logo-2.png" alt="Right Logo" class="header-logo">
     </div>
 
+    <!-- Contenedor principal centrado -->
     <div class="main-container">
       <div class="chatbot-column">
-        <!-- Chatbot autoalojado -->
-        <iframe 
-          id="chatbotFrame"
-          src="https://TU-BOTPRESS-EN-RENDER.com/webchat/"
-          allow="microphone; camera">
-        </iframe>
+        <!-- Integración Botpress v3 -->
+        <div id="webchat" style="width: 100%; height: 650px;"></div>
       </div>
 
       <div class="comments-section">
@@ -55,29 +89,46 @@
     </div>
 
     <footer>
-      Created by: <strong>English Team</strong> | Chatbot 100% Ilimitado
+      Created by: <strong>English Team</strong> | Chatbot powered by Botpress
     </footer>
   </div>
 
+  <!-- Script de Botpress v3 -->
   <script>
-    // Configuración Firebase (Reemplaza con tus datos)
-    const firebaseConfig = {
-      apiKey: "AIzaSyABCDEFGHIJKLMNOPQRSTUVWXYZ12345678",
-      authDomain: "tuchatbot-ilimitado.firebaseapp.com",
-      projectId: "tuchatbot-ilimitado",
-      storageBucket: "tuchatbot-ilimitado.appspot.com",
-      messagingSenderId: "123456789012",
-      appId: "1:123456789012:web:abcdefghijklmnopqrstuv"
-    };
+    // Configuración de Botpress
+    window.botpress.on("webchat:ready", () => {
+      window.botpress.open();
+    });
+    
+    window.botpress.init({
+      "botId": "3283d4af-d2d1-4385-9ba6-408deb39f00d",
+      "configuration": {
+        "botName": "Docbot",
+        "botAvatar": "https://files.bpcontent.cloud/2025/05/26/01/20250526014406-PM266LHG.png",
+        "website": {},
+        "email": {},
+        "phone": {},
+        "termsOfService": {},
+        "privacyPolicy": {},
+        "color": "#5eb1ef",
+        "variant": "soft",
+        "themeMode": "light",
+        "fontFamily": "inter",
+        "radius": 1
+      },
+      "clientId": "740cc2d3-ee32-4fe5-922b-a2af61fa61b8",
+      "selector": "#webchat"
+    });
 
-    // Inicializar Firebase
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.firestore();
-
-    // Sistema de usuarios
+    // Sistema de usuarios y comentarios (Mantén tu código original)
     function registerUser() {
-      const name = document.getElementById('userNameInput').value.trim();
-      if (!name) return alert("Please enter your name");
+      const nameInput = document.getElementById('userNameInput');
+      const name = nameInput.value.trim();
+      
+      if (!name) {
+        alert("Please enter your name to continue.");
+        return;
+      }
       
       localStorage.setItem("userName", name);
       unlockApp(name);
@@ -91,48 +142,25 @@
       loadComments();
     }
 
-    // Comentarios con Firebase
-    function loadComments() {
-      db.collection("comments")
-        .orderBy("timestamp", "desc")
-        .limit(50)
-        .onSnapshot(snapshot => {
-          const commentsList = document.getElementById('commentsList');
-          commentsList.innerHTML = '';
-          
-          snapshot.forEach(doc => {
-            const comment = doc.data();
-            const commentDiv = document.createElement('div');
-            commentDiv.className = 'comment';
-            commentDiv.innerHTML = `
-              <strong>${comment.user}:</strong> 
-              <span>${comment.text}</span>
-              <small>${new Date(comment.timestamp?.toDate()).toLocaleString()}</small>
-            `;
-            commentsList.appendChild(commentDiv);
-          });
-        });
-    }
+    // [MANTÉN EL RESTO DE TUS FUNCIONES JAVASCRIPT ORIGINALES]
+  </script>
 
-    function postComment() {
-      const user = document.getElementById('commentName').value.trim() || 'Anonymous';
-      const text = document.getElementById('commentInput').value.trim();
-      if (!text) return;
-
-      db.collection("comments").add({
-        user,
-        text,
-        timestamp: firebase.firestore.FieldValue.serverTimestamp()
-      });
-
-      document.getElementById('commentInput').value = '';
-    }
-
-    // Inicialización
-    document.addEventListener('DOMContentLoaded', () => {
-      const savedName = localStorage.getItem("userName");
-      if (savedName) unlockApp(savedName);
-    });
+  <!-- Firebase (opcional, para comentarios persistentes) -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore-compat.js"></script>
+  <script>
+    // Configura Firebase si lo necesitas
+    const firebaseConfig = {
+      apiKey: "TU_API_KEY",
+      authDomain: "TU_PROYECTO.firebaseapp.com",
+      projectId: "TU_PROYECTO",
+      storageBucket: "TU_PROYECTO.appspot.com",
+      messagingSenderId: "TU_SENDER_ID",
+      appId: "TU_APP_ID"
+    };
+    
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
   </script>
 </body>
 </html>
