@@ -3,350 +3,28 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>School Chatbot</title>
+  <title>School Chatbot Ilimitado</title>
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore-compat.js"></script>
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-image: url('https://i.postimg.cc/vmNxrq2c/fondo-web.png');
-      background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
-      color: #fff;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-
-    /* Pantalla de bloqueo */
-    .lock-screen {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.85);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-      text-align: center;
-      padding: 20px;
-    }
-
-    .lock-screen-content {
-      background: linear-gradient(135deg, #1a2a6c, #b21f1f, #1a2a6c);
-      padding: 40px;
-      border-radius: 15px;
-      text-align: center;
-      max-width: 500px;
-      width: 90%;
-      color: white;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    }
-
-    .lock-screen h2 {
-      margin-top: 0;
-      font-size: 2.2rem;
-      margin-bottom: 10px;
-      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-    }
-
-    .lock-screen p {
-      font-size: 1.1rem;
-      margin-bottom: 25px;
-    }
-
-    .lock-screen input {
-      width: 100%;
-      padding: 15px;
-      margin: 15px 0;
-      border: none;
-      border-radius: 8px;
-      font-size: 1.1rem;
-      background: rgba(255, 255, 255, 0.9);
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-
-    .lock-screen button {
-      background: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
-      color: white;
-      border: none;
-      padding: 15px 30px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 1.1rem;
-      font-weight: bold;
-      transition: all 0.3s ease;
-      margin-top: 10px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    }
-
-    .lock-screen button:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-      background: linear-gradient(to right, #3a7bd5 0%, #00d2ff 100%);
-    }
-
-    /* Contenido principal */
-    .main-content {
-      display: none;
-      width: 100%;
-      max-width: 1300px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-
-    /* Header centrado con logos */
-    .header-container {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      width: 100%;
-      margin-bottom: 20px;
-    }
-
-    .header-logo {
-      height: 90px;
-      width: auto;
-      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
-    }
-
-    .header-center {
-      text-align: center;
-      flex-grow: 1;
-    }
-
-    .welcome-title {
-      font-size: 2.2rem;
-      background: rgba(0, 0, 0, 0.6);
-      padding: 15px 30px;
-      border-radius: 12px;
-      display: inline-block;
-      margin: 0;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-      border: 2px solid rgba(255, 255, 255, 0.2);
-    }
-
-    .welcome-title span {
-      color: #4facfe;
-      text-shadow: 0 0 10px rgba(79, 172, 254, 0.7);
-    }
-
-    /* Contenedor principal centrado */
-    .main-container {
-      display: flex;
-      justify-content: center;
-      gap: 30px;
-      margin: 20px 0;
-    }
-
-    .chatbot-column {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      flex: 1;
-      max-width: 500px;
-    }
-
-    iframe {
-      border: none;
-      width: 100%;
-      height: 650px;
-      border-radius: 15px;
-      background: white;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-    }
-
-    /* Estilos para la sección de comentarios */
-    .comments-section {
-      width: 300px;
-      background: rgba(0, 0, 0, 0.6);
-      border-radius: 15px;
-      padding: 20px;
-      height: 650px;
-      display: flex;
-      flex-direction: column;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .comments-section h3 {
-      margin-top: 0;
-      text-align: center;
-      padding-bottom: 15px;
-      border-bottom: 2px solid rgba(255, 255, 255, 0.2);
-      font-size: 1.5rem;
-      color: #4facfe;
-    }
-
-    .comments-list {
-      flex-grow: 1;
-      overflow-y: auto;
-      margin-bottom: 20px;
-      padding-right: 10px;
-    }
-
-    .comment {
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 8px;
-      padding: 12px;
-      margin-bottom: 15px;
-      font-size: 0.95rem;
-      border-left: 3px solid #4facfe;
-      transition: transform 0.3s ease;
-    }
-
-    .comment:hover {
-      transform: translateX(5px);
-      background: rgba(255, 255, 255, 0.15);
-    }
-
-    .comment strong {
-      color: #4facfe;
-    }
-
-    .comment small {
-      display: block;
-      font-size: 0.75rem;
-      color: #aaa;
-      margin-top: 5px;
-    }
-
-    .comment-input {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .comment-input input,
-    .comment-input textarea {
-      margin-bottom: 15px;
-      padding: 12px;
-      border-radius: 8px;
-      border: none;
-      background: rgba(255, 255, 255, 0.9);
-      font-size: 1rem;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    }
-
-    .comment-input textarea {
-      resize: none;
-      height: 80px;
-    }
-
-    .comment-input button {
-      background: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
-      color: white;
-      border: none;
-      padding: 12px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 1rem;
-      font-weight: bold;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    }
-
-    .comment-input button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
-      background: linear-gradient(to right, #3a7bd5 0%, #00d2ff 100%);
-    }
-
-    footer {
-      margin-top: auto;
-      padding: 20px;
-      background-color: rgba(0, 0, 0, 0.5);
-      width: 100%;
-      text-align: center;
-      font-size: 1rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    /* Scrollbar personalizada */
-    ::-webkit-scrollbar {
-      width: 8px;
-    }
-
-    ::-webkit-scrollbar-track {
-      background: rgba(0, 0, 0, 0.2);
-      border-radius: 4px;
-    }
-
-    ::-webkit-scrollbar-thumb {
-      background: linear-gradient(to bottom, #4facfe, #00f2fe);
-      border-radius: 4px;
-    }
-
-    /* Responsive */
-    @media (max-width: 1100px) {
-      .main-container {
-        flex-direction: column;
-        align-items: center;
-      }
-      
-      .comments-section {
-        width: 100%;
-        max-width: 500px;
-        margin-top: 30px;
-        height: 500px;
-      }
-      
-      .header-container {
-        flex-direction: column;
-        gap: 15px;
-      }
-      
-      .header-logo {
-        height: 70px;
-      }
-    }
-
-    @media (max-width: 600px) {
-      .lock-screen-content {
-        padding: 30px 20px;
-      }
-      
-      .lock-screen h2 {
-        font-size: 1.8rem;
-      }
-      
-      .welcome-title {
-        font-size: 1.8rem;
-        padding: 12px 20px;
-      }
-      
-      iframe {
-        height: 550px;
-      }
-      
-      .comments-section {
-        height: 450px;
-      }
-    }
+    /* [Pega aquí TODO el CSS de tu código original] */
   </style>
 </head>
 <body>
 
-  <!-- Pantalla de bloqueo para ingresar nombre -->
+  <!-- Pantalla de bloqueo -->
   <div class="lock-screen" id="lockScreen">
     <div class="lock-screen-content">
       <h2>Welcome to English Chatbot</h2>
-      <p>Please enter your name to start your learning experience</p>
+      <p>Please enter your name to start</p>
       <input type="text" id="userNameInput" placeholder="Your full name" autofocus>
-      <button onclick="registerUser()">Continue to Chatbot</button>
+      <button onclick="registerUser()">Continue</button>
     </div>
   </div>
 
   <!-- Contenido principal -->
   <div class="main-content" id="mainContent">
-    <!-- Header con logos ordenados -->
     <div class="header-container">
       <img src="https://i.postimg.cc/GpkMdTmx/is.png" alt="Left Logo" class="header-logo">
       <div class="header-center">
@@ -355,12 +33,12 @@
       <img src="https://i.postimg.cc/8C5rrQH2/logo-2.png" alt="Right Logo" class="header-logo">
     </div>
 
-    <!-- Contenedor principal centrado -->
     <div class="main-container">
       <div class="chatbot-column">
+        <!-- Chatbot autoalojado -->
         <iframe 
           id="chatbotFrame"
-          src="https://cdn.botpress.cloud/webchat/v2.4/shareable.html?configUrl=https://files.bpcontent.cloud/2025/05/26/01/20250526010304-97N5GZI2.json"
+          src="https://TU-BOTPRESS-EN-RENDER.com/webchat/"
           allow="microphone; camera">
         </iframe>
       </div>
@@ -377,116 +55,84 @@
     </div>
 
     <footer>
-      Created by: <strong>English Team</strong> | Comments are automatically deleted after 24 hours
+      Created by: <strong>English Team</strong> | Chatbot 100% Ilimitado
     </footer>
   </div>
 
   <script>
-    // Verificar si ya hay un nombre registrado
-    document.addEventListener('DOMContentLoaded', function() {
-      const savedName = localStorage.getItem("userName");
-      if (savedName) {
-        unlockApp(savedName);
-      }
-    });
+    // Configuración Firebase (Reemplaza con tus datos)
+    const firebaseConfig = {
+      apiKey: "AIzaSyABCDEFGHIJKLMNOPQRSTUVWXYZ12345678",
+      authDomain: "tuchatbot-ilimitado.firebaseapp.com",
+      projectId: "tuchatbot-ilimitado",
+      storageBucket: "tuchatbot-ilimitado.appspot.com",
+      messagingSenderId: "123456789012",
+      appId: "1:123456789012:web:abcdefghijklmnopqrstuv"
+    };
 
+    // Inicializar Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    // Sistema de usuarios
     function registerUser() {
-      const nameInput = document.getElementById('userNameInput');
-      const name = nameInput.value.trim();
-      
-      if (!name) {
-        alert("Please enter your name to continue.");
-        return;
-      }
+      const name = document.getElementById('userNameInput').value.trim();
+      if (!name) return alert("Please enter your name");
       
       localStorage.setItem("userName", name);
       unlockApp(name);
     }
 
     function unlockApp(name) {
-      // Ocultar pantalla de bloqueo
       document.getElementById('lockScreen').style.display = 'none';
-      
-      // Mostrar contenido principal
       document.getElementById('mainContent').style.display = 'block';
-      
-      // Establecer nombre de bienvenida
       document.getElementById('welcomeUserName').textContent = name;
-      
-      // Establecer nombre predeterminado en comentarios
       document.getElementById('commentName').value = name;
-      
-      // Cargar comentarios
       loadComments();
     }
 
-    // Sistema de comentarios
+    // Comentarios con Firebase
     function loadComments() {
-      const commentsList = document.getElementById('commentsList');
-      commentsList.innerHTML = '';
-      let comments = JSON.parse(localStorage.getItem('chatbotComments')) || [];
-
-      // Filtrar comentarios mayores a 24 horas
-      const now = new Date();
-      comments = comments.filter(comment => {
-        const commentDate = new Date(comment.timestamp);
-        return (now - commentDate) < 24 * 60 * 60 * 1000; // 24 horas en ms
-      });
-
-      // Actualizar localStorage
-      localStorage.setItem('chatbotComments', JSON.stringify(comments));
-
-      // Mostrar comentarios (los más nuevos primero)
-      comments.reverse().forEach(comment => {
-        const commentDiv = document.createElement('div');
-        commentDiv.className = 'comment';
-        commentDiv.innerHTML = `
-          <strong>${comment.user}:</strong> 
-          <span>${comment.text}</span>
-          <small>Posted at ${new Date(comment.timestamp).toLocaleTimeString()}</small>
-        `;
-        commentsList.appendChild(commentDiv);
-      });
-      
-      // Scroll al final de los comentarios
-      commentsList.scrollTop = commentsList.scrollHeight;
+      db.collection("comments")
+        .orderBy("timestamp", "desc")
+        .limit(50)
+        .onSnapshot(snapshot => {
+          const commentsList = document.getElementById('commentsList');
+          commentsList.innerHTML = '';
+          
+          snapshot.forEach(doc => {
+            const comment = doc.data();
+            const commentDiv = document.createElement('div');
+            commentDiv.className = 'comment';
+            commentDiv.innerHTML = `
+              <strong>${comment.user}:</strong> 
+              <span>${comment.text}</span>
+              <small>${new Date(comment.timestamp?.toDate()).toLocaleString()}</small>
+            `;
+            commentsList.appendChild(commentDiv);
+          });
+        });
     }
 
     function postComment() {
-      const userInput = document.getElementById('commentName');
-      const commentInput = document.getElementById('commentInput');
-      const user = userInput.value.trim() || 'Anonymous';
-      const text = commentInput.value.trim();
+      const user = document.getElementById('commentName').value.trim() || 'Anonymous';
+      const text = document.getElementById('commentInput').value.trim();
+      if (!text) return;
 
-      if (!text) {
-        alert("Please write a comment before sending.");
-        return;
-      }
-
-      // Guardar comentario
-      const comment = {
+      db.collection("comments").add({
         user,
         text,
-        timestamp: new Date().toISOString()
-      };
+        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+      });
 
-      let comments = JSON.parse(localStorage.getItem('chatbotComments')) || [];
-      comments.push(comment);
-      localStorage.setItem('chatbotComments', JSON.stringify(comments));
-
-      // Recargar comentarios
-      loadComments();
-      commentInput.value = ''; // Limpiar el textarea
-      commentInput.focus(); // Volver al campo de comentario
+      document.getElementById('commentInput').value = '';
     }
 
-    // Permitir usar Enter en el campo de nombre
-    document.getElementById('userNameInput').addEventListener('keypress', function(e) {
-      if (e.key === 'Enter') {
-        registerUser();
-      }
+    // Inicialización
+    document.addEventListener('DOMContentLoaded', () => {
+      const savedName = localStorage.getItem("userName");
+      if (savedName) unlockApp(savedName);
     });
   </script>
-
 </body>
 </html>
