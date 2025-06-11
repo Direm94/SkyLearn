@@ -3,10 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>School Chatbot Ilimitado</title>
-  
-  <!-- Botpress v3 CSS y Script -->
-  <script src="https://cdn.botpress.cloud/webchat/v3.0/inject.js"></script>
+  <title>School Chatbot</title>
   <style>
     * {
       box-sizing: border-box;
@@ -26,25 +23,313 @@
       overflow-x: hidden;
     }
 
-    /* Estilos específicos para Botpress v3 */
-    #webchat .bpWebchat {
-      position: unset;
+    /* Pantalla de bloqueo */
+    .lock-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
-      max-height: 100%;
-      max-width: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .lock-screen-content {
+      background: linear-gradient(135deg, #1a2a6c, #b21f1f, #1a2a6c);
+      padding: 40px;
       border-radius: 15px;
+      text-align: center;
+      max-width: 500px;
+      width: 90%;
+      color: white;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .lock-screen h2 {
+      margin-top: 0;
+      font-size: 2.2rem;
+      margin-bottom: 10px;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .lock-screen p {
+      font-size: 1.1rem;
+      margin-bottom: 25px;
+    }
+
+    .lock-screen input {
+      width: 100%;
+      padding: 15px;
+      margin: 15px 0;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      background: rgba(255, 255, 255, 0.9);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .lock-screen button {
+      background: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1.1rem;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      margin-top: 10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .lock-screen button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+      background: linear-gradient(to right, #3a7bd5 0%, #00d2ff 100%);
+    }
+
+    /* Contenido principal */
+    .main-content {
+      display: none;
+      width: 100%;
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    /* Header centrado con logos */
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      margin-bottom: 20px;
+    }
+
+    .header-logo {
+      height: 90px;
+      width: auto;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+    }
+
+    .header-center {
+      text-align: center;
+      flex-grow: 1;
+    }
+
+    .welcome-title {
+      font-size: 2.2rem;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 15px 30px;
+      border-radius: 12px;
+      display: inline-block;
+      margin: 0;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .welcome-title span {
+      color: #4facfe;
+      text-shadow: 0 0 10px rgba(79, 172, 254, 0.7);
+    }
+
+    /* Contenedor principal centrado */
+    .main-container {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin: 20px 0;
+    }
+
+    .chatbot-column {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex: 1;
+      max-width: 500px;
+    }
+
+    iframe {
+      border: none;
+      width: 100%;
+      height: 650px;
+      border-radius: 15px;
+      background: white;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
     }
 
-    #webchat .bpFab {
-      display: none;
+    /* Estilos para la sección de comentarios */
+    .comments-section {
+      width: 300px;
+      background: rgba(0, 0, 0, 0.6);
+      border-radius: 15px;
+      padding: 20px;
+      height: 650px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
-    /* [MANTÉN TODOS TUS ESTILOS ORIGINALES AQUÍ] */
-    .lock-screen { /* ... */ }
-    .main-content { /* ... */ }
-    /* ... resto de tus estilos CSS ... */
+    .comments-section h3 {
+      margin-top: 0;
+      text-align: center;
+      padding-bottom: 15px;
+      border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+      font-size: 1.5rem;
+      color: #4facfe;
+    }
+
+    .comments-list {
+      flex-grow: 1;
+      overflow-y: auto;
+      margin-bottom: 20px;
+      padding-right: 10px;
+    }
+
+    .comment {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 15px;
+      font-size: 0.95rem;
+      border-left: 3px solid #4facfe;
+      transition: transform 0.3s ease;
+    }
+
+    .comment:hover {
+      transform: translateX(5px);
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .comment strong {
+      color: #4facfe;
+    }
+
+    .comment small {
+      display: block;
+      font-size: 0.75rem;
+      color: #aaa;
+      margin-top: 5px;
+    }
+
+    .comment-input {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .comment-input input,
+    .comment-input textarea {
+      margin-bottom: 15px;
+      padding: 12px;
+      border-radius: 8px;
+      border: none;
+      background: rgba(255, 255, 255, 0.9);
+      font-size: 1rem;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .comment-input textarea {
+      resize: none;
+      height: 80px;
+    }
+
+    .comment-input button {
+      background: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .comment-input button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+      background: linear-gradient(to right, #3a7bd5 0%, #00d2ff 100%);
+    }
+
+    footer {
+      margin-top: auto;
+      padding: 20px;
+      background-color: rgba(0, 0, 0, 0.5);
+      width: 100%;
+      text-align: center;
+      font-size: 1rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* Scrollbar personalizada */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(to bottom, #4facfe, #00f2fe);
+      border-radius: 4px;
+    }
+
+    /* Responsive */
+    @media (max-width: 1100px) {
+      .main-container {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .comments-section {
+        width: 100%;
+        max-width: 500px;
+        margin-top: 30px;
+        height: 500px;
+      }
+      
+      .header-container {
+        flex-direction: column;
+        gap: 15px;
+      }
+      
+      .header-logo {
+        height: 70px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .lock-screen-content {
+        padding: 30px 20px;
+      }
+      
+      .lock-screen h2 {
+        font-size: 1.8rem;
+      }
+      
+      .welcome-title {
+        font-size: 1.8rem;
+        padding: 12px 20px;
+      }
+      
+      iframe {
+        height: 550px;
+      }
+      
+      .comments-section {
+        height: 450px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -73,94 +358,4 @@
     <!-- Contenedor principal centrado -->
     <div class="main-container">
       <div class="chatbot-column">
-        <!-- Integración Botpress v3 -->
-        <div id="webchat" style="width: 100%; height: 650px;"></div>
-      </div>
-
-      <div class="comments-section">
-        <h3>Live Comments</h3>
-        <div class="comments-list" id="commentsList"></div>
-        <div class="comment-input">
-          <input type="text" id="commentName" placeholder="Your name (optional)">
-          <textarea id="commentInput" placeholder="Write your comment..."></textarea>
-          <button onclick="postComment()">Send Comment</button>
-        </div>
-      </div>
-    </div>
-
-    <footer>
-      Created by: <strong>English Team</strong> | Chatbot powered by Botpress
-    </footer>
-  </div>
-
-  <!-- Script de Botpress v3 -->
-  <script>
-    // Configuración de Botpress
-    window.botpress.on("webchat:ready", () => {
-      window.botpress.open();
-    });
-    
-    window.botpress.init({
-      "botId": "3283d4af-d2d1-4385-9ba6-408deb39f00d",
-      "configuration": {
-        "botName": "Docbot",
-        "botAvatar": "https://files.bpcontent.cloud/2025/05/26/01/20250526014406-PM266LHG.png",
-        "website": {},
-        "email": {},
-        "phone": {},
-        "termsOfService": {},
-        "privacyPolicy": {},
-        "color": "#5eb1ef",
-        "variant": "soft",
-        "themeMode": "light",
-        "fontFamily": "inter",
-        "radius": 1
-      },
-      "clientId": "740cc2d3-ee32-4fe5-922b-a2af61fa61b8",
-      "selector": "#webchat"
-    });
-
-    // Sistema de usuarios y comentarios (Mantén tu código original)
-    function registerUser() {
-      const nameInput = document.getElementById('userNameInput');
-      const name = nameInput.value.trim();
-      
-      if (!name) {
-        alert("Please enter your name to continue.");
-        return;
-      }
-      
-      localStorage.setItem("userName", name);
-      unlockApp(name);
-    }
-
-    function unlockApp(name) {
-      document.getElementById('lockScreen').style.display = 'none';
-      document.getElementById('mainContent').style.display = 'block';
-      document.getElementById('welcomeUserName').textContent = name;
-      document.getElementById('commentName').value = name;
-      loadComments();
-    }
-
-    // [MANTÉN EL RESTO DE TUS FUNCIONES JAVASCRIPT ORIGINALES]
-  </script>
-
-  <!-- Firebase (opcional, para comentarios persistentes) -->
-  <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore-compat.js"></script>
-  <script>
-    // Configura Firebase si lo necesitas
-    const firebaseConfig = {
-      apiKey: "TU_API_KEY",
-      authDomain: "TU_PROYECTO.firebaseapp.com",
-      projectId: "TU_PROYECTO",
-      storageBucket: "TU_PROYECTO.appspot.com",
-      messagingSenderId: "TU_SENDER_ID",
-      appId: "TU_APP_ID"
-    };
-    
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.firestore();
-  </script>
-</body>
-</html>
+        <iframe 
