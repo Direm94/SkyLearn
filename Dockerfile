@@ -10,14 +10,14 @@ RUN wget -O botpress.zip https://github.com/botpress/botpress/releases/download/
     unzip botpress.zip -d ./botpress && \
     chmod +x ./botpress/bp
 
-# Copiar tu bot (¡cambia "docbot.bpz" por el nombre real de tu archivo!)
-COPY docbot.bpz /botpress/data/bots/docbot.bpz
-RUN unzip /botpress/data/bots/docbot.bpz -d /botpress/data/bots/docbot/
+# Copiar tu bot (¡VERIFICA EL NOMBRE EXACTO de tu archivo .bpz!)
+COPY tu-archivo.bpz ./botpress/data/bots/
+RUN unzip ./botpress/data/bots/tu-archivo.bpz -d ./botpress/data/bots/tu-bot/
 
-# Configuración de Botpress
+# Configuración
 ENV PORT=3000
 ENV BP_MODULES_PATH=/botpress/modules
 ENV BP_DATA_DIR=/botpress/data
 
-# Iniciar Botpress
+# Iniciar
 CMD ["/botpress/bp"]
