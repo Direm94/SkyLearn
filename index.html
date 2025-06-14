@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DocBot - English Teacher</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f0f0f0;
+            margin: 0;
+            height: 100vh;
+            padding: 10px;
+        }
+        #chat-container {
+            width: 90%;
+            max-width: 600px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            height: 80%;
+        }
+        #chat-box {
+            flex-grow: 1;
+            padding: 20px;
+            overflow-y: auto;
+            border-bottom: 1px solid #ddd;
+        }
+        .message {
+            margin: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            max-width: 80%;
+        }
+        .user {
+            background: #007bff;
+            color: white;
+            align-self: flex-end;
+        }
+        .bot {
+            background: #e9ecef;
+            align-self: flex-start;
+        }
+        #input-container {
+            display: flex;
+            padding: 10px;
+        }
+        #user-input {
+            flex-grow: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+        #send-btn {
+            padding: 10px 20px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #send-btn:hover {
+            background: #0056b3;
+        }
+        @media (max-width: 600px) {
+            #chat-container {
+                width: 100%;
+                height: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>DocBot - Tu Profesor de Inglés</h1>
+    <div id="chat-container">
+        <div id="chat-box"></div>
+        <div id="input-container">
+            <input type="text" id="user-input" placeholder="Escribe tu mensaje...">
+            <button id="send-btn">Enviar</button>
+        </div>
+    </div>
+
+    <script>
+        // Datos del chatbot (basados en las instrucciones proporcionadas)
+        const docBotData = {
+            teachers: [
+                { name: "Reyshel Encinas Aguirre", grades: ["Kindergarten", "1st A Primary"] },
+                { name: "Shirley Levano Lecca", grades: ["2nd B Primary", "2nd C Primary", "3rd A Primary", "4th B Primary"] },
+                { name: "Sherly Andrade Cristobal", grades: ["1st B Primary", "2nd A Primary", "4th A Primary"] },
+                { name: "Nicole Jara Perez", grades: ["3rd B Primary", "3rd C Primary", "4th C Primary", "4th Primary English Solo"] },
+                { name: "Graciela Muñoz Jaime", grades: ["5th Primary", "6th Primary"] },
+                { name: "Diego Torres Malpartida", grades: ["7th A1.1 Secondary", "8th A2.1 Secondary", "9th B1 Secondary"] },
+                { name: "Yessica Ramirez Martel", grades: ["7th A1.2 Secondary", "8th A2.2 Secondary", "10th B1+.1 Secondary", "11th B2.1 Secondary"] },
+                { name: "Cesar Advincula Ponce", grades: ["7th A2 Secondary", "8th B1 Secondary", "9th B1+ Secondary", "10th B1+.2 Secondary", "11th B2.2 Secondary"] }
+            ],
+            platforms: {
+                student: {
+                    primary: { url: "https://login.pearson.com/", username: "DNI@isp", password: "Pearson2025", description: "Usa Pearson para ME PRO y BIG ENGLISH (4th-6th). Revisa ENGLISH READERS para el Reading Plan." },
+                    secondary: { url: "https://login.pearson.com/", username: "DNI@isp", password: "Pearson2025", description: "Usa GX INNOVA y PEI (7th-10th). Revisa ENGLISH READERS para el Reading Plan." },
+                    voxy: { url: "https://voxy.com/", description: "Plataforma para 11th grade." },
+                    worksheets: { url: "https://www.liveworksheets.com/es", description: "Hojas de trabajo para English Solo si no tienes acceso a Pearson." }
+                },
+                teacher: [
+                    { name: "TRC", url: "https://trcvivo.innovaschools.edu.pe/", description: "Plataforma de contenido." },
+                    { name: "Dominio 360", url: "https://dominio360.innovaschools.edu.pe/", description: "Plataforma general para docentes." },
+                    { name: "Innova Family", url: "https://www.innovafamily.pe/", description: "Contacto con padres." },
+                    { name: "EVA", url: "https://innovaschools.mrooms.net/login/index.php", description: "Capacitación docente." },
+                    { name: "Pearson", url: "https://login.pearson.com/", description: "English Solo para Primary y Secondary." },
+                    { name: "Liveworksheets", url: "https://www.liveworksheets.com/es", description: "Hojas de trabajo para English Solo." },
+                    { name: "Voxy", url: "https://voxy.com/", description: "Plataforma para 11th grade." },
+                    { name: "Intranet", url: "https://intranet.innovaschools.edu.pe/login", description: "Información para docentes." }
+                ]
+            },
+            levels: {
+                secondary: ["A1", "A2", "B1", "B1+", "B2"]
+            },
+            exampleQuestions: [
+                { question: "what is a verb", kindergarten: "A verb is a word that shows action, like 'run' or 'jump'.", primary: "Un verbo es una palabra que muestra acción, como 'correr' o 'saltar'.", secondary: { A1: "A verb is an action word, like 'run' or 'eat'.", A2: "A verb shows action or state, like 'run' or 'is'.", B1: "A verb expresses action (run) or state (be).", B1+: "A verb describes actions (run), states (be), or occurrences (happen).", B2: "A verb conveys actions, states, or occurrences, and can be dynamic (run) or stative (know)." } },
+                { question: "how to log in pearson", response: "Use https://login.pearson.com/ with username: DNI@isp and password: Pearson2025. If you have issues, check the guide on your classroom platform or contact support via https://www.innovafamily.pe/." },
+                { question: "help with present simple", kindergarten: "We say 'I play' or 'You run'. Try saying 'I jump'!", primary: "El presente simple se usa para acciones habituales, como 'I play soccer'. Intenta decir 'I eat'.", secondary: { A1: "Use present simple for habits: 'I go to school.' Try 'I read.'", A2: "Present simple is for habits or facts: 'She plays tennis.' Try 'He watches TV.'", B1: "Present simple describes routines or facts: 'They study every day.' Try 'We travel.'", B1+: "Present simple is for habits, facts, or schedules: 'The bus leaves at 8.' Try 'I exercise.'", B2: "Present simple expresses habits, facts, or timeless truths: 'Water boils at 100°C.' Try 'She writes.'", youtube: "https://www.youtube.com/watch?v=3l6TMmC9y94" } }
+            ]
+        };
+
+        // Elementos del DOM
+        const chatBox = document.getElementById('chat-box');
+        const userInput = document.getElementById('user-input');
+        const sendBtn = document.getElementById('send-btn');
+
+        // Estado del chatbot
+        let state = {
+            userType: null, // student or teacher
+            grade: null, // Kindergarten, Primary, Secondary
+            englishLevel: null, // A1, A2, B1, B1+, B2
+            teacherName: null,
+            lastActivity: Date.now(),
+            awaitingLevel: false,
+            awaitingEnglishLevel: false,
+            awaitingTeacherGrades: false
+        };
+
+        // Función para añadir mensajes al chat
+        function addMessage(content, type) {
+            const message = document.createElement('div');
+            message.classList.add('message', type);
+            message.textContent = content;
+            chatBox.appendChild(message);
+            chatBox.scrollTop = chatBox.scrollHeight;
+            state.lastActivity = Date.now();
+        }
+
+        // Función para detectar inactividad
+        function checkInactivity() {
+            if (Date.now() - state.lastActivity > 15000) {
+                addMessage('¿Necesitas más ayuda?', 'bot');
+                state.lastActivity = Date.now();
+            }
+        }
+        setInterval(checkInactivity, 1000);
+
+        // Función para buscar respuesta
+        function findResponse(userQuestion) {
+            const question = userQuestion.toLowerCase().trim();
+            // Evitar contenido no académico
+            const inappropriate = ['adult', 'swear', 'romance', 'relationship', 'medication', 'health'];
+            if (inappropriate.some(word => question.includes(word))) {
+                return "Lo siento, solo puedo ayudarte con temas académicos. ¿Cuál es tu pregunta sobre inglés?";
+            }
+
+            // Buscar en preguntas de ejemplo
+            for (let item of docBotData.exampleQuestions) {
+                if (question.includes(item.question.toLowerCase())) {
+                    if (item.response) {
+                        return item.response;
+                    }
+                    if (state.grade === 'Kindergarten') {
+                        return item.kindergarten || "Let's try something simple! Ask about a word like 'cat'.";
+                    } else if (state.grade === 'Primary') {
+                        return item.primary || "Pregúntame algo sobre inglés, como un verbo o una palabra.";
+                    } else if (state.grade === 'Secondary' && state.englishLevel) {
+                        return item.secondary[state.englishLevel] || "Try asking about grammar or vocabulary.";
+                    }
+                }
+            }
+
+            // Respuesta por defecto
+            return state.grade === 'Kindergarten' ? "Let's learn a word! Try asking 'What is a verb?'" :
+                   state.grade === 'Primary' ? "Pregúntame sobre verbos, palabras o cómo usar Pearson." :
+                   state.grade === 'Secondary' ? `Ask about grammar or platforms like Pearson. Example: 'Help with present simple.'` :
+                   "Por favor, dime tu nivel o si eres docente.";
+        }
+
+        // Función para cerrar conversación
+        function closeConversation() {
+            const keyPhrase = state.grade === 'Kindergarten' ? "Say 'I learn'!" :
+                             state.grade === 'Primary' ? "Di 'I practice'!" :
+                             state.grade === 'Secondary' ? `Practice: 'I improve my ${state.englishLevel} level!'` :
+                             "Keep practicing!";
+            addMessage(`¡Gracias por usar DocBot! ${keyPhrase}`, 'bot');
+        }
+
+        // Manejar mensajes del usuario
+        function handleUserMessage(userMessage) {
+            if (userMessage.trim() === '') return;
+
+            // Añadir mensaje del usuario
+            addMessage(userMessage, 'user');
+
+            // Detectar si es docente
+            if (userMessage.toLowerCase().includes('teacher') && !state.userType) {
+                state.userType = 'teacher';
+                state.awaitingTeacherGrades = true;
+                addMessage('Dear teacher, could you please tell me the grade or grades you are in charge of?', 'bot');
+                return;
+            }
+
+            // Manejar respuesta de nivel
+            if (state.awaitingLevel) {
+                const level = userMessage.toLowerCase();
+                if (['kindergarten', 'primary', 'secondary'].includes(level)) {
+                    state.grade = level.charAt(0).toUpperCase() + level.slice(1);
+                    state.awaitingLevel = false;
+                    if (state.grade === 'Secondary') {
+                        state.awaitingEnglishLevel = true;
+                        addMessage('Please tell me your English level: A1, A2, B1, B1+, or B2.', 'bot');
+                    } else {
+                        addMessage(`Great! How can I help you with English today?`, 'bot');
+                    }
+                    return;
+                } else {
+                    addMessage('Please write a valid level: Kindergarten, Primary, or Secondary.', 'bot');
+                    return;
+                }
+            }
+
+            // Manejar nivel de inglés (Secondary)
+            if (state.awaitingEnglishLevel) {
+                const level = userMessage.toUpperCase();
+                if (docBotData.levels.secondary.includes(level)) {
+                    state.englishLevel = level;
+                    state.awaitingEnglishLevel = false;
+                    addMessage(`Awesome! How can I help you with your ${level} English?`, 'bot');
+                } else {
+                    addMessage('Please choose a valid level: A1, A2, B1, B1+, or B2.', 'bot');
+                }
+                return;
+            }
+
+            // Manejar grados del docente
+            if (state.awaitingTeacherGrades) {
+                const grades = userMessage.toLowerCase();
+                const teacher = docBotData.teachers.find(t => t.grades.some(g => grades.includes(g.toLowerCase())));
+                if (teacher) {
+                    state.teacherName = teacher.name;
+                    state.awaitingTeacherGrades = false;
+                    addMessage(`Dear ${teacher.name}, how can I support you with your classes? I can suggest blended learning strategies or help with platforms.`, 'bot');
+                } else {
+                    addMessage('Please specify valid grades (e.g., "Kindergarten", "4th Primary", "7th Secondary").', 'bot');
+                }
+                return;
+            }
+
+            // Procesar pregunta normal
+            if (!state.userType) {
+                state.userType = 'student';
+                state.awaitingLevel = true;
+                addMessage('Dear student, could you write your grade or level? (Kindergarten, Primary, Secondary)', 'bot');
+                return;
+            }
+
+            // Obtener respuesta
+            const response = findResponse(userMessage);
+            addMessage(response, 'bot');
+
+            // Añadir enlace de YouTube si aplica
+            const questionData = docBotData.exampleQuestions.find(q => userMessage.toLowerCase().includes(q.question));
+            if (questionData && questionData.secondary && questionData.secondary[state.englishLevel]?.youtube) {
+                addMessage(`Watch this video for more help: ${questionData.secondary[state.englishLevel].youtube}`, 'bot');
+            }
+
+            // Corregir gramática (Secondary)
+            if (state.grade === 'Secondary' && state.englishLevel && !userMessage.match(/^[A-Z].*[.!?]$/)) {
+                addMessage(`Tip: Start sentences with a capital letter and end with a period. Try again!`, 'bot');
+            }
+
+            // Sugerir cerrar si no hay más preguntas
+            if (userMessage.toLowerCase().includes('bye') || userMessage.toLowerCase().includes('thanks')) {
+                closeConversation();
+            }
+        }
+
+        // Manejar el envío de mensajes
+        sendBtn.addEventListener('click', () => {
+            handleUserMessage(userInput.value);
+            userInput.value = '';
+        });
+
+        // Permitir enviar con la tecla Enter
+        userInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendBtn.click();
+            }
+        });
+
+        // Mensaje de bienvenida
+        addMessage('Hello! I’m DocBot, your English teacher. Are you a student or a teacher?', 'bot');
+    </script>
+</body>
+</html>
