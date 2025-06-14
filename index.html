@@ -198,7 +198,7 @@
             if (docBotData.inappropriate.some(word => question.includes(word))) {
                 return "Lo siento, solo puedo ayudarte con temas académicos. ¿Cuál es tu pregunta sobre inglés?";
             }
-            // Buscar coincidencia en respuestas programadas
+            // Buscar coincidencia
             for (const item of docBotData.responses) {
                 if (item.keywords.some(keyword => question.includes(keyword.toLowerCase()))) {
                     if (item.response) return item.response;
@@ -232,12 +232,13 @@
             const userInput = document.getElementById('user-input');
             if (!userInput) {
                 console.error('User input not found');
+                addMessage('Error: Input field not found. Please refresh the page.', 'bot');
                 return;
             }
             const message = userInput.value.trim();
             if (!message) return;
 
-            // Añadir mensaje del usuario
+            console.log('Message received:', message); // Depuración
             addMessage(message, 'user');
             userInput.value = '';
 
@@ -301,7 +302,7 @@
             const response = findResponse(message);
             addMessage(response, 'bot');
 
-            // Corregir gramática (Secondary)
+            // Corregir gramática
             if (state.grade === 'secondary' && state.englishLevel && !message.match(/^[A-Z].*[.!?]$/)) {
                 addMessage('Tip: Start sentences with a capital letter and end with a period. Try again!', 'bot');
             }
@@ -317,13 +318,21 @@
             const sendBtn = document.getElementById('send-btn');
             const userInput = document.getElementById('user-input');
             if (!sendBtn || !userInput) {
-                console.error('DOM elements not found');
+                console.error('DOM elements not found: sendBtn=', sendBtn, 'userInput=', userInput);
+                addMessage('Error: Unable to initialize chat. Please refresh the page.', 'bot');
                 return;
             }
 
-            sendBtn.addEventListener('click', handleMessage);
+            console.log('Initializing event listeners'); // Depuración
+            sendBtn.addEventListener('click', () => {
+                console.log('Send button clicked'); // Depuración
+                handleMessage();
+            });
             userInput.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') handleMessage();
+                if (e.key === 'Enter') {
+                    console.log('Enter key pressed'); // Depuración
+                    handleMessage();
+                }
             });
 
             // Inactividad
@@ -338,8 +347,11 @@
             addMessage('Hello! I’m DocBot, your English teacher. Are you a student or a teacher?', 'bot');
         }
 
-        // Iniciar cuando el DOM esté listo
-        document.addEventListener('DOMContentLoaded', initialize);
+        // Iniciar
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('DOM fully loaded'); // Depuración
+            initialize();
+        });
     </script>
 </body>
 </html>
