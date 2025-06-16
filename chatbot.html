@@ -3,7 +3,48 @@
 <head>
   <meta charset="UTF-8">
   <title>Chatbot SkyLearn</title>
-  <link rel="stylesheet" href="assets/css/chat.css">
+  <style>
+    body {
+      font-family: Arial;
+      background: #f0f0f0;
+      padding: 20px;
+    }
+
+    #chatbox {
+      background: white;
+      width: 100%;
+      max-width: 400px;
+      height: 300px;
+      overflow-y: scroll;
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin: auto;
+      margin-bottom: 10px;
+    }
+
+    .user, .bot {
+      display: block;
+      margin: 5px 0;
+      padding: 8px;
+      border-radius: 5px;
+      max-width: 80%;
+    }
+
+    .user {
+      background: #d1e7dd;
+      margin-left: auto;
+    }
+
+    .bot {
+      background: #f8d7da;
+      margin-right: auto;
+    }
+
+    input, button {
+      padding: 8px;
+      font-size: 1em;
+    }
+  </style>
 </head>
 <body>
 
