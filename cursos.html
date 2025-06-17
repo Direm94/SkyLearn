@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <title>Cursos - SkyLearn</title>
@@ -7,6 +7,7 @@
 </head>
 <body>
 
+  <!-- Cabecera -->
   <header>
     <div class="logo">
       <img src="assets/images/logo.png" alt="Logo SkyLearn" width="200">
@@ -14,12 +15,14 @@
     <nav>
       <a href="index.html">Inicio</a> |
       <a href="cursos.html">Cursos</a> |
-      <a href="#">Precios y Horarios</a> |
-      <a href="#">Docentes</a>
+      <a href="precios.html">Precios y Horarios</a> |
+      <a href="contacto.html">Contacto</a> |
+      <a href="registro.html">Registro</a>
     </nav>
   </header>
 
-  <main style="padding:20px;">
+  <!-- Contenido -->
+  <main>
     <h2>Nuestros Cursos:</h2>
     <ul>
       <li>Curso de Programación Web</li>
@@ -28,6 +31,18 @@
       <li>Curso de Matemáticas Básicas</li>
     </ul>
   </main>
+
+  <!-- Chat flotante -->
+  <div id="chat-toggle" onclick="toggleChat()">💬</div>
+  <div id="chat-container" class="hidden">
+    <iframe src="chatbot.html" width="100%" height="350px" frameborder="0"></iframe>
+  </div>
+
+  <script>
+    function toggleChat() {
+      document.getElementById("chat-container").classList.toggle("hidden");
+    }
+  </script>
 
 </body>
 </html>
