@@ -2,48 +2,73 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>SkyLearn - Academia</title>
+  <title>Welcome - SkyLearn</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to bottom right, #f8f9fa, #e9ecef);
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .overlay {
+      text-align: center;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    .logo img {
+      width: 200px;
+      margin-bottom: 20px;
+      animation: bounce 2s infinite;
+    }
+
+    .overlay h1 {
+      font-size: 2em;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    .overlay button {
+      padding: 12px 24px;
+      font-size: 1em;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .overlay button:hover {
+      background-color: #0056b3;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+  </style>
 </head>
 <body>
 
-  <!-- Cabecera -->
-  <header>
+  <div class="overlay">
     <div class="logo">
-      <img src="https://i.postimg.cc/Qdf8NK1g/ponerle-fondo-blanco-removebg-preview.png" alt="Logo SkyLearn" width="200">
+      <img src="https://i.postimg.cc/Qdf8NK1g/ponerle-fondo-blanco-removebg-preview.png"  alt="Logo SkyLearn">
     </div>
-    <nav>
-      <a href="index.html">Inicio</a> |
-      <a href="cursos.html">Cursos</a> |
-      <a href="precios.html">Precios y Horarios</a> |
-      <a href="contacto.html">Contacto</a> |
-      <a href="registro.html">Registro</a>
-    </nav>
-  </header>
-
-  <!-- Banner promocional -->
-  <section class="banner">
-    <h2>¡Inscríbete ahora y obtén un 30% de descuento!</h2>
-    <img src="https://i.postimg.cc/zXd6VC2f/Chat-GPT-Image-17-jun-2025-15-46-49.png" alt="Anuncio">
-  </section>
-
-  <!-- Contenido principal -->
-  <main>
-    <p>Bienvenidos a SkyLearn, donde el aprendizaje es divertido y efectivo. ¡Empieza hoy mismo!</p>
-  </main>
-
-  <!-- Botón flotante del chat -->
-  <div id="chat-toggle" onclick="toggleChat()">💬</div>
-  <div id="chat-container" class="hidden">
-    <iframe src="chatbot.html" width="100%" height="350px" frameborder="0"></iframe>
+    <h1>Welcome, are you ready to learn?</h1>
+    <button onclick="window.location.href='home.html'">Start</button>
   </div>
-
-  <script src="firebase.js"></script>
-  <script>
-    function toggleChat() {
-      document.getElementById("chat-container").classList.toggle("hidden");
-    }
-  </script>
 
 </body>
 </html>
