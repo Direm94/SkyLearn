@@ -6,20 +6,22 @@
   <style>
     body {
       font-family: Arial;
-      background: #f0f0f0;
-      padding: 20px;
+      background: transparent;
+      padding: 10px;
     }
 
     #chatbox {
       background: white;
       width: 100%;
-      max-width: 400px;
-      height: 300px;
+      max-width: 280px;
+      height: 280px;
       overflow-y: scroll;
       border: 1px solid #ccc;
       padding: 10px;
       margin: auto;
       margin-bottom: 10px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     }
 
     .user, .bot {
@@ -28,6 +30,7 @@
       padding: 8px;
       border-radius: 5px;
       max-width: 80%;
+      animation: fadeIn 0.3s ease;
     }
 
     .user {
@@ -43,6 +46,15 @@
     input, button {
       padding: 8px;
       font-size: 1em;
+      width: calc(100% - 70px);
+      margin-right: 5px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
@@ -61,8 +73,9 @@ const respuestas = {
   "cursos": "Ofrecemos cursos de programación, diseño, inglés y matemáticas.",
   "precios": "Los precios varían según el curso. ¡Contáctanos para más información!",
   "horarios": "Los horarios están disponibles en la sección 'Precios y Horarios'.",
+  "registro": "¿Te gustaría ir ahora a la página de registro? 👉 <a href='registro.html' target='_blank'>Ir a Registro</a>",
   "gracias": "¡De nada! 😊",
-  "default": "Lo siento, no entiendo esa pregunta."
+  "default": "Lo siento, no entiendo esa pregunta. ¿Quieres que te ayude con algo más?"
 };
 
 function enviar() {
@@ -71,7 +84,18 @@ function enviar() {
 
   addMessage(texto, 'user');
   setTimeout(() => {
-    const respuesta = respuestas[texto] || respuestas["default"];
+    let respuesta = "";
+
+    if (texto.includes("registro")) {
+      respuesta = "¿Te gustaría ir ahora a la página de registro? 👉 <a href='registro.html' target='_blank'>Ir a Registro</a>";
+    } else if (texto.includes("precio") || texto.includes("cuánto cuesta")) {
+      respuesta = "Los precios están en la sección Precios y Horarios.";
+    } else if (texto.includes("inscripción")) {
+      respuesta = "Para inscribirte, ve a la página de Registro o dime 'registrar'";
+    } else {
+      respuesta = respuestas[texto] || respuestas["default"];
+    }
+
     addMessage(respuesta, 'bot');
   }, 500);
   input.value = '';
@@ -80,7 +104,7 @@ function enviar() {
 function addMessage(text, clase) {
   const div = document.createElement('div');
   div.className = clase;
-  div.textContent = text;
+  div.innerHTML = text;
   chatbox.appendChild(div);
   chatbox.scrollTop = chatbox.scrollHeight;
 }
