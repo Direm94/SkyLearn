@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>SkyLearn - Academia</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Cabecera -->
+  <header>
+    <div class="logo">
+      <img src="https://i.postimg.cc/Qdf8NK1g/ponerle-fondo-blanco-removebg-preview.png"  alt="Logo SkyLearn" width="200">
+    </div>
+    <nav>
+      <a href="home.html">Inicio</a> |
+      <a href="cursos.html">Cursos</a> |
+      <a href="precios.html">Precios y Horarios</a> |
+      <a href="contacto.html">Contacto</a> |
+      <a href="registro.html">Registro</a>
+    </nav>
+  </header>
+
+  <!-- Banner promocional -->
+  <section class="banner">
+    <h2>¡Inscríbete ahora y obtén un 30% de descuento!</h2>
+    <img src="https://i.postimg.cc/zXd6VC2f/Chat-GPT-Image-17-jun-2025-15-46-49.png"  alt="Anuncio">
+  </section>
+
+  <!-- Contenido principal -->
+  <main>
+    <p>Bienvenidos a SkyLearn, donde el aprendizaje es divertido y efectivo. ¡Empieza hoy mismo!</p>
+  </main>
+
+  <!-- Botón flotante del chat -->
+  <div id="chat-toggle" onclick="toggleChat()">💬</div>
+  <div id="chat-container" class="hidden">
+    <iframe src="chatbot.html" width="100%" height="350px" frameborder="0"></iframe>
+  </div>
+
+  <script src="firebase.js"></script>
+  <script>
+    function toggleChat() {
+      document.getElementById("chat-container").classList.toggle("hidden");
+    }
+  </script>
+
+</body>
+</html>
