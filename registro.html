@@ -54,9 +54,9 @@
     <iframe src="chatbot.html" width="100%" height="350px" frameborder="0"></iframe>
   </div>
 
-  <!-- Firebase SDK -->
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script> 
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script> 
+  <!-- Firebase SDK (versiones corregidas) -->
+  <script src="https://www.gstatic.com/firebasejs/9.9.3/firebase-app-compat.js"></script> 
+  <script src="https://www.gstatic.com/firebasejs/9.9.3/firebase-firestore-compat.js"></script> 
   <script src="firebase.js"></script>
 
   <script>
@@ -71,35 +71,38 @@
       const telefono = document.getElementById("telefono").value;
       const curso = document.getElementById("curso").value;
 
-      // Enviar a Google Sheets
-      fetch('https://script.google.com/d/1DB5YI9JT6VUZyM-zzXMSTzgSBUOEmuZR-FWQEjfImGN74-HVyeobAxYp/edit?usp=sharing', {
+      // Enviar a Google Sheets (usa TU_URL_WEB_APP_AQUÍ desde Deploy > Web App)
+      fetch('https://script.google.com/macros/s/AKfycbwn-VYN9nFJpYeMgXhuW9PFB04xphwuEjr1nbVG4lx7f_9mCqfaGWMtDIuJtfDROZo/exec', {
         method: 'POST',
-        body: JSON.stringify({ nombre, email, telefono, curso }),
-        headers: { 'Content-Type': 'application/json' }
-      }).then(res => res.json())
-        .then(data => {
-          console.log("Datos enviados a Google Sheets:", data);
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ nombre, email, telefono, curso })
+      })
+      .then(res => res.json())
+      .then(data => {
+        console.log("Datos enviados a Google Sheets:", data);
 
-          // También guardar en Firebase
-          db.collection("usuarios").add({
-            nombre,
-            email,
-            telefono,
-            curso,
-            fecha: new Date()
-          }).then(() => {
-            mensaje.textContent = "Registro exitoso. ¡Gracias!";
-            form.reset();
-          }).catch((error) => {
-            console.error("Error al registrar en Firebase:", error);
-            mensaje.textContent = "Hubo un error al guardar en Firebase.";
-          });
-
-        })
-        .catch(err => {
-          console.error("Error al enviar a Google Sheets:", err);
-          mensaje.textContent = "Hubo un error al guardar en Google Sheets.";
+        // Guardar también en Firebase
+        db.collection("usuarios").add({
+          nombre,
+          email,
+          telefono,
+          curso,
+          fecha: new Date()
+        }).then(() => {
+          mensaje.textContent = "Registro exitoso. ¡Gracias!";
+          form.reset();
+        }).catch((error) => {
+          console.error("Error al registrar en Firebase:", error);
+          mensaje.textContent = "Hubo un error al guardar en Firebase.";
         });
+
+      })
+      .catch(err => {
+        console.error("Error al enviar a Google Sheets:", err);
+        mensaje.textContent = "Hubo un error al guardar en Google Sheets.";
+      });
     });
 
     function toggleChat() {
