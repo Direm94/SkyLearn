@@ -72,7 +72,7 @@
       const curso = document.getElementById("curso").value;
 
       // Enviar a Google Sheets
-      fetch('TU_URL_WEB_APP_GOOGLE_SCRIPT', {
+      fetch('https://script.google.com/d/1DB5YI9JT6VUZyM-zzXMSTzgSBUOEmuZR-FWQEjfImGN74-HVyeobAxYp/edit?usp=sharing', {
         method: 'POST',
         body: JSON.stringify({ nombre, email, telefono, curso }),
         headers: { 'Content-Type': 'application/json' }
