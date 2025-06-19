@@ -1,145 +1,66 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <title>Registro - SkyLearn</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
+<script>
+  const form = document.getElementById("registroForm");
+  const mensaje = document.getElementById("mensaje");
 
-  <!-- Cabecera -->
-  <header>
-    <div class="logo">
-      <img src="https://i.postimg.cc/Qdf8NK1g/ponerle-fondo-blanco-removebg-preview.png"  alt="Logo SkyLearn" width="200">
-    </div>
-    <nav>
-      <a href="home.html">Inicio</a> |
-      <a href="cursos.html">Cursos</a> |
-      <a href="precios.html">Precios y Horarios</a> |
-      <a href="contacto.html">Contacto</a> |
-      <a href="registro.html">Registro</a>
-    </nav>
-  </header>
+  form.addEventListener("submit", function(e) {
+    e.preventDefault();
 
-  <!-- Formulario -->
-  <main class="form-container">
-    <h2>Regístrate Ahora</h2>
-    <form id="registroForm">
-      <label>Nombre completo:</label>
-      <input type="text" id="nombre" required>
+    const nombre = document.getElementById("nombre").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const telefono = document.getElementById("telefono").value.trim();
+    const curso = document.getElementById("curso").value.trim();
 
-      <label>Email:</label>
-      <input type="email" id="email" required>
+    // Agrega esta línea para ver los datos antes del fetch()
+    console.log("Datos recogidos:", { nombre, email, telefono, curso });
 
-      <label>Teléfono:</label>
-      <input type="tel" id="telefono">
-
-      <label>Curso de interés:</label>
-      <select id="curso" required>
-        <option value="">Selecciona un curso</option>
-        <option value="programacion">Programación</option>
-        <option value="diseño">Diseño UX/UI</option>
-        <option value="ingles">Inglés</option>
-        <option value="matematicas">Matemáticas</option>
-      </select>
-
-      <button type="submit" id="btnEnviar">Enviar Registro</button>
-    </form>
-    <p id="mensaje"></p>
-  </main>
-
-  <!-- Chat flotante -->
-  <div id="chat-toggle" onclick="toggleChat()">💬</div>
-  <div id="chat-container" class="hidden">
-    <iframe src="chatbot.html" width="100%" height="350px" frameborder="0"></iframe>
-  </div>
-
-  <!-- Firebase SDK -->
-  <script src="https://www.gstatic.com/firebasejs/9.9.3/firebase-app-compat.js"></script> 
-  <script src="https://www.gstatic.com/firebasejs/9.9.3/firebase-firestore-compat.js"></script> 
-  <script src="firebase.js"></script>
-
-  <script>
-    const form = document.getElementById("registroForm");
-    const mensaje = document.getElementById("mensaje");
-    const btnEnviar = document.getElementById("btnEnviar");
-
-    form.addEventListener("submit", function(e) {
-      e.preventDefault();
-
-      // Capturar valores
-      const nombre = document.getElementById("nombre").value.trim();
-      const email = document.getElementById("email").value.trim();
-      const telefono = document.getElementById("telefono").value.trim();
-      const curso = document.getElementById("curso").value.trim();
-
-      console.log("Datos obtenidos:", { nombre, email, telefono, curso });
-
-      // Validación básica
-      if (!nombre || !email || !curso) {
-        mensaje.textContent = "Por favor completa todos los campos obligatorios.";
-        return;
-      }
-
-      // Desactivar botón para evitar reenvío
-      btnEnviar.disabled = true;
-      btnEnviar.textContent = "Enviando...";
-
-      // Enviar a Google Sheets
-      fetch('https://script.google.com/macros/s/AKfycbwn-VYN9nFJpYeMgXhuW9PFB04xphwuEjr1nbVG4lx7f_9mCqfaGWMtDIuJtfDROZo/exec',  {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          nombre,
-          email,
-          telefono,
-          curso
-        })
+    // Enviar a Google Sheets
+    fetch('https://script.google.com/macros/s/AKfycbwn-VYN9nFJpYeMgXhuW9PFB04xphwuEjr1nbVG4lx7f_9mCqfaGWMtDIuJtfDROZo/exec',  {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        nombre,
+        email,
+        telefono,
+        curso
       })
-      .then(res => {
-        console.log("Respuesta del servidor:", res);
-        return res.json();
-      })
-      .then(data => {
-        console.log("Datos enviados:", data);
+    })
+    .then(res => {
+      console.log("Respuesta del servidor:", res);
+      return res.json();
+    })
+    .then(data => {
+      console.log("Datos enviados:", data);
 
-        // Guardar en Firebase
-        db.collection("usuarios").add({
-          nombre,
-          email,
-          telefono,
-          curso,
-          fecha: new Date()
-        }).then(() => {
-          mensaje.style.color = "green";
-          mensaje.textContent = "✅ Registro exitoso. ¡Gracias!";
-          form.reset();
-          btnEnviar.disabled = false;
-          btnEnviar.textContent = "Enviar Registro";
-        }).catch((error) => {
-          console.error("Error al guardar en Firebase:", error);
-          mensaje.style.color = "red";
-          mensaje.textContent = "⚠️ Hubo un error al guardar en Firebase.";
-          btnEnviar.disabled = false;
-          btnEnviar.textContent = "Enviar Registro";
-        });
-
-      })
-      .catch(err => {
-        console.error("❌ Error al enviar:", err);
+      // Guardar en Firebase
+      db.collection("usuarios").add({
+        nombre,
+        email,
+        telefono,
+        curso,
+        fecha: new Date()
+      }).then(() => {
+        mensaje.style.color = "green";
+        mensaje.textContent = "✅ Registro exitoso. ¡Gracias!";
+        form.reset();
+        btnEnviar.disabled = false;
+        btnEnviar.textContent = "Enviar Registro";
+      }).catch((error) => {
+        console.error("Error al guardar en Firebase:", error);
         mensaje.style.color = "red";
-        mensaje.textContent = "Hubo un error al enviar los datos.";
+        mensaje.textContent = "⚠️ Hubo un error al guardar en Firebase.";
         btnEnviar.disabled = false;
         btnEnviar.textContent = "Enviar Registro";
       });
+
+    })
+    .catch(err => {
+      console.error("❌ Error al enviar:", err);
+      mensaje.style.color = "red";
+      mensaje.textContent = "Hubo un error al enviar los datos.";
+      btnEnviar.disabled = false;
+      btnEnviar.textContent = "Enviar Registro";
     });
-
-    function toggleChat() {
-      document.getElementById("chat-container").classList.toggle("hidden");
-    }
-  </script>
-
-</body>
-</html>
+  });
+</script>
