@@ -43,7 +43,7 @@
         <option value="matematicas">Matemáticas</option>
       </select>
 
-      <button type="submit">Enviar Registro</button>
+      <button type="submit" id="btnEnviar">Enviar Registro</button>
     </form>
     <p id="mensaje"></p>
   </main>
@@ -59,93 +59,100 @@
   <script src="https://www.gstatic.com/firebasejs/9.9.3/firebase-firestore-compat.js"></script> 
   <script src="firebase.js"></script>
 
-  <!-- Aquí va el script -->
+  <!-- Aquí va tu script de registro -->
   <script>
-    const form = document.getElementById("registroForm");
-    const mensaje = document.getElementById("mensaje");
-    const btnEnviar = document.getElementById("btnEnviar");
+    // Aseguramos que el DOM esté cargado antes de ejecutar el script
+    document.addEventListener("DOMContentLoaded", function () {
+      const form = document.getElementById("registroForm");
+      const mensaje = document.getElementById("mensaje");
+      const btnEnviar = document.getElementById("btnEnviar");
 
-    if (!form) {
-      console.error("No se encontró el formulario con ID 'registroForm'. Verifica que el ID sea correcto.");
-    }
-
-    if (!mensaje) {
-      console.error("No se encontró el elemento con ID 'mensaje'. Verifica que el ID sea correcto.");
-    }
-
-    if (!btnEnviar) {
-      console.error("No se encontró el botón con ID 'btnEnviar'. Verifica que el ID sea correcto.");
-    }
-
-    form.addEventListener("submit", function(e) {
-      e.preventDefault();
-
-      // Capturar valores
-      const nombre = document.getElementById("nombre").value.trim();
-      const email = document.getElementById("email").value.trim();
-      const telefono = document.getElementById("telefono").value.trim();
-      const curso = document.getElementById("curso").value.trim();
-
-      console.log("Datos obtenidos:", { nombre, email, telefono, curso });
-
-      // Validación básica
-      if (!nombre || !email || !curso) {
-        mensaje.textContent = "Por favor completa todos los campos obligatorios.";
+      if (!form) {
+        console.error("❌ No se encontró el formulario con ID 'registroForm'");
         return;
       }
 
-      // Desactivar botón para evitar reenvío
-      btnEnviar.disabled = true;
-      btnEnviar.textContent = "Enviando...";
+      if (!mensaje) {
+        console.error("❌ No se encontró el elemento con ID 'mensaje'");
+        return;
+      }
 
-      // Enviar a Google Sheets
-      fetch('https://script.google.com/macros/s/AKfycbwn-VYN9nFJpYeMgXhuW9PFB04xphwuEjr1nbVG4lx7f_9mCqfaGWMtDIuJtfDROZo/exec',  {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          nombre,
-          email,
-          telefono,
-          curso
-        })
-      })
-      .then(res => {
-        console.log("Respuesta del servidor:", res);
-        return res.json();
-      })
-      .then(data => {
-        console.log("Datos enviados:", data);
+      if (!btnEnviar) {
+        console.error("❌ No se encontró el botón con ID 'btnEnviar'");
+        return;
+      }
 
-        // Guardar en Firebase
-        db.collection("usuarios").add({
-          nombre,
-          email,
-          telefono,
-          curso,
-          fecha: new Date()
-        }).then(() => {
-          mensaje.style.color = "green";
-          mensaje.textContent = "✅ Registro exitoso. ¡Gracias!";
-          form.reset();
-          btnEnviar.disabled = false;
-          btnEnviar.textContent = "Enviar Registro";
-        }).catch((error) => {
-          console.error("Error al guardar en Firebase:", error);
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        // Capturar valores
+        const nombre = document.getElementById("nombre").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const telefono = document.getElementById("telefono").value.trim();
+        const curso = document.getElementById("curso").value.trim();
+
+        console.log("Datos obtenidos:", { nombre, email, telefono, curso });
+
+        // Validación básica
+        if (!nombre || !email || !curso) {
           mensaje.style.color = "red";
-          mensaje.textContent = "⚠️ Hubo un error al guardar en Firebase.";
+          mensaje.textContent = "⚠️ Por favor completa todos los campos obligatorios.";
+          return;
+        }
+
+        // Desactivar botón para evitar reenvío
+        btnEnviar.disabled = true;
+        btnEnviar.textContent = "Enviando...";
+
+        // Enviar a Google Sheets
+        fetch('https://script.google.com/macros/s/AKfycbwn-VYN9nFJpYeMgXhuW9PFB04xphwuEjr1nbVG4lx7f_9mCqfaGWMtDIuJtfDROZo/exec',  {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            nombre,
+            email,
+            telefono,
+            curso
+          })
+        })
+        .then(res => {
+          console.log("📡 Respuesta del servidor:", res);
+          return res.json();
+        })
+        .then(data => {
+          console.log("✅ Datos enviados:", data);
+
+          // Guardar en Firebase (opcional)
+          db.collection("usuarios").add({
+            nombre,
+            email,
+            telefono,
+            curso,
+            fecha: new Date()
+          }).then(() => {
+            mensaje.style.color = "green";
+            mensaje.textContent = "✅ Registro exitoso. ¡Gracias!";
+            form.reset();
+            btnEnviar.disabled = false;
+            btnEnviar.textContent = "Enviar Registro";
+          }).catch((error) => {
+            console.error("❌ Error al guardar en Firebase:", error);
+            mensaje.style.color = "red";
+            mensaje.textContent = "⚠️ Hubo un error al guardar en Firebase.";
+            btnEnviar.disabled = false;
+            btnEnviar.textContent = "Enviar Registro";
+          });
+
+        })
+        .catch(err => {
+          console.error("🚫 Error al enviar:", err);
+          mensaje.style.color = "red";
+          mensaje.textContent = "Hubo un error al enviar los datos.";
           btnEnviar.disabled = false;
           btnEnviar.textContent = "Enviar Registro";
         });
-
-      })
-      .catch(err => {
-        console.error("❌ Error al enviar:", err);
-        mensaje.style.color = "red";
-        mensaje.textContent = "Hubo un error al enviar los datos.";
-        btnEnviar.disabled = false;
-        btnEnviar.textContent = "Enviar Registro";
       });
     });
 
