@@ -21,31 +21,20 @@
     </nav>
   </header>
 
-  <!-- Formulario -->
+  <!-- Formulario de registro incrustado -->
   <main class="form-container">
     <h2>Regístrate Ahora</h2>
-    <form id="registroForm">
-      <label>Nombre completo:</label>
-      <input type="text" id="nombre" required>
+    <p>Por favor llena el siguiente formulario:</p>
 
-      <label>Email:</label>
-      <input type="email" id="email" required>
-
-      <label>Teléfono:</label>
-      <input type="tel" id="telefono">
-
-      <label>Curso de interés:</label>
-      <select id="curso" required>
-        <option value="">Selecciona un curso</option>
-        <option value="programacion">Programación</option>
-        <option value="diseño">Diseño UX/UI</option>
-        <option value="ingles">Inglés</option>
-        <option value="matematicas">Matemáticas</option>
-      </select>
-
-      <button type="submit" id="btnEnviar">Enviar Registro</button>
-    </form>
-    <p id="mensaje"></p>
+    <!-- Reemplaza esto con el iframe de tu Google Form -->
+    <iframe 
+      src="https://docs.google.com/forms/d/e/TU_FORMULARIO_ID_AQUÍ/viewform?embedded=true"
+      width="100%"
+      height="500"
+      frameborder="0"
+      marginheight="0"
+      marginwidth="0"
+    >Cargando formulario...</iframe>
   </main>
 
   <!-- Chat flotante -->
@@ -54,108 +43,7 @@
     <iframe src="chatbot.html" width="100%" height="350px" frameborder="0"></iframe>
   </div>
 
-  <!-- Firebase SDK -->
-  <script src="https://www.gstatic.com/firebasejs/9.9.3/firebase-app-compat.js"></script> 
-  <script src="https://www.gstatic.com/firebasejs/9.9.3/firebase-firestore-compat.js"></script> 
-  <script src="firebase.js"></script>
-
-  <!-- Aquí va tu script de registro -->
   <script>
-    // Aseguramos que el DOM esté cargado antes de ejecutar el script
-    document.addEventListener("DOMContentLoaded", function () {
-      const form = document.getElementById("registroForm");
-      const mensaje = document.getElementById("mensaje");
-      const btnEnviar = document.getElementById("btnEnviar");
-
-      if (!form) {
-        console.error("❌ No se encontró el formulario con ID 'registroForm'");
-        return;
-      }
-
-      if (!mensaje) {
-        console.error("❌ No se encontró el elemento con ID 'mensaje'");
-        return;
-      }
-
-      if (!btnEnviar) {
-        console.error("❌ No se encontró el botón con ID 'btnEnviar'");
-        return;
-      }
-
-      form.addEventListener("submit", function (e) {
-        e.preventDefault();
-
-        // Capturar valores
-        const nombre = document.getElementById("nombre").value.trim();
-        const email = document.getElementById("email").value.trim();
-        const telefono = document.getElementById("telefono").value.trim();
-        const curso = document.getElementById("curso").value.trim();
-
-        console.log("Datos obtenidos:", { nombre, email, telefono, curso });
-
-        // Validación básica
-        if (!nombre || !email || !curso) {
-          mensaje.style.color = "red";
-          mensaje.textContent = "⚠️ Por favor completa todos los campos obligatorios.";
-          return;
-        }
-
-        // Desactivar botón para evitar reenvío
-        btnEnviar.disabled = true;
-        btnEnviar.textContent = "Enviando...";
-
-        // Enviar a Google Sheets
-        fetch('https://script.google.com/macros/s/AKfycbwn-VYN9nFJpYeMgXhuW9PFB04xphwuEjr1nbVG4lx7f_9mCqfaGWMtDIuJtfDROZo/exec',  {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            nombre,
-            email,
-            telefono,
-            curso
-          })
-        })
-        .then(res => {
-          console.log("📡 Respuesta del servidor:", res);
-          return res.json();
-        })
-        .then(data => {
-          console.log("✅ Datos enviados:", data);
-
-          // Guardar en Firebase (opcional)
-          db.collection("usuarios").add({
-            nombre,
-            email,
-            telefono,
-            curso,
-            fecha: new Date()
-          }).then(() => {
-            mensaje.style.color = "green";
-            mensaje.textContent = "✅ Registro exitoso. ¡Gracias!";
-            form.reset();
-            btnEnviar.disabled = false;
-            btnEnviar.textContent = "Enviar Registro";
-          }).catch((error) => {
-            console.error("❌ Error al guardar en Firebase:", error);
-            mensaje.style.color = "red";
-            mensaje.textContent = "⚠️ Hubo un error al guardar en Firebase.";
-            btnEnviar.disabled = false;
-            btnEnviar.textContent = "Enviar Registro";
-          });
-
-        })
-        .catch(err => {
-          console.error("🚫 Error al enviar:", err);
-          mensaje.style.color = "red";
-          mensaje.textContent = "Hubo un error al enviar los datos.";
-          btnEnviar.disabled = false;
-          btnEnviar.textContent = "Enviar Registro";
-        });
-      });
-    });
-
     function toggleChat() {
       document.getElementById("chat-container").classList.toggle("hidden");
     }
