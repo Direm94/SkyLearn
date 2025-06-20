@@ -115,7 +115,7 @@
       </div>
     </div>
 
-    <!-- Redes Sociales (opcional) -->
+    <!-- Redes Sociales -->
     <div class="contact-item">
       <button class="contact-button" onclick="toggleContent('redes')">
         <span class="contact-icon">🔗</span> Redes Sociales
@@ -140,13 +140,15 @@
       const content = document.getElementById(id);
       const allContents = document.querySelectorAll('.contact-content');
 
-      // Cerrar otros abiertos
-      allContents.forEach(el => {
-        if (el.id !== id) el.style.display = 'none';
-      });
+      // Ocultar todos
+      allContents.forEach(el => el.style.display = 'none');
 
-      // Alternar el actual
-      content.style.display = content.style.display === 'block' ? 'none' : 'block';
+      // Mostrar solo el seleccionado
+      if (content.style.display === 'block') {
+        content.style.display = 'none';
+      } else {
+        content.style.display = 'block';
+      }
     }
 
     function toggleChat() {
