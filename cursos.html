@@ -4,16 +4,71 @@
   <meta charset="UTF-8">
   <title>Cursos - SkyLearn</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    .profesores {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .profesor-card {
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      text-align: center;
+      max-width: 255px;
+      width: 100%;
+    }
+
+    .profesor-card img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px 10px 0 0;
+    }
+
+    .profesor-info {
+      padding: 10px;
+    }
+
+    .profesor-info h3 {
+      margin: 10px 0 5px;
+      font-size: 1.2em;
+    }
+
+    .nivel {
+      color: #666;
+      font-style: italic;
+    }
+
+    .btn-inscribirse {
+      display: block;
+      margin: 10px auto;
+      padding: 10px 15px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      text-decoration: none;
+      width: 100px;
+    }
+
+    .btn-inscribirse:hover {
+      background-color: #0056b3;
+    }
+  </style>
 </head>
 <body>
 
   <!-- Cabecera -->
   <header>
     <div class="logo">
-      <img src="https://i.postimg.cc/Qdf8NK1g/ponerle-fondo-blanco-removebg-preview.png" alt="Logo SkyLearn" width="200">
+      <img src="https://i.postimg.cc/Qdf8NK1g/ponerle-fondo-blanco-removebg-preview.png"  alt="Logo SkyLearn" width="200">
     </div>
     <nav>
-      <a href="index.html">Inicio</a> |
+      <a href="home.html">Inicio</a> |
       <a href="cursos.html">Cursos</a> |
       <a href="precios.html">Precios y Horarios</a> |
       <a href="contacto.html">Contacto</a> |
@@ -21,15 +76,64 @@
     </nav>
   </header>
 
-  <!-- Contenido -->
-  <main>
-    <h2>Nuestros Cursos:</h2>
-    <ul>
-      <li>Curso de Programación Web</li>
-      <li>Curso de Diseño UX/UI</li>
-      <li>Curso de Inglés Avanzado</li>
-      <li>Curso de Matemáticas Básicas</li>
-    </ul>
+  <!-- Sección de Profesores -->
+  <main class="form-container">
+    <h2>Nuestros Docentes</h2>
+    <p>Conoce a nuestros mejores instructores:</p>
+
+    <div class="profesores">
+
+      <!-- Profesor 1 -->
+      <div class="profesor-card">
+        <img src="https://i.postimg.cc/6qV52XjL/profesor1.jpg"  alt="Profesor 1">
+        <div class="profesor-info">
+          <h3>Juan Pérez</h3>
+          <p class="nivel">Programación Web</p>
+          <a href="registro.html" class="btn-inscribirse">Inscribirse</a>
+        </div>
+      </div>
+
+      <!-- Profesor 2 -->
+      <div class="profesor-card">
+        <img src="https://i.postimg.cc/6qV52XjL/profesor2.jpg"  alt="Profesor 2">
+        <div class="profesor-info">
+          <h3>Ana López</h3>
+          <p class="nivel">Diseño UX/UI</p>
+          <a href="registro.html" class="btn-inscribirse">Inscribirse</a>
+        </div>
+      </div>
+
+      <!-- Profesor 3 -->
+      <div class="profesor-card">
+        <img src="https://i.postimg.cc/6qV52XjL/profesor3.jpg"  alt="Profesor 3">
+        <div class="profesor-info">
+          <h3>Carlos Mendoza</h3>
+          <p class="nivel">Inglés Avanzado</p>
+          <a href="registro.html" class="btn-inscribirse">Inscribirse</a>
+        </div>
+      </div>
+
+      <!-- Profesor 4 -->
+      <div class="profesor-card">
+        <img src="https://i.postimg.cc/6qV52XjL/profesor4.jpg"  alt="Profesor 4">
+        <div class="profesor-info">
+          <h3>Sofía Ramírez</h3>
+          <p class="nivel">Matemáticas Básicas</p>
+          <a href="registro.html" class="btn-inscribirse">Inscribirse</a>
+        </div>
+      </div>
+
+      <!-- Profesor 5 (opcional) -->
+      <div class="profesor-card">
+        <img src="https://i.postimg.cc/6qV52XjL/profesor5.jpg"  alt="Profesor 5">
+        <div class="profesor-info">
+          <h3>Miguel Torres</h3>
+          <p class="nivel">Ciencia de Datos</p>
+          <a href="registro.html" class="btn-inscribirse">Inscribirse</a>
+        </div>
+      </div>
+
+    </div>
   </main>
 
   <!-- Chat flotante -->
