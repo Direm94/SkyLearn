@@ -5,77 +5,299 @@
   <title>Cursos - SkyLearn</title>
   <link rel="stylesheet" href="style.css">
   <script src="firebase.js"></script>
+  <style>
+    /* Variables de color */
+    :root {
+      --primary-color: #1e88e5;
+      --secondary-color: #ffffff;
+      --background-color: #f5f5f5;
+      --text-color: #333333;
+      --accent-color: #ff5722;
+      --card-bg: #e3f2fd;
+      --card-text: #000000;
+    }
+
+    /* Estilos generales */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Roboto', sans-serif;
+      color: var(--text-color);
+    }
+
+    body {
+      background-color: var(--background-color);
+      transition: background-color 0.3s ease;
+    }
+
+    /* Estilos para el header */
+    header {
+      background-color: var(--primary-color);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .logo img {
+      height: 60px;
+      transition: transform 0.3s ease;
+    }
+
+    .logo img:hover {
+      transform: scale(1.1);
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+    }
+
+    nav a {
+      color: var(--secondary-color);
+      text-decoration: none;
+      margin-left: 20px;
+      font-size: 16px;
+      position: relative;
+      transition: color 0.3s ease;
+    }
+
+    nav a::after {
+      content: '';
+      display: block;
+      width: 0;
+      height: 2px;
+      background: var(--secondary-color);
+      transition: width 0.3s;
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    /* Estilos para la sección de cursos */
+    .courses-section {
+      padding: 2rem;
+      max-width: 1200px;
+      margin: 2rem auto;
+      background-color: var(--secondary-color);
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .courses-section h2 {
+      text-align: center;
+      margin-bottom: 2rem;
+      color: var(--primary-color);
+    }
+
+    .courses-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+
+    .course-card {
+      background-color: var(--card-bg);
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .course-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .course-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .course-info {
+      padding: 1.5rem;
+    }
+
+    .course-info h3 {
+      margin-bottom: 1rem;
+      font-size: 1.5em;
+      color: var(--primary-color);
+    }
+
+    .course-info p {
+      margin-bottom: 1rem;
+      color: var(--text-color);
+    }
+
+    .course-info a {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      background-color: var(--primary-color);
+      color: var(--secondary-color);
+      text-decoration: none;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    .course-info a:hover {
+      background-color: var(--accent-color);
+    }
+
+    /* Estilos para el chatbot flotante */
+    #chat-toggle {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 60px;
+      height: 60px;
+      background-color: var(--primary-color);
+      color: var(--secondary-color);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 28px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    #chat-toggle:hover {
+      background-color: var(--accent-color);
+      transform: scale(1.1);
+    }
+
+    #chat-container {
+      position: fixed;
+      bottom: 90px;
+      right: 20px;
+      width: 300px;
+      height: 400px;
+      background-color: var(--chatbot-bg);
+      border-radius: 8px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      display: none;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    #chat-container iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0px);
+      }
+      50% {
+        transform: translateY(-20px);
+      }
+      100% {
+        transform: translateY(0px);
+      }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1200px) {
+      .courses-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      }
+    }
+
+    @media (max-width: 768px) {
+      .courses-section {
+        padding: 1rem;
+      }
+
+      .course-info h3 {
+        font-size: 1.2em;
+      }
+
+      .course-info a {
+        padding: 0.5rem 0.8rem;
+      }
+    }
+  </style>
 </head>
 <body>
+
   <!-- Cabecera -->
   <header>
     <div class="logo">
-      <img src="https://i.postimg.cc/Qdf8NK1g/ponerle-fondo-blanco-removegb-preview.png"  alt="Logo SkyLearn" width="200">
+      <img src="https://i.postimg.cc/Qdf8NK1g/ponerle-fondo-blanco-removebg-preview.png" alt="Logo SkyLearn">
     </div>
-    <nav class="horizontal-menu">
-      <ul>
-        <li><a href="home.html">Inicio</a></li>
-        <li><a href="cursos.html">Cursos</a></li>
-        <li><a href="precios.html">Precios y Horarios</a></li>
-        <li><a href="contacto.html">Contacto</a></li>
-        <li><a href="registro.html">Registro</a></li>
-      </ul>
+    <nav>
+      <a href="home.html">Inicio</a>
+      <a href="cursos.html">Cursos</a>
+      <a href="precios.html">Precios y Horarios</a>
+      <a href="contacto.html">Contacto</a>
+      <a href="registro.html">Registro</a>
     </nav>
   </header>
 
-  <!-- Sección de Profesores -->
-  <main class="form-container">
-    <h2>Nuestros Docentes</h2>
-    <p>Conoce a nuestros mejores instructores:</p>
+  <!-- Sección de Cursos -->
+  <main class="courses-section">
+    <h2>Explora Nuestros Cursos</h2>
+    <p>Descubre las oportunidades de aprendizaje que tenemos para ofrecerte:</p>
 
-    <div class="profesores">
-      <!-- Profesor 1 -->
-      <div class="profesor-card">
-        <img src="https://i.postimg.cc/6qV52XjL/profesor1.jpg"  alt="Profesor 1">
-        <div class="profesor-info">
-          <h3>Juan Pérez</h3>
-          <p class="nivel">Programación Web</p>
-          <a href="registro.html" class="btn-inscribirse">Inscribirse</a>
+    <div class="courses-grid">
+      <!-- Curso 1 -->
+      <div class="course-card">
+        <img src="https://i.postimg.cc/6qV52XjL/profesor1.jpg" alt="Curso de Programación Web">
+        <div class="course-info">
+          <h3>Programación Web</h3>
+          <p>Aprende a crear sitios web dinámicos y responsivos.</p>
+          <a href="registro.html">Inscribirse</a>
         </div>
       </div>
 
-      <!-- Profesor 2 -->
-      <div class="profesor-card">
-        <img src="https://i.postimg.cc/6qV52XjL/profesor2.jpg"  alt="Profesor 2">
-        <div class="profesor-info">
-          <h3>Ana López</h3>
-          <p class="nivel">Diseño UX/UI</p>
-          <a href="registro.html" class="btn-inscribirse">Inscribirse</a>
+      <!-- Curso 2 -->
+      <div class="course-card">
+        <img src="https://i.postimg.cc/6qV52XjL/profesor2.jpg" alt="Curso de Diseño UX/UI">
+        <div class="course-info">
+          <h3>Diseño UX/UI</h3>
+          <p>Domina el arte del diseño de interfaces y experiencias de usuario.</p>
+          <a href="registro.html">Inscribirse</a>
         </div>
       </div>
 
-      <!-- Profesor 3 -->
-      <div class="profesor-card">
-        <img src="https://i.postimg.cc/6qV52XjL/profesor3.jpg"  alt="Profesor 3">
-        <div class="profesor-info">
-          <h3>Carlos Mendoza</h3>
-          <p class="nivel">Inglés Avanzado</p>
-          <a href="registro.html" class="btn-inscribirse">Inscribirse</a>
+      <!-- Curso 3 -->
+      <div class="course-card">
+        <img src="https://i.postimg.cc/6qV52XjL/profesor3.jpg" alt="Curso de Inglés Avanzado">
+        <div class="course-info">
+          <h3>Inglés Avanzado</h3>
+          <p>Perfecciona tus habilidades en el idioma inglés.</p>
+          <a href="registro.html">Inscribirse</a>
         </div>
       </div>
 
-      <!-- Profesor 4 -->
-      <div class="profesor-card">
-        <img src="https://i.postimg.cc/6qV52XjL/profesor4.jpg"  alt="Profesor 4">
-        <div class="profesor-info">
-          <h3>Sofía Ramírez</h3>
-          <p class="nivel">Matemáticas Básicas</p>
-          <a href="registro.html" class="btn-inscribirse">Inscribirse</a>
+      <!-- Curso 4 -->
+      <div class="course-card">
+        <img src="https://i.postimg.cc/6qV52XjL/profesor4.jpg" alt="Curso de Matemáticas Básicas">
+        <div class="course-info">
+          <h3>Matemáticas Básicas</h3>
+          <p>Refuerza tus conocimientos en matemáticas fundamentales.</p>
+          <a href="registro.html">Inscribirse</a>
         </div>
       </div>
 
-      <!-- Profesor 5 (opcional) -->
-      <div class="profesor-card">
-        <img src="https://i.postimg.cc/6qV52XjL/profesor5.jpg"  alt="Profesor 5">
-        <div class="profesor-info">
-          <h3>Miguel Torres</h3>
-          <p class="nivel">Ciencia de Datos</p>
-          <a href="registro.html" class="btn-inscribirse">Inscribirse</a>
+      <!-- Curso 5 (opcional) -->
+      <div class="course-card">
+        <img src="https://i.postimg.cc/6qV52XjL/profesor5.jpg" alt="Curso de Ciencia de Datos">
+        <div class="course-info">
+          <h3>Ciencia de Datos</h3>
+          <p>Aprende a analizar y visualizar datos de manera efectiva.</p>
+          <a href="registro.html">Inscribirse</a>
         </div>
       </div>
     </div>
