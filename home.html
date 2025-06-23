@@ -15,6 +15,8 @@
       --background-color: #f5f5f5;
       --text-color: #333333;
       --accent-color: #ff5722;
+      --chatbot-bg: #e3f2fd;
+      --chatbot-text: #000000;
     }
 
     /* Estilos generales */
@@ -271,19 +273,37 @@
 
     /* Estilos para el chatbot */
     .chatbot-section {
-      background-color: var(--secondary-color);
-      padding: 2rem;
-      border-radius: 8px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      width: 48%;
-      position: relative;
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 300px;
+      height: 400px;
+      background-color: var(--chatbot-bg);
+      border-radius: 50%;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: float 6s ease-in-out infinite;
     }
 
     .chatbot-section iframe {
       width: 100%;
-      height: 350px;
+      height: 100%;
       border: none;
-      border-radius: 4px;
+      border-radius: 50%;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0px);
+      }
+      50% {
+        transform: translateY(-20px);
+      }
+      100% {
+        transform: translateY(0px);
+      }
     }
 
     /* Estilos para el menú horizontal */
@@ -421,9 +441,9 @@
   </section>
 
   <!-- Chatbot -->
-  <section class="chatbot-section">
-    <iframe src="chatbot.html" width="100%" height="350px" frameborder="0"></iframe>
-  </section>
+  <div class="chatbot-section">
+    <iframe src="chatbot.html" width="100%" height="100%" frameborder="0"></iframe>
+  </div>
 
   <script>
     // Inicializar Firebase Firestore
@@ -450,68 +470,4 @@
     function nextSlide() {
       slideIndex++;
       if (slideIndex >= slides.length) slideIndex = 0;
-      showSlide(slideIndex);
-    }
-
-    // Inicializar el carousel
-    setInterval(nextSlide, 5000); // Cambio cada 5 segundos
-
-    // Cargar comentarios en vivo desde Firebase
-    const commentsContainer = document.getElementById('comments-container');
-    db.collection('comentarios').orderBy('fecha', 'desc').onSnapshot(snapshot => {
-      commentsContainer.innerHTML = '';
-      snapshot.forEach(doc => {
-        const comment = doc.data();
-        const li = document.createElement('li');
-        li.textContent = `${comment.nombre}: ${comment.mensaje}`;
-        commentsContainer.appendChild(li);
-      });
-    });
-
-    // Enviar comentarios en vivo
-    const commentForm = document.getElementById('comment-form');
-    commentForm.addEventListener('submit', e => {
-      e.preventDefault();
-      const commentInput = document.getElementById('comment-input');
-      const nombre = prompt('Ingresa tu nombre:');
-      if (!nombre || !commentInput.value.trim()) return;
-      db.collection('comentarios').add({
-        nombre,
-        mensaje: commentInput.value,
-        fecha: new Date()
-      });
-      commentInput.value = '';
-    });
-
-    // Agregar noticias
-    const newsList = document.getElementById('news-list');
-    const addNewsButton = document.getElementById('add-news-button');
-
-    addNewsButton.addEventListener('click', () => {
-      const titulo = prompt('Ingresa el título de la noticia:');
-      const contenido = prompt('Ingresa el contenido de la noticia:');
-      if (!titulo || !contenido) return;
-      db.collection('noticias').add({
-        titulo,
-        contenido,
-        fecha: new Date()
-      });
-    });
-
-    // Cargar noticias desde Firebase
-    db.collection('noticias').orderBy('fecha', 'desc').onSnapshot(snapshot => {
-      newsList.innerHTML = '';
-      snapshot.forEach(doc => {
-        const news = doc.data();
-        const li = document.createElement('li');
-        li.innerHTML = `<strong>${news.titulo}</strong>: ${news.contenido}`;
-        newsList.appendChild(li);
-      });
-    });
-
-    function toggleChat() {
-      document.getElementById("chat-container").classList.toggle("hidden");
-    }
-  </script>
-</body>
-</html>
+      showSlide(sl
