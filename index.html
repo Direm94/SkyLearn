@@ -2,24 +2,47 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Welcome - SkyLearn</title>
+  <title>Bienvenido a SkyLearn</title>
   <link rel="stylesheet" href="style.css">
   <style>
+    /* Variables de color */
+    :root {
+      --primary-color: #1e88e5;
+      --secondary-color: #ffffff;
+      --background-color: #f5f5f5;
+      --text-color: #333333;
+      --accent-color: #ff5722;
+    }
+
+    /* Estilos generales */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Roboto', sans-serif;
+      color: var(--text-color);
+    }
+
     body {
       margin: 0;
       padding: 0;
       background: linear-gradient(to bottom right, #f8f9fa, #e9ecef);
-      font-family: 'Segoe UI', sans-serif;
+      height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
       overflow: hidden;
     }
 
     .overlay {
       text-align: center;
+      background-color: rgba(255, 255, 255, 0.95);
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
       animation: fadeIn 2s ease-in-out;
+      width: 80%;
+      max-width: 600px;
     }
 
     .logo img {
@@ -29,24 +52,31 @@
     }
 
     .overlay h1 {
-      font-size: 2em;
-      color: #333;
+      font-size: 2.5em;
+      color: var(--primary-color);
       margin-bottom: 20px;
     }
 
+    .overlay p {
+      font-size: 1.2em;
+      color: var(--text-color);
+      margin-bottom: 30px;
+    }
+
     .overlay button {
-      padding: 12px 24px;
-      font-size: 1em;
-      background-color: #007BFF;
-      color: white;
+      padding: 15px 30px;
+      font-size: 1.2em;
+      background-color: var(--primary-color);
+      color: var(--secondary-color);
       border: none;
-      border-radius: 5px;
+      border-radius: 8px;
       cursor: pointer;
-      transition: background 0.3s ease;
+      transition: background-color 0.3s ease, transform 0.3s ease;
     }
 
     .overlay button:hover {
-      background-color: #0056b3;
+      background-color: var(--accent-color);
+      transform: scale(1.05);
     }
 
     @keyframes fadeIn {
@@ -56,7 +86,31 @@
 
     @keyframes bounce {
       0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
+      50% { transform: translateY(-15px); }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .overlay {
+        padding: 1rem;
+      }
+
+      .logo img {
+        width: 150px;
+      }
+
+      .overlay h1 {
+        font-size: 2em;
+      }
+
+      .overlay p {
+        font-size: 1em;
+      }
+
+      .overlay button {
+        padding: 12px 24px;
+        font-size: 1em;
+      }
     }
   </style>
 </head>
@@ -64,10 +118,11 @@
 
   <div class="overlay">
     <div class="logo">
-      <img src="https://i.postimg.cc/Qdf8NK1g/ponerle-fondo-blanco-removebg-preview.png"  alt="Logo SkyLearn">
+      <img src="https://i.postimg.cc/Qdf8NK1g/ponerle-fondo-blanco-removebg-preview.png" alt="Logo SkyLearn">
     </div>
-    <h1>Welcome, are you ready to learn?</h1>
-    <button onclick="window.location.href='home.html'">Start</button>
+    <h1>Bienvenido a SkyLearn</h1>
+    <p>¿Estás listo para comenzar tu viaje de aprendizaje?</p>
+    <button onclick="window.location.href='home.html'">Empezar</button>
   </div>
 
 </body>
