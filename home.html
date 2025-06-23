@@ -5,47 +5,117 @@
   <title>SkyLearn - Academia</title>
   <link rel="stylesheet" href="style.css">
   <script src="firebase.js"></script>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <style>
+    /* Variables de color */
+    :root {
+      --primary-color: #4CAF50;
+      --secondary-color: #ffffff;
+      --background-color: #f5f5f5;
+      --text-color: #333333;
+      --accent-color: #ff5722;
+    }
+
     /* Estilos generales */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: Arial, sans-serif;
+      font-family: 'Roboto', sans-serif;
+      color: var(--text-color);
+    }
+
+    body {
+      background-color: var(--background-color);
+      transition: background-color 0.3s ease;
     }
 
     /* Estilos para el header */
     header {
-      background-color: #333;
-      padding: 1rem;
+      background-color: var(--primary-color);
+      padding: 1rem 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
     }
 
     .logo img {
-      height: 50px;
+      height: 60px;
+      transition: transform 0.3s ease;
+    }
+
+    .logo img:hover {
+      transform: scale(1.1);
     }
 
     nav a {
-      color: white;
+      color: var(--secondary-color);
       text-decoration: none;
       margin-left: 20px;
       font-size: 16px;
+      position: relative;
+      transition: color 0.3s ease;
+    }
+
+    nav a::after {
+      content: '';
+      display: block;
+      width: 0;
+      height: 2px;
+      background: var(--secondary-color);
+      transition: width 0.3s;
+    }
+
+    nav a:hover::after {
+      width: 100%;
     }
 
     /* Estilos para el banner */
     .banner {
-      background-color: #f8f8f8;
-      padding: 2rem;
+      background-color: var(--primary-color);
+      padding: 3rem 2rem;
       text-align: center;
-      margin-bottom: 2rem;
+      color: var(--secondary-color);
+      position: relative;
+      overflow: hidden;
     }
 
     .banner h2 {
-      color: #333;
-      font-size: 24px;
+      font-size: 2.5rem;
       margin-bottom: 1rem;
+      animation: fadeInDown 1s ease forwards;
+    }
+
+    .banner img {
+      max-width: 100%;
+      height: auto;
+      opacity: 0.9;
+      animation: fadeIn 2s ease forwards;
+    }
+
+    /* Animaciones */
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 0.9;
+      }
     }
 
     /* Estilos para el carousel */
@@ -53,7 +123,7 @@
       position: relative;
       width: 100%;
       overflow: hidden;
-      margin-bottom: 2rem;
+      margin: 2rem 0;
     }
 
     .carousel-inner {
@@ -65,7 +135,20 @@
       min-width: 100%;
       text-align: center;
       padding: 2rem;
-      background-color: #cccccc;
+      background-color: var(--secondary-color);
+      position: relative;
+    }
+
+    .carousel-item img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .carousel-item img:hover {
+      transform: scale(1.05);
     }
 
     .carousel-controls {
@@ -79,24 +162,31 @@
 
     .carousel-control {
       background-color: rgba(0, 0, 0, 0.5);
-      color: white;
+      color: var(--secondary-color);
       border: none;
       padding: 1rem;
       cursor: pointer;
       font-size: 24px;
+      border-radius: 50%;
+      transition: background-color 0.3s ease;
+    }
+
+    .carousel-control:hover {
+      background-color: rgba(0, 0, 0, 0.8);
     }
 
     /* Estilos para la sección de comentarios */
     .comments-section {
-      background-color: rgba(255, 255, 255, 0.95);
+      background-color: var(--secondary-color);
       padding: 2rem;
       border-radius: 8px;
-      margin-bottom: 2rem;
+      margin: 2rem 0;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     }
 
     .comments-section h2 {
       margin-bottom: 1rem;
+      color: var(--primary-color);
     }
 
     #comments-container {
@@ -108,26 +198,39 @@
       padding: 0.5rem;
       background-color: #f0f0f0;
       border-radius: 4px;
+      list-style: none;
+    }
+
+    #comment-form {
+      display: flex;
+      align-items: center;
     }
 
     #comment-form input {
-      width: 70%;
+      flex: 1;
       padding: 0.5rem;
       margin-right: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
     }
 
     #comment-form button {
       padding: 0.5rem 1rem;
-      background-color: #333;
-      color: white;
+      background-color: var(--primary-color);
+      color: var(--secondary-color);
       border: none;
       border-radius: 4px;
       cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    #comment-form button:hover {
+      background-color: var(--accent-color);
     }
 
     /* Estilos para la sección de noticias */
     .news-section {
-      background-color: rgba(255, 255, 255, 0.95);
+      background-color: var(--secondary-color);
       padding: 2rem;
       border-radius: 8px;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -135,6 +238,7 @@
 
     .news-section h2 {
       margin-bottom: 1rem;
+      color: var(--primary-color);
     }
 
     #news-list {
@@ -150,11 +254,16 @@
 
     #add-news-button {
       padding: 0.5rem 1rem;
-      background-color: #333;
-      color: white;
+      background-color: var(--primary-color);
+      color: var(--secondary-color);
       border: none;
       border-radius: 4px;
       cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    #add-news-button:hover {
+      background-color: var(--accent-color);
     }
 
     /* Estilos para el chat flotante */
@@ -162,28 +271,36 @@
       position: fixed;
       bottom: 20px;
       right: 20px;
-      background-color: #333;
-      color: white;
-      width: 50px;
-      height: 50px;
+      background-color: var(--primary-color);
+      color: var(--secondary-color);
+      width: 60px;
+      height: 60px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      font-size: 24px;
+      font-size: 28px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    #chat-toggle:hover {
+      background-color: var(--accent-color);
+      transform: scale(1.1);
     }
 
     #chat-container {
       position: fixed;
-      bottom: 80px;
+      bottom: 90px;
       right: 20px;
-      width: 300px;
-      height: 350px;
-      background-color: white;
+      width: 350px;
+      height: 400px;
+      background-color: var(--secondary-color);
       border-radius: 8px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
       display: none;
+      animation: fadeIn 0.5s ease;
     }
 
     #chat-container iframe {
@@ -194,6 +311,27 @@
 
     .hidden {
       display: none;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        padding: 1rem;
+      }
+
+      nav a {
+        margin: 0.5rem 0;
+      }
+
+      .banner h2 {
+        font-size: 2rem;
+      }
+
+      #chat-container {
+        width: 90%;
+        height: 300px;
+      }
     }
   </style>
 </head>
@@ -257,7 +395,7 @@
   <!-- Chat flotante -->
   <div id="chat-toggle" onclick="toggleChat()">💬</div>
   <div id="chat-container" class="hidden">
-    <iframe src="chatbot.html" width="100%" height="350px" frameborder="0"></iframe>
+    <iframe src="chatbot.html" width="100%" height="100%" frameborder="0"></iframe>
   </div>
 
   <script>
