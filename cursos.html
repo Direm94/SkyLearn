@@ -4,75 +4,22 @@
   <meta charset="UTF-8">
   <title>Cursos - SkyLearn</title>
   <link rel="stylesheet" href="style.css">
-  <style>
-    .profesores {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
-      padding: 20px;
-    }
-
-    .profesor-card {
-      background: rgba(255, 255, 255, 0.9);
-      border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-      text-align: center;
-      max-width: 255px;
-      width: 100%;
-    }
-
-    .profesor-card img {
-      width: 100%;
-      height: auto;
-      border-radius: 10px 10px 0 0;
-    }
-
-    .profesor-info {
-      padding: 10px;
-    }
-
-    .profesor-info h3 {
-      margin: 10px 0 5px;
-      font-size: 1.2em;
-    }
-
-    .nivel {
-      color: #666;
-      font-style: italic;
-    }
-
-    .btn-inscribirse {
-      display: block;
-      margin: 10px auto;
-      padding: 10px 15px;
-      background-color: #007BFF;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      text-decoration: none;
-      width: 100px;
-    }
-
-    .btn-inscribirse:hover {
-      background-color: #0056b3;
-    }
-  </style>
+  <script src="firebase.js"></script>
 </head>
 <body>
-
   <!-- Cabecera -->
   <header>
     <div class="logo">
-      <img src="https://i.postimg.cc/Qdf8NK1g/ponerle-fondo-blanco-removebg-preview.png"  alt="Logo SkyLearn" width="200">
+      <img src="https://i.postimg.cc/Qdf8NK1g/ponerle-fondo-blanco-removegb-preview.png"  alt="Logo SkyLearn" width="200">
     </div>
-    <nav>
-      <a href="home.html">Inicio</a> |
-      <a href="cursos.html">Cursos</a> |
-      <a href="precios.html">Precios y Horarios</a> |
-      <a href="contacto.html">Contacto</a> |
-      <a href="registro.html">Registro</a>
+    <nav class="horizontal-menu">
+      <ul>
+        <li><a href="home.html">Inicio</a></li>
+        <li><a href="cursos.html">Cursos</a></li>
+        <li><a href="precios.html">Precios y Horarios</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+        <li><a href="registro.html">Registro</a></li>
+      </ul>
     </nav>
   </header>
 
@@ -82,7 +29,6 @@
     <p>Conoce a nuestros mejores instructores:</p>
 
     <div class="profesores">
-
       <!-- Profesor 1 -->
       <div class="profesor-card">
         <img src="https://i.postimg.cc/6qV52XjL/profesor1.jpg"  alt="Profesor 1">
@@ -132,21 +78,24 @@
           <a href="registro.html" class="btn-inscribirse">Inscribirse</a>
         </div>
       </div>
-
     </div>
   </main>
 
-  <!-- Chat flotante -->
-  <div id="chat-toggle" onclick="toggleChat()">💬</div>
-  <div id="chat-container" class="hidden">
-    <iframe src="chatbot.html" width="100%" height="350px" frameborder="0"></iframe>
+  <!-- Chatbot -->
+  <div id="chat-toggle">
+    <img src="https://i.postimg.cc/0NrrhQjY/Gemini-Generated-Image-965jep965jep965j.jpg" alt="Chatbot" width="40" height="40">
+  </div>
+  <div id="chat-container" class="chatbot-popup">
+    <iframe src="chatbot.html" width="100%" height="100%" frameborder="0"></iframe>
   </div>
 
   <script>
     function toggleChat() {
-      document.getElementById("chat-container").classList.toggle("hidden");
+      document.getElementById("chat-container").classList.toggle("chatbot-popup");
     }
-  </script>
 
+    // Mostrar el chatbot al hacer clic en el icono
+    document.getElementById("chat-toggle").addEventListener("click", toggleChat);
+  </script>
 </body>
 </html>
