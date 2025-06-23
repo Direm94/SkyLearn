@@ -5,34 +5,294 @@
   <title>Precios y Horarios - SkyLearn</title>
   <link rel="stylesheet" href="style.css">
   <script src="firebase.js"></script>
+  <style>
+    /* Variables de color */
+    :root {
+      --primary-color: #1e88e5;
+      --secondary-color: #ffffff;
+      --background-color: #f5f5f5;
+      --text-color: #333333;
+      --accent-color: #ff5722;
+      --menu-bg: #e3f2fd;
+      --menu-text: #000000;
+    }
+
+    /* Estilos generales */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Roboto', sans-serif;
+      color: var(--text-color);
+    }
+
+    body {
+      background-color: var(--background-color);
+      transition: background-color 0.3s ease;
+    }
+
+    /* Estilos para el header */
+    header {
+      background-color: var(--primary-color);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .logo img {
+      height: 60px;
+      transition: transform 0.3s ease;
+    }
+
+    .logo img:hover {
+      transform: scale(1.1);
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+    }
+
+    nav a {
+      color: var(--secondary-color);
+      text-decoration: none;
+      margin-left: 20px;
+      font-size: 16px;
+      position: relative;
+      transition: color 0.3s ease;
+    }
+
+    nav a::after {
+      content: '';
+      display: block;
+      width: 0;
+      height: 2px;
+      background: var(--secondary-color);
+      transition: width 0.3s;
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    /* Estilos para la sección de precios y horarios */
+    .pricing-schedule-section {
+      padding: 2rem;
+      max-width: 800px;
+      margin: 2rem auto;
+      background-color: var(--secondary-color);
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .pricing-schedule-section h2 {
+      text-align: center;
+      margin-bottom: 2rem;
+      color: var(--primary-color);
+    }
+
+    .pricing-schedule-section p {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: var(--text-color);
+    }
+
+    .pricing-item, .schedule-item {
+      margin-bottom: 1.5rem;
+    }
+
+    .pricing-button, .schedule-button {
+      width: 100%;
+      padding: 1rem;
+      background-color: var(--menu-bg);
+      color: var(--menu-text);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1.2em;
+      text-align: left;
+      position: relative;
+      transition: background-color 0.3s ease;
+    }
+
+    .pricing-button:hover, .schedule-button:hover {
+      background-color: var(--accent-color);
+      color: var(--secondary-color);
+    }
+
+    .pricing-button::after, .schedule-button::after {
+      content: '▼';
+      position: absolute;
+      right: 1rem;
+      transition: transform 0.3s ease;
+    }
+
+    .pricing-button.active::after, .schedule-button.active::after {
+      transform: rotate(180deg);
+    }
+
+    .pricing-content, .schedule-content {
+      display: none;
+      padding: 1rem;
+      background-color: var(--menu-bg);
+      border-radius: 8px;
+      margin-top: 0.5rem;
+      animation: fadeIn 0.5s ease;
+    }
+
+    .pricing-content table, .schedule-content table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .pricing-content th, .pricing-content td, .schedule-content th, .schedule-content td {
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      text-align: left;
+    }
+
+    .pricing-content th, .schedule-content th {
+      background-color: var(--primary-color);
+      color: var(--secondary-color);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* Estilos para el chatbot flotante */
+    #chat-toggle {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 60px;
+      height: 60px;
+      background-color: var(--primary-color);
+      color: var(--secondary-color);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 28px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    #chat-toggle:hover {
+      background-color: var(--accent-color);
+      transform: scale(1.1);
+    }
+
+    #chat-container {
+      position: fixed;
+      bottom: 90px;
+      right: 20px;
+      width: 300px;
+      height: 400px;
+      background-color: var(--chatbot-bg);
+      border-radius: 8px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      display: none;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    #chat-container iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0px);
+      }
+      50% {
+        transform: translateY(-20px);
+      }
+      100% {
+        transform: translateY(0px);
+      }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .pricing-schedule-section {
+        padding: 1rem;
+      }
+
+      .pricing-button, .schedule-button {
+        font-size: 1em;
+        padding: 0.8rem;
+      }
+
+      .pricing-content, .schedule-content {
+        padding: 0.8rem;
+      }
+    }
+  </style>
 </head>
 <body>
+
   <!-- Cabecera -->
   <header>
     <div class="logo">
-      <img src="https://i.postimg.cc/Qdf8NK1g/ponerle-fondo-blanco-removegb-preview.png" alt="Logo SkyLearn" width="200">
+      <img src="https://i.postimg.cc/Qdf8NK1g/ponerle-fondo-blanco-removebg-preview.png" alt="Logo SkyLearn">
     </div>
-    <nav class="horizontal-menu">
-      <ul>
-        <li><a href="home.html">Inicio</a></li>
-        <li><a href="cursos.html">Cursos</a></li>
-        <li><a href="precios.html">Precios y Horarios</a></li>
-        <li><a href="contacto.html">Contacto</a></li>
-        <li><a href="registro.html">Registro</a></li>
-      </ul>
+    <nav>
+      <a href="home.html">Inicio</a>
+      <a href="cursos.html">Cursos</a>
+      <a href="precios.html">Precios y Horarios</a>
+      <a href="contacto.html">Contacto</a>
+      <a href="registro.html">Registro</a>
     </nav>
   </header>
 
-  <!-- Contenido -->
-  <main>
+  <!-- Sección de Precios y Horarios -->
+  <main class="pricing-schedule-section">
     <h2>Precios y Horarios</h2>
-    <table>
-      <tr><th>Curso</th><th>Precio</th><th>Horario</th></tr>
-      <tr><td>Programación Web</td><td>$500</td><td>Lun-Vie 18:00 - 20:00</td></tr>
-      <tr><td>Diseño UX/UI</td><td>$450</td><td>Martes y Jueves 17:00 - 19:00</td></tr>
-      <tr><td>Inglés Avanzado</td><td>$400</td><td>Sábados 10:00 - 12:00</td></tr>
-      <tr><td>Matemáticas Básicas</td><td>$350</td><td>Lun-Vie 16:00 - 18:00</td></tr>
-    </table>
+    <p>Consulta nuestros cursos y sus respectivos precios y horarios:</p>
+
+    <!-- Opciones de Precios -->
+    <div class="pricing-item">
+      <button class="pricing-button" onclick="toggleContent('precios')">
+        <span class="pricing-icon">💰</span> Precios
+      </button>
+      <div id="precios" class="pricing-content">
+        <table>
+          <tr><th>Curso</th><th>Precio</th></tr>
+          <tr><td>Programación Web</td><td>$500</td></tr>
+          <tr><td>Diseño UX/UI</td><td>$450</td></tr>
+          <tr><td>Inglés Avanzado</td><td>$400</td></tr>
+          <tr><td>Matemáticas Básicas</td><td>$350</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- Opciones de Horarios -->
+    <div class="schedule-item">
+      <button class="schedule-button" onclick="toggleContent('horarios')">
+        <span class="schedule-icon">📅</span> Horarios
+      </button>
+      <div id="horarios" class="schedule-content">
+        <table>
+          <tr><th>Curso</th><th>Horario</th></tr>
+          <tr><td>Programación Web</td><td>Lun-Vie 18:00 - 20:00</td></tr>
+          <tr><td>Diseño UX/UI</td><td>Martes y Jueves 17:00 - 19:00</td></tr>
+          <tr><td>Inglés Avanzado</td><td>Sábados 10:00 - 12:00</td></tr>
+          <tr><td>Matemáticas Básicas</td><td>Lun-Vie 16:00 - 18:00</td></tr>
+        </table>
+      </div>
+    </div>
+
   </main>
 
   <!-- Chatbot -->
@@ -44,6 +304,25 @@
   </div>
 
   <script>
+    function toggleContent(id) {
+      const content = document.getElementById(id);
+      const allContents = document.querySelectorAll('.pricing-content, .schedule-content');
+
+      // Ocultar todos
+      allContents.forEach(el => el.style.display = 'none');
+
+      // Mostrar solo el seleccionado
+      if (content.style.display === 'block') {
+        content.style.display = 'none';
+      } else {
+        content.style.display = 'block';
+      }
+
+      // Cambiar el estado del botón
+      const button = document.querySelector(`button[onclick="toggleContent('${id}')"]`);
+      button.classList.toggle('active');
+    }
+
     function toggleChat() {
       document.getElementById("chat-container").classList.toggle("chatbot-popup");
     }
