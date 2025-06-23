@@ -2,17 +2,36 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>SkyLearn - Academia</title>
+  <title>SkyLearn - Inicio</title>
   <link rel="stylesheet" href="style.css">
-  <script src="https://www.gstatic.com/firebasejs/9.9.3/firebase-app-compat.js"></script> 
-  <script src="https://www.gstatic.com/firebasejs/9.9.3/firebase-firestore-compat.js"></script> 
-  <script src="firebase.js"></script>
+
   <style>
-    /* Estilos para el carousel */
+    /* Banner promocional */
+    .banner {
+      text-align: center;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.9);
+      margin: 20px auto;
+      max-width: 800px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .banner img {
+      width: 100%;
+      max-width: 700px;
+      height: auto;
+      border-radius: 8px;
+    }
+
+    /* Carousel de publicidad */
     .carousel {
       position: relative;
-      width: 100%;
+      max-width: 900px;
+      margin: 40px auto;
       overflow: hidden;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     }
 
     .carousel-inner {
@@ -21,47 +40,82 @@
     }
 
     .carousel-item {
-      width: 100%;
-      text-align: center;
-      font-size: 18px;
-      background-color: #cccccc; /* Cambia según tus preferencias */
+      min-width: 100%;
+      box-sizing: border-box;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-shrink: 0;
     }
 
-    .carousel-control-prev, .carousel-control-next {
+    .carousel-item img {
+      width: 100%;
+      max-width: 900px;
+      height: auto;
+      border-radius: 10px;
+    }
+
+    .carousel-control-prev,
+    .carousel-control-next {
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      width: 50px;
-      height: 50px;
-      background-color: rgba(0, 0, 0, 0.5);
+      width: 40px;
+      height: 40px;
+      background-color: rgba(0, 0, 0, 0.6);
       color: white;
+      font-size: 20px;
+      border: none;
       border-radius: 50%;
       cursor: pointer;
+      z-index: 10;
     }
 
-    .carousel-control-prev {
-      left: 10px;
-    }
+    .carousel-control-prev { left: 10px; }
+    .carousel-control-next { right: 10px; }
 
-    .carousel-control-next {
-      right: 10px;
-    }
-
-    .comments-section {
-      margin-top: 20px;
+    /* Comentarios en Vivo */
+    .comments-section, .news-section {
+      max-width: 800px;
+      margin: 40px auto;
+      background: rgba(255, 255, 255, 0.95);
       padding: 20px;
-      background-color: rgba(255, 255, 255, 0.95);
-      border-radius: 8px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     }
 
-    .news-section {
-      margin-top: 20px;
-      padding: 20px;
-      background-color: rgba(255, 255, 255, 0.95);
-      border-radius: 8px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    .comments-section h2,
+    .news-section h2 {
+      margin-top: 0;
+      color: #007BFF;
     }
+
+    .comment {
+      background: #f8f9fa;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-left: 4px solid #007BFF;
+      border-radius: 5px;
+    }
+
+    .comment strong {
+      color: #333;
+    }
+
+    .news-item {
+      margin-bottom: 15px;
+    }
+
+    .news-item strong {
+      display: block;
+      margin-bottom: 5px;
+      color: #007BFF;
+    }
+
+    .news-item p {
+      margin: 0 0 10px 0;
+    }
+
   </style>
 </head>
 <body>
@@ -72,7 +126,7 @@
       <img src="https://i.postimg.cc/Qdf8NK1g/ponerle-fondo-blanco-removebg-preview.png"  alt="Logo SkyLearn" width="200">
     </div>
     <nav>
-      <a href="home.html">Inicio</a> |
+      <a href="index.html">Inicio</a> |
       <a href="cursos.html">Cursos</a> |
       <a href="precios.html">Precios y Horarios</a> |
       <a href="contacto.html">Contacto</a> |
@@ -86,9 +140,9 @@
     <img src="https://i.postimg.cc/zXd6VC2f/Chat-GPT-Image-17-jun-2025-15-46-49.png"  alt="Anuncio">
   </section>
 
-  <!-- Carousel de Publicidad -->
+  <!-- Carrusel de Publicidad -->
   <section class="carousel">
-    <div class="carousel-inner">
+    <div class="carousel-inner" id="carousel-inner">
       <div class="carousel-item active">
         <img src="https://i.postimg.cc/6qV52XjL/publicidad1.jpg"  alt="Publicidad 1">
       </div>
@@ -103,23 +157,16 @@
     <button class="carousel-control-next" onclick="nextSlide()">&#10095;</button>
   </section>
 
-  <!-- Sección de Comentarios en Vivo -->
+  <!-- Comentarios en Vivo -->
   <section class="comments-section">
-    <h2>Comentarios en Vivo</h2>
-    <div id="comments-container"></div>
-    <form id="comment-form">
-      <input type="text" id="comment-input" placeholder="Escribe tu comentario..." required>
-      <button type="submit">Enviar</button>
-    </form>
+    <h2>Comentarios de Usuarios</h2>
+    <ul id="comments-container"></ul>
   </section>
 
-  <!-- Sección de Noticias y Comunicados -->
+  <!-- Noticias / Comunicados -->
   <section class="news-section">
-    <h2>Noticias y Comunicados</h2>
-    <ul id="news-list">
-      <!-- Aquí se cargarán las noticias -->
-    </ul>
-    <button id="add-news-button">Agregar Noticia</button>
+    <h2>Últimas Noticias</h2>
+    <ul id="news-list"></ul>
   </section>
 
   <!-- Chat flotante -->
@@ -128,88 +175,62 @@
     <iframe src="chatbot.html" width="100%" height="350px" frameborder="0"></iframe>
   </div>
 
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.9.3/firebase-app-compat.js"></script> 
+  <script src="https://www.gstatic.com/firebasejs/9.9.3/firebase-firestore-compat.js"></script> 
+  <script src="firebase.js"></script>
+
   <script>
-    // Inicializar Firebase Firestore
-    const db = firebase.firestore();
-
-    // Variables globales
+    // Carrusel de imágenes
     let slideIndex = 0;
+    const slides = document.querySelectorAll('.carousel-item');
 
-    // Función para cambiar la imagen del carousel
     function showSlide(index) {
-      const slides = document.querySelectorAll('.carousel-item');
-      slides.forEach((slide, i) => {
-        slide.style.display = 'none';
-      });
-      slides[index].style.display = 'block';
+      if (index >= slides.length) slideIndex = 0;
+      if (index < 0) slideIndex = slides.length - 1;
+
+      const inner = document.getElementById('carousel-inner');
+      inner.style.transform = `translateX(-${slideIndex * 100}%)`;
     }
 
-    // Botones de navegación del carousel
     function prevSlide() {
       slideIndex--;
-      if (slideIndex < 0) slideIndex = slides.length - 1;
       showSlide(slideIndex);
     }
 
     function nextSlide() {
       slideIndex++;
-      if (slideIndex >= slides.length) slideIndex = 0;
       showSlide(slideIndex);
     }
 
-    // Inicializar el carousel
-    const slides = document.querySelectorAll('.carousel-item');
-    setInterval(nextSlide, 5000); // Cambio cada 5 segundos
+    // Carrusel automático
+    setInterval(nextSlide, 5000);
 
-    // Cargar comentarios en vivo desde Firebase
-    const commentsContainer = document.getElementById('comments-container');
-    db.collection('comentarios').orderBy('fecha', 'desc').onSnapshot(snapshot => {
-      commentsContainer.innerHTML = '';
+    // Cargar comentarios desde Firebase
+    const commentsContainer = document.getElementById("comments-container");
+    db.collection("comentarios").orderBy("fecha", "desc").onSnapshot(snapshot => {
+      commentsContainer.innerHTML = "";
       snapshot.forEach(doc => {
         const comment = doc.data();
-        const li = document.createElement('li');
-        li.textContent = `${comment.nombre}: ${comment.mensaje}`;
+        const li = document.createElement("li");
+        li.className = "comment";
+        li.innerHTML = `<strong>${comment.nombre}</strong>: ${comment.mensaje}`;
         commentsContainer.appendChild(li);
       });
     });
 
-    // Enviar comentarios en vivo
-    const commentForm = document.getElementById('comment-form');
-    commentForm.addEventListener('submit', e => {
-      e.preventDefault();
-      const commentInput = document.getElementById('comment-input');
-      const nombre = prompt('Ingresa tu nombre:');
-      if (!nombre || !commentInput.value.trim()) return;
-      db.collection('comentarios').add({
-        nombre,
-        mensaje: commentInput.value,
-        fecha: new Date()
-      });
-      commentInput.value = '';
-    });
-
-    // Agregar noticias
-    const newsList = document.getElementById('news-list');
-    const addNewsButton = document.getElementById('add-news-button');
-
-    addNewsButton.addEventListener('click', () => {
-      const titulo = prompt('Ingresa el título de la noticia:');
-      const contenido = prompt('Ingresa el contenido de la noticia:');
-      if (!titulo || !contenido) return;
-      db.collection('noticias').add({
-        titulo,
-        contenido,
-        fecha: new Date()
-      });
-    });
-
     // Cargar noticias desde Firebase
-    db.collection('noticias').orderBy('fecha', 'desc').onSnapshot(snapshot => {
-      newsList.innerHTML = '';
+    const newsList = document.getElementById("news-list");
+    db.collection("noticias").orderBy("fecha", "desc").onSnapshot(snapshot => {
+      newsList.innerHTML = "";
       snapshot.forEach(doc => {
-        const news = doc.data();
-        const li = document.createElement('li');
-        li.innerHTML = `<strong>${news.titulo}</strong>: ${news.contenido}`;
+        const noticia = doc.data();
+        const li = document.createElement("li");
+        li.className = "news-item";
+        li.innerHTML = `
+          <strong>${noticia.titulo}</strong>
+          <p>${noticia.contenido}</p>
+        `;
         newsList.appendChild(li);
       });
     });
