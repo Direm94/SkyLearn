@@ -5,112 +5,6 @@
   <title>Precios y Horarios - SkyLearn</title>
   <link rel="stylesheet" href="style.css">
   <script src="firebase.js"></script>
-  <style>
-    /* Estilos específicos para precios.html */
-    .pricing-schedule-section {
-      padding: 2rem;
-      max-width: 800px;
-      margin: 2rem auto;
-      background-color: var(--secondary-color);
-      border-radius: 10px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    }
-
-    .pricing-schedule-section h2 {
-      text-align: center;
-      margin-bottom: 2rem;
-      color: var(--primary-color);
-    }
-
-    .pricing-schedule-section p {
-      text-align: center;
-      margin-bottom: 1.5rem;
-      color: var(--text-color);
-    }
-
-    .pricing-item, .schedule-item {
-      margin-bottom: 1.5rem;
-    }
-
-    .pricing-button, .schedule-button {
-      width: 100%;
-      padding: 1rem;
-      background-color: var(--menu-bg);
-      color: var(--menu-text;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 1.2em;
-      text-align: left;
-      position: relative;
-      transition: background-color 0.3s ease;
-    }
-
-    .pricing-button:hover, .schedule-button:hover {
-      background-color: var(--accent-color;
-      color: var(--secondary-color;
-    }
-
-    .pricing-button::after, .schedule-button::after {
-      content: '▼';
-      position: absolute;
-      right: 1rem;
-      transition: transform 0.3s ease;
-    }
-
-    .pricing-button.active::after, .schedule-button.active::after {
-      transform: rotate(180deg);
-    }
-
-    .pricing-content, .schedule-content {
-      display: none;
-      padding: 1rem;
-      background-color: var(--menu-bg;
-      border-radius: 8px;
-      margin-top: 0.5rem;
-      animation: fadeIn 0.5s ease;
-    }
-
-    .pricing-content table, .schedule-content table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-
-    .pricing-content th, .schedule-content th {
-      padding: 0.5rem;
-      border: 1px solid #ccc;
-      text-align: left;
-      background-color: var(--primary-color;
-      color: var(--secondary-color;
-    }
-
-    .pricing-content td, .schedule-content td {
-      padding: 0.5rem;
-      border: 1px solid #ccc;
-      text-align: left;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    /* Responsive Design */
-    @media (max-width: 768px) {
-      .pricing-schedule-section {
-        padding: 1rem;
-      }
-
-      .pricing-button, .schedule-button {
-        font-size: 1em;
-        padding: 0.8rem;
-      }
-
-      .pricing-content, .schedule-content {
-        padding: 0.8rem;
-      }
-    }
-  </style>
 </head>
 <body>
 
@@ -130,72 +24,64 @@
     </nav>
   </header>
 
-  <!-- Sección de Precios y Horarios -->
-  <main class="pricing-schedule-section">
+  <!-- Sección de Precios -->
+  <main class="pricing-section">
     <h2>Precios y Horarios</h2>
     <p>Consulta nuestros cursos y sus respectivos precios y horarios:</p>
 
-    <!-- Opciones de Precios -->
-    <div class="pricing-item">
-      <button class="pricing-button" onclick="toggleContent('precios')">
-        <span class="pricing-icon">💰</span> Precios
-      </button>
-      <div id="precios" class="pricing-content">
-        <table>
-          <tr><th>Curso</th><th>Precio</th></tr>
-          <tr><td>Programación Web</td><td>$500</td></tr>
-          <tr><td>Diseño UX/UI</td><td>$450</td></tr>
-          <tr><td>Inglés Avanzado</td><td>$400</td></tr>
-          <tr><td>Matemáticas Básicas</td><td>$350</td></tr>
-        </table>
+    <div class="pricing-grid">
+      <!-- Curso 1 -->
+      <div class="pricing-card">
+        <h3>Programación Web</h3>
+        <p>Precio: $500</p>
+        <p>Horario: Lun-Vie 18:00 - 20:00</p>
+        <a href="registro.html">Inscribirse</a>
       </div>
-    </div>
 
-    <!-- Opciones de Horarios -->
-    <div class="schedule-item">
-      <button class="schedule-button" onclick="toggleContent('horarios')">
-        <span class="schedule-icon">📅</span> Horarios
-      </button>
-      <div id="horarios" class="schedule-content">
-        <table>
-          <tr><th>Curso</th><th>Horario</th></tr>
-          <tr><td>Programación Web</td><td>Lun-Vie 18:00 - 20:00</td></tr>
-          <tr><td>Diseño UX/UI</td><td>Martes y Jueves 17:00 - 19:00</td></tr>
-          <tr><td>Inglés Avanzado</td><td>Sábados 10:00 - 12:00</td></tr>
-          <tr><td>Matemáticas Básicas</td><td>Lun-Vie 16:00 - 18:00</td></tr>
-        </table>
+      <!-- Curso 2 -->
+      <div class="pricing-card">
+        <h3>Diseño UX/UI</h3>
+        <p>Precio: $450</p>
+        <p>Horario: Martes y Jueves 17:00 - 19:00</p>
+        <a href="registro.html">Inscribirse</a>
       </div>
-    </div>
 
-    <!-- Chatbot -->
-    <div id="chat-toggle">
-      <img src="https://i.postimg.cc/0NrrhQjY/Gemini-Generated-Image-965jep965jep965j.jpg" alt="Chatbot" width="40" height="40">
-    </div>
-    <div id="chat-container" class="chatbot-popup">
-      <iframe src="chatbot.html" width="100%" height="100%" frameborder="0"></iframe>
+      <!-- Curso 3 -->
+      <div class="pricing-card">
+        <h3>Inglés Avanzado</h3>
+        <p>Precio: $400</p>
+        <p>Horario: Sábados 10:00 - 12:00</p>
+        <a href="registro.html">Inscribirse</a>
+      </div>
+
+      <!-- Curso 4 -->
+      <div class="pricing-card">
+        <h3>Matemáticas Básicas</h3>
+        <p>Precio: $350</p>
+        <p>Horario: Lun-Vie 16:00 - 18:00</p>
+        <a href="registro.html">Inscribirse</a>
+      </div>
+
+      <!-- Curso 5 (opcional) -->
+      <div class="pricing-card">
+        <h3>Ciencia de Datos</h3>
+        <p>Precio: $600</p>
+        <p>Horario: Miércoles 19:00 - 21:00</p>
+        <a href="registro.html">Inscribirse</a>
+      </div>
     </div>
   </main>
 
+  <!-- Chatbot -->
+  <div id="chat-toggle">
+    <i class="fa-solid fa-message" style="font-size: 28px; color: white;"></i>
+  </div>
+  <div id="chat-container" class="chatbot-popup">
+    <iframe src="chatbot.html" width="100%" height="100%" frameborder="0"></iframe>
+  </div>
+
+  <!-- Scripts -->
   <script>
-    function toggleContent(id) {
-      const content = document.getElementById(id);
-      const allContents = document.querySelectorAll('.pricing-content, .schedule-content');
-
-      // Ocultar todos
-      allContents.forEach(el => el.style.display = 'none');
-
-      // Mostrar solo el seleccionado
-      if (content.style.display === 'block') {
-        content.style.display = 'none;
-      } else {
-        content.style.display = 'block;
-      }
-
-      // Cambiar el estado del botón
-      const button = document.querySelector(`button[onclick="toggleContent('${id}')"]`);
-      button.classList.toggle('active');
-    }
-
     function toggleChat() {
       document.getElementById("chat-container").classList.toggle("chatbot-popup");
     }
@@ -203,5 +89,8 @@
     // Mostrar el chatbot al hacer clic en el icono
     document.getElementById("chat-toggle").addEventListener("click", toggleChat);
   </script>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </body>
 </html>
