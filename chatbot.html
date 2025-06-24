@@ -127,27 +127,13 @@
   </div>
 
   <script>
-    // Configuración de Firebase (reemplaza con tus credenciales)
-    const firebaseConfig = {
-      apiKey: "YOUR_API_KEY",
-      authDomain: "YOUR_AUTH_DOMAIN",
-      projectId: "YOUR_PROJECT_ID",
-      storageBucket: "YOUR_STORAGE_BUCKET",
-      messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-      appId: "YOUR_APP_ID",
-    };
-
-    // Inicializar Firebase
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.firestore();
-
     const responses = {
       'hola': '¡Hola! ¿En qué puedo ayudarte hoy?',
       'cursos': '📚 <a href="cursos.html" style="color:white">Ver nuestros cursos</a>',
       'precios': '💰 <a href="precios.html" style="color:white">Consulta los precios</a>',
       'contacto': '📞 <a href="contacto.html" style="color:white">Contáctanos aquí</a>',
       'registro': '📝 <a href="registro.html" style="color:white">Regístrate ahora</a>',
-      'default': 'No entendí eso. ¿Puedes reformular? 😊'
+      'default': 'Lo siento, no tengo una respuesta para eso. ¿Podrías intentarlo de nuevo?'
     };
 
     function addMessage(text, isUser) {
