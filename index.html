@@ -4,36 +4,9 @@
   <meta charset="UTF-8">
   <title>Bienvenido a SkyLearn</title>
   <link rel="stylesheet" href="style.css">
+  <script src="firebase.js"></script>
   <style>
-    /* Variables de color */
-    :root {
-      --primary-color: #1e88e5;
-      --secondary-color: #ffffff;
-      --background-color: #f5f5f5;
-      --text-color: #333333;
-      --accent-color: #ff5722;
-    }
-
-    /* Estilos generales */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Roboto', sans-serif;
-      color: var(--text-color);
-    }
-
-    body {
-      margin: 0;
-      padding: 0;
-      background: linear-gradient(to bottom right, #f8f9fa, #e9ecef);
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      overflow: hidden;
-    }
-
+    /* Estilos específicos para el index */
     .overlay {
       text-align: center;
       background-color: rgba(255, 255, 255, 0.95);
@@ -43,6 +16,7 @@
       animation: fadeIn 2s ease-in-out;
       width: 80%;
       max-width: 600px;
+      margin: 0 auto;
     }
 
     .logo img {
