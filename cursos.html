@@ -5,98 +5,6 @@
   <title>Cursos - SkyLearn</title>
   <link rel="stylesheet" href="style.css">
   <script src="firebase.js"></script>
-  <style>
-    /* Estilos específicos para cursos.html */
-    .courses-section {
-      padding: 2rem;
-      max-width: 1200px;
-      margin: 2rem auto;
-      background-color: var(--secondary-color);
-      border-radius: 10px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    }
-
-    .courses-section h2 {
-      text-align: center;
-      margin-bottom: 2rem;
-      color: var(--primary-color);
-    }
-
-    .courses-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr);
-      gap: 2rem;
-    }
-
-    .course-card {
-      background-color: var(--card-bg);
-      border-radius: 10px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-      overflow: hidden;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .course-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-    }
-
-    .course-card img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-    }
-
-    .course-info {
-      padding: 1.5rem;
-    }
-
-    .course-info h3 {
-      margin-bottom: 1rem;
-      font-size: 1.5em;
-      color: var(--primary-color);
-    }
-
-    .course-info p {
-      margin-bottom: 1rem;
-      color: var(--text-color);
-    }
-
-    .course-info a {
-      display: inline-block;
-      padding: 0.5rem 1rem;
-      background-color: var(--primary-color;
-      color: var(--secondary-color;
-      text-decoration: none;
-      border-radius: 5px;
-      transition: background-color 0.3s ease;
-    }
-
-    .course-info a:hover {
-      background-color: var(--accent-color;
-    }
-
-    /* Responsive Design */
-    @media (max-width: 1200px) {
-      .courses-grid {
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr);
-      }
-    }
-
-    @media (max-width: 768px) {
-      .courses-section {
-        padding: 1rem;
-      }
-
-      .course-info h3 {
-        font-size: 1.2em;
-      }
-
-      .course-info a {
-        padding: 0.5rem 0.8rem;
-      }
-    }
-  </style>
 </head>
 <body>
 
@@ -176,12 +84,13 @@
 
   <!-- Chatbot -->
   <div id="chat-toggle">
-    <img src="https://i.postimg.cc/0NrrhQjY/Gemini-Generated-Image-965jep965jep965j.jpg" alt="Chatbot" width="40" height="40">
+    <i class="fa-solid fa-message" style="font-size: 28px; color: white;"></i>
   </div>
   <div id="chat-container" class="chatbot-popup">
     <iframe src="chatbot.html" width="100%" height="100%" frameborder="0"></iframe>
   </div>
 
+  <!-- Scripts -->
   <script>
     function toggleChat() {
       document.getElementById("chat-container").classList.toggle("chatbot-popup");
@@ -190,5 +99,8 @@
     // Mostrar el chatbot al hacer clic en el icono
     document.getElementById("chat-toggle").addEventListener("click", toggleChat);
   </script>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </body>
 </html>
