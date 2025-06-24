@@ -1,17 +1,15 @@
-// Configuración de Firebase (obtenida desde la consola)
+// Firebase configuration
 const firebaseConfig = {
-  apiKey: "TU_API_KEY",
-  authDomain: "TU_PROYECTO.firebaseapp.com",
-  projectId: "TU_PROJECT_ID",
-  storageBucket: "TU_PROJECT.appspot.com",
-  messagingSenderId: "ID_DEL_MENSAJERO",
-  appId: "TU_APP_ID"
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_AUTH_DOMAIN",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_STORAGE_BUCKET",
+  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+  appId: "YOUR_APP_ID",
 };
 
 // Inicializar Firebase
 firebase.initializeApp(firebaseConfig);
 
-// Base de datos Firestore
+// Inicializar Firestore
 const db = firebase.firestore();
-
-console.log("Firebase conectado");
