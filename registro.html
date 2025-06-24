@@ -96,10 +96,11 @@
   </style>
 </head>
 <body>
+
   <!-- Cabecera -->
   <header>
     <div class="logo">
-      <img src="https://i.postimg.cc/Qdf8NK1g/ponerle-fondo-blanco-removegb-preview.png"  alt="Logo SkyLearn" width="200">
+      <img src="https://i.postimg.cc/Qdf8NK1g/ponerle-fondo-blanco-removebg-preview.png"  alt="Logo SkyLearn" width="200">
     </div>
     <nav class="horizontal-menu">
       <ul>
@@ -132,17 +133,15 @@
   <div id="chat-toggle">
     <img src="https://i.postimg.cc/0NrrhQjY/Gemini-Generated-Image-965jep965jep965j.jpg" alt="Chatbot" width="40" height="40">
   </div>
-  <div id="chat-container" class="chatbot-popup">
-    <iframe src="chatbot.html" width="100%" height="100%" frameborder="0"></iframe>
+  <div id="chat-container" class="hidden">
+    <iframe src="chatbot.html" width="100%" height="350px" frameborder="0"></iframe>
   </div>
 
   <script>
     function toggleChat() {
-      document.getElementById("chat-container").classList.toggle("chatbot-popup");
+      document.getElementById("chat-container").classList.toggle("hidden");
     }
-
-    // Mostrar el chatbot al hacer clic en el icono
-    document.getElementById("chat-toggle").addEventListener("click", toggleChat);
   </script>
+
 </body>
 </html>
