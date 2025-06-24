@@ -51,22 +51,26 @@
       background: var(--primary-color);
       color: white;
       margin-left: auto;
+      text-align: right;
     }
 
     .bot-message {
       background: white;
       border: 1px solid #ddd;
       margin-right: auto;
+      text-align: left;
     }
 
     .chat-input-container {
       padding: 15px;
       background: white;
       border-top: 1px solid #eee;
+      display: flex;
+      align-items: center;
     }
 
     .chat-input {
-      width: 100%;
+      flex: 1;
       padding: 12px;
       border: 2px solid #ddd;
       border-radius: 25px;
@@ -78,25 +82,19 @@
       border-color: var(--primary-color);
     }
 
-    .quick-replies {
-      display: flex;
-      gap: 10px;
-      padding: 10px;
-      flex-wrap: wrap;
-    }
-
-    .quick-reply {
-      background: #e3f2fd;
+    .chat-button {
+      margin-left: 10px;
+      padding: 10px 15px;
+      background-color: var(--primary-color);
+      color: var(--secondary-color);
       border: none;
-      padding: 8px 15px;
       border-radius: 20px;
       cursor: pointer;
-      transition: all 0.3s;
+      transition: background-color 0.3s ease;
     }
 
-    .quick-reply:hover {
-      background: var(--primary-color);
-      color: white;
+    .chat-button:hover {
+      background-color: var(--accent-color);
     }
 
     @keyframes fadeIn {
@@ -129,8 +127,22 @@
   </div>
 
   <script>
+    // Configuración de Firebase (reemplaza con tus credenciales)
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_AUTH_DOMAIN",
+      projectId: "YOUR_PROJECT_ID",
+      storageBucket: "YOUR_STORAGE_BUCKET",
+      messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+      appId: "YOUR_APP_ID",
+    };
+
+    // Inicializar Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
     const responses = {
-      'hola': '¡Hola! ¿En qué puedo ayudarte?',
+      'hola': '¡Hola! ¿En qué puedo ayudarte hoy?',
       'cursos': '📚 <a href="cursos.html" style="color:white">Ver nuestros cursos</a>',
       'precios': '💰 <a href="precios.html" style="color:white">Consulta los precios</a>',
       'contacto': '📞 <a href="contacto.html" style="color:white">Contáctanos aquí</a>',
@@ -165,13 +177,13 @@
           if(message.includes(key)) {
             response = responses[key];
             break;
+          }
         }
+        
+        setTimeout(() => {
+          addMessage(response, false);
+        }, 500);
       }
-      
-      setTimeout(() => {
-        addMessage(response, false);
-      }, 500);
-    }
     }
   </script>
 </body>
