@@ -9,6 +9,8 @@
       --primary-color: #1e88e5;
       --secondary-color: #ffffff;
       --accent-color: #ff5722;
+      --chatbot-bg: #e3f2fd;
+      --chatbot-text: #000000;
     }
 
     body {
@@ -154,7 +156,7 @@
       const message = input.value.trim().toLowerCase();
       
       if(message) {
-        addMessage(`Tú: ${message}`, true);
+        addMessage(`Tú: ${message}, true);
         input.value = '';
         
         // Buscar respuesta
