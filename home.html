@@ -6,7 +6,7 @@
   <link rel="stylesheet" href="style.css">
   <script src="firebase.js"></script>
   <style>
-    /* HERO SECTION */
+    /* Estilos específicos para home.html */
     .hero-section {
       background-color: var(--primary-color);
       padding: 4rem 2rem;
@@ -36,132 +36,134 @@
       border: none;
       border-radius: 8px;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: background-color 0.3s ease, transform 0.3s ease;
       animation: fadeIn 2s ease forwards;
     }
 
     .hero-section button:hover {
       background-color: var(--accent-color);
-      color: white;
-      transform: translateY(-3px);
+      color: var(--secondary-color);
+      transform: scale(1.05);
     }
 
-    /* FEATURES SECTION */
-    .features-section {
+    /* Características y Testimonios */
+    .features-section, .testimonials-section {
       padding: 3rem 2rem;
       background-color: var(--secondary-color);
       text-align: center;
     }
 
-    .features-section h2 {
+    .features-section h2, .testimonials-section h2 {
       margin-bottom: 2rem;
       color: var(--primary-color);
       font-size: 2.5rem;
     }
 
-    .features-grid {
+    .features-grid, .testimonials-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 2rem;
       max-width: 1200px;
       margin: 0 auto;
     }
 
-    .feature-card {
+    .feature-card, .testimonial-card {
       background-color: white;
       padding: 2rem;
       border-radius: 15px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
-    .feature-card:hover {
-      transform: translateY(-15px);
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    .feature-card:hover, .testimonial-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
     }
 
-    .feature-card h3 {
+    .feature-card h3, .testimonial-card h3 {
       margin-bottom: 1rem;
       color: var(--primary-color);
       font-size: 1.5em;
     }
 
-    .feature-card p {
+    .feature-card p, .testimonial-card p {
       color: var(--text-color);
+      font-size: 1.1em;
       line-height: 1.6;
     }
 
-    /* TESTIMONIALS SECTION */
-    .testimonials-section {
-      padding: 3rem 2rem;
-      background-color: #f8f9fa;
-      text-align: center;
-    }
-
-    .testimonials-section h2 {
-      margin-bottom: 2rem;
-      color: var(--primary-color);
-      font-size: 2.5rem;
-    }
-
-    .testimonials-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .testimonial-card {
-      background-color: white;
-      padding: 2rem;
-      border-radius: 15px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-      position: relative;
-    }
-
-    .testimonial-card::after {
-      content: '"';
-      position: absolute;
-      top: -20px;
+    /* Chatbot */
+    #chat-toggle {
+      position: fixed;
+      bottom: 20px;
       right: 20px;
-      font-size: 40px;
-      color: #eee;
+      width: 60px;
+      height: 60px;
+      background-color: var(--primary-color);
+      color: var(--secondary-color);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 28px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      transition: background-color 0.3s ease, transform 0.3s ease;
     }
 
-    .testimonial-card p {
-      font-style: italic;
-      color: var(--text-color);
-      margin-bottom: 1rem;
-      line-height: 1.6;
+    #chat-toggle:hover {
+      background-color: var(--accent-color);
+      transform: scale(1.1);
     }
 
-    .testimonial-card .author {
-      font-weight: bold;
-      color: var(--primary-color);
+    #chat-container {
+      position: fixed;
+      bottom: 90px;
+      right: 20px;
+      width: 300px;
+      height: 400px;
+      background-color: var(--chatbot-bg);
+      border-radius: 8px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      display: none;
+      animation: float 6s ease-in-out infinite;
     }
 
-    /* ANIMATIONS */
-    @keyframes fadeInDown {
-      from { opacity: 0; transform: translateY(-20px); }
-      to { opacity: 1; transform: translateY(0); }
+    #chat-container iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
     }
 
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+    @keyframes float {
+      0% {
+        transform: translateY(0px);
+      }
+      50% {
+        transform: translateY(-20px);
+      }
+      100% {
+        transform: translateY(0px);
+      }
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    /* RESPONSIVE */
+    /* Responsive Design */
     @media (max-width: 768px) {
-      .hero-section h1 { font-size: 2.2rem; }
-      .hero-section p { font-size: 1.2rem; }
-      .features-section h2, .testimonials-section h2 { font-size: 2rem; }
+      .hero-section h1 {
+        font-size: 2.5rem;
+      }
+
+      .hero-section p {
+        font-size: 1.2rem;
+      }
+
+      .features-section h2, .testimonials-section h2 {
+        font-size: 2rem;
+      }
+
+      .features-grid, .testimonials-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      }
     }
   </style>
 </head>
@@ -245,19 +247,18 @@
   </section>
 
   <!-- Chatbot -->
-<div id="chat-toggle">
-  <i class="fa-solid fa-message" style="font-size: 28px; color: white;"></i>
-</div>
-<div id="chat-container" class="chatbot-popup">
-  <iframe src="chatbot.html" width="100%" height="100%" frameborder="0"></iframe>
-</div>
+  <div id="chat-toggle">
+    <i class="fa-solid fa-message" style="font-size: 28px; color: white;"></i>
+  </div>
+  <div id="chat-container" style="display: none; position: fixed; bottom: 90px; right: 20px; width: 300px; height: 400px; background: white; border: 1px solid #ccc;">
+    <div id="chat-body"></div>
+    <div class="chat-input-container">
+      <input type="text" id="user-input" placeholder="Escribe tu mensaje..." onkeypress="if(event.key === 'Enter') sendMessage()">
+      <button id="send-button" onclick="sendMessage()">Enviar</button>
+    </div>
+  </div>
 
-<!-- Scripts -->
-<script>
-  function toggleChat() {
-    document.getElementById("chat-container").classList.toggle("chatbot-popup");
-  }
-
-  // Mostrar el chatbot al hacer clic en el icono
-  document.getElementById("chat-toggle").addEventListener("click", toggleChat);
-</script>
+  <!-- Scripts -->
+  <script>
+    function toggleChat() {
+      const chatContainer = document.getElementBy<filename>/akashks1998/akashks1998.github.io/_posts/2022-07-11-How-to-Create-a-Docker-Image-for-a-Java-Application.md
