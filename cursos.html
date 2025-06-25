@@ -82,20 +82,72 @@
     </div>
   </main>
 
- <!-- Chatbot -->
-<div id="chat-toggle">
-  <i class="fa-solid fa-message" style="font-size: 28px; color: white;"></i>
-</div>
-<div id="chat-container" class="chatbot-popup">
-  <iframe src="chatbot.html" width="100%" height="100%" frameborder="0"></iframe>
-</div>
+  <!-- Chatbot -->
+  <div id="chat-toggle">
+    <i class="fa-solid fa-message" style="font-size: 28px; color: white;"></i>
+  </div>
+  <div id="chat-container" style="display: none; position: fixed; bottom: 90px; right: 20px; width: 300px; height: 400px; background: white; border: 1px solid #ccc;">
+    <div id="chat-body"></div>
+    <div class="chat-input-container">
+      <input type="text" id="user-input" placeholder="Escribe tu mensaje..." onkeypress="if(event.key === 'Enter') sendMessage()">
+      <button id="send-button" onclick="sendMessage()">Enviar</button>
+    </div>
+  </div>
 
-<!-- Scripts -->
-<script>
-  function toggleChat() {
-    document.getElementById("chat-container").classList.toggle("chatbot-popup");
-  }
+  <script>
+    function toggleChat() {
+      const chatContainer = document.getElementById("chat-container");
+      if (chatContainer.style.display === "block") {
+        chatContainer.style.display = "none";
+      } else {
+        chatContainer.style.display = "block";
+      }
+    }
 
-  // Mostrar el chatbot al hacer clic en el icono
-  document.getElementById("chat-toggle").addEventListener("click", toggleChat);
-</script>
+    document.getElementById("chat-toggle").addEventListener("click", toggleChat);
+
+    const responses = {
+      'hola': '¡Hola! ¿En qué puedo ayudarte hoy?',
+      'cursos': '📚 <a href="cursos.html" style="color:black">Ver nuestros cursos</a>',
+      'precios': '💰 <a href="precios.html" style="color:black">Consulta los precios</a>',
+      'contacto': '📞 <a href="contacto.html" style="color:black">Contáctanos aquí</a>',
+      'registro': '📝 <a href="registro.html" style="color:black">Regístrate ahora</a>',
+      'default': 'Lo siento, no tengo una respuesta para eso. ¿Podrías intentarlo de nuevo?'
+    };
+
+    function addMessage(text, isUser) {
+      const msg = document.createElement('div');
+      msg.className = `chat-message ${isUser ? 'user-message' : 'bot-message'}`;
+      msg.innerHTML = text;
+      document.getElementById('chat-body').appendChild(msg);
+      msg.scrollIntoView();
+    }
+
+    function sendMessage() {
+      const input = document.getElementById('user-input');
+      const message = input.value.trim().toLowerCase();
+      
+      if(message) {
+        addMessage(`Tú: ${message}`, true);
+        input.value = '';
+        
+        // Buscar respuesta
+        let response = responses.default;
+        for(const key in responses) {
+          if(message.includes(key)) {
+            response = responses[key];
+            break;
+          }
+        }
+        
+        setTimeout(() => {
+          addMessage(response, false);
+        }, 500);
+      }
+    }
+  </script>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</body>
+</html>
