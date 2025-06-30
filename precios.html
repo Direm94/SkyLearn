@@ -1,246 +1,62 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Precios y Horarios - SkyLearn</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="firebase.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Precios - SkyLearn Academy</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
-  <!-- Cabecera -->
-  <header>
-    <div class="logo">
-      <img src="https://i.postimg.cc/Qdf8NK1g/ponerle-fondo-blanco-removebg-preview.png" alt="Logo SkyLearn">
-    </div>
-    <nav class="horizontal-menu">
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="logo">SkyLearn Academy</div>
+    <nav class="menu">
       <ul>
-        <li><a href="home.html">Inicio</a></li>
+        <li><a href="index.html">Inicio</a></li>
         <li><a href="cursos.html">Cursos</a></li>
-        <li><a href="precios.html">Precios y Horarios</a></li>
+        <li><a href="precios.html">Precios</a></li>
         <li><a href="contacto.html">Contacto</a></li>
-        <li><a href="registro.html">Registro</a></li>
+        <li><a href="registro.html" class="btn">Registro</a></li>
       </ul>
     </nav>
   </header>
 
-  <!-- Sección de Precios -->
-  <main class="pricing-section">
-    <h2>Precios y Horarios</h2>
-    <p>Consulta nuestros cursos y sus respectivos precios y horarios:</p>
-
-    <div class="pricing-grid">
-      <!-- Curso 1 -->
-      <div class="pricing-card">
-        <h3>Programación Web</h3>
-        <p>Precio: $500</p>
-        <p>Horario: Lun-Vie 18:00 - 20:00</p>
-        <a href="registro.html">Inscribirse</a>
-      </div>
-
-      <!-- Curso 2 -->
-      <div class="pricing-card">
-        <h3>Diseño UX/UI</h3>
-        <p>Precio: $450</p>
-        <p>Horario: Martes y Jueves 17:00 - 19:00</p>
-        <a href="registro.html">Inscribirse</a>
-      </div>
-
-      <!-- Curso 3 -->
-      <div class="pricing-card">
-        <h3>Inglés Avanzado</h3>
-        <p>Precio: $400</p>
-        <p>Horario: Sábados 10:00 - 12:00</p>
-        <a href="registro.html">Inscribirse</a>
-      </div>
-
-      <!-- Curso 4 -->
-      <div class="pricing-card">
-        <h3>Matemáticas Básicas</h::after {
-      content: '▼';
-      position: absolute;
-      right: 1rem;
-      transition: transform 0.3s ease;
-    }
-
-    .pricing-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-    }
-
-    .pricing-card h3 {
-      margin-bottom: 1rem;
-      font-size: 1.5em;
-      color: var(--primary-color);
-    }
-
-    .pricing-card p {
-      margin-bottom: 1rem;
-      color: var(--text-color);
-    }
-
-    .pricing-card a {
-      display: inline-block;
-      padding: 0.5rem 1rem;
-      background-color: var(--primary-color);
-      color: var(--secondary-color);
-      text-decoration: none;
-      border-radius: 5px;
-      transition: background-color 0.3s ease;
-    }
-
-    .pricing-card a:hover {
-      background-color: var(--accent-color);
-    }
-
-    /* Responsive Design */
-    @media (max-width: 768px) {
-      .pricing-section {
-        padding: 1rem;
-      }
-
-      .pricing-card h3 {
-        font-size: 1em;
-      }
-
-      .pricing-card a {
-        padding: 0.5rem 0.8rem;
-      }
-    }
-  </style>
-</head>
-<body>
-
-  <!-- Cabecera -->
-  <header>
-    <div class="logo">
-      <img src="https://i.postimg.cc/Qdf8NK1g/ponerle-fondo-blanco-removebg-preview.png" alt="Logo SkyLearn">
-    </div>
-    <nav class="horizontal-menu">
-      <ul>
-        <li><a href="home.html">Inicio</a></li>
-        <li><a href="cursos.html">Cursos</a></li>
-        <li><a href="precios.html">Precios y Horarios</a></li>
-        <li><a href="contacto.html">Contacto</a></li>
-        <li><a href="registro.html">Registro</a></li>
+  <!-- Oferta Section -->
+  <section class="offer-section">
+    <h2>Nuestros Precios</h2>
+    <div class="price-card">
+      <h3>Mensualidad Normal</h3>
+      <p class="price"><s>S/120</s></p>
+      <p class="offer">Oferta por apertura:</p>
+      <p class="discount">S/84 mensual</p>
+      <ul class="features">
+        <li>Acceso a todos los niveles</li>
+        <li>Profesores certificados</li>
+        <li>Horarios flexibles</li>
+        <li>Plataforma virtual moderna</li>
       </ul>
-    </nav>
-  </header>
-
-  <!-- Sección de Precios -->
-  <main class="pricing-section">
-    <h2>Precios y Horarios</h2>
-    <p>Consulta nuestros cursos y sus respectivos precios y horarios:</p>
-
-    <div class="pricing-grid">
-      <!-- Curso 1 -->
-      <div class="pricing-card">
-        <h3>Programación Web</h3>
-        <p>Precio: $500</p>
-        <p>Horario: Lun-Vie 18:00 - 20:00</p>
-        <a href="registro.html">Inscribirse</a>
-      </div>
-
-      <!-- Curso 2 -->
-      <div class="pricing-card">
-        <h3>Diseño UX/UI</h3>
-        <p>Precio: $450</p>
-        <p>Horario: Martes y Jueves 17:00 - 19:00</p>
-        <a href="registro.html">Inscribirse</a>
-      </div>
-
-      <!-- Curso 3 -->
-      <div class="pricing-card">
-        <h3>Inglés Avanzado</h3>
-        <p>Precio: $400</p>
-        <p>Horario: Sábados 10:00 - 12:00</p>
-        <a href="registro.html">Inscribirse</a>
-      </div>
-
-      <!-- Curso 4 -->
-      <div class="pricing-card">
-        <h3>Matemáticas Básicas</h3>
-        <p>Precio: $350</p>
-        <p>Horario: Lun-Vie 16:00 - 18:00</p>
-        <a href="registro.html">Inscribirse</a>
-      </div>
-
-      <!-- Curso 5 (opcional) -->
-      <div class="pricing-card">
-        <h3>Ciencia de Datos</h3>
-        <p>Precio: $600</p>
-        <p>Horario: Miércoles 19:00 - 21:00</p>
-        <a href="registro.html">Inscribirse</a>
-      </div>
+      <a href="registro.html" class="btn">Inscríbete ahora</a>
     </div>
-  </main>
+  </section>
 
-  <!-- Chatbot -->
-  <div id="chat-toggle">
-    <i class="fa-solid fa-message" style="font-size: 28px; color: white;"></i>
-  </div>
-  <div id="chat-container" style="display: none; position: fixed; bottom: 90px; right: 20px; width: 300px; height: 400px; background: white; border: 1px solid #ccc;">
-    <div id="chat-body"></div>
-    <div class="chat-input-container">
-      <input type="text" id="user-input" placeholder="Escribe tu mensaje..." onkeypress="if(event.key === 'Enter') sendMessage()">
-      <button id="send-button" onclick="sendMessage()">Enviar</button>
+  <!-- Footer -->
+  <footer class="footer">
+    <p>&copy; 2025 SkyLearn Academy. Todos los derechos reservados.</p>
+  </footer>
+
+  <!-- ChatBot -->
+  <div id="chatbot" class="chatbot">
+    <div class="chat-header">💬 SkyBot</div>
+    <div class="chat-body" id="chatBody">
+      <div class="message bot">¡Hola! Soy SkyBot. ¿En qué puedo ayudarte?</div>
+    </div>
+    <div class="chat-input">
+      <input type="text" id="userInput" placeholder="Escribe tu pregunta..." />
+      <button onclick="sendMessage()">➤</button>
     </div>
   </div>
 
-  <script>
-    function toggleChat() {
-      const chatContainer = document.getElementById("chat-container");
-      if (chatContainer.style.display === "block") {
-        chatContainer.style.display = "none";
-      } else {
-        chatContainer.style.display = "block";
-      }
-    }
-
-    document.getElementById("chat-toggle").addEventListener("click", toggleChat);
-
-    const responses = {
-      'hola': '¡Hola! ¿En qué puedo ayudarte hoy?',
-      'cursos': '📚 <a href="cursos.html" style="color:black">Ver nuestros cursos</a>',
-      'precios': '💰 <a href="precios.html" style="color:black">Consulta los precios</a>',
-      'contacto': '📞 <a href="contacto.html" style="color:black">Contáctanos aquí</a>',
-      'registro': '📝 <a href="registro.html" style="color:black">Regístrate ahora</a>',
-      'default': 'Lo siento, no tengo una respuesta para eso. ¿Podrías intentarlo de nuevo?'
-    };
-
-    function addMessage(text, isUser) {
-      const msg = document.createElement('div');
-      msg.className = `chat-message ${isUser ? 'user-message' : 'bot-message'}`;
-      msg.innerHTML = text;
-      document.getElementById('chat-body').appendChild(msg);
-      msg.scrollIntoView();
-    }
-
-    function sendMessage() {
-      const input = document.getElementById('user-input');
-      const message = input.value.trim().toLowerCase();
-      
-      if(message) {
-        addMessage(`Tú: ${message}`, true);
-        input.value = '';
-        
-        // Buscar respuesta
-        let response = responses.default;
-        for(const key in responses) {
-          if(message.includes(key)) {
-            response = responses[key];
-            break;
-          }
-        }
-        
-        setTimeout(() => {
-          addMessage(response, false);
-        }, 500);
-      }
-    }
-  </script>
-
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="script.js"></script>
 </body>
 </html>
