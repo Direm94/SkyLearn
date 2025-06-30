@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkyLearn Academy</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<!-- Pantalla de Bienvenida -->
+<div class="login-screen" id="loginScreen">
+    <h1>¿READY TO LEARN?</h1>
+    <button onclick="showMainContent()">Iniciar</button>
+</div>
+
+<!-- Navegador -->
+<nav class="navbar">
+    <div class="nav-content">
+        <img src="assets/images/logo.png" alt="Logo SkyLearn" class="logo">
+        <div class="nav-links">
+            <a href="#home" onclick="showSection('home')">Home</a>
+            <a href="#courses" onclick="showSection('courses')">Cursos</a>
+            <a href="#contact" onclick="showSection('contact')">Contacto</a>
+            <a href="#pricing" onclick="showSection('pricing')">Precios</a>
+        </div>
+    </div>
+</nav>
+
+<!-- Secciones -->
+<section id="home" class="section active">
+    <div class="home-slider">
+        <img src="https://via.placeholder.com/1200x500/3498db/ffffff?text=Banner+1" alt="Banner" class="slider-image active">
+        <img src=" https://via.placeholder.com/1200x500/2ecc71/ffffff?text=Banner+2" alt="Banner" class="slider-image">
+        <img src=" https://via.placeholder.com/1200x500/e74c3c/ffffff?text=Banner+3" alt="Banner" class="slider-image">
+    </div>
+    <div class="news-section">
+        <h2>Últimas Noticias</h2>
+        <p>Nuevos cursos disponibles a partir del próximo mes</p>
+    </div>
+    <div class="comments-section">
+        <h2>Comentarios</h2>
+        <div id="commentsContainer"></div>
+        <form onsubmit="addComment(event)">
+            <input type="text" id="commentInput" placeholder="Escribe un comentario..." required>
+            <button type="submit">Enviar</button>
+        </form>
+    </div>
+</section>
+
+<section id="courses" class="section">
+    <div class="courses-grid">
+        <div class="course-card">
+            <img src=" https://via.placeholder.com/300x200 " alt="Course">
+            <div style="padding: 1rem;">
+                <h3>Matemáticas</h3>
+                <p>Prof. Juan Pérez</p>
+                <button onclick="window.open('forms/registration.html', '_blank')">Inscribirse</button>
+            </div>
+        </div>
+        <!-- Agrega más tarjetas de cursos aquí -->
+    </div>
+</section>
+
+<section id="contact" class="section">
+    <div class="dropdown-menu">
+        <h3>Canales de Comunicación</h3>
+        <div class="dropdown-item">📧 Email: info@skylearn.com</div>
+        <div class="dropdown-item">📞 Teléfono: +123 456 7890</div>
+        <div class="dropdown-item">🌐 Redes Sociales: 
+            <a href="#">Facebook</a> | 
+            <a href="#">Instagram</a>
+        </div>
+    </div>
+</section>
+
+<section id="pricing" class="section">
+    <div class="pricing-menu">
+        <button onclick="showPricing('basic')">Plan Básico</button>
+        <button onclick="showPricing('premium')">Plan Premium</button>
+        <div id="pricing-content"></div>
+    </div>
+</section>
+
+<!-- Chatbot -->
+<div class="chatbot-icon" onclick="toggleChat()">💬</div>
+<div class="chat-window" id="chatWindow">
+    <div class="chat-messages" id="chatMessages">
+        <div>¡Hola! ¿En qué puedo ayudarte?</div>
+    </div>
+    <div class="chat-input">
+        <select onchange="handleChatResponse(this.value)">
+            <option value="">Selecciona una pregunta</option>
+            <option value="horario">¿Cuál es el horario de clases?</option>
+            <option value="costos">¿Cuánto cuestan los cursos?</option>
+            <option value="registro">¿Cómo me registro?</option>
+        </select>
+    </div>
+</div>
+
+<script src="js/main.js"></script>
+</body>
+</html>
