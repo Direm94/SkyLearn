@@ -48,9 +48,9 @@ function toggleChat() {
 function handleChatResponse(value) {
     const chatMessages = document.getElementById('chatMessages');
     const answers = {
-        'horario': 'Nuestras clases son de Lunes a Viernes de 8am a 5pm',
-        'costos': 'Los precios van desde $50/mes en plan básico',
-        'registro': 'Puedes registrarte usando el botón en la sección de cursos'
+        'horario': 'Nuestras clases son de Lunes a Viernes de 8am a 5pm.',
+        'costos': 'Los precios van desde $50/mes en plan básico.',
+        'registro': 'Puedes registrarte usando el botón "Inscribirse" en cada curso.'
     };
     if (value && answers[value]) {
         chatMessages.innerHTML += `<div style="margin: 0.5rem 0;">${answers[value]}</div>`;
