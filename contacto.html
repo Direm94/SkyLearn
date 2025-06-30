@@ -1,268 +1,60 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Contacto - SkyLearn</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="firebase.js"></script>
-  <style>
-    /* Estilos específicos para contacto.html */
-    .contact-section {
-      padding: 2rem;
-      max-width: 800px;
-      margin: 2rem auto;
-      background-color: var(--secondary-color);
-      border-radius: 10px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    }
-
-    .contact-section h2 {
-      text-align: center;
-      margin-bottom: 2rem;
-      color: var(--primary-color);
-    }
-
-    .contact-item {
-      margin-bottom: 1.5rem;
-    }
-
-    .contact-button {
-      width: 100%;
-      padding: 1rem;
-      background-color: var(--menu-bg);
-      color: var(--menu-text);
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 1.2em;
-      text-align: left;
-      position: relative;
-      transition: background-color 0.3s ease;
-    }
-
-    .contact-button:hover {
-      background-color: var(--accent-color);
-      color: var(--secondary-color);
-    }
-
-    .contact-button::after {
-      content: '▼';
-      position: absolute;
-      right: 1rem;
-      transition: transform 0.3s ease;
-    }
-
-    .contact-button.active::after {
-      transform: rotate(180deg);
-    }
-
-    .contact-content {
-      display: none;
-      padding: 1rem;
-      background-color: var(--menu-bg;
-      border-radius: 8px;
-      margin-top: 0.5rem;
-      animation: fadeIn 0.5s ease;
-    }
-
-    .contact-content a {
-      display: block;
-      margin-bottom: 0.5rem;
-      color: var(--menu-text;
-      text-decoration: none;
-      transition: color 0.3s ease;
-    }
-
-    .contact-content a:hover {
-      color: var(--accent-color;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1;
-    }
-
-    /* Responsive Design */
-    @media (max-width: 768px) {
-      .contact-section {
-        padding: 1rem;
-      }
-
-      .contact-button {
-        font-size: 1em;
-        padding: 0.8rem;
-      }
-
-      .contact-content {
-        padding: 0.8rem;
-      }
-    }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contacto - SkyLearn Academy</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
-  <!-- Cabecera -->
-  <header>
-    <div class="logo">
-      <img src="https://i.postimg.cc/Qdf8NK1g/ponerle-fondo-blanco-removebg-preview.png" alt="Logo SkyLearn">
-    </div>
-    <nav class="horizontal-menu">
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="logo">SkyLearn Academy</div>
+    <nav class="menu">
       <ul>
-        <li><a href="home.html">Inicio</a></li>
+        <li><a href="index.html">Inicio</a></li>
         <li><a href="cursos.html">Cursos</a></li>
-        <li><a href="precios.html">Precios y Horarios</a></li>
+        <li><a href="precios.html">Precios</a></li>
         <li><a href="contacto.html">Contacto</a></li>
-        <li><a href="registro.html">Registro</a></li>
+        <li><a href="registro.html" class="btn">Registro</a></li>
       </ul>
     </nav>
   </header>
 
-  <!-- Sección de Contacto -->
-  <main class="contact-section">
+  <!-- Contacto Section -->
+  <section class="contact-section">
     <h2>Contáctanos</h2>
-    <p>Puedes comunicarte con nosotros por cualquiera de estos medios:</p>
-
-    <!-- WhatsApp -->
-    <div class="contact-item">
-      <button class="contact-button" onclick="toggleContent('whatsapp')">
-        <span class="contact-icon">📱</span> WhatsApp
-      </button>
-      <div id="whatsapp" class="contact-content">
-        <p>Teléfono: +1 234 567 890</p>
-        <p><a href="https://wa.me/123456789"  target="_blank">Enviar mensaje</a></p>
-      </div>
+    <form class="contact-form">
+      <input type="text" placeholder="Nombre completo" required />
+      <input type="email" placeholder="Correo electrónico" required />
+      <textarea rows="5" placeholder="Tu mensaje..." required></textarea>
+      <button type="submit" class="btn">Enviar Mensaje</button>
+    </form>
+    <div class="info">
+      <p>📧 info@skylearnacademy.com</p>
+      <p>📞 +51 987 654 321</p>
+      <p>🌐 www.skylearnacademy.com</p>
     </div>
+  </section>
 
-    <!-- Sitio Web -->
-    <div class="contact-item">
-      <button class="contact-button" onclick="toggleContent('web')">
-        <span class="contact-icon">🌐</span> Sitio Web
-      </button>
-      <div id="web" class="contact-content">
-        <p>Sitio oficial: <a href="https://www.tusitio.com"  target="_blank">tusitio.com</a></p>
-      </div>
+  <!-- Footer -->
+  <footer class="footer">
+    <p>&copy; 2025 SkyLearn Academy. Todos los derechos reservados.</p>
+  </footer>
+
+  <!-- ChatBot -->
+  <div id="chatbot" class="chatbot">
+    <div class="chat-header">💬 SkyBot</div>
+    <div class="chat-body" id="chatBody">
+      <div class="message bot">¡Hola! Soy SkyBot. ¿En qué puedo ayudarte?</div>
     </div>
-
-    <!-- Email -->
-    <div class="contact-item">
-      <button class="contact-button" onclick="toggleContent('email')">
-        <span class="contact-icon">📧</span> Correo Electrónico
-      </button>
-      <div id="email" class="contact-content">
-        <p>Email: info@skylearn.com</p>
-        <p>Soporte: soporte@skylearn.com</p>
-      </div>
+    <div class="chat-input">
+      <input type="text" id="userInput" placeholder="Escribe tu pregunta..." />
+      <button onclick="sendMessage()">➤</button>
     </div>
+  </div>
 
-    <!-- Dirección -->
-    <div class="contact-item">
-      <button class="contact-button" onclick="toggleContent('direccion')">
-        <span class="contact-icon">📍</span> Dirección
-      </div>
-      <div id="direccion" class="contact-content">
-        <p>Calle Principal #123, Ciudad Educacional</p>
-        <p>Horario de atención: Lunes a Viernes de 9:00 a.m. a 6:00 p.m.</p>
-      </div>
-    </div>
-
-    <!-- Redes Sociales -->
-    <div class="contact-item">
-      <button class="contact-button" onclick="toggleContent('redes')">
-        <span class="contact-icon">🔗</span> Redes Sociales
-      </button>
-      <div id="redes" class="contact-content">
-        <p><a href="https://facebook.com/tuacademia"  target="_blank">Facebook</a></p>
-        <p><a href="https://instagram.com/tuacademia"  target="_blank">Instagram</a></p>
-        <p><a href="https://twitter.com/tuacademia"  target="_blank">Twitter/X</a></p>
-      </div>
-    </div>
-
-    <!-- Chatbot -->
-    <div id="chat-toggle">
-      <i class="fa-solid fa-message" style="font-size: 28px; color: white;"></i>
-    </div>
-    <div id="chat-container" style="display: none; position: fixed; bottom: 90px; right: 20px; width: 300px; height: 400px; background: white; border: 1px solid #ccc;">
-      <div id="chat-body"></div>
-      <div class="chat-input-container">
-        <input type="text" id="user-input" placeholder="Escribe tu mensaje..." onkeypress="if(event.key === 'Enter') sendMessage()">
-        <button id="send-button" onclick="sendMessage()">Enviar</button>
-      </div>
-    </div>
-  </main>
-
-  <script>
-    function toggleContent(id) {
-      const content = document.getElementById(id);
-      const allContents = document.querySelectorAll('.contact-content');
-
-      // Ocultar todos
-      allContents.forEach(el => el.style.display = 'none');
-
-      // Mostrar solo el seleccionado
-      if (content.style.display === 'block') {
-        content.style.display = 'none';
-      } else {
-        content.style.display = 'block';
-      }
-
-      // Cambiar el estado del botón
-      const button = document.querySelector(`button[onclick="toggleContent('${id}')"]`);
-      button.classList.toggle('active');
-    }
-
-    function toggleChat() {
-      const chatContainer = document.getElementById("chat-container");
-      if (chatContainer.style.display === "block") {
-        chatContainer.style.display = "none";
-      } else {
-        chatContainer.style.display = "block";
-      }
-    }
-
-    document.getElementById("chat-toggle").addEventListener("click", toggleChat);
-
-    const responses = {
-      'hola': '¡Hola! ¿En qué puedo ayudarte hoy?',
-      'cursos': '📚 <a href="cursos.html" style="color:black">Ver nuestros cursos</a>',
-      'precios': '💰 <a href="precios.html" style="color:black">Consulta los precios</a>',
-      'contacto': '📞 <a href="contacto.html" style="color:black">Contáctanos aquí</a>',
-      'registro': '📝 <a href="registro.html" style="color:black">Regístrate ahora</a>',
-      'default': 'Lo siento, no tengo una respuesta para eso. ¿Podrías intentarlo de nuevo?'
-    };
-
-    function addMessage(text, isUser) {
-      const msg = document.createElement('div');
-      msg.className = `chat-message ${isUser ? 'user-message' : 'bot-message'}`;
-      msg.innerHTML = text;
-      document.getElementById('chat-body').appendChild(msg;
-      msg.scrollIntoView();
-    }
-
-    function sendMessage() {
-      const input = document.getElementBy("user-input");
-      const message = input.value.trim().toLowerCase();
-      
-      if(message) {
-        addMessage(`Tú: ${message}, true);
-        input.value = '';
-        
-        // Buscar respuesta
-        let response = responses.default;
-        for(const key in responses) {
-          if(message.includes(key)) {
-            response = responses[key];
-            break;
-          }
-        }
-        
-        setTimeout(() => {
-          addMessage(response, false);
-        }, 500);
-      }
-    }
-  </script>
-
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="script.js"></script>
 </body>
 </html>
