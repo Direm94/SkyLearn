@@ -2,7 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Arial', sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /* Pantalla de Bienvenida */
@@ -18,23 +18,37 @@
     z-index: 1000;
     transition: opacity 0.5s;
 }
-.login-logo {
-    height: 100px;
-    margin-bottom: 1rem;
+.logo-container {
+    animation: spin 4s linear infinite;
+    margin-bottom: 2rem;
+}
+.logo-spin {
+    width: 150px;
 }
 .login-screen h1 {
-    font-size: 2rem;
-    color: #3498db;
-    margin-bottom: 1rem;
+    font-size: 2.5rem;
+    color: #2980b9;
+    margin-bottom: 2rem;
+    text-align: center;
 }
 .login-screen button {
-    padding: 0.8rem 1.5rem;
-    font-size: 1rem;
+    padding: 0.8rem 2rem;
+    font-size: 1.2rem;
     background: #3498db;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    transition: background 0.3s;
+}
+.login-screen button:hover {
+    background: #2980b9;
+}
+
+/* Animación de Logo */
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
 }
 
 /* Navegación */
@@ -111,6 +125,7 @@
     border-radius: 10px;
     overflow: hidden;
     transition: transform 0.3s;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
 .course-card:hover {
     transform: translateY(-5px);
