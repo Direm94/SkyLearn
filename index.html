@@ -1,171 +1,68 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Bienvenido a SkyLearn</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="firebase.js"></script>
-  <style>
-    /* Estilos específicos para index.html */
-    .overlay {
-      text-align: center;
-      background-color: rgba(255, 255, 255, 0.95);
-      padding: 2rem;
-      border-radius: 10px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-      animation: fadeIn 2s ease-in-out;
-      width: 80%;
-      max-width: 600px;
-      margin: 0 auto;
-      position: relative;
-    }
-
-    .logo img {
-      width: 200px;
-      margin-bottom: 20px;
-      animation: bounce 2s infinite;
-    }
-
-    .overlay h1 {
-      font-size: 2.5em;
-      color: var(--primary-color);
-      margin-bottom: 20px;
-    }
-
-    .overlay p {
-      font-size: 1.2em;
-      color: var(--text-color);
-      margin-bottom: 30px;
-    }
-
-    .overlay button {
-      padding: 15px 30px;
-      font-size: 1.2em;
-      background-color: var(--primary-color);
-      color: var(--secondary-color);
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background-color 0.3s ease, transform 0.3s ease;
-    }
-
-    .overlay button:hover {
-      background-color: var(--accent-color);
-      transform: scale(1.05);
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-15px); }
-    }
-
-    /* Chatbot */
-    #chat-toggle {
-      position: absolute;
-      bottom: 20px;
-      right: 20px;
-      width: 60px;
-      height: 60px;
-      background-color: var(--primary-color);
-      color: var(--secondary-color);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      font-size: 28px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-      transition: background-color 0.3s ease, transform 0.3s ease;
-    }
-
-    #chat-toggle:hover {
-      background-color: var(--accent-color);
-      transform: scale(1.1);
-    }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SkyLearn Academy</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script defer src="script.js"></script>
 </head>
 <body>
 
-  <div class="overlay">
-    <div class="logo">
-      <img src="https://i.postimg.cc/Qdf8NK1g/ponerle-fondo-blanco-removebg-preview.png" alt="Logo SkyLearn">
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="logo">SkyLearn Academy</div>
+    <ul class="nav-links">
+      <li><a href="#inicio">Inicio</a></li>
+      <li><a href="#cursos">Cursos</a></li>
+      <li><a href="#oferta">Oferta</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="inicio" class="hero">
+    <h1>¡Descubre un Nuevo Mundo con SkyLearn Academy!</h1>
+    <p>Clases personalizadas en inglés | Horarios flexibles | Profesores certificados</p>
+    <a href="#contacto" class="btn">Inscríbete Ahora</a>
+  </section>
+
+  <!-- Cursos Section -->
+  <section id="cursos" class="courses-section">
+    <h2>Nuestros Niveles</h2>
+    <div class="course-grid">
+      <div class="card">Kids</div>
+      <div class="card">Básico</div>
+      <div class="card">Pre-intermedio</div>
+      <div class="card">Avanzado</div>
     </div>
-    <h1>Bienvenido a SkyLearn</h1>
-    <p>¿Estás listo para comenzar tu viaje de aprendizaje?</p>
-    <button onclick="window.location.href='home.html'">Empezar</button>
-  </div>
+  </section>
 
-  <!-- Chatbot -->
-  <div id="chat-toggle">
-    <i class="fa-solid fa-message" style="font-size: 28px; color: white;"></i>
-  </div>
-  <div id="chat-container" style="display: none; position: fixed; bottom: 90px; right: 20px; width: 300px; height: 400px; background: white; border: 1px solid #ccc;">
-    <div id="chat-body"></div>
-    <div class="chat-input-container">
-      <input type="text" id="user-input" placeholder="Escribe tu mensaje..." onkeypress="if(event.key === 'Enter') sendMessage()">
-      <button id="send-button" onclick="sendMessage()">Enviar</button>
+  <!-- Oferta Section -->
+  <section id="oferta" class="offer-section">
+    <h2>¡30% de Descuento por Apertura!</h2>
+    <p>Precio normal: <s>S/120</s> | Precio promocional: <strong>S/84 mensuales</strong></p>
+  </section>
+
+  <!-- Contacto Section -->
+  <section id="contacto" class="contact-section">
+    <h2>Contacto</h2>
+    <p>📧 info@skylearnacademy.com</p>
+    <p>📞 +51 987 654 321</p>
+    <p>🌐 www.skylearnacademy.com</p>
+  </section>
+
+  <!-- ChatBot -->
+  <div id="chatbot" class="chatbot">
+    <div class="chat-header">💬 SkyBot</div>
+    <div class="chat-body" id="chatBody">
+      <div class="message bot">¡Hola! Soy SkyBot. ¿En qué puedo ayudarte?</div>
+    </div>
+    <div class="chat-input">
+      <input type="text" id="userInput" placeholder="Escribe tu pregunta..." />
+      <button onclick="sendMessage()">➤</button>
     </div>
   </div>
 
-  <script>
-    function toggleChat() {
-      const chatContainer = document.getElementById("chat-container");
-      if (chatContainer.style.display === "block") {
-        chatContainer.style.display = "none";
-      } else {
-        chatContainer.style.display = "block";
-      }
-    }
-
-    document.getElementById("chat-toggle").addEventListener("click", toggleChat);
-
-    const responses = {
-      'hola': '¡Hola! ¿En qué puedo ayudarte hoy?',
-      'cursos': '📚 <a href="cursos.html" style="color:black">Ver nuestros cursos</a>',
-      'precios': '💰 <a href="precios.html" style="color:black">Consulta los precios</a>',
-      'contacto': '📞 <a href="contacto.html" style="color:black">Contáctanos aquí</a>',
-      'registro': '📝 <a href="registro.html" style="color:black">Regístrate ahora</a>',
-      'default': 'Lo siento, no tengo una respuesta para eso. ¿Podrías intentarlo de nuevo?'
-    };
-
-    function addMessage(text, isUser) {
-      const msg = document.createElement('div');
-      msg.className = `chat-message ${isUser ? 'user-message' : 'bot-message'}`;
-      msg.innerHTML = text;
-      document.getElementById('chat-body').appendChild(msg);
-      msg.scrollIntoView();
-    }
-
-    function sendMessage() {
-      const input = document.getElementById('user-input');
-      const message = input.value.trim().toLowerCase();
-      
-      if(message) {
-        addMessage(`Tú: ${message}`, true);
-        input.value = '';
-        
-        // Buscar respuesta
-        let response = responses.default;
-        for(const key in responses) {
-          if(message.includes(key)) {
-            response = responses[key];
-            break;
-          }
-        }
-        
-        setTimeout(() => {
-          addMessage(response, false);
-        }, 500);
-      }
-    }
-  </script>
-
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </body>
 </html>
