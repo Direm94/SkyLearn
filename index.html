@@ -8,12 +8,20 @@
 </head>
 <body>
 
-<!-- Pantalla de Bienvenida -->
-<div class="login-screen" id="loginScreen">
-    <div class="logo-container">
-        <img src="https://i.postimg.cc/63d6XxfM/ponerle-fondo-blanco-removebg-preview.png "
-             alt="Logo SkyLearn" class="logo-spin" />
-    </div>
+/* Animación de rebote */
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+.logo-container {
+    animation: bounce 2s infinite;
+    margin-bottom: 2rem;
+}
     <h1>¿READY TO LEARN?</h1>
     <button onclick="showMainContent()">Iniciar</button>
 </div>
