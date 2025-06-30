@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SkyLearn Academy</title>
     <style>
         * {
@@ -12,7 +12,7 @@
             font-family: 'Arial', sans-serif;
         }
 
-        /* Pantalla de Bienvenida */
+        /* Login Screen */
         .login-screen {
             position: fixed;
             top: 0; left: 0;
@@ -24,7 +24,6 @@
             align-items: center;
             z-index: 1000;
             transition: opacity 0.5s;
-            text-align: center;
         }
         .logo-container {
             animation: bounce 2s infinite;
@@ -36,7 +35,8 @@
         .login-screen h1 {
             font-size: 2.5rem;
             color: #3498db;
-            margin-bottom: 1rem;
+            margin-bottom: 2rem;
+            text-align: center;
         }
         .login-screen button {
             padding: 0.8rem 2rem;
@@ -78,6 +78,14 @@
         .logo {
             height: 50px;
         }
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #3498db;
+        }
         .nav-links {
             display: flex;
             gap: 2rem;
@@ -92,6 +100,27 @@
             color: #3498db;
         }
 
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+            .nav-links {
+                position: absolute;
+                top: 70px;
+                left: -100%;
+                flex-direction: column;
+                background: white;
+                width: 100%;
+                text-align: center;
+                transition: left 0.3s ease-in-out;
+                box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+            }
+            .nav-links.active {
+                left: 0;
+            }
+        }
+
         /* Secciones */
         .section {
             padding: 100px 5% 5rem;
@@ -100,6 +129,40 @@
         }
         .active {
             display: block;
+        }
+
+        /* Home Section */
+        .hero-section {
+            max-width: 800px;
+            margin: 80px auto 40px;
+            text-align: center;
+            padding: 2rem;
+            background: #f9f9f9;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .hero-section h2 {
+            font-size: 2.5rem;
+            color: #3498db;
+            margin-bottom: 1rem;
+        }
+        .hero-section p {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 1.5rem;
+        }
+        .btn-primary {
+            padding: 0.8rem 2rem;
+            background: #3498db;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: background 0.3s ease;
+            display: inline-block;
+        }
+        .btn-primary:hover {
+            background: #2980b9;
         }
 
         /* Slider Home */
@@ -123,7 +186,7 @@
         /* Cursos */
         .courses-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
             padding: 2rem 0;
         }
@@ -226,16 +289,6 @@
             width: 100%;
             padding: 0.5rem;
         }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-            .courses-grid {
-                grid-template-columns: 1fr;
-            }
-        }
     </style>
 </head>
 <body>
@@ -255,7 +308,8 @@
     <div class="nav-content">
         <img src="https://i.postimg.cc/63d6XxfM/ponerle-fondo-blanco-removebg-preview.png "
              alt="Logo SkyLearn" class="logo" />
-        <div class="nav-links">
+        <button class="hamburger" onclick="toggleMenu()">☰</button>
+        <div class="nav-links" id="navLinks">
             <a href="#home" onclick="showSection('home')">Home</a>
             <a href="#courses" onclick="showSection('courses')">Cursos</a>
             <a href="#contact" onclick="showSection('contact')">Contacto</a>
@@ -266,6 +320,11 @@
 
 <!-- Contenido Principal -->
 <section id="home" class="section active">
+    <div class="hero-section">
+        <h2>Bienvenido a SkyLearn Academy</h2>
+        <p>Donde el aprendizaje no tiene límites. Encuentra cursos diseñados por expertos y comienza tu camino hoy.</p>
+        <a href="#courses" onclick="showSection('courses')" class="btn-primary">Ver Cursos</a>
+    </div>
     <div class="home-slider">
         <img src="https://via.placeholder.com/1200x500/3498db/ffffff?text=Banner+1" alt="Banner 1" class="slider-image active">
         <img src=" https://via.placeholder.com/1200x500/2ecc71/ffffff?text=Banner+2" alt="Banner 2" class="slider-image">
@@ -439,6 +498,11 @@
         content.innerHTML = plan === 'basic' ?
             '<h3>Plan Básico</h3><p>$50/mes - Acceso a 3 cursos</p>' :
             '<h3>Plan Premium</h3><p>$100/mes - Acceso a todos los cursos</p>';
+    }
+
+    function toggleMenu() {
+        const navLinks = document.getElementById("navLinks");
+        navLinks.classList.toggle("active");
     }
 
     displayComments();
