@@ -5,52 +5,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>SkyLearn Academy</title>
   <link rel="stylesheet" href="styles.css" />
-  <script defer src="script.js"></script>
 </head>
 <body>
 
   <!-- Navbar -->
-  <nav class="navbar">
+  <header class="navbar">
     <div class="logo">SkyLearn Academy</div>
-    <ul class="nav-links">
-      <li><a href="#inicio">Inicio</a></li>
-      <li><a href="#cursos">Cursos</a></li>
-      <li><a href="#oferta">Oferta</a></li>
-      <li><a href="#contacto">Contacto</a></li>
-    </ul>
-  </nav>
+    <nav class="menu">
+      <ul>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="cursos.html">Cursos</a></li>
+        <li><a href="precios.html">Precios</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+        <li><a href="registro.html" class="btn">Registro</a></li>
+      </ul>
+    </nav>
+  </header>
 
-  <!-- Hero Section -->
-  <section id="inicio" class="hero">
-    <h1>¡Descubre un Nuevo Mundo con SkyLearn Academy!</h1>
-    <p>Clases personalizadas en inglés | Horarios flexibles | Profesores certificados</p>
-    <a href="#contacto" class="btn">Inscríbete Ahora</a>
+  <!-- Hero -->
+  <section class="hero">
+    <h1>¡Aprende Inglés de la Manera Más Fácil!</h1>
+    <p>Clases virtuales personalizadas | Profesores certificados | Horarios flexibles</p>
+    <a href="registro.html" class="btn">Regístrate Ahora</a>
   </section>
 
-  <!-- Cursos Section -->
-  <section id="cursos" class="courses-section">
-    <h2>Nuestros Niveles</h2>
-    <div class="course-grid">
-      <div class="card">Kids</div>
-      <div class="card">Básico</div>
-      <div class="card">Pre-intermedio</div>
-      <div class="card">Avanzado</div>
-    </div>
-  </section>
-
-  <!-- Oferta Section -->
-  <section id="oferta" class="offer-section">
-    <h2>¡30% de Descuento por Apertura!</h2>
-    <p>Precio normal: <s>S/120</s> | Precio promocional: <strong>S/84 mensuales</strong></p>
-  </section>
-
-  <!-- Contacto Section -->
-  <section id="contacto" class="contact-section">
-    <h2>Contacto</h2>
-    <p>📧 info@skylearnacademy.com</p>
-    <p>📞 +51 987 654 321</p>
-    <p>🌐 www.skylearnacademy.com</p>
-  </section>
+  <!-- Footer -->
+  <footer class="footer">
+    <p>&copy; 2025 SkyLearn Academy. Todos los derechos reservados.</p>
+  </footer>
 
   <!-- ChatBot -->
   <div id="chatbot" class="chatbot">
@@ -64,5 +46,6 @@
     </div>
   </div>
 
+  <script src="script.js"></script>
 </body>
 </html>
