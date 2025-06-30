@@ -4,13 +4,16 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>SkyLearn Academy</title>
-    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
 <!-- Pantalla de Bienvenida -->
 <div class="login-screen" id="loginScreen">
-    <img src="https://i.postimg.cc/63d6XxfM/ponerle-fondo-blanco-removebg-preview.png" alt="Logo SkyLearn" class="login-logo" />
+    <div class="logo-container">
+        <img src="https://i.postimg.cc/63d6XxfM/ponerle-fondo-blanco-removebg-preview.png "
+             alt="Logo SkyLearn" class="logo-spin" />
+    </div>
     <h1>¿READY TO LEARN?</h1>
     <button onclick="showMainContent()">Iniciar</button>
 </div>
@@ -18,7 +21,8 @@
 <!-- Navegador -->
 <nav class="navbar">
     <div class="nav-content">
-        <img src="assets/images/logo.png" alt="Logo SkyLearn" class="logo">
+        <img src="https://i.postimg.cc/63d6XxfM/ponerle-fondo-blanco-removebg-preview.png "
+             alt="Logo SkyLearn" class="logo" />
         <div class="nav-links">
             <a href="#home" onclick="showSection('home')">Home</a>
             <a href="#courses" onclick="showSection('courses')">Cursos</a>
@@ -31,7 +35,7 @@
 <!-- Contenido Principal -->
 <section id="home" class="section active">
     <div class="home-slider">
-        <img src="https://via.placeholder.com/1200x500/3498db/ffffff?text=Banner+1" alt="Banner 1" class="slider-image active">
+        <img src="https://via.placeholder.com/1200x500/2980b9/ffffff?text=Banner+1" alt="Banner 1" class="slider-image active">
         <img src=" https://via.placeholder.com/1200x500/2ecc71/ffffff?text=Banner+2" alt="Banner 2" class="slider-image">
         <img src=" https://via.placeholder.com/1200x500/e74c3c/ffffff?text=Banner+3" alt="Banner 3" class="slider-image">
     </div>
@@ -138,6 +142,6 @@
     </div>
 </div>
 
-<script src="js/main.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
