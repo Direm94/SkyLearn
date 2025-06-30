@@ -15,8 +15,10 @@
         /* Pantalla de Bienvenida */
         .login-screen {
             position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             background: white;
             display: flex;
             flex-direction: column;
@@ -107,7 +109,7 @@
             opacity: 1;
         }
 
-        /* Noticias Section */
+        /* Mejora en Noticias */
         .news-section {
             max-width: 800px;
             margin: 3rem auto;
@@ -127,7 +129,7 @@
             color: #555;
         }
 
-        /* Comentarios Section */
+        /* Mejora en Comentarios */
         .comments-section {
             max-width: 800px;
             margin: 3rem auto;
@@ -184,6 +186,40 @@
             background: #2980b9;
         }
 
+        /* Chatbot */
+        .chatbot-icon {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: #3498db;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            cursor: pointer;
+            z-index: 200;
+        }
+        .chat-window {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            width: 300px;
+            height: 400px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            display: none;
+            flex-direction: column;
+        }
+        .chat-messages {
+            flex: 1;
+            padding: 1rem;
+            overflow-y: auto;
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .comments-section, .news-section {
@@ -225,7 +261,7 @@
     <!-- Noticias -->
     <div class="news-section">
         <h2>Últimas Noticias</h2>
-        <p>Nuevos cursos disponibles a partir del próximo mes. ¡No te los pierdas!</p>
+        <p>Nuevos cursos disponibles a partir del próximo mes</p>
     </div>
 
     <!-- Comentarios -->
@@ -239,7 +275,44 @@
     </div>
 </section>
 
-<!-- Chatbot -->
+<!-- Sección Cursos -->
+<section id="courses" class="section">
+    <div class="courses-grid">
+        <div class="course-card">
+            <img src=" https://via.placeholder.com/300x200 " alt="Course" class="course-img">
+            <div style="padding: 1rem;">
+                <h3>Matemáticas</h3>
+                <p>Prof. Juan Pérez</p>
+                <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?embedded=true', '_blank')" style="padding: 0.5rem 1rem; background: #3498db; color: white; border: none; border-radius: 5px; cursor: pointer;">Inscribirse</button>
+            </div>
+        </div>
+        <!-- Añade más tarjetas aquí -->
+    </div>
+</section>
+
+<!-- Sección Contacto -->
+<section id="contact" class="section">
+    <div class="dropdown-menu">
+        <h3>Canales de Comunicación</h3>
+        <div class="dropdown-item">📧 Email: info@skylearn.com</div>
+        <div class="dropdown-item">📞 Teléfono: +123 456 7890</div>
+        <div class="dropdown-item">🌐 Redes Sociales: 
+            <a href="#">Facebook</a> | 
+            <a href="#">Instagram</a>
+        </div>
+    </div>
+</section>
+
+<!-- Sección Precios -->
+<section id="pricing" class="section">
+    <div class="pricing-menu">
+        <button onclick="showPricing('basic')">Plan Básico</button>
+        <button onclick="showPricing('premium')">Plan Premium</button>
+        <div id="pricing-content"></div>
+    </div>
+</section>
+
+<!-- Chatbot Asistente -->
 <div class="chatbot-icon" onclick="toggleChat()">💬</div>
 <div class="chat-window" id="chatWindow">
     <div class="chat-messages" id="chatMessages">
@@ -281,12 +354,10 @@
         slides[currentSlide].classList.add('active');
     }, 3000);
 
-    // Comentarios con animación
+    // Comentarios temporales con animación
     function addComment(e) {
         e.preventDefault();
         const comment = document.getElementById('commentInput').value;
-        if (!comment.trim()) return;
-
         const comments = JSON.parse(localStorage.getItem('comments') || '[]');
         comments.push({ text: comment, time: Date.now() });
         localStorage.setItem('comments', JSON.stringify(comments));
@@ -298,7 +369,6 @@
         const container = document.getElementById('commentsContainer');
         const comments = JSON.parse(localStorage.getItem('comments') || '[]');
         const validComments = comments.filter(c => Date.now() - c.time < 86400000); // 24 horas
-
         container.innerHTML = '';
         validComments.forEach(c => {
             const commentBox = document.createElement('div');
@@ -306,7 +376,6 @@
             commentBox.textContent = c.text;
             container.appendChild(commentBox);
         });
-
         localStorage.setItem('comments', JSON.stringify(validComments));
     }
 
@@ -331,6 +400,15 @@
         }
     }
 
+    // Menú de Precios
+    function showPricing(plan) {
+        const content = document.getElementById('pricing-content');
+        content.innerHTML = plan === 'basic' ?
+            '<h3>Plan Básico</h3><p>$50/mes - Acceso a 3 cursos</p>' :
+            '<h3>Plan Premium</h3><p>$100/mes - Acceso a todos los cursos</p>';
+    }
+
+    // Inicializar comentarios
     displayComments();
 </script>
 
