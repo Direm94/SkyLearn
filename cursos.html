@@ -1,153 +1,72 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Cursos - SkyLearn</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="firebase.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cursos - SkyLearn Academy</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
-  <!-- Cabecera -->
-  <header>
-    <div class="logo">
-      <img src="https://i.postimg.cc/Qdf8NK1g/ponerle-fondo-blanco-removebg-preview.png" alt="Logo SkyLearn">
-    </div>
-    <nav class="horizontal-menu">
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="logo">SkyLearn Academy</div>
+    <nav class="menu">
       <ul>
-        <li><a href="home.html">Inicio</a></li>
+        <li><a href="index.html">Inicio</a></li>
         <li><a href="cursos.html">Cursos</a></li>
-        <li><a href="precios.html">Precios y Horarios</a></li>
+        <li><a href="precios.html">Precios</a></li>
         <li><a href="contacto.html">Contacto</a></li>
-        <li><a href="registro.html">Registro</a></li>
+        <li><a href="registro.html" class="btn">Registro</a></li>
       </ul>
     </nav>
   </header>
 
-  <!-- Sección de Cursos -->
-  <main class="courses-section">
-    <h2>Explora Nuestros Cursos</h2>
-    <p>Descubre las oportunidades de aprendizaje que tenemos para ofrecerte:</p>
+  <!-- Cursos Section -->
+  <section class="courses-section">
+    <h2>Nuestros Niveles de Inglés</h2>
+    <div class="course-grid">
 
-    <div class="courses-grid">
-      <!-- Curso 1 -->
-      <div class="course-card">
-        <img src="https://i.postimg.cc/6qV52XjL/profesor1.jpg" alt="Curso de Programación Web">
-        <div class="course-info">
-          <h3>Programación Web</h3>
-          <p>Aprende a crear sitios web dinámicos y responsivos.</p>
-          <a href="registro.html">Inscribirse</a>
-        </div>
+      <div class="card">
+        <h3>Kids</h3>
+        <p>Diseñado para niños de 5 a 12 años. Aprenden jugando y desarrollan habilidades básicas en inglés.</p>
       </div>
 
-      <!-- Curso 2 -->
-      <div class="course-card">
-        <img src="https://i.postimg.cc/6qV52XjL/profesor2.jpg" alt="Curso de Diseño UX/UI">
-        <div class="course-info">
-          <h3>Diseño UX/UI</h3>
-          <p>Domina el arte del diseño de interfaces y experiencias de usuario.</p>
-          <a href="registro.html">Inscribirse</a>
-        </div>
+      <div class="card">
+        <h3>Básico</h3>
+        <p>Ideal para principiantes absolutos. Enseñamos desde lo más básico: saludos, números, colores y frases comunes.</p>
       </div>
 
-      <!-- Curso 3 -->
-      <div class="course-card">
-        <img src="https://i.postimg.cc/6qV52XjL/profesor3.jpg" alt="Curso de Inglés Avanzado">
-        <div class="course-info">
-          <h3>Inglés Avanzado</h3>
-          <p>Perfecciona tus habilidades en el idioma inglés.</p>
-          <a href="registro.html">Inscribirse</a>
-        </div>
+      <div class="card">
+        <h3>Pre-intermedio</h3>
+        <p>Fortalece tu gramática y vocabulario. Ideal si ya tienes conocimientos básicos y quieres avanzar.</p>
       </div>
 
-      <!-- Curso 4 -->
-      <div class="course-card">
-        <img src="https://i.postimg.cc/6qV52XjL/profesor4.jpg" alt="Curso de Matemáticas Básicas">
-        <div class="course-info">
-          <h3>Matemáticas Básicas</h3>
-          <p>Refuerza tus conocimientos en matemáticas fundamentales.</p>
-          <a href="registro.html">Inscribirse</a>
-        </div>
+      <div class="card">
+        <h3>Avanzado</h3>
+        <p>Desarrolla fluidez y confianza para hablar inglés en situaciones reales: trabajo, viajes, entrevistas, etc.</p>
       </div>
 
-      <!-- Curso 5 (opcional) -->
-      <div class="course-card">
-        <img src="https://i.postimg.cc/6qV52XjL/profesor5.jpg" alt="Curso de Ciencia de Datos">
-        <div class="course-info">
-          <h3>Ciencia de Datos</h3>
-          <p>Aprende a analizar y visualizar datos de manera efectiva.</p>
-          <a href="registro.html">Inscribirse</a>
-        </div>
-      </div>
     </div>
-  </main>
+  </section>
 
-  <!-- Chatbot -->
-  <div id="chat-toggle">
-    <i class="fa-solid fa-message" style="font-size: 28px; color: white;"></i>
-  </div>
-  <div id="chat-container" style="display: none; position: fixed; bottom: 90px; right: 20px; width: 300px; height: 400px; background: white; border: 1px solid #ccc;">
-    <div id="chat-body"></div>
-    <div class="chat-input-container">
-      <input type="text" id="user-input" placeholder="Escribe tu mensaje..." onkeypress="if(event.key === 'Enter') sendMessage()">
-      <button id="send-button" onclick="sendMessage()">Enviar</button>
+  <!-- Footer -->
+  <footer class="footer">
+    <p>&copy; 2025 SkyLearn Academy. Todos los derechos reservados.</p>
+  </footer>
+
+  <!-- ChatBot -->
+  <div id="chatbot" class="chatbot">
+    <div class="chat-header">💬 SkyBot</div>
+    <div class="chat-body" id="chatBody">
+      <div class="message bot">¡Hola! Soy SkyBot. ¿En qué puedo ayudarte?</div>
+    </div>
+    <div class="chat-input">
+      <input type="text" id="userInput" placeholder="Escribe tu pregunta..." />
+      <button onclick="sendMessage()">➤</button>
     </div>
   </div>
 
-  <script>
-    function toggleChat() {
-      const chatContainer = document.getElementById("chat-container");
-      if (chatContainer.style.display === "block") {
-        chatContainer.style.display = "none";
-      } else {
-        chatContainer.style.display = "block";
-      }
-    }
-
-    document.getElementById("chat-toggle").addEventListener("click", toggleChat);
-
-    const responses = {
-      'hola': '¡Hola! ¿En qué puedo ayudarte hoy?',
-      'cursos': '📚 <a href="cursos.html" style="color:black">Ver nuestros cursos</a>',
-      'precios': '💰 <a href="precios.html" style="color:black">Consulta los precios</a>',
-      'contacto': '📞 <a href="contacto.html" style="color:black">Contáctanos aquí</a>',
-      'registro': '📝 <a href="registro.html" style="color:black">Regístrate ahora</a>',
-      'default': 'Lo siento, no tengo una respuesta para eso. ¿Podrías intentarlo de nuevo?'
-    };
-
-    function addMessage(text, isUser) {
-      const msg = document.createElement('div');
-      msg.className = `chat-message ${isUser ? 'user-message' : 'bot-message'}`;
-      msg.innerHTML = text;
-      document.getElementById('chat-body').appendChild(msg);
-      msg.scrollIntoView();
-    }
-
-    function sendMessage() {
-      const input = document.getElementById('user-input');
-      const message = input.value.trim().toLowerCase();
-      
-      if(message) {
-        addMessage(`Tú: ${message}`, true);
-        input.value = '';
-        
-        // Buscar respuesta
-        let response = responses.default;
-        for(const key in responses) {
-          if(message.includes(key)) {
-            response = responses[key];
-            break;
-          }
-        }
-        
-        setTimeout(() => {
-          addMessage(response, false);
-        }, 500);
-      }
-    }
-  </script>
-
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="script.js"></script>
 </body>
 </html>
