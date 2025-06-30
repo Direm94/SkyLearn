@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>SkyLearn Academy</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
 
 <!-- Pantalla de Bienvenida -->
 <div class="login-screen" id="loginScreen">
+    <img src="assets/images/logo.png" alt="Logo SkyLearn" class="login-logo" />
     <h1>¿READY TO LEARN?</h1>
     <button onclick="showMainContent()">Iniciar</button>
 </div>
@@ -27,19 +28,19 @@
     </div>
 </nav>
 
-<!-- Secciones -->
+<!-- Contenido Principal -->
 <section id="home" class="section active">
     <div class="home-slider">
-        <img src="https://via.placeholder.com/1200x500/3498db/ffffff?text=Banner+1" alt="Banner" class="slider-image active">
-        <img src=" https://via.placeholder.com/1200x500/2ecc71/ffffff?text=Banner+2" alt="Banner" class="slider-image">
-        <img src=" https://via.placeholder.com/1200x500/e74c3c/ffffff?text=Banner+3" alt="Banner" class="slider-image">
+        <img src="https://via.placeholder.com/1200x500/3498db/ffffff?text=Banner+1" alt="Banner 1" class="slider-image active">
+        <img src=" https://via.placeholder.com/1200x500/2ecc71/ffffff?text=Banner+2" alt="Banner 2" class="slider-image">
+        <img src=" https://via.placeholder.com/1200x500/e74c3c/ffffff?text=Banner+3" alt="Banner 3" class="slider-image">
     </div>
     <div class="news-section">
         <h2>Últimas Noticias</h2>
-        <p>Nuevos cursos disponibles a partir del próximo mes</p>
+        <p>Nuevos cursos disponibles a partir del próximo mes.</p>
     </div>
     <div class="comments-section">
-        <h2>Comentarios</h2>
+        <h2>Comentarios Recientes</h2>
         <div id="commentsContainer"></div>
         <form onsubmit="addComment(event)">
             <input type="text" id="commentInput" placeholder="Escribe un comentario..." required>
@@ -49,22 +50,59 @@
 </section>
 
 <section id="courses" class="section">
+    <h2>Cursos Disponibles</h2>
     <div class="courses-grid">
+        <!-- Profesor 1 -->
         <div class="course-card">
-            <img src=" https://via.placeholder.com/300x200 " alt="Course">
-            <div style="padding: 1rem;">
+            <img src=" https://via.placeholder.com/300x200 " alt="Profesor 1" class="course-img">
+            <div class="course-info">
                 <h3>Matemáticas</h3>
-                <p>Prof. Juan Pérez</p>
-                <button onclick="window.open('forms/registration.html', '_blank')">Inscribirse</button>
+                <p>Prof. Ana Martínez</p>
+                <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?embedded=true', '_blank')">Inscribirse</button>
             </div>
         </div>
-        <!-- Agrega más tarjetas de cursos aquí -->
+        <!-- Profesor 2 -->
+        <div class="course-card">
+            <img src=" https://via.placeholder.com/300x200 " alt="Profesor 2" class="course-img">
+            <div class="course-info">
+                <h3>Inglés</h3>
+                <p>Prof. Luis Ramírez</p>
+                <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?embedded=true', '_blank')">Inscribirse</button>
+            </div>
+        </div>
+        <!-- Profesor 3 -->
+        <div class="course-card">
+            <img src=" https://via.placeholder.com/300x200 " alt="Profesor 3" class="course-img">
+            <div class="course-info">
+                <h3>Programación</h3>
+                <p>Prof. Carlos Domínguez</p>
+                <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?embedded=true', '_blank')">Inscribirse</button>
+            </div>
+        </div>
+        <!-- Profesor 4 -->
+        <div class="course-card">
+            <img src=" https://via.placeholder.com/300x200 " alt="Profesor 4" class="course-img">
+            <div class="course-info">
+                <h3>Física</h3>
+                <p>Prof. Laura Gómez</p>
+                <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?embedded=true', '_blank')">Inscribirse</button>
+            </div>
+        </div>
+        <!-- Profesor 5 -->
+        <div class="course-card">
+            <img src=" https://via.placeholder.com/300x200 " alt="Profesor 5" class="course-img">
+            <div class="course-info">
+                <h3>Química</h3>
+                <p>Prof. Miguel Torres</p>
+                <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?embedded=true', '_blank')">Inscribirse</button>
+            </div>
+        </div>
     </div>
 </section>
 
 <section id="contact" class="section">
+    <h2>Contacto</h2>
     <div class="dropdown-menu">
-        <h3>Canales de Comunicación</h3>
         <div class="dropdown-item">📧 Email: info@skylearn.com</div>
         <div class="dropdown-item">📞 Teléfono: +123 456 7890</div>
         <div class="dropdown-item">🌐 Redes Sociales: 
@@ -75,6 +113,7 @@
 </section>
 
 <section id="pricing" class="section">
+    <h2>Precios</h2>
     <div class="pricing-menu">
         <button onclick="showPricing('basic')">Plan Básico</button>
         <button onclick="showPricing('premium')">Plan Premium</button>
@@ -82,9 +121,10 @@
     </div>
 </section>
 
-<!-- Chatbot -->
+<!-- Chatbot Asistente -->
 <div class="chatbot-icon" onclick="toggleChat()">💬</div>
 <div class="chat-window" id="chatWindow">
+    <div class="chat-header">Asistente SkyLearn</div>
     <div class="chat-messages" id="chatMessages">
         <div>¡Hola! ¿En qué puedo ayudarte?</div>
     </div>
