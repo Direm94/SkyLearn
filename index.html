@@ -4,24 +4,248 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>SkyLearn Academy</title>
-    <link rel="stylesheet" href="css/styles.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        /* Pantalla de Bienvenida */
+        .login-screen {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            transition: opacity 0.5s;
+            text-align: center;
+        }
+        .logo-container {
+            animation: bounce 2s infinite;
+            margin-bottom: 2rem;
+        }
+        .logo-spin {
+            width: 150px;
+        }
+        .login-screen h1 {
+            font-size: 2.5rem;
+            color: #3498db;
+            margin-bottom: 1rem;
+        }
+        .login-screen button {
+            padding: 0.8rem 2rem;
+            font-size: 1.2rem;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .login-screen button:hover {
+            background: #2980b9;
+        }
+
+        /* Animación de Rebote */
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* Navegador */
+        .navbar {
+            background: white;
+            padding: 1rem 5%;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+        }
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .logo {
+            height: 50px;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: #2c3e50;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover {
+            color: #3498db;
+        }
+
+        /* Secciones */
+        .section {
+            padding: 100px 5% 5rem;
+            min-height: 100vh;
+            display: none;
+        }
+        .active {
+            display: block;
+        }
+
+        /* Slider Home */
+        .home-slider {
+            height: 50vh;
+            margin: 2rem 0;
+            position: relative;
+        }
+        .slider-image {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 1s;
+        }
+        .slider-image.active {
+            opacity: 1;
+        }
+
+        /* Cursos */
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            padding: 2rem 0;
+        }
+        .course-card {
+            border: 1px solid #eee;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .course-card:hover {
+            transform: translateY(-5px);
+        }
+        .course-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .course-info {
+            padding: 1rem;
+        }
+        .course-info h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+        .course-info p {
+            margin-bottom: 0.5rem;
+        }
+        .course-info button {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        /* Contacto */
+        .dropdown-menu {
+            padding: 2rem;
+            background: #f9f9f9;
+            border-radius: 10px;
+        }
+
+        /* Precios */
+        .pricing-menu {
+            padding: 2rem;
+        }
+        .pricing-menu button {
+            margin-right: 1rem;
+            padding: 0.5rem 1rem;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        /* Chatbot */
+        .chatbot-icon {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: #3498db;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            cursor: pointer;
+            z-index: 200;
+        }
+        .chat-window {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            width: 300px;
+            height: 400px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            display: none;
+            flex-direction: column;
+        }
+        .chat-header {
+            padding: 1rem;
+            background: #3498db;
+            color: white;
+            text-align: center;
+            font-weight: bold;
+        }
+        .chat-messages {
+            flex: 1;
+            padding: 1rem;
+            overflow-y: auto;
+        }
+        .chat-input select {
+            width: 100%;
+            padding: 0.5rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            .courses-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
 
-/* Animación de rebote */
-@keyframes bounce {
-    0%, 100% {
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(-20px);
-    }
-}
-
-.logo-container {
-    animation: bounce 2s infinite;
-    margin-bottom: 2rem;
-}
+<!-- Pantalla de Bienvenida -->
+<div class="login-screen" id="loginScreen">
+    <div class="logo-container">
+        <img src="https://i.postimg.cc/63d6XxfM/ponerle-fondo-blanco-removebg-preview.png "
+             alt="Logo SkyLearn" class="logo-spin" />
+    </div>
     <h1>¿READY TO LEARN?</h1>
     <button onclick="showMainContent()">Iniciar</button>
 </div>
@@ -43,7 +267,7 @@
 <!-- Contenido Principal -->
 <section id="home" class="section active">
     <div class="home-slider">
-        <img src="https://via.placeholder.com/1200x500/2980b9/ffffff?text=Banner+1" alt="Banner 1" class="slider-image active">
+        <img src="https://via.placeholder.com/1200x500/3498db/ffffff?text=Banner+1" alt="Banner 1" class="slider-image active">
         <img src=" https://via.placeholder.com/1200x500/2ecc71/ffffff?text=Banner+2" alt="Banner 2" class="slider-image">
         <img src=" https://via.placeholder.com/1200x500/e74c3c/ffffff?text=Banner+3" alt="Banner 3" class="slider-image">
     </div>
@@ -150,6 +374,75 @@
     </div>
 </div>
 
-<script src="js/main.js"></script>
+<script>
+    function showMainContent() {
+        document.getElementById('loginScreen').style.opacity = 0;
+        setTimeout(() => {
+            document.getElementById('loginScreen').style.display = 'none';
+        }, 500);
+    }
+
+    function showSection(sectionId) {
+        document.querySelectorAll('.section').forEach(section => {
+            section.classList.remove('active');
+        });
+        document.getElementById(sectionId).classList.add('active');
+    }
+
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slider-image');
+    setInterval(() => {
+        slides[currentSlide].classList.remove('active');
+        currentSlide = (currentSlide + 1) % slides.length;
+        slides[currentSlide].classList.add('active');
+    }, 3000);
+
+    function addComment(e) {
+        e.preventDefault();
+        const comment = document.getElementById('commentInput').value;
+        const comments = JSON.parse(localStorage.getItem('comments') || '[]');
+        comments.push({ text: comment, time: Date.now() });
+        localStorage.setItem('comments', JSON.stringify(comments));
+        displayComments();
+        e.target.reset();
+    }
+
+    function displayComments() {
+        const container = document.getElementById('commentsContainer');
+        const comments = JSON.parse(localStorage.getItem('comments') || '[]');
+        const validComments = comments.filter(c => Date.now() - c.time < 86400000);
+        container.innerHTML = validComments.map(c => `
+            <div style="margin: 1rem 0; padding: 1rem; background: #f5f5f5; border-radius: 5px;">${c.text}</div>
+        `).join('');
+        localStorage.setItem('comments', JSON.stringify(validComments));
+    }
+
+    function toggleChat() {
+        const chat = document.getElementById('chatWindow');
+        chat.style.display = chat.style.display === 'flex' ? 'none' : 'flex';
+    }
+
+    function handleChatResponse(value) {
+        const chatMessages = document.getElementById('chatMessages');
+        const answers = {
+            'horario': 'Nuestras clases son de Lunes a Viernes de 8am a 5pm.',
+            'costos': 'Los precios van desde $50/mes en plan básico.',
+            'registro': 'Puedes registrarte usando el botón "Inscribirse" en cada curso.'
+        };
+        if (value && answers[value]) {
+            chatMessages.innerHTML += `<div style="margin: 0.5rem 0;">${answers[value]}</div>`;
+        }
+    }
+
+    function showPricing(plan) {
+        const content = document.getElementById('pricing-content');
+        content.innerHTML = plan === 'basic' ?
+            '<h3>Plan Básico</h3><p>$50/mes - Acceso a 3 cursos</p>' :
+            '<h3>Plan Premium</h3><p>$100/mes - Acceso a todos los cursos</p>';
+    }
+
+    displayComments();
+</script>
+
 </body>
 </html>
