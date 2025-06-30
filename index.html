@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>SkyLearn Academy</title>
     <style>
         * {
@@ -12,7 +12,7 @@
             font-family: 'Arial', sans-serif;
         }
 
-        /* Login Screen */
+        /* Pantalla de Bienvenida */
         .login-screen {
             position: fixed;
             top: 0; left: 0;
@@ -52,7 +52,6 @@
             background: #2980b9;
         }
 
-        /* Animación de Rebote */
         @keyframes bounce {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-20px); }
@@ -78,14 +77,6 @@
         .logo {
             height: 50px;
         }
-        .hamburger {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: #3498db;
-        }
         .nav-links {
             display: flex;
             gap: 2rem;
@@ -100,27 +91,6 @@
             color: #3498db;
         }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hamburger {
-                display: block;
-            }
-            .nav-links {
-                position: absolute;
-                top: 70px;
-                left: -100%;
-                flex-direction: column;
-                background: white;
-                width: 100%;
-                text-align: center;
-                transition: left 0.3s ease-in-out;
-                box-shadow: 0 5px 10px rgba(0,0,0,0.1);
-            }
-            .nav-links.active {
-                left: 0;
-            }
-        }
-
         /* Secciones */
         .section {
             padding: 100px 5% 5rem;
@@ -131,7 +101,7 @@
             display: block;
         }
 
-        /* Home Section */
+        /* Hero Section - Home */
         .hero-section {
             max-width: 800px;
             margin: 80px auto 40px;
@@ -165,7 +135,7 @@
             background: #2980b9;
         }
 
-        /* Slider Home */
+        /* Carrusel Home */
         .home-slider {
             height: 50vh;
             margin: 2rem 0;
@@ -177,7 +147,7 @@
             height: 100%;
             object-fit: cover;
             opacity: 0;
-            transition: opacity 1s;
+            transition: opacity 1s ease-in-out;
         }
         .slider-image.active {
             opacity: 1;
@@ -191,11 +161,13 @@
             padding: 2rem 0;
         }
         .course-card {
-            border: 1px solid #eee;
+            border: 1px solid #ddd;
             border-radius: 10px;
             overflow: hidden;
-            transition: transform 0.3s;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            text-align: center;
+            transition: transform 0.3s ease;
         }
         .course-card:hover {
             transform: translateY(-5px);
@@ -215,34 +187,84 @@
         .course-info p {
             margin-bottom: 0.5rem;
         }
-        .course-info button {
+        .btn-register {
             background: #3498db;
             color: white;
             border: none;
-            padding: 0.5rem 1rem;
+            padding: 0.6rem 1.2rem;
+            font-size: 1rem;
             border-radius: 5px;
             cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        .btn-register:hover {
+            background: #2980b9;
         }
 
         /* Contacto */
         .dropdown-menu {
-            padding: 2rem;
+            max-width: 600px;
+            margin: 2rem auto;
             background: #f9f9f9;
             border-radius: 10px;
+            padding: 1rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
-
-        /* Precios */
-        .pricing-menu {
-            padding: 2rem;
-        }
-        .pricing-menu button {
-            margin-right: 1rem;
-            padding: 0.5rem 1rem;
+        .dropdown-btn {
             background: #3498db;
             color: white;
             border: none;
+            padding: 1rem 1.5rem;
+            font-size: 1rem;
             border-radius: 5px;
+            width: 100%;
+            text-align: left;
             cursor: pointer;
+            transition: background 0.3s;
+        }
+        .dropdown-btn:hover {
+            background: #2980b9;
+        }
+        .dropdown-content {
+            display: none;
+            margin-top: 1rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .dropdown-content p {
+            margin-bottom: 1rem;
+        }
+        .dropdown-content a {
+            text-decoration: none;
+            color: #3498db;
+            margin: 0 0.5rem;
+        }
+
+        /* Precios */
+        .pricing-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .price-card {
+            background: #f9f9f9;
+            border-radius: 10px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+        .price-card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Registro */
+        .form-container {
+            max-width: 800px;
+            margin: 2rem auto;
         }
 
         /* Chatbot */
@@ -289,6 +311,28 @@
             width: 100%;
             padding: 0.5rem;
         }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: -100%;
+                flex-direction: column;
+                background: white;
+                width: 100%;
+                text-align: center;
+                transition: left 0.3s ease-in-out;
+                box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+            }
+            .nav-links.active {
+                left: 0;
+            }
+        }
     </style>
 </head>
 <body>
@@ -306,19 +350,20 @@
 <!-- Navegador -->
 <nav class="navbar">
     <div class="nav-content">
-        <img src="https://i.postimg.cc/63d6XxfM/ponerle-fondo-blanco-removebg-preview.png "
-             alt="Logo SkyLearn" class="logo" />
-        <button class="hamburger" onclick="toggleMenu()">☰</button>
+        <img src="https://i.postimg.cc/63d6XxfM/ponerle-fondo-blanco-removebg-preview.png " alt="Logo" class="logo">
         <div class="nav-links" id="navLinks">
             <a href="#home" onclick="showSection('home')">Home</a>
             <a href="#courses" onclick="showSection('courses')">Cursos</a>
             <a href="#contact" onclick="showSection('contact')">Contacto</a>
             <a href="#pricing" onclick="showSection('pricing')">Precios</a>
+            <a href="#registro" onclick="showSection('registro')">Registro</a>
         </div>
     </div>
 </nav>
 
 <!-- Contenido Principal -->
+
+<!-- Home -->
 <section id="home" class="section active">
     <div class="hero-section">
         <h2>Bienvenido a SkyLearn Academy</h2>
@@ -344,79 +389,88 @@
     </div>
 </section>
 
+<!-- Cursos -->
 <section id="courses" class="section">
     <h2>Cursos Disponibles</h2>
     <div class="courses-grid">
-        <!-- Profesor 1 -->
+        <!-- Curso 1 -->
         <div class="course-card">
-            <img src=" https://via.placeholder.com/300x200 " alt="Profesor 1" class="course-img">
+            <img src=" https://via.placeholder.com/300x200 " alt="Matemáticas" class="course-img">
             <div class="course-info">
                 <h3>Matemáticas</h3>
                 <p>Prof. Ana Martínez</p>
-                <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?embedded=true', '_blank')">Inscribirse</button>
+                <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?embedded=true', '_blank')" class="btn-register">Inscribirse</button>
             </div>
         </div>
-        <!-- Profesor 2 -->
+        <!-- Curso 2 -->
         <div class="course-card">
-            <img src=" https://via.placeholder.com/300x200 " alt="Profesor 2" class="course-img">
+            <img src=" https://via.placeholder.com/300x200 " alt="Inglés" class="course-img">
             <div class="course-info">
                 <h3>Inglés</h3>
                 <p>Prof. Luis Ramírez</p>
-                <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?embedded=true', '_blank')">Inscribirse</button>
+                <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?embedded=true', '_blank')" class="btn-register">Inscribirse</button>
             </div>
         </div>
-        <!-- Profesor 3 -->
+        <!-- Curso 3 -->
         <div class="course-card">
-            <img src=" https://via.placeholder.com/300x200 " alt="Profesor 3" class="course-img">
+            <img src=" https://via.placeholder.com/300x200 " alt="Programación" class="course-img">
             <div class="course-info">
                 <h3>Programación</h3>
                 <p>Prof. Carlos Domínguez</p>
-                <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?embedded=true', '_blank')">Inscribirse</button>
-            </div>
-        </div>
-        <!-- Profesor 4 -->
-        <div class="course-card">
-            <img src=" https://via.placeholder.com/300x200 " alt="Profesor 4" class="course-img">
-            <div class="course-info">
-                <h3>Física</h3>
-                <p>Prof. Laura Gómez</p>
-                <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?embedded=true', '_blank')">Inscribirse</button>
-            </div>
-        </div>
-        <!-- Profesor 5 -->
-        <div class="course-card">
-            <img src=" https://via.placeholder.com/300x200 " alt="Profesor 5" class="course-img">
-            <div class="course-info">
-                <h3>Química</h3>
-                <p>Prof. Miguel Torres</p>
-                <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?embedded=true', '_blank')">Inscribirse</button>
+                <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?embedded=true', '_blank')" class="btn-register">Inscribirse</button>
             </div>
         </div>
     </div>
 </section>
 
+<!-- Contacto -->
 <section id="contact" class="section">
     <h2>Contacto</h2>
     <div class="dropdown-menu">
-        <div class="dropdown-item">📧 Email: info@skylearn.com</div>
-        <div class="dropdown-item">📞 Teléfono: +123 456 7890</div>
-        <div class="dropdown-item">🌐 Redes Sociales: 
-            <a href="#">Facebook</a> | 
-            <a href="#">Instagram</a>
+        <button onclick="toggleDropdown()" class="dropdown-btn">📞 Canales de Comunicación</button>
+        <div id="contact-dropdown" class="dropdown-content">
+            <p>Email: info@skylearn.com</p>
+            <p>Teléfono: +123 456 7890</p>
+            <p>Redes Sociales:
+                <a href="#">Facebook</a> |
+                <a href="#">Instagram</a>
+            </p>
         </div>
     </div>
 </section>
 
+<!-- Precios -->
 <section id="pricing" class="section">
-    <h2>Precios</h2>
-    <div class="pricing-menu">
-        <button onclick="showPricing('basic')">Plan Básico</button>
-        <button onclick="showPricing('premium')">Plan Premium</button>
-        <div id="pricing-content"></div>
+    <h2>Precios y Horarios</h2>
+    <div class="pricing-cards">
+        <div class="price-card">
+            <h3>Matemáticas</h3>
+            <p><strong>$50/mes</strong></p>
+            <p>Horario: Lunes - Viernes | 8am - 10am</p>
+        </div>
+        <div class="price-card">
+            <h3>Inglés</h3>
+            <p><strong>$60/mes</strong></p>
+            <p>Horario: Lunes - Miércoles | 3pm - 5pm</p>
+        </div>
+        <div class="price-card">
+            <h3>Programación</h3>
+            <p><strong>$70/mes</strong></p>
+            <p>Horario: Martes - Jueves | 4pm - 6pm</p>
+        </div>
     </div>
 </section>
 
-<!-- Chatbot Asistente -->
+<!-- Registro -->
+<section id="registro" class="section">
+    <h2>Formulario de Registro</h2>
+    <div class="form-container">
+        <iframe src=" https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?embedded=true"
+                width="100%" height="500" frameborder="0" marginheight="0" marginwidth="0">Cargando...</iframe>
+    </div>
+</section>
+
+<!-- Chatbot -->
 <div class="chatbot-icon" onclick="toggleChat()">💬</div>
 <div class="chat-window" id="chatWindow">
     <div class="chat-header">Asistente SkyLearn</div>
@@ -442,9 +496,7 @@
     }
 
     function showSection(sectionId) {
-        document.querySelectorAll('.section').forEach(section => {
-            section.classList.remove('active');
-        });
+        document.querySelectorAll('.section').forEach(section => section.classList.remove('active'));
         document.getElementById(sectionId).classList.add('active');
     }
 
@@ -454,7 +506,7 @@
         slides[currentSlide].classList.remove('active');
         currentSlide = (currentSlide + 1) % slides.length;
         slides[currentSlide].classList.add('active');
-    }, 3000);
+    }, 4000);
 
     function addComment(e) {
         e.preventDefault();
@@ -493,16 +545,9 @@
         }
     }
 
-    function showPricing(plan) {
-        const content = document.getElementById('pricing-content');
-        content.innerHTML = plan === 'basic' ?
-            '<h3>Plan Básico</h3><p>$50/mes - Acceso a 3 cursos</p>' :
-            '<h3>Plan Premium</h3><p>$100/mes - Acceso a todos los cursos</p>';
-    }
-
-    function toggleMenu() {
-        const navLinks = document.getElementById("navLinks");
-        navLinks.classList.toggle("active");
+    function toggleDropdown() {
+        const dropdown = document.getElementById("contact-dropdown");
+        dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
     }
 
     displayComments();
