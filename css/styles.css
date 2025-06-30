@@ -4,6 +4,8 @@
     box-sizing: border-box;
     font-family: 'Arial', sans-serif;
 }
+
+/* Pantalla de Bienvenida */
 .login-screen {
     position: fixed;
     top: 0; left: 0;
@@ -16,8 +18,13 @@
     z-index: 1000;
     transition: opacity 0.5s;
 }
+.login-logo {
+    height: 100px;
+    margin-bottom: 1rem;
+}
 .login-screen h1 {
     font-size: 2rem;
+    color: #3498db;
     margin-bottom: 1rem;
 }
 .login-screen button {
@@ -29,6 +36,8 @@
     border-radius: 5px;
     cursor: pointer;
 }
+
+/* Navegación */
 .navbar {
     background: white;
     padding: 1rem 5%;
@@ -61,6 +70,8 @@
 .nav-links a:hover {
     color: #3498db;
 }
+
+/* Secciones */
 .section {
     padding: 100px 5% 5rem;
     min-height: 100vh;
@@ -69,6 +80,8 @@
 .active {
     display: block;
 }
+
+/* Slider Home */
 .home-slider {
     height: 50vh;
     margin: 2rem 0;
@@ -85,9 +98,11 @@
 .slider-image.active {
     opacity: 1;
 }
+
+/* Cursos */
 .courses-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 2rem;
     padding: 2rem 0;
 }
@@ -105,6 +120,47 @@
     height: 200px;
     object-fit: cover;
 }
+.course-info {
+    padding: 1rem;
+}
+.course-info h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+.course-info p {
+    margin-bottom: 0.5rem;
+}
+.course-info button {
+    background: #3498db;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Contacto */
+.dropdown-menu {
+    padding: 2rem;
+    background: #f9f9f9;
+    border-radius: 10px;
+}
+
+/* Precios */
+.pricing-menu {
+    padding: 2rem;
+}
+.pricing-menu button {
+    margin-right: 1rem;
+    padding: 0.5rem 1rem;
+    background: #3498db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Chatbot */
 .chatbot-icon {
     position: fixed;
     bottom: 20px;
@@ -132,6 +188,13 @@
     display: none;
     flex-direction: column;
 }
+.chat-header {
+    padding: 1rem;
+    background: #3498db;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+}
 .chat-messages {
     flex: 1;
     padding: 1rem;
@@ -141,16 +204,16 @@
     width: 100%;
     padding: 0.5rem;
 }
-.dropdown-menu {
-    padding: 2rem;
-    background: #f9f9f9;
-    border-radius: 10px;
+.comments-section form input {
+    padding: 0.5rem;
+    width: calc(100% - 80px);
+    margin-right: 1rem;
 }
-@media (max-width: 768px) {
-    .nav-links {
-        display: none;
-    }
-    .courses-grid {
-        grid-template-columns: 1fr;
-    }
+.comments-section form button {
+    padding: 0.5rem 1rem;
+    background: #3498db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
