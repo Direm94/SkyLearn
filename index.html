@@ -12,7 +12,7 @@
             font-family: 'Arial', sans-serif;
         }
 
-        /* Pantalla de Bienvenida */
+        /* Login Screen */
         .login-screen {
             position: fixed;
             top: 0;
@@ -27,27 +27,8 @@
             z-index: 1000;
             transition: opacity 0.5s;
         }
-        .login-screen h1 {
-            font-size: 2.5rem;
-            color: #3498db;
-            margin-bottom: 2rem;
-            text-align: center;
-        }
-        .login-screen button {
-            padding: 0.8rem 2rem;
-            font-size: 1.2rem;
-            background: #3498db;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-        .login-screen button:hover {
-            background: #2980b9;
-        }
 
-        /* Navegador */
+        /* Navigation Styles */
         .navbar {
             background: white;
             padding: 1rem 5%;
@@ -81,7 +62,7 @@
             color: #3498db;
         }
 
-        /* Secciones */
+        /* Main Content */
         .section {
             padding: 100px 5% 5rem;
             min-height: 100vh;
@@ -91,7 +72,7 @@
             display: block;
         }
 
-        /* Carrusel Home */
+        /* Home Section */
         .home-slider {
             height: 50vh;
             margin: 2rem 0;
@@ -103,7 +84,7 @@
             height: 100%;
             object-fit: cover;
             opacity: 0;
-            transition: opacity 1s ease-in-out;
+            transition: opacity 1s;
         }
         .slider-image.active {
             opacity: 1;
@@ -120,8 +101,8 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
         .news-section h2 {
-            color: #2c3e50;
             font-size: 1.8rem;
+            color: #2c3e50;
             margin-bottom: 1rem;
         }
         .news-section p {
@@ -186,6 +167,28 @@
             background: #2980b9;
         }
 
+        /* Courses Grid */
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 2rem 0;
+        }
+        .course-card {
+            border: 1px solid #eee;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+        .course-card:hover {
+            transform: translateY(-5px);
+        }
+        .course-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
         /* Chatbot */
         .chatbot-icon {
             position: fixed;
@@ -219,10 +222,21 @@
             padding: 1rem;
             overflow-y: auto;
         }
+        .chat-input {
+            padding: 1rem;
+            border-top: 1px solid #eee;
+        }
 
-        /* Responsive */
+        /* Responsive Design */
         @media (max-width: 768px) {
-            .comments-section, .news-section {
+            .nav-links {
+                display: none;
+            }
+            .courses-grid {
+                grid-template-columns: 1fr;
+            }
+            .news-section,
+            .comments-section {
                 padding: 1.5rem;
             }
         }
@@ -233,7 +247,7 @@
 <!-- Pantalla de Bienvenida -->
 <div class="login-screen" id="loginScreen">
     <h1>¿LISTO PARA APRENDER?</h1>
-    <button onclick="showMainContent()">Iniciar</button>
+    <button onclick="showMainContent()" style="padding: 1rem 2rem; font-size: 1.2rem; margin-top: 1rem; background: #3498db; color: white; border: none; border-radius: 5px; cursor: pointer;">Iniciar</button>
 </div>
 
 <!-- Navegador -->
@@ -249,22 +263,19 @@
     </div>
 </nav>
 
-<!-- Sección Home -->
+<!-- Secciones -->
+
+<!-- Home -->
 <section id="home" class="section active">
-    <!-- Carrusel -->
     <div class="home-slider">
         <img src="https://via.placeholder.com/1200x500/3498db/ffffff?text=Banner+1" alt="Banner" class="slider-image active">
         <img src=" https://via.placeholder.com/1200x500/2ecc71/ffffff?text=Banner+2" alt="Banner" class="slider-image">
         <img src=" https://via.placeholder.com/1200x500/e74c3c/ffffff?text=Banner+3" alt="Banner" class="slider-image">
     </div>
-
-    <!-- Noticias -->
     <div class="news-section">
         <h2>Últimas Noticias</h2>
         <p>Nuevos cursos disponibles a partir del próximo mes</p>
     </div>
-
-    <!-- Comentarios -->
     <div class="comments-section">
         <h2>Comentarios Recientes</h2>
         <div id="commentsContainer"></div>
@@ -275,7 +286,7 @@
     </div>
 </section>
 
-<!-- Sección Cursos -->
+<!-- Cursos -->
 <section id="courses" class="section">
     <div class="courses-grid">
         <div class="course-card">
@@ -290,7 +301,7 @@
     </div>
 </section>
 
-<!-- Sección Contacto -->
+<!-- Contacto -->
 <section id="contact" class="section">
     <div class="dropdown-menu">
         <h3>Canales de Comunicación</h3>
@@ -303,7 +314,7 @@
     </div>
 </section>
 
-<!-- Sección Precios -->
+<!-- Precios -->
 <section id="pricing" class="section">
     <div class="pricing-menu">
         <button onclick="showPricing('basic')">Plan Básico</button>
@@ -312,7 +323,7 @@
     </div>
 </section>
 
-<!-- Chatbot Asistente -->
+<!-- Chatbot -->
 <div class="chatbot-icon" onclick="toggleChat()">💬</div>
 <div class="chat-window" id="chatWindow">
     <div class="chat-messages" id="chatMessages">
@@ -369,6 +380,7 @@
         const container = document.getElementById('commentsContainer');
         const comments = JSON.parse(localStorage.getItem('comments') || '[]');
         const validComments = comments.filter(c => Date.now() - c.time < 86400000); // 24 horas
+
         container.innerHTML = '';
         validComments.forEach(c => {
             const commentBox = document.createElement('div');
@@ -376,6 +388,7 @@
             commentBox.textContent = c.text;
             container.appendChild(commentBox);
         });
+
         localStorage.setItem('comments', JSON.stringify(validComments));
     }
 
@@ -390,7 +403,7 @@
         const answers = {
             'horario': 'Nuestras clases son de Lunes a Viernes de 8am a 5pm.',
             'costos': 'Los precios van desde $50/mes en plan básico.',
-            'registro': 'Puedes registrarte usando el botón en la sección de cursos.'
+            'registro': 'Puedes registrarte usando el botón "Inscribirse" en cada curso.'
         };
         if (value && answers[value]) {
             const msg = document.createElement('div');
@@ -400,7 +413,7 @@
         }
     }
 
-    // Menú de Precios
+    // Planes de Precios
     function showPricing(plan) {
         const content = document.getElementById('pricing-content');
         content.innerHTML = plan === 'basic' ?
