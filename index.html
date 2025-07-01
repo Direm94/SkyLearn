@@ -15,10 +15,8 @@
         /* Login Screen */
         .login-screen {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             background: white;
             display: flex;
             flex-direction: column;
@@ -26,6 +24,37 @@
             align-items: center;
             z-index: 1000;
             transition: opacity 0.5s;
+        }
+        .logo-container {
+            animation: bounce 2s infinite;
+            margin-bottom: 2rem;
+        }
+        .logo-spin {
+            width: 150px;
+        }
+        .login-screen h1 {
+            font-size: 2.5rem;
+            color: #3498db;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        .login-screen button {
+            padding: 0.8rem 2rem;
+            font-size: 1.2rem;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .login-screen button:hover {
+            background: #2980b9;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
         }
 
         /* Navigation Styles */
@@ -90,7 +119,7 @@
             opacity: 1;
         }
 
-        /* Mejora en Noticias */
+        /* Mejoras en Noticias */
         .news-section {
             max-width: 800px;
             margin: 3rem auto;
@@ -110,7 +139,7 @@
             color: #555;
         }
 
-        /* Mejora en Comentarios */
+        /* Mejoras en Comentarios */
         .comments-section {
             max-width: 800px;
             margin: 3rem auto;
@@ -246,8 +275,12 @@
 
 <!-- Pantalla de Bienvenida -->
 <div class="login-screen" id="loginScreen">
+    <div class="logo-container">
+        <img src="https://i.postimg.cc/63d6XxfM/ponerle-fondo-blanco-removebg-preview.png "
+             alt="Logo SkyLearn" class="logo-spin" />
+    </div>
     <h1>¿LISTO PARA APRENDER?</h1>
-    <button onclick="showMainContent()" style="padding: 1rem 2rem; font-size: 1.2rem; margin-top: 1rem; background: #3498db; color: white; border: none; border-radius: 5px; cursor: pointer;">Iniciar</button>
+    <button onclick="showMainContent()">Iniciar</button>
 </div>
 
 <!-- Navegador -->
@@ -265,17 +298,21 @@
 
 <!-- Secciones -->
 
-<!-- Home -->
 <section id="home" class="section active">
+    <!-- Carrusel -->
     <div class="home-slider">
         <img src="https://via.placeholder.com/1200x500/3498db/ffffff?text=Banner+1" alt="Banner" class="slider-image active">
         <img src=" https://via.placeholder.com/1200x500/2ecc71/ffffff?text=Banner+2" alt="Banner" class="slider-image">
         <img src=" https://via.placeholder.com/1200x500/e74c3c/ffffff?text=Banner+3" alt="Banner" class="slider-image">
     </div>
+
+    <!-- Noticias -->
     <div class="news-section">
         <h2>Últimas Noticias</h2>
         <p>Nuevos cursos disponibles a partir del próximo mes</p>
     </div>
+
+    <!-- Comentarios -->
     <div class="comments-section">
         <h2>Comentarios Recientes</h2>
         <div id="commentsContainer"></div>
@@ -286,7 +323,6 @@
     </div>
 </section>
 
-<!-- Cursos -->
 <section id="courses" class="section">
     <div class="courses-grid">
         <div class="course-card">
@@ -297,11 +333,10 @@
                 <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?embedded=true', '_blank')" style="padding: 0.5rem 1rem; background: #3498db; color: white; border: none; border-radius: 5px; cursor: pointer;">Inscribirse</button>
             </div>
         </div>
-        <!-- Añade más tarjetas aquí -->
+        <!-- Agrega más tarjetas aquí -->
     </div>
 </section>
 
-<!-- Contacto -->
 <section id="contact" class="section">
     <div class="dropdown-menu">
         <h3>Canales de Comunicación</h3>
@@ -314,7 +349,6 @@
     </div>
 </section>
 
-<!-- Precios -->
 <section id="pricing" class="section">
     <div class="pricing-menu">
         <button onclick="showPricing('basic')">Plan Básico</button>
@@ -340,7 +374,6 @@
 </div>
 
 <script>
-    // Mostrar contenido principal
     function showMainContent() {
         document.getElementById('loginScreen').style.opacity = 0;
         setTimeout(() => {
@@ -348,7 +381,6 @@
         }, 500);
     }
 
-    // Mostrar sección activa
     function showSection(sectionId) {
         document.querySelectorAll('.section').forEach(section => {
             section.classList.remove('active');
@@ -365,7 +397,7 @@
         slides[currentSlide].classList.add('active');
     }, 3000);
 
-    // Comentarios temporales con animación
+    // Comentarios con animación
     function addComment(e) {
         e.preventDefault();
         const comment = document.getElementById('commentInput').value;
@@ -379,8 +411,7 @@
     function displayComments() {
         const container = document.getElementById('commentsContainer');
         const comments = JSON.parse(localStorage.getItem('comments') || '[]');
-        const validComments = comments.filter(c => Date.now() - c.time < 86400000); // 24 horas
-
+        const validComments = comments.filter(c => Date.now() - c.time < 86400000); // 24 hrs
         container.innerHTML = '';
         validComments.forEach(c => {
             const commentBox = document.createElement('div');
@@ -388,11 +419,9 @@
             commentBox.textContent = c.text;
             container.appendChild(commentBox);
         });
-
         localStorage.setItem('comments', JSON.stringify(validComments));
     }
 
-    // Chatbot
     function toggleChat() {
         const chat = document.getElementById('chatWindow');
         chat.style.display = chat.style.display === 'flex' ? 'none' : 'flex';
@@ -413,7 +442,6 @@
         }
     }
 
-    // Planes de Precios
     function showPricing(plan) {
         const content = document.getElementById('pricing-content');
         content.innerHTML = plan === 'basic' ?
@@ -421,7 +449,6 @@
             '<h3>Plan Premium</h3><p>$100/mes - Acceso a todos los cursos</p>';
     }
 
-    // Inicializar comentarios
     displayComments();
 </script>
 
