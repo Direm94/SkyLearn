@@ -11,7 +11,8 @@
             box-sizing: border-box;
             font-family: 'Arial', sans-serif;
         }
-        /* Login Screen */
+
+        /* Pantalla de Bienvenida */
         .login-screen {
             position: fixed;
             top: 0; left: 0;
@@ -24,6 +25,37 @@
             z-index: 1000;
             transition: opacity 0.5s;
         }
+        .logo-container {
+            animation: bounce 2s infinite;
+            margin-bottom: 2rem;
+        }
+        .logo-spin {
+            width: 150px;
+        }
+        .login-screen h1 {
+            font-size: 2.5rem;
+            color: #3498db;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        .login-screen button {
+            padding: 0.8rem 2rem;
+            font-size: 1.2rem;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .login-screen button:hover {
+            background: #2980b9;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
         /* Navigation Styles */
         .navbar {
             background: white;
@@ -57,15 +89,17 @@
         .nav-links a:hover {
             color: #3498db;
         }
+
         /* Main Content */
         .section {
-            padding: 100px 5% 5rem;
+            padding: 60px 5% 5rem;
             min-height: 100vh;
             display: none;
         }
         .active {
             display: block;
         }
+
         /* Home Section */
         .home-slider {
             height: 50vh;
@@ -83,6 +117,7 @@
         .slider-image.active {
             opacity: 1;
         }
+
         /* News & Comments Sections */
         .news-section,
         .comments-section {
@@ -116,10 +151,11 @@
         .comments-section button:hover {
             background: #2980b9;
         }
+
         /* Courses Grid */
         .courses-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
             padding: 2rem 0;
         }
@@ -154,6 +190,7 @@
             border-radius: 5px;
             cursor: pointer;
         }
+
         /* Pricing Table */
         .pricing-table {
             max-width: 800px;
@@ -175,6 +212,7 @@
         .pricing-table tr:last-child td {
             border-bottom: none;
         }
+
         /* Contact Section */
         .contact-dropdown {
             max-width: 800px;
@@ -204,6 +242,25 @@
             border-radius: 5px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.05);
         }
+
+        /* Clases en Vivo */
+        .live-section {
+            max-width: 900px;
+            margin: 3rem auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+        .live-section iframe {
+            width: 100%;
+            height: 500px;
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
         /* Chatbot */
         .chatbot-icon {
             position: fixed;
@@ -245,11 +302,9 @@
             width: 100%;
             padding: 0.5rem;
         }
+
         /* Responsive Design */
         @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
             .courses-grid {
                 grid-template-columns: 1fr;
             }
@@ -263,20 +318,25 @@
 
 <!-- Pantalla de Bienvenida -->
 <div class="login-screen" id="loginScreen">
-    <h1>¿LISTO PARA APRENDER?</h1>
-    <button onclick="showMainContent()" style="padding: 1rem 2rem; font-size: 1.2rem; margin-top: 1rem; background: #3498db; color: white; border: none; border-radius: 5px; cursor: pointer;">Iniciar</button>
+    <div class="logo-container">
+        <img src="https://i.postimg.cc/63d6XxfM/ponerle-fondo-blanco-removebg-preview.png "
+             alt="Logo SkyLearn" class="logo-spin" />
+    </div>
+    <h1>READY TO LEARN?</h1>
+    <button onclick="showMainContent()">Iniciar</button>
 </div>
 
 <!-- Navegador -->
 <nav class="navbar">
     <div class="nav-content">
-        <img src="https://i.postimg.cc/63d6XxfM/ponerle-fondo-blanco-removebg-preview.png " alt="Logo SkyLearn" class="logo">
+        <img src="https://i.postimg.cc/63d6XxfM/ponerle-fondo-blanco-removebg-preview.png " alt="Logo" class="logo">
         <div class="nav-links">
             <a href="#home" onclick="showSection('home')">Home</a>
             <a href="#courses" onclick="showSection('courses')">Cursos</a>
             <a href="#contact" onclick="showSection('contact')">Contacto</a>
             <a href="#pricing" onclick="showSection('pricing')">Precios</a>
-            <!-- 👇 NUEVO ENLACE DE CLASES EN VIVO 👇 -->
+            <a href="#registro" onclick="showSection('registro')">Registro</a>
+            <!-- 👇 NUEVA PESTAÑA DE CLASES EN VIVO -->
             <a href="#live" onclick="showSection('live')">Clases en Vivo</a>
         </div>
     </div>
@@ -293,10 +353,10 @@
     </div>
     <div class="news-section">
         <h2>Últimas Noticias</h2>
-        <p>Nuevos cursos disponibles a partir del próximo mes</p>
+        <p>!!OBTEN UN 30% DE DESCUENTO AL INSCRIBIRTE AHORA!!</p>
     </div>
     <div class="comments-section">
-        <h2>Comentarios</h2>
+        <h2>Comentarios Recientes</h2>
         <div id="commentsContainer"></div>
         <form onsubmit="addComment(event)">
             <input type="text" id="commentInput" placeholder="Escribe un comentario..." required>
@@ -307,6 +367,7 @@
 
 <!-- Cursos -->
 <section id="courses" class="section">
+    <h2>Cursos Disponibles</h2>
     <div class="courses-grid">
         <!-- Profesor 1 -->
         <div class="course-card">
@@ -342,7 +403,7 @@
                 <h3>Física</h3>
                 <p>Prof. Laura Gómez</p>
                 <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?embedded=true', '_blank')">Inscribirse</button>
-            </div>
+        </div>
         </div>
         <!-- Profesor 5 -->
         <div class="course-card">
@@ -367,14 +428,17 @@
 
 <!-- Contacto -->
 <section id="contact" class="section">
+    <h2>Contacto</h2>
     <div class="contact-dropdown">
-        <h3>Canales de Comunicación</h3>
+        <button class="dropdown-btn" onclick="toggleDropdown('email')">📧 Email</button>
         <div id="email" class="dropdown-content" style="display: none;">
             <p>Email: info@skylearn.com</p>
         </div>
+        <button class="dropdown-btn" onclick="toggleDropdown('telefono')">📞 Teléfono</button>
         <div id="telefono" class="dropdown-content" style="display: none;">
             <p>Teléfono: +123 456 7890</p>
         </div>
+        <button class="dropdown-btn" onclick="toggleDropdown('redes')">🌐 Redes Sociales</button>
         <div id="redes" class="dropdown-content" style="display: none;">
             <p><a href="#">Facebook</a> | <a href="#">Instagram</a></p>
         </div>
@@ -383,10 +447,58 @@
 
 <!-- Precios -->
 <section id="pricing" class="section">
-    <div class="pricing-menu">
-        <button onclick="showPricing('basic')">Plan Básico</button>
-        <button onclick="showPricing('premium')">Plan Premium</button>
-        <div id="pricing-content"></div>
+    <h2>Precios y Horarios</h2>
+    <table class="pricing-table">
+        <thead>
+            <tr>
+                <th>Curso</th>
+                <th>Precio</th>
+                <th>Horario</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Matemáticas</td>
+                <td>$50/mes</td>
+                <td>Lun - Vie | 8am - 10am</td>
+            </tr>
+            <tr>
+                <td>Inglés</td>
+                <td>$60/mes</td>
+                <td>Lun - Mie | 3pm - 5pm</td>
+            </tr>
+            <tr>
+                <td>Programación</td>
+                <td>$70/mes</td>
+                <td>Mar - Jue | 4pm - 6pm</td>
+            </tr>
+            <tr>
+                <td>Física</td>
+                <td>$60/mes</td>
+                <td>Mie - Vie | 10am - 12pm</td>
+            </tr>
+            <tr>
+                <td>Química</td>
+                <td>$60/mes</td>
+                <td>Jue - Sab | 9am - 11am</td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+<!-- Registro -->
+<section id="registro" class="section">
+    <h2>Formulario de Registro</h2>
+    <div style="max-width: 800px; margin: 2rem auto; background: #fff; padding: 2rem; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.05);">
+        <iframe 
+            src=" https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?embedded=true"
+            width="100%" 
+            height="500" 
+            frameborder="0" 
+            marginheight="0" 
+            marginwidth="0">
+            Cargando formulario...
+        </iframe>
     </div>
 </section>
 
@@ -395,12 +507,9 @@
     <div class="live-section">
         <h2>Clases en Vivo</h2>
         <p>Únete a nuestras clases en tiempo real:</p>
-        <!-- Ejemplo: YouTube Live Embed -->
+        <!-- Reproductor de YouTube Live -->
         <iframe 
-            src=" https://www.youtube.com/embed/live_stream?channel=TU_ID_DEL_CANAL_AQUÍ&autoplay=1"
-            width="100%" 
-            height="500" 
-            frameborder="0" 
+            src=" https://www.youtube.com/embed/live_stream?channel=TU_ID_DEL_CANAL&autoplay=1"
             allowfullscreen>
         </iframe>
     </div>
@@ -431,7 +540,7 @@
         }, 500);
     }
 
-    // Navegar entre secciones
+    // Mostrar sección activa
     function showSection(sectionId) {
         document.querySelectorAll('.section').forEach(section => {
             section.classList.remove('active');
@@ -483,7 +592,10 @@
             'registro': 'Puedes registrarte usando el botón en la sección de cursos.'
         };
         if (value && answers[value]) {
-            chatMessages.innerHTML += `<div style="margin: 0.5rem 0;">${answers[value]}</div>`;
+            const msg = document.createElement('div');
+            msg.textContent = answers[value];
+            msg.style.margin = '0.5rem 0';
+            chatMessages.appendChild(msg);
         }
     }
 
