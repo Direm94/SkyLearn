@@ -5,11 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SkyLearn Academy</title>
     <style>
+        :root {
+            --primary: #2563eb;
+            --secondary: #475569;
+            --accent: #f59e0b;
+            --background: #f8fafc;
+            --text: #1e293b;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
+            font-family: 'Segoe UI', system-ui, sans-serif;
         }
 
         /* Pantalla de Bienvenida */
@@ -17,7 +25,7 @@
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            background: white;
+            background: linear-gradient(45deg, #f8fafc, #e2e8f0);
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -25,79 +33,123 @@
             z-index: 1000;
             transition: opacity 0.5s;
         }
+
         .logo-container {
-            animation: bounce 2s infinite;
+            animation: spin 4s linear infinite, float 3s ease-in-out infinite;
             margin-bottom: 2rem;
         }
+
         .logo-spin {
             width: 150px;
+            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1));
         }
+
         .login-screen h1 {
             font-size: 2.5rem;
-            color: #3498db;
+            color: var(--primary);
             margin-bottom: 2rem;
             text-align: center;
         }
+
         .login-screen button {
             padding: 0.8rem 2rem;
             font-size: 1.2rem;
-            background: #3498db;
+            background: var(--primary);
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            transition: background 0.3s;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
         }
+
         .login-screen button:hover {
-            background: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
         }
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
         }
 
         /* Navigation Styles */
         .navbar {
-            background: white;
-            padding: 1rem 5%;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            background: rgba(255,255,255,0.9);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 100;
         }
+
         .nav-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
             max-width: 1200px;
             margin: 0 auto;
+            padding: 1rem 5%;
         }
+
         .logo {
             height: 50px;
         }
+
         .nav-links {
             display: flex;
             gap: 2rem;
         }
+
         .nav-links a {
+            position: relative;
             text-decoration: none;
-            color: #2c3e50;
+            color: var(--secondary);
             font-weight: 500;
             transition: color 0.3s;
         }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
         .nav-links a:hover {
-            color: #3498db;
+            color: var(--primary);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
         }
 
         /* Main Content */
         .section {
-            padding: 60px 5% 5rem;
+            padding: 100px 5% 5rem;
             min-height: 100vh;
             display: none;
+            animation: fadeIn 0.5s ease-out;
         }
+
         .active {
             display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         /* Home Section */
@@ -105,7 +157,11 @@
             height: 50vh;
             margin: 2rem 0;
             position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
+
         .slider-image {
             position: absolute;
             width: 100%;
@@ -113,43 +169,48 @@
             object-fit: cover;
             opacity: 0;
             transition: opacity 1s;
+            border-radius: 16px;
         }
+
         .slider-image.active {
             opacity: 1;
         }
 
         /* News & Comments Sections */
-        .news-section,
-        .comments-section {
+        .news-section, .comments-section {
             max-width: 800px;
             margin: 3rem auto;
-            background: #f9f9f9;
+            background: white;
             padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
         }
+
         .comments-section form {
             margin-top: 1rem;
             display: flex;
             gap: 1rem;
         }
+
         .comments-section input[type="text"] {
             flex: 1;
             padding: 0.6rem 1rem;
             border: 1px solid #ccc;
             border-radius: 5px;
         }
+
         .comments-section button {
             padding: 0.6rem 1rem;
-            background: #3498db;
+            background: var(--primary);
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             transition: background 0.3s;
         }
+
         .comments-section button:hover {
-            background: #2980b9;
+            background: var(--secondary);
         }
 
         /* Courses Grid */
@@ -159,36 +220,73 @@
             gap: 2rem;
             padding: 2rem 0;
         }
+
         .course-card {
-            border: 1px solid #eee;
-            border-radius: 10px;
+            border: none;
+            border-radius: 16px;
             overflow: hidden;
-            transition: transform 0.3s;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            background: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
         }
+
+        .course-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 50%, rgba(37,99,235,0.1));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
         .course-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
         }
+
+        .course-card:hover::before {
+            opacity: 1;
+        }
+
         .course-img {
             width: 100%;
             height: 200px;
             object-fit: cover;
+            transition: transform 0.5s ease;
         }
+
+        .course-card:hover .course-img {
+            transform: scale(1.05);
+        }
+
         .course-info {
             padding: 1rem;
         }
+
         .course-info h3 {
+            font-size: 1.2rem;
             margin-bottom: 0.5rem;
         }
+
         .course-info p {
             margin-bottom: 0.5rem;
         }
+
         .course-info button {
-            background: #3498db;
+            background: var(--primary);
             color: white;
             border: none;
             padding: 0.5rem 1rem;
             border-radius: 5px;
             cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .course-info button:hover {
+            background: var(--secondary);
         }
 
         /* Pricing Table */
@@ -197,50 +295,76 @@
             margin: 3rem auto;
             width: 100%;
             border-collapse: collapse;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            border-radius: 16px;
+            overflow: hidden;
         }
-        .pricing-table th,
-        .pricing-table td {
+
+        .pricing-table th, .pricing-table td {
             padding: 1rem;
             border-bottom: 1px solid #ddd;
             text-align: center;
         }
+
         .pricing-table th {
-            background: #3498db;
+            background: var(--primary);
             color: white;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
         }
+
         .pricing-table tr:last-child td {
             border-bottom: none;
+        }
+
+        .pricing-table tr:hover {
+            background: rgba(37,99,235,0.05);
         }
 
         /* Contact Section */
         .contact-dropdown {
             max-width: 800px;
             margin: 3rem auto;
-            background: #f9f9f9;
+            background: white;
             padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
         }
+
         .dropdown-btn {
             display: block;
             width: 100%;
             padding: 1rem;
-            background: #3498db;
+            background: var(--primary);
             color: white;
             border: none;
             border-radius: 5px;
             text-align: left;
             cursor: pointer;
             margin-bottom: 1rem;
+            position: relative;
         }
+
+        .dropdown-btn::after {
+            content: '▼';
+            position: absolute;
+            right: 1rem;
+            top: 1rem;
+            font-size: 0.8rem;
+        }
+
         .dropdown-content {
             display: none;
             margin-top: 1rem;
             padding: 1rem;
-            background: white;
+            background: #f9f9f9;
             border-radius: 5px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .contact-dropdown button:focus + .dropdown-content {
+            display: block;
         }
 
         /* Clases en Vivo */
@@ -249,10 +373,11 @@
             margin: 3rem auto;
             background: white;
             padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
             text-align: center;
         }
+
         .live-section iframe {
             width: 100%;
             height: 500px;
@@ -268,7 +393,7 @@
             right: 20px;
             width: 60px;
             height: 60px;
-            background: #3498db;
+            background: var(--primary);
             border-radius: 50%;
             display: flex;
             justify-content: center;
@@ -276,11 +401,15 @@
             color: white;
             cursor: pointer;
             z-index: 200;
-            transition: transform 0.3s ease;
+            animation: pulse 2s infinite;
         }
-        .chatbot-icon:hover {
-            transform: scale(1.1);
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
+
         .chat-window {
             position: fixed;
             bottom: 90px;
@@ -288,16 +417,26 @@
             width: 300px;
             height: 400px;
             background: white;
-            border-radius: 10px;
+            border-radius: 20px;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
             display: none;
             flex-direction: column;
         }
+
+        .chat-header {
+            padding: 1rem;
+            background: var(--primary);
+            color: white;
+            text-align: center;
+            font-weight: bold;
+        }
+
         .chat-messages {
             flex: 1;
             padding: 1rem;
             overflow-y: auto;
         }
+
         .chat-input select {
             width: 100%;
             padding: 0.5rem;
@@ -308,6 +447,7 @@
             .courses-grid {
                 grid-template-columns: 1fr;
             }
+
             .pricing-table {
                 font-size: 0.9rem;
             }
@@ -315,305 +455,291 @@
     </style>
 </head>
 <body>
-
-<!-- Pantalla de Bienvenida -->
-<div class="login-screen" id="loginScreen">
-    <div class="logo-container">
-        <img src="https://i.postimg.cc/63d6XxfM/ponerle-fondo-blanco-removebg-preview.png "
-             alt="Logo SkyLearn" class="logo-spin" />
-    </div>
-    <h1>READY TO LEARN?</h1>
-    <button onclick="showMainContent()">Iniciar</button>
-</div>
-
-<!-- Navegador -->
-<nav class="navbar">
-    <div class="nav-content">
-        <img src="https://i.postimg.cc/63d6XxfM/ponerle-fondo-blanco-removebg-preview.png " alt="Logo" class="logo">
-        <div class="nav-links">
-            <a href="#home" onclick="showSection('home')">Home</a>
-            <a href="#courses" onclick="showSection('courses')">Cursos</a>
-            <a href="#contact" onclick="showSection('contact')">Contacto</a>
-            <a href="#pricing" onclick="showSection('pricing')">Precios</a>
-            <!-- 👇 NUEVA PESTAÑA DE CLASES EN VIVO -->
-            <a href="#live" onclick="showSection('live')">Clases en Vivo</a>
+    <!-- Pantalla de Bienvenida -->
+    <div class="login-screen" id="loginScreen">
+        <div class="logo-container">
+            <img src="https://i.postimg.cc/63d6XxfM/ponerle-fondo-blanco-removebg-preview.png" alt="Logo SkyLearn" class="logo-spin" />
         </div>
+        <h1>READY TO LEARN?</h1>
+        <button onclick="showMainContent()">Iniciar</button>
     </div>
-</nav>
 
-<!-- Secciones -->
-
-<!-- Home -->
-<section id="home" class="section active">
-    <div class="home-slider">
-        <img src="https://via.placeholder.com/1200x500/3498db/ffffff?text=Banner+1" alt="Banner" class="slider-image active">
-        <img src=" https://via.placeholder.com/1200x500/2ecc71/ffffff?text=Banner+2" alt="Banner" class="slider-image">
-        <img src=" https://via.placeholder.com/1200x500/e74c3c/ffffff?text=Banner+3" alt="Banner" class="slider-image">
-    </div>
-    <div class="news-section">
-        <h2>Últimas Noticias</h2>
-        <p>!!OBTEN UN 30% DE DESCUENTO AL INSCRIBIRTE AHORA!!</p>
-    </div>
-    <div class="comments-section">
-        <h2>Comentarios Recientes</h2>
-        <div id="commentsContainer"></div>
-        <form onsubmit="addComment(event)">
-            <input type="text" id="commentInput" placeholder="Escribe un comentario..." required>
-            <button type="submit">Enviar</button>
-        </form>
-    </div>
-</section>
-
-<!-- Cursos -->
-<section id="courses" class="section">
-    <h2>Cursos Disponibles</h2>
-    <div class="courses-grid">
-        <!-- Profesor 1 -->
-        <div class="course-card">
-            <img src=" https://via.placeholder.com/300x200 " alt="Matemáticas" class="course-img">
-            <div class="course-info">
-                <h3>Matemáticas</h3>
-                <p>Prof. Ana Martínez</p>
-                <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?embedded=true', '_blank')">Inscribirse</button>
+    <!-- Navegador -->
+    <nav class="navbar">
+        <div class="nav-content">
+            <img src="https://i.postimg.cc/63d6XxfM/ponerle-fondo-blanco-removebg-preview.png" alt="Logo" class="logo">
+            <div class="nav-links">
+                <a href="#home" onclick="showSection('home')">Home</a>
+                <a href="#courses" onclick="showSection('courses')">Cursos</a>
+                <a href="#contact" onclick="showSection('contact')">Contacto</a>
+                <a href="#pricing" onclick="showSection('pricing')">Precios</a>
+                <!-- NUEVA PESTAÑA DE CLASES EN VIVO -->
+                <a href="#live" onclick="showSection('live')">Clases en Vivo</a>
             </div>
         </div>
-        <!-- Profesor 2 -->
-        <div class="course-card">
-            <img src=" https://via.placeholder.com/300x200 " alt="Inglés" class="course-img">
-            <div class="course-info">
-                <h3>Inglés</h3>
-                <p>Prof. Luis Ramírez</p>
-                <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?embedded=true', '_blank')">Inscribirse</button>
+    </nav>
+
+    <!-- Secciones -->
+
+    <!-- Home -->
+    <section id="home" class="section active">
+        <div class="home-slider">
+            <img src="https://via.placeholder.com/1200x500/2563eb/ffffff?text=Banner+1" alt="Banner" class="slider-image active">
+            <img src="https://via.placeholder.com/1200x500/475569/ffffff?text=Banner+2" alt="Banner" class="slider-image">
+            <img src="https://via.placeholder.com/1200x500/f59e0b/ffffff?text=Banner+3" alt="Banner" class="slider-image">
+        </div>
+        <div class="news-section">
+            <h2>Últimas Noticias</h2>
+            <p>!!OBTEN UN 30% DE DESCUENTO AL INSCRIBIRTE AHORA!!</p>
+        </div>
+        <div class="comments-section">
+            <h2>Comentarios Recientes</h2>
+            <div id="commentsContainer"></div>
+            <form onsubmit="addComment(event)">
+                <input type="text" id="commentInput" placeholder="Escribe un comentario..." required>
+                <button type="submit">Enviar</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Cursos -->
+    <section id="courses" class="section">
+        <h2>Cursos Disponibles</h2>
+        <div class="courses-grid">
+            <!-- Profesor 1 -->
+            <div class="course-card">
+                <img src="https://via.placeholder.com/300x200" alt="Matemáticas" class="course-img">
+                <div class="course-info">
+                    <h3>Matemáticas</h3>
+                    <p>Prof. Ana Martínez</p>
+                    <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?embedded=true', '_blank')">Inscribirse</button>
+                </div>
+            </div>
+            <!-- Profesor 2 -->
+            <div class="course-card">
+                <img src="https://via.placeholder.com/300x200" alt="Inglés" class="course-img">
+                <div class="course-info">
+                    <h3>Inglés</h3>
+                    <p>Prof. Luis Ramírez</p>
+                    <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?embedded=true', '_blank')">Inscribirse</button>
+                </div>
+            </div>
+            <!-- Profesor 3 -->
+            <div class="course-card">
+                <img src="https://via.placeholder.com/300x200" alt="Programación" class="course-img">
+                <div class="course-info">
+                    <h3>Programación</h3>
+                    <p>Prof. Carlos Domínguez</p>
+                    <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?embedded=true', '_blank')">Inscribirse</button>
+                </div>
+            </div>
+            <!-- Profesor 4 -->
+            <div class="course-card">
+                <img src="https://via.placeholder.com/300x200" alt="Física" class="course-img">
+                <div class="course-info">
+                    <h3>Física</h3>
+                    <p>Prof. Laura Gómez</p>
+                    <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?embedded=true', '_blank')">Inscribirse</button>
+                </div>
+            </div>
+            <!-- Profesor 5 -->
+            <div class="course-card">
+                <img src="https://via.placeholder.com/300x200" alt="Química" class="course-img">
+                <div class="course-info">
+                    <h3>Química</h3>
+                    <p>Prof. Miguel Torres</p>
+                    <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?embedded=true', '_blank')">Inscribirse</button>
+                </div>
+            </div>
+            <!-- Profesor 6 -->
+            <div class="course-card">
+                <img src="https://via.placeholder.com/300x200" alt="Biología" class="course-img">
+                <div class="course-info">
+                    <h3>Biología</h3>
+                    <p>Prof. Diana López</p>
+                    <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?embedded=true', '_blank')">Inscribirse</button>
+                </div>
             </div>
         </div>
-        <!-- Profesor 3 -->
-        <div class="course-card">
-            <img src=" https://via.placeholder.com/300x200 " alt="Programación" class="course-img">
-            <div class="course-info">
-                <h3>Programación</h3>
-                <p>Prof. Carlos Domínguez</p>
-                <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?embedded=true', '_blank')">Inscribirse</button>
+    </section>
+
+    <!-- Contacto -->
+    <section id="contact" class="section">
+        <h2>Contacto</h2>
+        <div class="contact-dropdown">
+            <button class="dropdown-btn" onclick="toggleDropdown('email')">Email</button>
+            <div id="email" class="dropdown-content" style="display: none;">
+                <p>Email: info@skylearn.com</p>
+            </div>
+            <button class="dropdown-btn" onclick="toggleDropdown('telefono')">Teléfono</button>
+            <div id="telefono" class="dropdown-content" style="display: none;">
+                <p>Teléfono: +123 456 7890</p>
+            </div>
+            <button class="dropdown-btn" onclick="toggleDropdown('redes')">Redes Sociales</button>
+            <div id="redes" class="dropdown-content" style="display: none;">
+                <p><a href="#">Facebook</a> | <a href="#">Instagram</a></p>
             </div>
         </div>
-        <!-- Profesor 4 -->
-        <div class="course-card">
-            <img src=" https://via.placeholder.com/300x200 " alt="Física" class="course-img">
-            <div class="course-info">
-                <h3>Física</h3>
-                <p>Prof. Laura Gómez</p>
-                <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?embedded=true', '_blank')">Inscribirse</button>
-            </div>
+    </section>
+
+    <!-- Precios -->
+    <section id="pricing" class="section">
+        <h2>Precios y Horarios</h2>
+        <table class="pricing-table">
+            <thead>
+                <tr>
+                    <th>Curso</th>
+                    <th>Precio</th>
+                    <th>Horario</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Matemáticas</td>
+                    <td>$50/mes</td>
+                    <td>Lun - Vie | 8am - 10am</td>
+                </tr>
+                <tr>
+                    <td>Inglés</td>
+                    <td>$60/mes</td>
+                    <td>Lun - Mie | 3pm - 5pm</td>
+                </tr>
+                <tr>
+                    <td>Programación</td>
+                    <td>$70/mes</td>
+                    <td>Mar - Jue | 4pm - 6pm</td>
+                </tr>
+                <tr>
+                    <td>Física</td>
+                    <td>$60/mes</td>
+                    <td>Mie - Vie | 10am - 12pm</td>
+                </tr>
+                <tr>
+                    <td>Química</td>
+                    <td>$60/mes</td>
+                    <td>Jue - Sab | 9am - 11am</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- Registro -->
+    <section id="registro" class="section">
+        <h2>Formulario de Registro</h2>
+        <div style="max-width: 800px; margin: 2rem auto; background: #fff; padding: 2rem; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.05);">
+            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?embedded=true" width="100%" height="500" frameborder="0" marginheight="0" marginwidth="0">Cargando formulario...</iframe>
         </div>
-        <!-- Profesor 5 -->
-        <div class="course-card">
-            <img src=" https://via.placeholder.com/300x200 " alt="Química" class="course-img">
-            <div class="course-info">
-                <h3>Química</h3>
-                <p>Prof. Miguel Torres</p>
-                <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?embedded=true', '_blank')">Inscribirse</button>
-            </div>
+    </section>
+
+    <!-- SECCIÓN DE CLASES EN VIVO AÑADIDA -->
+    <section id="live" class="section">
+        <div class="live-section">
+            <h2>Clases en Vivo</h2>
+            <p>Únete a nuestras clases en tiempo real:</p>
+            <!-- Reproductor de YouTube Live -->
+            <iframe src="https://www.youtube.com/embed/live_stream?channel=TU_ID_DEL_CANAL&autoplay=1" allowfullscreen></iframe>
         </div>
-        <!-- Profesor 6 -->
-        <div class="course-card">
-            <img src=" https://via.placeholder.com/300x200 " alt="Biología" class="course-img">
-            <div class="course-info">
-                <h3>Biología</h3>
-                <p>Prof. Diana López</p>
-                <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?embedded=true', '_blank')">Inscribirse</button>
-            </div>
+    </section>
+
+    <!-- Chatbot -->
+    <div class="chatbot-icon" onclick="toggleChat()"></div>
+    <div class="chat-window" id="chatWindow">
+        <div class="chat-messages" id="chatMessages">
+            <div>Hola! En qué puedo ayudarte?</div>
+        </div>
+        <div class="chat-input">
+            <select onchange="handleChatResponse(this.value)">
+                <option value="">Selecciona una pregunta</option>
+                <option value="horario">¿Cuál es el horario de clases?</option>
+                <option value="costos">¿Cuánto cuestan los cursos?</option>
+                <option value="registro">¿Cómo me registro?</option>
+            </select>
         </div>
     </div>
-</section>
 
-<!-- Contacto -->
-<section id="contact" class="section">
-    <h2>Contacto</h2>
-    <div class="contact-dropdown">
-        <button class="dropdown-btn" onclick="toggleDropdown('email')">📧 Email</button>
-        <div id="email" class="dropdown-content" style="display: none;">
-            <p>Email: info@skylearn.com</p>
-        </div>
-        <button class="dropdown-btn" onclick="toggleDropdown('telefono')">📞 Teléfono</button>
-        <div id="telefono" class="dropdown-content" style="display: none;">
-            <p>Teléfono: +123 456 7890</p>
-        </div>
-        <button class="dropdown-btn" onclick="toggleDropdown('redes')">🌐 Redes Sociales</button>
-        <div id="redes" class="dropdown-content" style="display: none;">
-            <p><a href="#">Facebook</a> | <a href="#">Instagram</a></p>
-        </div>
-    </div>
-</section>
-
-<!-- Precios -->
-<section id="pricing" class="section">
-    <h2>Precios y Horarios</h2>
-    <table class="pricing-table">
-        <thead>
-            <tr>
-                <th>Curso</th>
-                <th>Precio</th>
-                <th>Horario</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Matemáticas</td>
-                <td>$50/mes</td>
-                <td>Lun - Vie | 8am - 10am</td>
-            </tr>
-            <tr>
-                <td>Inglés</td>
-                <td>$60/mes</td>
-                <td>Lun - Mie | 3pm - 5pm</td>
-            </tr>
-            <tr>
-                <td>Programación</td>
-                <td>$70/mes</td>
-                <td>Mar - Jue | 4pm - 6pm</td>
-            </tr>
-            <tr>
-                <td>Física</td>
-                <td>$60/mes</td>
-                <td>Mie - Vie | 10am - 12pm</td>
-            </tr>
-            <tr>
-                <td>Química</td>
-                <td>$60/mes</td>
-                <td>Jue - Sab | 9am - 11am</td>
-            </tr>
-        </tbody>
-    </table>
-</section>
-
-<!-- Registro -->
-<section id="registro" class="section">
-    <h2>Formulario de Registro</h2>
-    <div style="max-width: 800px; margin: 2rem auto; background: #fff; padding: 2rem; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.05);">
-        <iframe 
-            src=" https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?embedded=true"
-            width="100%" 
-            height="500" 
-            frameborder="0" 
-            marginheight="0" 
-            marginwidth="0">
-            Cargando formulario...
-        </iframe>
-    </div>
-</section>
-
-<!-- 👇 SECCIÓN DE CLASES EN VIVO AÑADIDA 👇 -->
-<section id="live" class="section">
-    <div class="live-section">
-        <h2>Clases en Vivo</h2>
-        <p>Únete a nuestras clases en tiempo real:</p>
-        <!-- Reproductor de YouTube Live -->
-        <iframe 
-            src=" https://www.youtube.com/embed/live_stream?channel=TU_ID_DEL_CANAL&autoplay=1"
-            allowfullscreen>
-        </iframe>
-    </div>
-</section>
-
-<!-- Chatbot -->
-<div class="chatbot-icon" onclick="toggleChat()">💬</div>
-<div class="chat-window" id="chatWindow">
-    <div class="chat-messages" id="chatMessages">
-        <div>¡Hola! ¿En qué puedo ayudarte?</div>
-    </div>
-    <div class="chat-input">
-        <select onchange="handleChatResponse(this.value)">
-            <option value="">Selecciona una pregunta</option>
-            <option value="horario">¿Cuál es el horario de clases?</option>
-            <option value="costos">¿Cuánto cuestan los cursos?</option>
-            <option value="registro">¿Cómo me registro?</option>
-        </select>
-    </div>
-</div>
-
-<script>
-    // Mostrar contenido principal
-    function showMainContent() {
-        document.getElementById('loginScreen').style.opacity = 0;
-        setTimeout(() => {
-            document.getElementById('loginScreen').style.display = 'none';
-        }, 500);
-    }
-
-    // Mostrar sección activa
-    function showSection(sectionId) {
-        document.querySelectorAll('.section').forEach(section => {
-            section.classList.remove('active');
-        });
-        document.getElementById(sectionId).classList.add('active');
-    }
-
-    // Carrusel automático
-    let currentSlide = 0;
-    const slides = document.querySelectorAll('.slider-image');
-    setInterval(() => {
-        slides[currentSlide].classList.remove('active');
-        currentSlide = (currentSlide + 1) % slides.length;
-        slides[currentSlide].classList.add('active');
-    }, 3000);
-
-    // Comentarios temporales
-    function addComment(e) {
-        e.preventDefault();
-        const comment = document.getElementById('commentInput').value;
-        const comments = JSON.parse(localStorage.getItem('comments') || '[]');
-        comments.push({ text: comment, time: Date.now() });
-        localStorage.setItem('comments', JSON.stringify(comments));
-        displayComments();
-        e.target.reset();
-    }
-
-    function displayComments() {
-        const container = document.getElementById('commentsContainer');
-        const comments = JSON.parse(localStorage.getItem('comments') || '[]');
-        const validComments = comments.filter(c => Date.now() - c.time < 86400000); // 24 horas
-        container.innerHTML = validComments.map(c => `
-            <div style="margin: 1rem 0; padding: 1rem; background: #f5f5f5; border-radius: 5px;">${c.text}</div>
-        `).join('');
-        localStorage.setItem('comments', JSON.stringify(validComments));
-    }
-
-    // Chatbot
-    function toggleChat() {
-        const chat = document.getElementById('chatWindow');
-        chat.style.display = chat.style.display === 'flex' ? 'none' : 'flex';
-    }
-
-    function handleChatResponse(value) {
-        const chatMessages = document.getElementById('chatMessages');
-        const answers = {
-            'horario': 'Nuestras clases son de Lunes a Viernes de 8am a 5pm.',
-            'costos': 'Los precios van desde $50/mes en plan básico.',
-            'registro': 'Puedes registrarte usando el botón en la sección de cursos.'
-        };
-        if (value && answers[value]) {
-            const msg = document.createElement('div');
-            msg.textContent = answers[value];
-            msg.style.margin = '0.5rem 0';
-            chatMessages.appendChild(msg);
+    <script>
+        // Mostrar contenido principal
+        function showMainContent() {
+            document.getElementById('loginScreen').style.opacity = 0;
+            setTimeout(() => {
+                document.getElementById('loginScreen').style.display = 'none';
+            }, 500);
         }
-    }
 
-    // Menú desplegable contacto
-    function toggleDropdown(id) {
-        const content = document.getElementById(id);
-        content.style.display = content.style.display === 'block' ? 'none' : 'block';
-    }
+        // Mostrar sección activa
+        function showSection(sectionId) {
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
+        }
 
-    // Planes de Precios
-    function showPricing(plan) {
-        const content = document.getElementById('pricing-content');
-        content.innerHTML = plan === 'basic' ?
-            '<h3>Plan Básico</h3><p>$50/mes - Acceso a 3 cursos</p>' :
-            '<h3>Plan Premium</h3><p>$100/mes - Acceso a todos los cursos</p>';
-    }
+        // Carrusel automático
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slider-image');
+        setInterval(() => {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }, 3000);
 
-    displayComments();
-</script>
+        // Comentarios temporales
+        function addComment(e) {
+            e.preventDefault();
+            const comment = document.getElementById('commentInput').value;
+            const comments = JSON.parse(localStorage.getItem('comments') || '[]');
+            comments.push({ text: comment, time: Date.now() });
+            localStorage.setItem('comments', JSON.stringify(comments));
+            displayComments();
+            e.target.reset();
+        }
 
+        function displayComments() {
+            const container = document.getElementById('commentsContainer');
+            const comments = JSON.parse(localStorage.getItem('comments') || '[]');
+            const validComments = comments.filter(c => Date.now() - c.time < 86400000); // 24 horas
+            container.innerHTML = validComments.map(c => `
+                <div style="margin: 1rem 0; padding: 1rem; background: #f5f5f5; border-radius: 5px;">${c.text}</div>
+            `).join('');
+            localStorage.setItem('comments', JSON.stringify(validComments));
+        }
+
+        // Chatbot
+        function toggleChat() {
+            const chat = document.getElementById('chatWindow');
+            chat.style.display = chat.style.display === 'flex' ? 'none' : 'flex';
+        }
+
+        function handleChatResponse(value) {
+            const chatMessages = document.getElementById('chatMessages');
+            const answers = {
+                'horario': 'Nuestras clases son de Lunes a Viernes de 8am a 5pm.',
+                'costos': 'Los precios van desde $50/mes en plan básico.',
+                'registro': 'Puedes registrarte usando el botón "Inscribirse" en cada curso.'
+            };
+            if (value && answers[value]) {
+                const msg = document.createElement('div');
+                msg.textContent = answers[value];
+                msg.style.margin = '0.5rem 0';
+                chatMessages.appendChild(msg);
+            }
+        }
+
+        // Menú desplegable contacto
+        function toggleDropdown(id) {
+            const content = document.getElementById(id);
+            content.style.display = content.style.display === 'block' ? 'none' : 'block';
+        }
+
+        // Planes de Precios
+        function showPricing(plan) {
+            const content = document.getElementById('pricing-content');
+            content.innerHTML = plan === 'basic' ?
+                '<h3>Plan Básico</h3><p>$50/mes - Acceso a 3 cursos</p>' :
+                '<h3>Plan Premium</h3><p>$100/mes - Acceso a todos los cursos</p>';
+        }
+
+        displayComments();
+    </script>
 </body>
 </html>
