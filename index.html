@@ -79,7 +79,7 @@
             100% { transform: translateY(0px); }
         }
 
-        /* Navigation Styles */
+        /* Navegación */
         .navbar {
             background: rgba(255,255,255,0.9);
             backdrop-filter: blur(10px);
@@ -135,7 +135,7 @@
             width: 100%;
         }
 
-        /* Main Content */
+        /* Secciones */
         .section {
             padding: 100px 5% 5rem;
             min-height: 100vh;
@@ -289,40 +289,7 @@
             background: var(--secondary);
         }
 
-        /* Pricing Table */
-        .pricing-table {
-            max-width: 800px;
-            margin: 3rem auto;
-            width: 100%;
-            border-collapse: collapse;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
-            border-radius: 16px;
-            overflow: hidden;
-        }
-
-        .pricing-table th, .pricing-table td {
-            padding: 1rem;
-            border-bottom: 1px solid #ddd;
-            text-align: center;
-        }
-
-        .pricing-table th {
-            background: var(--primary);
-            color: white;
-            text-transform: uppercase;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-        }
-
-        .pricing-table tr:last-child td {
-            border-bottom: none;
-        }
-
-        .pricing-table tr:hover {
-            background: rgba(37,99,235,0.05);
-        }
-
-        /* Contact Section */
+        /* Contacto */
         .contact-dropdown {
             max-width: 800px;
             margin: 3rem auto;
@@ -451,6 +418,28 @@
             .pricing-table {
                 font-size: 0.9rem;
             }
+
+            .chat-window {
+                width: 250px;
+                height: 350px;
+            }
+
+            .navbar {
+                padding: 0.5rem 2%;
+            }
+
+            .nav-links a {
+                font-size: 0.9rem;
+            }
+
+            .login-screen h1 {
+                font-size: 2rem;
+            }
+
+            .login-screen button {
+                padding: 0.6rem 1.5rem;
+                font-size: 1rem;
+            }
         }
     </style>
 </head>
@@ -475,6 +464,8 @@
                 <a href="#pricing" onclick="showSection('pricing')">Precios</a>
                 <!-- NUEVA PESTAÑA DE CLASES EN VIVO -->
                 <a href="#live" onclick="showSection('live')">Clases en Vivo</a>
+                <!-- PESTAÑA DE REGISTRO -->
+                <a href="#registro" onclick="showSection('registro')">Registro</a>
             </div>
         </div>
     </nav>
@@ -502,66 +493,67 @@
         </div>
     </section>
 
-<!-- Cursos -->
-<section id="courses" class="section">
-    <h2>Cursos Disponibles</h2>
-    <div class="courses-grid">
-        <!-- Profesor 1 -->
-        <div class="course-card">
-            <img src="https://via.placeholder.com/300x200" alt="Matemáticas" class="course-img">
-            <div class="course-info">
-                <h3>Matemáticas</h3>
-                <p>Prof. Ana Martínez</p>
-                <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?usp=sf_link', '_blank')">Inscribirse</button>
+    <!-- Cursos -->
+    <section id="courses" class="section">
+        <h2>Cursos Disponibles</h2>
+        <div class="courses-grid">
+            <!-- Profesor 1 -->
+            <div class="course-card">
+                <img src="https://via.placeholder.com/300x200" alt="Matemáticas" class="course-img">
+                <div class="course-info">
+                    <h3>Matemáticas</h3>
+                    <p>Prof. Ana Martínez</p>
+                    <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?usp=sf_link', '_blank')">Inscribirse</button>
+                </div>
+            </div>
+            <!-- Profesor 2 -->
+            <div class="course-card">
+                <img src="https://via.placeholder.com/300x200" alt="Inglés" class="course-img">
+                <div class="course-info">
+                    <h3>Inglés</h3>
+                    <p>Prof. Luis Ramírez</p>
+                    <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?usp=sf_link', '_blank')">Inscribirse</button>
+                </div>
+            </div>
+            <!-- Profesor 3 -->
+            <div class="course-card">
+                <img src="https://via.placeholder.com/300x200" alt="Programación" class->course-img">
+                <div class="course-info">
+                    <h3>Programación</h3>
+                    <p>Prof. Carlos Domínguez</p>
+                    <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?usp=sf_link', '_blank')">Inscribirse</button>
+                </div>
+            </div>
+            <!-- Profesor 4 -->
+            <div class="course-card">
+                <img src="https://via.placeholder.com/300x200" alt="Física" class="course-img">
+                <div class="course-info">
+                    <h3>Física</h3>
+                    <p>Prof. Laura Gómez</p>
+                    <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?usp=sf_link', '_blank')">Inscribirse</button>
+                </div>
+            </div>
+            <!-- Profesor 5 -->
+            <div class="course-card">
+                <img src="https://via.placeholder.com/300x200" alt="Química" class="course-img">
+                <div class="course-info">
+                    <h3>Química</h3>
+                    <p>Prof. Miguel Torres</p>
+                    <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?usp=sf_link', '_blank')">Inscribirse</button>
+                </div>
+            </div>
+            <!-- Profesor 6 -->
+            <div class="course-card">
+                <img src="https://via.placeholder.com/300x200" alt="Biología" class="course-img">
+                <div class="course-info">
+                    <h3>Biología</h3>
+                    <p>Prof. Diana López</p>
+                    <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?usp=sf_link', '_blank')">Inscribirse</button>
+                </div>
             </div>
         </div>
-        <!-- Profesor 2 -->
-        <div class="course-card">
-            <img src="https://via.placeholder.com/300x200" alt="Inglés" class="course-img">
-            <div class="course-info">
-                <h3>Inglés</h3>
-                <p>Prof. Luis Ramírez</p>
-                <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?usp=sf_link', '_blank')">Inscribirse</button>
-            </div>
-        </div>
-        <!-- Profesor 3 -->
-        <div class="course-card">
-            <img src="https://via.placeholder.com/300x200" alt="Programación" class="course-img">
-            <div class="course-info">
-                <h3>Programación</h3>
-                <p>Prof. Carlos Domínguez</p>
-                <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?usp=sf_link', '_blank')">Inscribirse</button>
-            </div>
-        </div>
-        <!-- Profesor 4 -->
-        <div class="course-card">
-            <img src="https://via.placeholder.com/300x200" alt="Física" class="course-img">
-            <div class="course-info">
-                <h3>Física</h3>
-                <p>Prof. Laura Gómez</p>
-                <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?usp=sf_link', '_blank')">Inscribirse</button>
-            </div>
-        </div>
-        <!-- Profesor 5 -->
-        <div class="course-card">
-            <img src="https://via.placeholder.com/300x200" alt="Química" class="course-img">
-            <div class="course-info">
-                <h3>Química</h3>
-                <p>Prof. Miguel Torres</p>
-                <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?usp=sf_link', '_blank')">Inscribirse</button>
-            </div>
-        </div>
-        <!-- Profesor 6 -->
-        <div class="course-card">
-            <img src="https://via.placeholder.com/300x200" alt="Biología" class="course-img">
-            <div class="course-info">
-                <h3>Biología</h3>
-                <p>Prof. Diana López</p>
-                <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?usp=sf_link', '_blank')">Inscribirse</button>
-            </div>
-        </div>
-    </div>
-</section>
+    </section>
+
     <!-- Contacto -->
     <section id="contact" class="section">
         <h2>Contacto</h2>
@@ -727,7 +719,7 @@
         // Menú desplegable contacto
         function toggleDropdown(id) {
             const content = document.getElementById(id);
-            content.style.display = content.style.display === 'block' ? 'none' : 'block';
+            content.style.display = content.style.display === 'block' ? 'none' => 'block';
         }
 
         // Planes de Precios
