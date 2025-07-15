@@ -1,93 +1,132 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SkyLearn Academy</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #2563eb;
-            --secondary: #475569;
-            --accent: #f59e0b;
-            --background: #f8fafc;
-            --text: #1e293b;
+            --primary-color: #4361ee;
+            --primary-dark: #3a0ca3;
+            --secondary-color: #4cc9f0;
+            --accent-color: #f72585;
+            --dark-color: #14213d;
+            --light-color: #f8f9fa;
+            --gray-color: #adb5bd;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', system-ui, sans-serif;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            line-height: 1.6;
+            overflow-x: hidden;
         }
 
         /* Pantalla de Bienvenida */
         .login-screen {
             position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: linear-gradient(45deg, #f8fafc, #e2e8f0);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             z-index: 1000;
-            transition: opacity 0.5s;
+            transition: opacity 0.8s, visibility 0.8s;
         }
 
         .logo-container {
-            animation: spin 4s linear infinite, float 3s ease-in-out infinite;
-            margin-bottom: 2rem;
-        }
-
-        .logo-spin {
-            width: 150px;
-            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1));
-        }
-
-        .login-screen h1 {
-            font-size: 2.5rem;
-            color: var(--primary);
-            margin-bottom: 2rem;
+            animation: bounce 2s infinite alternate;
+            margin-bottom: 2.5rem;
             text-align: center;
         }
 
-        .login-screen button {
-            padding: 0.8rem 2rem;
-            font-size: 1.2rem;
-            background: var(--primary);
+        .logo-spin {
+            width: 200px;
+            filter: drop-shadow(0 8px 15px rgba(0, 0, 0, 0.2));
+            transition: var(--transition);
+        }
+
+        .login-screen h1 {
+            font-size: 3rem;
             color: white;
+            margin-bottom: 2.5rem;
+            text-align: center;
+            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .login-screen button {
+            padding: 1.2rem 3rem;
+            font-size: 1.2rem;
+            background: white;
+            color: var(--primary-color);
             border: none;
-            border-radius: 5px;
+            border-radius: 50px;
             cursor: pointer;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
+            transition: var(--transition);
+            font-weight: 600;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
         }
 
         .login-screen button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
         }
 
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+        .login-screen button::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(255, 255, 255, 0.3), transparent);
+            transform: translateY(-100%);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
+        .login-screen button:hover::after {
+            transform: translateY(0);
         }
 
-        /* Navegación */
+        @keyframes bounce {
+            0% { transform: translateY(0) rotate(-5deg); }
+            100% { transform: translateY(-30px) rotate(5deg); }
+        }
+
+        /* Navigation Styles */
         .navbar {
-            background: rgba(255,255,255,0.9);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            background: white;
+            padding: 1.5rem 5%;
+            box-shadow: var(--shadow);
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 100;
+            transition: var(--transition);
+        }
+
+        .navbar.scrolled {
+            padding: 1rem 5%;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
         }
 
         .nav-content {
@@ -96,70 +135,102 @@
             align-items: center;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 1rem 5%;
         }
 
         .logo {
             height: 50px;
+            transition: var(--transition);
         }
 
         .nav-links {
             display: flex;
-            gap: 2rem;
+            gap: 2.5rem;
         }
 
         .nav-links a {
-            position: relative;
             text-decoration: none;
-            color: var(--secondary);
-            font-weight: 500;
-            transition: color 0.3s;
+            color: var(--dark-color);
+            font-weight: 600;
+            transition: var(--transition);
+            padding: 0.5rem 0;
+            position: relative;
+            font-size: 1.1rem;
         }
 
         .nav-links a::after {
             content: '';
             position: absolute;
             width: 0;
-            height: 2px;
+            height: 3px;
+            background: var(--primary-color);
             bottom: 0;
             left: 0;
-            background: var(--primary);
-            transition: width 0.3s ease;
+            transition: var(--transition);
+            border-radius: 3px;
         }
 
         .nav-links a:hover {
-            color: var(--primary);
+            color: var(--primary-color);
         }
 
         .nav-links a:hover::after {
             width: 100%;
         }
 
-        /* Secciones */
+        .nav-links a.active {
+            color: var(--primary-color);
+        }
+
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        /* Main Content */
         .section {
             padding: 100px 5% 5rem;
             min-height: 100vh;
             display: none;
-            animation: fadeIn 0.5s ease-out;
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .active {
             display: block;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        h2 {
+            font-size: 2.5rem;
+            color: var(--dark-color);
+            margin-bottom: 3rem;
+            text-align: center;
+            position: relative;
+            padding-bottom: 1.5rem;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 5px;
+            background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 5px;
         }
 
         /* Home Section */
         .home-slider {
-            height: 50vh;
-            margin: 2rem 0;
+            height: 65vh;
+            margin: 3rem 0;
             position: relative;
-            border-radius: 16px;
+            border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            box-shadow: var(--shadow);
         }
 
         .slider-image {
@@ -168,66 +239,164 @@
             height: 100%;
             object-fit: cover;
             opacity: 0;
-            transition: opacity 1s;
-            border-radius: 16px;
+            transition: opacity 1.2s ease-in-out;
         }
 
         .slider-image.active {
             opacity: 1;
         }
 
-        /* News & Comments Sections */
-        .news-section, .comments-section {
-            max-width: 800px;
-            margin: 3rem auto;
+        .slider-controls {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 10;
+        }
+
+        .slider-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .slider-dot.active {
             background: white;
-            padding: 2rem;
-            border-radius: 16px;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            transform: scale(1.2);
+        }
+
+        /* News & Comments Sections */
+        .news-section,
+        .comments-section {
+            max-width: 900px;
+            margin: 4rem auto;
+            background: white;
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .news-section:hover,
+        .comments-section:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+
+        .news-section h2,
+        .comments-section h2 {
+            text-align: left;
+            margin-bottom: 2rem;
+        }
+
+        .news-section h2::after,
+        .comments-section h2::after {
+            left: 0;
+            transform: none;
+        }
+
+        .news-content {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .news-icon {
+            font-size: 3rem;
+            color: var(--accent-color);
+            flex-shrink: 0;
+        }
+
+        .news-section p {
+            font-size: 1.2rem;
+            color: var(--dark-color);
+            padding: 1.5rem;
+            background: var(--light-color);
+            border-radius: 10px;
+            text-align: center;
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .news-section p::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary-color), var(--accent-color));
         }
 
         .comments-section form {
-            margin-top: 1rem;
+            margin-top: 2rem;
             display: flex;
-            gap: 1rem;
+            gap: 1.5rem;
         }
 
         .comments-section input[type="text"] {
             flex: 1;
-            padding: 0.6rem 1rem;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+            padding: 1rem 1.5rem;
+            border: 2px solid #eee;
+            border-radius: 50px;
+            font-size: 1rem;
+            transition: var(--transition);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .comments-section input[type="text"]:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 4px rgba(67, 97, 238, 0.2);
         }
 
         .comments-section button {
-            padding: 0.6rem 1rem;
-            background: var(--primary);
+            padding: 1rem 2.5rem;
+            background: var(--primary-color);
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 50px;
             cursor: pointer;
-            transition: background 0.3s;
+            transition: var(--transition);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
         }
 
         .comments-section button:hover {
-            background: var(--secondary);
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(67, 97, 238, 0.4);
         }
 
         /* Courses Grid */
         .courses-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            padding: 2rem 0;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 3rem;
+            padding: 3rem 0;
         }
 
         .course-card {
-            border: none;
-            border-radius: 16px;
-            overflow: hidden;
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
             background: white;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+
+        .course-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
         }
 
         .course-card::before {
@@ -236,131 +405,362 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, transparent 50%, rgba(37,99,235,0.1));
-            opacity: 0;
-            transition: opacity 0.3s ease;
+            height: 5px;
+            background: linear-gradient(to right, var(--primary-color), var(--accent-color));
         }
 
-        .course-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
-        }
-
-        .course-card:hover::before {
-            opacity: 1;
+        .course-img-container {
+            overflow: hidden;
+            height: 220px;
+            position: relative;
         }
 
         .course-img {
             width: 100%;
-            height: 200px;
+            height: 100%;
             object-fit: cover;
-            transition: transform 0.5s ease;
+            transition: var(--transition);
         }
 
         .course-card:hover .course-img {
-            transform: scale(1.05);
+            transform: scale(1.1);
+        }
+
+        .course-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--accent-color);
+            color: white;
+            padding: 0.3rem 1rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 1;
         }
 
         .course-info {
-            padding: 1rem;
+            padding: 2rem;
         }
 
         .course-info h3 {
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
+            font-size: 1.5rem;
+            margin-bottom: 0.8rem;
+            color: var(--dark-color);
         }
 
-        .course-info p {
-            margin-bottom: 0.5rem;
+        .course-teacher {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .teacher-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--primary-color);
+        }
+
+        .teacher-name {
+            font-weight: 500;
+            color: var(--dark-color);
+        }
+
+        .course-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+            color: var(--gray-color);
+            font-size: 0.9rem;
+        }
+
+        .course-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
         }
 
         .course-info button {
-            background: var(--primary);
+            background: var(--primary-color);
             color: white;
             border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 5px;
+            padding: 1rem;
+            border-radius: 8px;
             cursor: pointer;
-            transition: background 0.3s;
+            transition: var(--transition);
+            font-weight: 600;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
         }
 
         .course-info button:hover {
-            background: var(--secondary);
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(67, 97, 238, 0.4);
         }
 
-        /* Contacto */
-        .contact-dropdown {
-            max-width: 800px;
+        /* Pricing Table */
+        .pricing-container {
+            max-width: 1000px;
             margin: 3rem auto;
-            background: white;
-            padding: 2rem;
-            border-radius: 16px;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
         }
 
-        .dropdown-btn {
-            display: block;
-            width: 100%;
-            padding: 1rem;
-            background: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 5px;
-            text-align: left;
+        .pricing-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 3rem;
+            gap: 1rem;
+        }
+
+        .pricing-tab {
+            padding: 0.8rem 2rem;
+            background: white;
+            border: 2px solid var(--primary-color);
+            border-radius: 50px;
             cursor: pointer;
-            margin-bottom: 1rem;
-            position: relative;
+            transition: var(--transition);
+            font-weight: 600;
+            color: var(--primary-color);
         }
 
-        .dropdown-btn::after {
-            content: '▼';
-            position: absolute;
-            right: 1rem;
-            top: 1rem;
-            font-size: 0.8rem;
+        .pricing-tab.active {
+            background: var(--primary-color);
+            color: white;
         }
 
-        .dropdown-content {
-            display: none;
-            margin-top: 1rem;
-            padding: 1rem;
-            background: #f9f9f9;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        .pricing-tab:hover:not(.active) {
+            background: rgba(67, 97, 238, 0.1);
         }
 
-        .contact-dropdown button:focus + .dropdown-content {
-            display: block;
+        .pricing-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            box-shadow: var(--shadow);
+            border-radius: 15px;
+            overflow: hidden;
+            background: white;
         }
 
-        /* Clases en Vivo */
-        .live-section {
+        .pricing-table th {
+            background: linear-gradient(to right, var(--primary-color), var(--primary-dark));
+            color: white;
+            padding: 1.5rem;
+            font-weight: 600;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+
+        .pricing-table td {
+            padding: 1.5rem;
+            border-bottom: 1px solid #eee;
+            text-align: center;
+            background: white;
+            transition: var(--transition);
+        }
+
+        .pricing-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .pricing-table tr:hover td {
+            background: #f8f9fa;
+        }
+
+        .highlight {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        /* Contact Section */
+        .contact-container {
             max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .contact-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark-color);
+        }
+
+        .contact-card p {
+            color: var(--gray-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-link {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .contact-link:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(67, 97, 238, 0.3);
+        }
+
+        /* Live Classes Section */
+        .live-section {
+            max-width: 1000px;
             margin: 3rem auto;
             background: white;
-            padding: 2rem;
-            border-radius: 16px;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
             text-align: center;
+        }
+
+        .live-section p {
+            margin-bottom: 2rem;
+            font-size: 1.2rem;
+            color: var(--dark-color);
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .live-section iframe {
             width: 100%;
             height: 500px;
             border: none;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .live-schedule {
+            margin-top: 3rem;
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+        }
+
+        .schedule-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 1.2rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .schedule-item:last-child {
+            border-bottom: none;
+        }
+
+        .schedule-time {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            margin: 5rem auto;
+            max-width: 1000px;
+        }
+
+        .testimonial-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            margin: 1.5rem;
+            position: relative;
+        }
+
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 5rem;
+            color: rgba(67, 97, 238, 0.1);
+            font-family: serif;
+            line-height: 1;
+        }
+
+        .testimonial-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--dark-color);
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .author-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--primary-color);
+        }
+
+        .author-info h4 {
+            font-size: 1.2rem;
+            color: var(--dark-color);
+            margin-bottom: 0.3rem;
+        }
+
+        .author-info p {
+            color: var(--gray-color);
+            font-size: 0.9rem;
         }
 
         /* Chatbot */
         .chatbot-icon {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 60px;
-            height: 60px;
-            background: var(--primary);
+            bottom: 40px;
+            right: 40px;
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(to right, var(--primary-color), var(--accent-color));
             border-radius: 50%;
             display: flex;
             justify-content: center;
@@ -368,77 +768,358 @@
             color: white;
             cursor: pointer;
             z-index: 200;
+            transition: var(--transition);
+            box-shadow: 0 10px 30px rgba(67, 97, 238, 0.4);
+            font-size: 1.8rem;
             animation: pulse 2s infinite;
         }
 
         @keyframes pulse {
             0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+            50% { transform: scale(1.1); }
             100% { transform: scale(1); }
+        }
+
+        .chatbot-icon:hover {
+            transform: scale(1.1) rotate(10deg);
+            box-shadow: 0 15px 40px rgba(67, 97, 238, 0.5);
         }
 
         .chat-window {
             position: fixed;
-            bottom: 90px;
-            right: 20px;
-            width: 300px;
-            height: 400px;
+            bottom: 130px;
+            right: 40px;
+            width: 380px;
+            height: 500px;
             background: white;
             border-radius: 20px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
             display: none;
             flex-direction: column;
+            overflow: hidden;
+            z-index: 200;
+            transform-origin: bottom right;
+            animation: scaleUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes scaleUp {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
         }
 
         .chat-header {
-            padding: 1rem;
-            background: var(--primary);
+            padding: 1.5rem;
+            background: linear-gradient(to right, var(--primary-color), var(--primary-dark));
             color: white;
-            text-align: center;
-            font-weight: bold;
+            font-weight: 600;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .chat-header i {
+            font-size: 1.5rem;
         }
 
         .chat-messages {
             flex: 1;
-            padding: 1rem;
+            padding: 1.5rem;
             overflow-y: auto;
+            background: #f9f9f9;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .bot-message, .user-message {
+            max-width: 80%;
+            padding: 1rem 1.5rem;
+            border-radius: 18px;
+            position: relative;
+            animation: fadeInUp 0.3s ease;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .bot-message {
+            align-self: flex-start;
+            background: white;
+            color: var(--dark-color);
+            border-bottom-left-radius: 5px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .user-message {
+            align-self: flex-end;
+            background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+            color: white;
+            border-bottom-right-radius: 5px;
+        }
+
+        .chat-input {
+            padding: 1.5rem;
+            background: white;
+            border-top: 1px solid #eee;
         }
 
         .chat-input select {
             width: 100%;
-            padding: 0.5rem;
+            padding: 1rem;
+            border: 2px solid #eee;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: var(--transition);
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 1em;
+        }
+
+        .chat-input select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 4px rgba(67, 97, 238, 0.2);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-color);
+            color: white;
+            padding: 4rem 5% 2rem;
+            margin-top: 5rem;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+
+        .footer-logo {
+            height: 60px;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-about p {
+            margin-bottom: 1.5rem;
+            color: var(--gray-color);
+        }
+
+        .footer-links h3, .footer-contact h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .footer-links h3::after, .footer-contact h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--primary-color);
+            border-radius: 3px;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: var(--gray-color);
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .footer-links a:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .footer-contact p {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 1rem;
+            color: var(--gray-color);
+        }
+
+        .footer-contact i {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            width: 25px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: var(--primary-color);
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--gray-color);
+            font-size: 0.9rem;
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 120px;
+            right: 40px;
+            width: 50px;
+            height: 50px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: var(--primary-dark);
+            transform: translateY(-5px);
         }
 
         /* Responsive Design */
-        @media (max-width: 768px) {
+        @media (max-width: 992px) {
             .courses-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             }
-
-            .pricing-table {
-                font-size: 0.9rem;
+            
+            .home-slider {
+                height: 50vh;
             }
+        }
 
-            .chat-window {
-                width: 250px;
-                height: 350px;
+        @media (max-width: 768px) {
+            .nav-links {
+                gap: 1.5rem;
             }
-
-            .navbar {
-                padding: 0.5rem 2%;
+            
+            .section {
+                padding: 80px 5% 3rem;
             }
-
-            .nav-links a {
-                font-size: 0.9rem;
-            }
-
-            .login-screen h1 {
+            
+            h2 {
                 font-size: 2rem;
             }
+            
+            .news-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .comments-section form {
+                flex-direction: column;
+            }
+            
+            .comments-section button {
+                width: 100%;
+            }
+            
+            .chat-window {
+                width: 90%;
+                right: 5%;
+            }
+        }
 
+        @media (max-width: 576px) {
+            .navbar {
+                padding: 1rem 5%;
+            }
+            
+            .nav-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .login-screen h1 {
+                font-size: 2.2rem;
+            }
+            
             .login-screen button {
-                padding: 0.6rem 1.5rem;
+                padding: 1rem 2rem;
                 font-size: 1rem;
+            }
+            
+            .home-slider {
+                height: 40vh;
+            }
+            
+            .course-card {
+                max-width: 350px;
+                margin: 0 auto;
+            }
+            
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .chatbot-icon {
+                width: 60px;
+                height: 60px;
+                bottom: 20px;
+                right: 20px;
+            }
+            
+            .back-to-top {
+                bottom: 90px;
+                right: 20px;
             }
         }
     </style>
@@ -447,48 +1128,58 @@
     <!-- Pantalla de Bienvenida -->
     <div class="login-screen" id="loginScreen">
         <div class="logo-container">
-            <img src="https://i.postimg.cc/63d6XxfM/ponerle-fondo-blanco-removebg-preview.png" alt="Logo SkyLearn" class="logo-spin" />
+            <img src="https://i.postimg.cc/63d6XxfM/ponerle-fondo-blanco-removebg-preview.png" alt="Logo SkyLearn" class="logo-spin">
         </div>
         <h1>READY TO LEARN?</h1>
-        <button onclick="showMainContent()">Iniciar</button>
+        <button onclick="showMainContent()">COMENZAR</button>
     </div>
 
     <!-- Navegador -->
-    <nav class="navbar">
+    <nav class="navbar" id="navbar">
         <div class="nav-content">
             <img src="https://i.postimg.cc/63d6XxfM/ponerle-fondo-blanco-removebg-preview.png" alt="Logo" class="logo">
             <div class="nav-links">
-                <a href="#home" onclick="showSection('home')">Home</a>
+                <a href="#home" onclick="showSection('home')" class="active">Home</a>
                 <a href="#courses" onclick="showSection('courses')">Cursos</a>
                 <a href="#contact" onclick="showSection('contact')">Contacto</a>
                 <a href="#pricing" onclick="showSection('pricing')">Precios</a>
-                <!-- NUEVA PESTAÑA DE CLASES EN VIVO -->
                 <a href="#live" onclick="showSection('live')">Clases en Vivo</a>
-                <!-- PESTAÑA DE REGISTRO -->
-                <a href="#registro" onclick="showSection('registro')">Registro</a>
             </div>
         </div>
     </nav>
 
     <!-- Secciones -->
-
     <!-- Home -->
     <section id="home" class="section active">
         <div class="home-slider">
-            <img src="https://via.placeholder.com/1200x500/2563eb/ffffff?text=Banner+1" alt="Banner" class="slider-image active">
-            <img src="https://via.placeholder.com/1200x500/475569/ffffff?text=Banner+2" alt="Banner" class="slider-image">
-            <img src="https://via.placeholder.com/1200x500/f59e0b/ffffff?text=Banner+3" alt="Banner" class="slider-image">
+            <img src="https://via.placeholder.com/1200x500/3498db/ffffff?text=Banner+1" alt="Banner" class="slider-image active">
+            <img src="https://via.placeholder.com/1200x500/2ecc71/ffffff?text=Banner+2" alt="Banner" class="slider-image">
+            <img src="https://via.placeholder.com/1200x500/e74c3c/ffffff?text=Banner+3" alt="Banner" class="slider-image">
+            <div class="slider-controls">
+                <div class="slider-dot active" onclick="goToSlide(0)"></div>
+                <div class="slider-dot" onclick="goToSlide(1)"></div>
+                <div class="slider-dot" onclick="goToSlide(2)"></div>
+            </div>
         </div>
+
         <div class="news-section">
             <h2>Últimas Noticias</h2>
-            <p>!!OBTEN UN 30% DE DESCUENTO AL INSCRIBIRTE AHORA!!</p>
+            <div class="news-content">
+                <div class="news-icon">
+                    <i class="fas fa-bullhorn"></i>
+                </div>
+                <p>¡¡OBTÉN UN 30% DE DESCUENTO AL INSCRIBIRTE AHORA!! Válido hasta el 30 de noviembre.</p>
+            </div>
         </div>
+
         <div class="comments-section">
             <h2>Comentarios Recientes</h2>
             <div id="commentsContainer"></div>
             <form onsubmit="addComment(event)">
                 <input type="text" id="commentInput" placeholder="Escribe un comentario..." required>
-                <button type="submit">Enviar</button>
+                <button type="submit">
+                    <i class="fas fa-paper-plane"></i> Enviar
+                </button>
             </form>
         </div>
     </section>
@@ -499,56 +1190,135 @@
         <div class="courses-grid">
             <!-- Profesor 1 -->
             <div class="course-card">
-                <img src="https://via.placeholder.com/300x200" alt="Matemáticas" class="course-img">
+                <div class="course-img-container">
+                    <img src="https://via.placeholder.com/400x300/3a86ff/ffffff?text=Matem%C3%A1ticas" alt="Matemáticas" class="course-img">
+                    <div class="course-badge">Popular</div>
+                </div>
                 <div class="course-info">
-                    <h3>Matemáticas</h3>
-                    <p>Prof. Ana Martínez</p>
-                    <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?usp=sf_link', '_blank')">Inscribirse</button>
+                    <h3>Matemáticas Avanzadas</h3>
+                    <div class="course-teacher">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Prof. Ana Martínez" class="teacher-avatar">
+                        <span class="teacher-name">Prof. Ana Martínez</span>
+                                            <div class="course-meta">
+                        <span><i class="far fa-clock"></i> 12 semanas</span>
+                        <span><i class="fas fa-users"></i> 120 estudiantes</span>
+                    </div>
+                    <div class="course-price">$50/mes</div>
+                    <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?embedded=true', '_blank')">
+                        <i class="fas fa-sign-in-alt"></i> Inscribirse
+                    </button>
                 </div>
             </div>
+
             <!-- Profesor 2 -->
             <div class="course-card">
-                <img src="https://via.placeholder.com/300x200" alt="Inglés" class="course-img">
+                <div class="course-img-container">
+                    <img src="https://via.placeholder.com/400x300/4361ee/ffffff?text=Ingl%C3%A9s" alt="Inglés" class="course-img">
+                </div>
                 <div class="course-info">
-                    <h3>Inglés</h3>
-                    <p>Prof. Luis Ramírez</p>
-                    <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?usp=sf_link', '_blank')">Inscribirse</button>
+                    <h3>Inglés Intensivo</h3>
+                    <div class="course-teacher">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Prof. Luis Ramírez" class="teacher-avatar">
+                        <span class="teacher-name">Prof. Luis Ramírez</span>
+                    </div>
+                    <div class="course-meta">
+                        <span><i class="far fa-clock"></i> 8 semanas</span>
+                        <span><i class="fas fa-users"></i> 85 estudiantes</span>
+                    </div>
+                    <div class="course-price">$60/mes</div>
+                    <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?embedded=true', '_blank')">
+                        <i class="fas fa-sign-in-alt"></i> Inscribirse
+                    </button>
                 </div>
             </div>
+
             <!-- Profesor 3 -->
             <div class="course-card">
-                <img src="https://via.placeholder.com/300x200" alt="Programación" class->course-img">
+                <div class="course-img-container">
+                    <img src="https://via.placeholder.com/400x300/7209b7/ffffff?text=Programaci%C3%B3n" alt="Programación" class="course-img">
+                    <div class="course-badge">Nuevo</div>
+                </div>
                 <div class="course-info">
-                    <h3>Programación</h3>
-                    <p>Prof. Carlos Domínguez</p>
-                    <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?usp=sf_link', '_blank')">Inscribirse</button>
+                    <h3>Programación Web</h3>
+                    <div class="course-teacher">
+                        <img src="https://randomuser.me/api/portraits/men/67.jpg" alt="Prof. Carlos Domínguez" class="teacher-avatar">
+                        <span class="teacher-name">Prof. Carlos Domínguez</span>
+                    </div>
+                    <div class="course-meta">
+                        <span><i class="far fa-clock"></i> 16 semanas</span>
+                        <span><i class="fas fa-users"></i> 210 estudiantes</span>
+                    </div>
+                    <div class="course-price">$70/mes</div>
+                    <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?embedded=true', '_blank')">
+                        <i class="fas fa-sign-in-alt"></i> Inscribirse
+                    </button>
                 </div>
             </div>
+
             <!-- Profesor 4 -->
             <div class="course-card">
-                <img src="https://via.placeholder.com/300x200" alt="Física" class="course-img">
+                <div class="course-img-container">
+                    <img src="https://via.placeholder.com/400x300/f72585/ffffff?text=F%C3%ADsica" alt="Física" class="course-img">
+                </div>
                 <div class="course-info">
-                    <h3>Física</h3>
-                    <p>Prof. Laura Gómez</p>
-                    <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?usp=sf_link', '_blank')">Inscribirse</button>
+                    <h3>Física Moderna</h3>
+                    <div class="course-teacher">
+                        <img src="https://randomuser.me/api/portraits/women/63.jpg" alt="Prof. Laura Gómez" class="teacher-avatar">
+                        <span class="teacher-name">Prof. Laura Gómez</span>
+                    </div>
+                    <div class="course-meta">
+                        <span><i class="far fa-clock"></i> 10 semanas</span>
+                        <span><i class="fas fa-users"></i> 75 estudiantes</span>
+                    </div>
+                    <div class="course-price">$60/mes</div>
+                    <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?embedded=true', '_blank')">
+                        <i class="fas fa-sign-in-alt"></i> Inscribirse
+                    </button>
                 </div>
             </div>
+
             <!-- Profesor 5 -->
             <div class="course-card">
-                <img src="https://via.placeholder.com/300x200" alt="Química" class="course-img">
+                <div class="course-img-container">
+                    <img src="https://via.placeholder.com/400x300/4cc9f0/ffffff?text=Qu%C3%ADmica" alt="Química" class="course-img">
+                </div>
                 <div class="course-info">
-                    <h3>Química</h3>
-                    <p>Prof. Miguel Torres</p>
-                    <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?usp=sf_link', '_blank')">Inscribirse</button>
+                    <h3>Química Orgánica</h3>
+                    <div class="course-teacher">
+                        <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Prof. Miguel Torres" class="teacher-avatar">
+                        <span class="teacher-name">Prof. Miguel Torres</span>
+                    </div>
+                    <div class="course-meta">
+                        <span><i class="far fa-clock"></i> 14 semanas</span>
+                        <span><i class="fas fa-users"></i> 92 estudiantes</span>
+                    </div>
+                    <div class="course-price">$60/mes</div>
+                    <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?embedded=true', '_blank')">
+                        <i class="fas fa-sign-in-alt"></i> Inscribirse
+                    </button>
                 </div>
             </div>
+
             <!-- Profesor 6 -->
             <div class="course-card">
-                <img src="https://via.placeholder.com/300x200" alt="Biología" class="course-img">
+                <div class="course-img-container">
+                    <img src="https://via.placeholder.com/400x300/4895ef/ffffff?text=Biolog%C3%ADa" alt="Biología" class="course-img">
+                    <div class="course-badge">Próximamente</div>
+                </div>
                 <div class="course-info">
-                    <h3>Biología</h3>
-                    <p>Prof. Diana López</p>
-                    <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?usp=sf_link', '_blank')">Inscribirse</button>
+                    <h3>Biología Molecular</h3>
+                    <div class="course-teacher">
+                        <img src="https://randomuser.me/api/portraits/women/28.jpg" alt="Prof. Diana López" class="teacher-avatar">
+                        <span class="teacher-name">Prof. Diana López</span>
+                    </div>
+                    <div class="course-meta">
+                        <span><i class="far fa-clock"></i> 12 semanas</span>
+                        <span><i class="fas fa-users"></i> 45 estudiantes</span>
+                    </div>
+                    <div class="course-price">$55/mes</div>
+                    <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?embedded=true', '_blank')">
+                        <i class="fas fa-sign-in-alt"></i> Inscribirse
+                    </button>
                 </div>
             </div>
         </div>
@@ -557,18 +1327,40 @@
     <!-- Contacto -->
     <section id="contact" class="section">
         <h2>Contacto</h2>
-        <div class="contact-dropdown">
-            <button class="dropdown-btn" onclick="toggleDropdown('email')">Email</button>
-            <div id="email" class="dropdown-content" style="display: none;">
-                <p>Email: info@skylearn.com</p>
-            </div>
-            <button class="dropdown-btn" onclick="toggleDropdown('telefono')">Teléfono</button>
-            <div id="telefono" class="dropdown-content" style="display: none;">
-                <p>Teléfono: +123 456 7890</p>
-            </div>
-            <button class="dropdown-btn" onclick="toggleDropdown('redes')">Redes Sociales</button>
-            <div id="redes" class="dropdown-content" style="display: none;">
-                <p><a href="#">Facebook</a> | <a href="#">Instagram</a></p>
+        <div class="contact-container">
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h3>Email</h3>
+                    <p>Envíanos tus consultas y te responderemos en menos de 24 horas</p>
+                    <a href="mailto:info@skylearn.com" class="contact-link">
+                        <i class="fas fa-paper-plane"></i> Enviar Email
+                    </a>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <h3>Teléfono</h3>
+                    <p>Disponibles de lunes a viernes de 9:00 a 18:00 horas</p>
+                    <a href="tel:+1234567890" class="contact-link">
+                        <i class="fas fa-phone"></i> Llamar Ahora
+                    </a>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h3>Oficina</h3>
+                    <p>Av. Educación 1234, Ciudad del Aprendizaje</p>
+                    <a href="https://maps.google.com" target="_blank" class="contact-link">
+                        <i class="fas fa-directions"></i> Cómo Llegar
+                    </a>
+                </div>
             </div>
         </div>
     </section>
@@ -576,74 +1368,191 @@
     <!-- Precios -->
     <section id="pricing" class="section">
         <h2>Precios y Horarios</h2>
-        <table class="pricing-table">
-            <thead>
-                <tr>
-                    <th>Curso</th>
-                    <th>Precio</th>
-                    <th>Horario</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Matemáticas</td>
-                    <td>$50/mes</td>
-                    <td>Lun - Vie | 8am - 10am</td>
-                </tr>
-                <tr>
-                    <td>Inglés</td>
-                    <td>$60/mes</td>
-                    <td>Lun - Mie | 3pm - 5pm</td>
-                </tr>
-                <tr>
-                    <td>Programación</td>
-                    <td>$70/mes</td>
-                    <td>Mar - Jue | 4pm - 6pm</td>
-                </tr>
-                <tr>
-                    <td>Física</td>
-                    <td>$60/mes</td>
-                    <td>Mie - Vie | 10am - 12pm</td>
-                </tr>
-                <tr>
-                    <td>Química</td>
-                    <td>$60/mes</td>
-                    <td>Jue - Sab | 9am - 11am</td>
-                </tr>
-            </tbody>
-        </table>
-    </section>
+        <div class="pricing-container">
+            <div class="pricing-tabs">
+                <div class="pricing-tab active" onclick="showPricing('monthly')">Mensual</div>
+                <div class="pricing-tab" onclick="showPricing('quarterly')">Trimestral</div>
+                <div class="pricing-tab" onclick="showPricing('yearly')">Anual</div>
+            </div>
 
-    <!-- Registro -->
-    <section id="registro" class="section">
-        <h2>Formulario de Registro</h2>
-        <div style="max-width: 800px; margin: 2rem auto; background: #fff; padding: 2rem; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.05);">
-            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?embedded=true" width="100%" height="500" frameborder="0" marginheight="0" marginwidth="0">Cargando formulario...</iframe>
+            <table class="pricing-table">
+                <thead>
+                    <tr>
+                        <th>Curso</th>
+                        <th>Precio</th>
+                        <th>Horario</th>
+                        <th>Duración</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Matemáticas</td>
+                        <td class="highlight">$50/mes</td>
+                        <td>Lun - Vie | 8am - 10am</td>
+                        <td>12 semanas</td>
+                    </tr>
+                    <tr>
+                        <td>Inglés</td>
+                        <td class="highlight">$60/mes</td>
+                        <td>Lun - Mie | 3pm - 5pm</td>
+                        <td>8 semanas</td>
+                    </tr>
+                    <tr>
+                        <td>Programación</td>
+                        <td class="highlight">$70/mes</td>
+                        <td>Mar - Jue | 4pm - 6pm</td>
+                        <td>16 semanas</td>
+                    </tr>
+                    <tr>
+                        <td>Física</td>
+                        <td class="highlight">$60/mes</td>
+                        <td>Mie - Vie | 10am - 12pm</td>
+                        <td>10 semanas</td>
+                    </tr>
+                    <tr>
+                        <td>Química</td>
+                        <td class="highlight">$60/mes</td>
+                        <td>Jue - Sab | 9am - 11am</td>
+                        <td>14 semanas</td>
+                    </tr>
+                    <tr>
+                        <td>Biología</td>
+                        <td class="highlight">$55/mes</td>
+                        <td>Lun - Mie | 2pm - 4pm</td>
+                        <td>12 semanas</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </section>
 
-    <!-- SECCIÓN DE CLASES EN VIVO AÑADIDA -->
+    <!-- Clases en Vivo -->
     <section id="live" class="section">
         <div class="live-section">
             <h2>Clases en Vivo</h2>
-            <p>Únete a nuestras clases en tiempo real:</p>
-            <!-- Reproductor de YouTube Live -->
+            <p>Únete a nuestras clases interactivas en tiempo real con profesores certificados. Participa, haz preguntas y aprende en un entorno colaborativo.</p>
             <iframe src="https://www.youtube.com/embed/live_stream?channel=TU_ID_DEL_CANAL&autoplay=1" allowfullscreen></iframe>
+            
+            <div class="live-schedule">
+                <h3>Próximas Clases</h3>
+                <div class="schedule-item">
+                    <span>Lunes 15 Nov</span>
+                    <span class="schedule-time">10:00 AM - Matemáticas Avanzadas</span>
+                </div>
+                <div class="schedule-item">
+                    <span>Martes 16 Nov</span>
+                    <span class="schedule-time">3:00 PM - Inglés Intermedio</span>
+                </div>
+                <div class="schedule-item">
+                    <span>Miércoles 17 Nov</span>
+                    <span class="schedule-time">11:00 AM - Programación Web</span>
+                </div>
+                <div class="schedule-item">
+                    <span>Jueves 18 Nov</span>
+                    <span class="schedule-time">4:00 PM - Física Cuántica</span>
+                </div>
+            </div>
         </div>
     </section>
 
+    <!-- Testimonios -->
+    <section id="testimonials" class="section">
+        <div class="testimonials">
+            <h2>Lo que dicen nuestros estudiantes</h2>
+            <div class="testimonial-card">
+                <div class="testimonial-content">
+                    Las clases de matemáticas con la profesora Ana han cambiado completamente mi perspectiva de la materia. Sus métodos de enseñanza son innovadores y fáciles de entender.
+                </div>
+                <div class="testimonial-author">
+                    <img src="https://randomuser.me/api/portraits/women/33.jpg" alt="María González" class="author-avatar">
+                    <div class="author-info">
+                        <h4>María González</h4>
+                        <p>Estudiante de Matemáticas</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial-card">
+                <div class="testimonial-content">
+                    El curso de programación superó todas mis expectativas. En solo 3 meses pude crear mi primer sitio web funcional. ¡Totalmente recomendado!
+                </div>
+                <div class="testimonial-author">
+                    <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="Carlos Mendoza" class="author-avatar">
+                    <div class="author-info">
+                        <h4>Carlos Mendoza</h4>
+                        <p>Estudiante de Programación</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-about">
+                <img src="https://i.postimg.cc/63d6XxfM/ponerle-fondo-blanco-removebg-preview.png" alt="SkyLearn Logo" class="footer-logo">
+                <p>SkyLearn Academy es una plataforma de educación en línea comprometida con la excelencia académica y el aprendizaje accesible para todos.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-links">
+                <h3>Enlaces Rápidos</h3>
+                <ul>
+                    <li><a href="#home"><i class="fas fa-chevron-right"></i> Inicio</a></li>
+                    <li><a href="#courses"><i class="fas fa-chevron-right"></i> Cursos</a></li>
+                    <li><a href="#pricing"><i class="fas fa-chevron-right"></i> Precios</a></li>
+                    <li><a href="#live"><i class="fas fa-chevron-right"></i> Clases en Vivo</a></li>
+                    <li><a href="#testimonials"><i class="fas fa-chevron-right"></i> Testimonios</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-contact">
+                <h3>Contacto</h3>
+                <p><i class="fas fa-envelope"></i> info@skylearn.com</p>
+                <p><i class="fas fa-phone"></i> +123 456 7890</p>
+                <p><i class="fas fa-map-marker-alt"></i> Av. Educación 1234, Ciudad del Aprendizaje</p>
+                <p><i class="fas fa-clock"></i> Lunes a Viernes: 9:00 - 18:00</p>
+            </div>
+        </div>
+
+        <div class="copyright">
+            <p>&copy; 2023 SkyLearn Academy. Todos los derechos reservados. | <a href="#">Términos y Condiciones</a> | <a href="#">Política de Privacidad</a></p>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <div class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
     <!-- Chatbot -->
-    <div class="chatbot-icon" onclick="toggleChat()"></div>
+    <div class="chatbot-icon" onclick="toggleChat()">
+        <i class="fas fa-comment-dots"></i>
+    </div>
+
     <div class="chat-window" id="chatWindow">
+        <div class="chat-header">
+            <i class="fas fa-robot"></i>
+            <span>Asistente Virtual</span>
+        </div>
         <div class="chat-messages" id="chatMessages">
-            <div>Hola! En qué puedo ayudarte?</div>
+            <div class="bot-message">¡Hola! Soy el asistente virtual de SkyLearn. ¿En qué puedo ayudarte hoy?</div>
         </div>
         <div class="chat-input">
             <select onchange="handleChatResponse(this.value)">
-                <option value="">Selecciona una pregunta</option>
+                <option value="">Selecciona una pregunta...</option>
                 <option value="horario">¿Cuál es el horario de clases?</option>
                 <option value="costos">¿Cuánto cuestan los cursos?</option>
-                <option value="registro">¿Cómo me registro?</option>
+                <option value="registro">¿Cómo me registro en un curso?</option>
+                <option value="metodos">¿Qué métodos de pago aceptan?</option>
+                <option value="certificado">¿Otorgan certificados al finalizar?</option>
             </select>
         </div>
     </div>
@@ -657,80 +1566,232 @@
             }, 500);
         }
 
-        // Mostrar sección activa
+        // Mostrar sección activa con scroll suave
         function showSection(sectionId) {
             document.querySelectorAll('.section').forEach(section => {
                 section.classList.remove('active');
             });
             document.getElementById(sectionId).classList.add('active');
+            
+            // Actualizar enlace activo en el navbar
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${sectionId}`) {
+                    link.classList.add('active');
+                }
+            });
+
+            // Scroll suave al cambiar de sección
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
         }
 
-        // Carrusel automático
+        // Carrusel automático mejorado
         let currentSlide = 0;
         const slides = document.querySelectorAll('.slider-image');
-        setInterval(() => {
-            slides[currentSlide].classList.remove('active');
-            currentSlide = (currentSlide + 1) % slides.length;
-            slides[currentSlide].classList.add('active');
-        }, 3000);
+        const dots = document.querySelectorAll('.slider-dot');
 
-        // Comentarios temporales
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            
+            currentSlide = index;
+            slides[currentSlide].classList.add('active');
+            dots[currentSlide].classList.add('active');
+        }
+
+        function nextSlide() {
+            let newIndex = (currentSlide + 1) % slides.length;
+            showSlide(newIndex);
+        }
+
+        function goToSlide(index) {
+            showSlide(index);
+        }
+
+        const slideInterval = setInterval(nextSlide, 5000);
+
+        // Pausar carrusel al hacer hover
+        const slider = document.querySelector('.home-slider');
+        slider.addEventListener('mouseenter', () => clearInterval(slideInterval));
+        slider.addEventListener('mouseleave', () => {
+            clearInterval(slideInterval);
+            slideInterval = setInterval(nextSlide, 5000);
+        });
+
+        // Comentarios temporales con mejor feedback
         function addComment(e) {
             e.preventDefault();
-            const comment = document.getElementById('commentInput').value;
+            const commentInput = document.getElementById('commentInput');
+            const comment = commentInput.value.trim();
+            
+            if (comment === '') {
+                commentInput.style.borderColor = '#f72585';
+                setTimeout(() => {
+                    commentInput.style.borderColor = '#eee';
+                }, 2000);
+                return;
+            }
+
             const comments = JSON.parse(localStorage.getItem('comments') || '[]');
-            comments.push({ text: comment, time: Date.now() });
+            comments.push({ 
+                text: comment, 
+                time: Date.now(),
+                user: 'Usuario' + Math.floor(Math.random() * 1000)
+            });
             localStorage.setItem('comments', JSON.stringify(comments));
             displayComments();
             e.target.reset();
+            
+            // Feedback visual
+            const submitBtn = e.target.querySelector('button');
+            submitBtn.innerHTML = '<i class="fas fa-check"></i> Enviado';
+            submitBtn.style.backgroundColor = '#4cc9f0';
+            setTimeout(() => {
+                submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Enviar';
+                submitBtn.style.backgroundColor = '#4361ee';
+            }, 2000);
         }
 
         function displayComments() {
             const container = document.getElementById('commentsContainer');
             const comments = JSON.parse(localStorage.getItem('comments') || '[]');
             const validComments = comments.filter(c => Date.now() - c.time < 86400000); // 24 horas
+            
             container.innerHTML = validComments.map(c => `
-                <div style="margin: 1rem 0; padding: 1rem; background: #f5f5f5; border-radius: 5px;">${c.text}</div>
+                <div class="comment">
+                    <div class="comment-header">
+                        <i class="fas fa-user-circle"></i>
+                        <span class="comment-user">${c.user}</span>
+                        <span class="comment-time">${formatTime(c.time)}</span>
+                    </div>
+                    <div class="comment-text">${c.text}</div>
+                </div>
             `).join('');
+            
             localStorage.setItem('comments', JSON.stringify(validComments));
         }
 
-        // Chatbot
+        function formatTime(timestamp) {
+            const date = new Date(timestamp);
+            return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        }
+
+        // Chatbot mejorado
         function toggleChat() {
             const chat = document.getElementById('chatWindow');
             chat.style.display = chat.style.display === 'flex' ? 'none' : 'flex';
-        }
-
-        function handleChatResponse(value) {
-            const chatMessages = document.getElementById('chatMessages');
-            const answers = {
-                'horario': 'Nuestras clases son de Lunes a Viernes de 8am a 5pm.',
-                'costos': 'Los precios van desde $50/mes en plan básico.',
-                'registro': 'Puedes registrarte usando el botón "Inscribirse" en cada curso.'
-            };
-            if (value && answers[value]) {
-                const msg = document.createElement('div');
-                msg.textContent = answers[value];
-                msg.style.margin = '0.5rem 0';
-                chatMessages.appendChild(msg);
+            
+            if (chat.style.display === 'flex') {
+                const chatMessages = document.getElementById('chatMessages');
+                chatMessages.scrollTop = chatMessages.scrollHeight;
             }
         }
 
-        // Menú desplegable contacto
-        function toggleDropdown(id) {
-            const content = document.getElementById(id);
-            content.style.display = content.style.display === 'block' ? 'none' => 'block';
+        function handleChatResponse(value) {
+            if (!value) return;
+            
+            const chatMessages = document.getElementById('chatMessages');
+            const answers = {
+                'horario': 'Nuestras clases son de Lunes a Viernes de 8am a 5pm, con horarios flexibles según el curso. Puedes ver los horarios específicos en la sección "Precios y Horarios".',
+                'costos': 'Los precios van desde $50/mes en plan básico hasta $100/mes para acceso completo a todos los cursos. Tenemos descuentos especiales para inscripciones trimestrales y anuales.',
+                'registro': 'Puedes registrarte usando el botón "Inscribirse" en cada curso o visitando nuestra sección de contacto para asistencia personalizada. El proceso toma menos de 5 minutos.',
+                'metodos': 'Aceptamos todas las tarjetas de crédito/débito, PayPal y transferencias bancarias. También ofrecemos planes de pago en cuotas.',
+                'certificado': 'Sí, al completar satisfactoriamente cualquier curso recibirás un certificado digital acreditado por nuestra institución que puedes compartir en LinkedIn.'
+            };
+
+            // Agregar pregunta del usuario
+            const questionDiv = document.createElement('div');
+            questionDiv.className = 'user-message';
+            questionDiv.innerHTML = `
+                <div class="message-content">
+                    ${document.querySelector(`option[value="${value}"]`).text}
+                </div>
+            `;
+            chatMessages.appendChild(questionDiv);
+
+            // Agregar respuesta del bot
+            const answerDiv = document.createElement('div');
+            answerDiv.className = 'bot-message';
+            answerDiv.innerHTML = `
+                <div class="message-content">
+                    ${answers[value] || 'Lo siento, no entendí tu pregunta. Por favor selecciona una opción del menú.'}
+                </div>
+            `;
+            chatMessages.appendChild(answerDiv);
+
+            // Scroll al final
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            // Resetear el selector
+            document.querySelector('.chat-input select').value = '';
         }
 
-        // Planes de Precios
+        // Mostrar planes de precios
         function showPricing(plan) {
-            const content = document.getElementById('pricing-content');
-            content.innerHTML = plan === 'basic' ?
-                '<h3>Plan Básico</h3><p>$50/mes - Acceso a 3 cursos</p>' :
-                '<h3>Plan Premium</h3><p>$100/mes - Acceso a todos los cursos</p>';
+            const tabs = document.querySelectorAll('.pricing-tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Aquí puedes agregar lógica para cambiar los precios según el plan
+            // Por ahora solo es visual
         }
 
-        displayComments();
+        // Efecto de navbar al hacer scroll
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+            
+            // Back to top button
+            const backToTop = document.getElementById('backToTop');
+            if (window.scrollY > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        // Back to top button
+        document.getElementById('backToTop').addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Inicializar al cargar
+        document.addEventListener('DOMContentLoaded', function() {
+            displayComments();
+            showSlide(0);
+            
+            // Agregar tooltips a los botones de inscripción
+            document.querySelectorAll('.course-info button').forEach(button => {
+                button.addEventListener('mouseenter', function() {
+                    const tooltip = document.createElement('div');
+                    tooltip.className = 'tooltip';
+                    tooltip.textContent = 'Se abrirá el formulario de inscripción';
+                    this.appendChild(tooltip);
+                    
+                    setTimeout(() => {
+                        tooltip.style.opacity = '1';
+                        tooltip.style.visibility = 'visible';
+                    }, 10);
+                });
+                
+                button.addEventListener('mouseleave', function() {
+                    const tooltip = this.querySelector('.tooltip');
+                    if (tooltip) {
+                        tooltip.remove();
+                    }
+                });
+            });
+        });
     </script>
 </body>
 </html>
