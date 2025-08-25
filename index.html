@@ -1,1797 +1,2833 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SkyLearn Academy</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary-color: #4361ee;
-            --primary-dark: #3a0ca3;
-            --secondary-color: #4cc9f0;
-            --accent-color: #f72585;
-            --dark-color: #14213d;
-            --light-color: #f8f9fa;
-            --gray-color: #adb5bd;
-            --shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        body {
-            background-color: var(--light-color);
-            color: var(--dark-color);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        /* Pantalla de Bienvenida */
-        .login-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            transition: opacity 0.8s, visibility 0.8s;
-        }
-
-        .logo-container {
-            animation: bounce 2s infinite alternate;
-            margin-bottom: 2.5rem;
-            text-align: center;
-        }
-
-        .logo-spin {
-            width: 200px;
-            filter: drop-shadow(0 8px 15px rgba(0, 0, 0, 0.2));
-            transition: var(--transition);
-        }
-
-        .login-screen h1 {
-            font-size: 3rem;
-            color: white;
-            margin-bottom: 2.5rem;
-            text-align: center;
-            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            font-weight: 700;
-            letter-spacing: 1px;
-        }
-
-        .login-screen button {
-            padding: 1.2rem 3rem;
-            font-size: 1.2rem;
-            background: white;
-            color: var(--primary-color);
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: var(--transition);
-            font-weight: 600;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .login-screen button:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-        }
-
-        .login-screen button::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(rgba(255, 255, 255, 0.3), transparent);
-            transform: translateY(-100%);
-            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .login-screen button:hover::after {
-            transform: translateY(0);
-        }
-
-        @keyframes bounce {
-            0% { transform: translateY(0) rotate(-5deg); }
-            100% { transform: translateY(-30px) rotate(5deg); }
-        }
-
-        /* Navigation Styles */
-        .navbar {
-            background: white;
-            padding: 1.5rem 5%;
-            box-shadow: var(--shadow);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 100;
-            transition: var(--transition);
-        }
-
-        .navbar.scrolled {
-            padding: 1rem 5%;
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .nav-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .logo {
-            height: 50px;
-            transition: var(--transition);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2.5rem;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--dark-color);
-            font-weight: 600;
-            transition: var(--transition);
-            padding: 0.5rem 0;
-            position: relative;
-            font-size: 1.1rem;
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 3px;
-            background: var(--primary-color);
-            bottom: 0;
-            left: 0;
-            transition: var(--transition);
-            border-radius: 3px;
-        }
-
-        .nav-links a:hover {
-            color: var(--primary-color);
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        .nav-links a.active {
-            color: var(--primary-color);
-        }
-
-        .nav-links a.active::after {
-            width: 100%;
-        }
-
-        /* Main Content */
-        .section {
-            padding: 100px 5% 5rem;
-            min-height: 100vh;
-            display: none;
-            animation: fadeIn 0.8s ease forwards;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .active {
-            display: block;
-        }
-
-        h2 {
-            font-size: 2.5rem;
-            color: var(--dark-color);
-            margin-bottom: 3rem;
-            text-align: center;
-            position: relative;
-            padding-bottom: 1.5rem;
-        }
-
-        h2::after {
-            content: '';
-            position: absolute;
-            width: 100px;
-            height: 5px;
-            background: linear-gradient(to right, var(--primary-color), var(--accent-color));
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            border-radius: 5px;
-        }
-
-        /* Home Section */
-        .home-slider {
-            height: 65vh;
-            margin: 3rem 0;
-            position: relative;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-        }
-
-        .slider-image {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0;
-            transition: opacity 1.2s ease-in-out;
-        }
-
-        .slider-image.active {
-            opacity: 1;
-        }
-
-        .slider-controls {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 10px;
-            z-index: 10;
-        }
-
-        .slider-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.5);
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .slider-dot.active {
-            background: white;
-            transform: scale(1.2);
-        }
-
-        /* News & Comments Sections */
-        .news-section,
-        .comments-section {
-            max-width: 900px;
-            margin: 4rem auto;
-            background: white;
-            padding: 3rem;
-            border-radius: 15px;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-        }
-
-        .news-section:hover,
-        .comments-section:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-        }
-
-        .news-section h2,
-        .comments-section h2 {
-            text-align: left;
-            margin-bottom: 2rem;
-        }
-
-        .news-section h2::after,
-        .comments-section h2::after {
-            left: 0;
-            transform: none;
-        }
-
-        .news-content {
-            display: flex;
-            align-items: center;
-            gap: 2rem;
-        }
-
-        .news-icon {
-            font-size: 3rem;
-            color: var(--accent-color);
-            flex-shrink: 0;
-        }
-
-        .news-section p {
-            font-size: 1.2rem;
-            color: var(--dark-color);
-            padding: 1.5rem;
-            background: var(--light-color);
-            border-radius: 10px;
-            text-align: center;
-            font-weight: 500;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .news-section p::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 5px;
-            height: 100%;
-            background: linear-gradient(to bottom, var(--primary-color), var(--accent-color));
-        }
-
-        .comments-section form {
-            margin-top: 2rem;
-            display: flex;
-            gap: 1.5rem;
-        }
-
-        .comments-section input[type="text"] {
-            flex: 1;
-            padding: 1rem 1.5rem;
-            border: 2px solid #eee;
-            border-radius: 50px;
-            font-size: 1rem;
-            transition: var(--transition);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-        }
-
-        .comments-section input[type="text"]:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 4px rgba(67, 97, 238, 0.2);
-        }
-
-        .comments-section button {
-            padding: 1rem 2.5rem;
-            background: var(--primary-color);
-            color: white;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: var(--transition);
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
-        }
-
-        .comments-section button:hover {
-            background: var(--primary-dark);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(67, 97, 238, 0.4);
-        }
-
-        /* Courses Grid */
-        .courses-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 3rem;
-            padding: 3rem 0;
-        }
-
-        .course-card {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            transition: var(--transition);
-            box-shadow: var(--shadow);
-            position: relative;
-        }
-
-        .course-card:hover {
-            transform: translateY(-15px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-        }
-
-        .course-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 5px;
-            background: linear-gradient(to right, var(--primary-color), var(--accent-color));
-        }
-
-        .course-img-container {
-            overflow: hidden;
-            height: 220px;
-            position: relative;
-        }
-
-        .course-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: var(--transition);
-        }
-
-        .course-card:hover .course-img {
-            transform: scale(1.1);
-        }
-
-        .course-badge {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: var(--accent-color);
-            color: white;
-            padding: 0.3rem 1rem;
-            border-radius: 50px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            z-index: 1;
-        }
-
-        .course-info {
-            padding: 2rem;
-        }
-
-        .course-info h3 {
-            font-size: 1.5rem;
-            margin-bottom: 0.8rem;
-            color: var(--dark-color);
-        }
-
-        .course-teacher {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .teacher-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid var(--primary-color);
-        }
-
-        .teacher-name {
-            font-weight: 500;
-            color: var(--dark-color);
-        }
-
-        .course-meta {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 1.5rem;
-            color: var(--gray-color);
-            font-size: 0.9rem;
-        }
-
-        .course-price {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary-color);
-            margin-bottom: 1.5rem;
-        }
-
-        .course-info button {
-            background: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 1rem;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: var(--transition);
-            font-weight: 600;
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
-        }
-
-        .course-info button:hover {
-            background: var(--primary-dark);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(67, 97, 238, 0.4);
-        }
-
-        /* Pricing Table */
-        .pricing-container {
-            max-width: 1000px;
-            margin: 3rem auto;
-        }
-
-        .pricing-tabs {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 3rem;
-            gap: 1rem;
-        }
-
-        .pricing-tab {
-            padding: 0.8rem 2rem;
-            background: white;
-            border: 2px solid var(--primary-color);
-            border-radius: 50px;
-            cursor: pointer;
-            transition: var(--transition);
-            font-weight: 600;
-            color: var(--primary-color);
-        }
-
-        .pricing-tab.active {
-            background: var(--primary-color);
-            color: white;
-        }
-
-        .pricing-tab:hover:not(.active) {
-            background: rgba(67, 97, 238, 0.1);
-        }
-
-        .pricing-table {
-            width: 100%;
-            border-collapse: separate;
-            border-spacing: 0;
-            box-shadow: var(--shadow);
-            border-radius: 15px;
-            overflow: hidden;
-            background: white;
-        }
-
-        .pricing-table th {
-            background: linear-gradient(to right, var(--primary-color), var(--primary-dark));
-            color: white;
-            padding: 1.5rem;
-            font-weight: 600;
-            text-align: center;
-            font-size: 1.1rem;
-        }
-
-        .pricing-table td {
-            padding: 1.5rem;
-            border-bottom: 1px solid #eee;
-            text-align: center;
-            background: white;
-            transition: var(--transition);
-        }
-
-        .pricing-table tr:last-child td {
-            border-bottom: none;
-        }
-
-        .pricing-table tr:hover td {
-            background: #f8f9fa;
-        }
-
-        .highlight {
-            font-weight: 600;
-            color: var(--primary-color);
-        }
-
-        /* Contact Section */
-        .contact-container {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .contact-card {
-            background: white;
-            padding: 2.5rem;
-            border-radius: 15px;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            text-align: center;
-        }
-
-        .contact-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-        }
-
-        .contact-icon {
-            font-size: 3rem;
-            color: var(--primary-color);
-            margin-bottom: 1.5rem;
-        }
-
-        .contact-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: var(--dark-color);
-        }
-
-        .contact-card p {
-            color: var(--gray-color);
-            margin-bottom: 1.5rem;
-        }
-
-        .contact-link {
-            display: inline-block;
-            padding: 0.8rem 1.5rem;
-            background: var(--primary-color);
-            color: white;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: var(--transition);
-        }
-
-        .contact-link:hover {
-            background: var(--primary-dark);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(67, 97, 238, 0.3);
-        }
-
-        /* Live Classes Section */
-        .live-section {
-            max-width: 1000px;
-            margin: 3rem auto;
-            background: white;
-            padding: 3rem;
-            border-radius: 15px;
-            box-shadow: var(--shadow);
-            text-align: center;
-        }
-
-        .live-section p {
-            margin-bottom: 2rem;
-            font-size: 1.2rem;
-            color: var(--dark-color);
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .live-section iframe {
-            width: 100%;
-            height: 500px;
-            border: none;
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        .live-schedule {
-            margin-top: 3rem;
-            background: white;
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: var(--shadow);
-        }
-
-        .schedule-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 1.2rem 0;
-            border-bottom: 1px solid #eee;
-        }
-
-        .schedule-item:last-child {
-            border-bottom: none;
-        }
-
-        .schedule-time {
-            font-weight: 600;
-            color: var(--primary-color);
-        }
-
-        /* Testimonials Section */
-        .testimonials {
-            margin: 5rem auto;
-            max-width: 1000px;
-        }
-
-        .testimonial-card {
-            background: white;
-            padding: 2.5rem;
-            border-radius: 15px;
-            box-shadow: var(--shadow);
-            margin: 1.5rem;
-            position: relative;
-        }
-
-        .testimonial-card::before {
-            content: '"';
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            font-size: 5rem;
-            color: rgba(67, 97, 238, 0.1);
-            font-family: serif;
-            line-height: 1;
-        }
-
-        .testimonial-content {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            color: var(--dark-color);
-            margin-bottom: 1.5rem;
-            position: relative;
-            z-index: 1;
-        }
-
-        .testimonial-author {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .author-avatar {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid var(--primary-color);
-        }
-
-        .author-info h4 {
-            font-size: 1.2rem;
-            color: var(--dark-color);
-            margin-bottom: 0.3rem;
-        }
-
-        .author-info p {
-            color: var(--gray-color);
-            font-size: 0.9rem;
-        }
-
-        /* Chatbot */
-        .chatbot-icon {
-            position: fixed;
-            bottom: 40px;
-            right: 40px;
-            width: 70px;
-            height: 70px;
-            background: linear-gradient(to right, var(--primary-color), var(--accent-color));
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            cursor: pointer;
-            z-index: 200;
-            transition: var(--transition);
-            box-shadow: 0 10px 30px rgba(67, 97, 238, 0.4);
-            font-size: 1.8rem;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
-        }
-
-        .chatbot-icon:hover {
-            transform: scale(1.1) rotate(10deg);
-            box-shadow: 0 15px 40px rgba(67, 97, 238, 0.5);
-        }
-
-        .chat-window {
-            position: fixed;
-            bottom: 130px;
-            right: 40px;
-            width: 380px;
-            height: 500px;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
-            display: none;
-            flex-direction: column;
-            overflow: hidden;
-            z-index: 200;
-            transform-origin: bottom right;
-            animation: scaleUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        @keyframes scaleUp {
-            from { transform: scale(0.8); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
-
-        .chat-header {
-            padding: 1.5rem;
-            background: linear-gradient(to right, var(--primary-color), var(--primary-dark));
-            color: white;
-            font-weight: 600;
-            font-size: 1.3rem;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .chat-header i {
-            font-size: 1.5rem;
-        }
-
-        .chat-messages {
-            flex: 1;
-            padding: 1.5rem;
-            overflow-y: auto;
-            background: #f9f9f9;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .bot-message, .user-message {
-            max-width: 80%;
-            padding: 1rem 1.5rem;
-            border-radius: 18px;
-            position: relative;
-            animation: fadeInUp 0.3s ease;
-        }
-
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .bot-message {
-            align-self: flex-start;
-            background: white;
-            color: var(--dark-color);
-            border-bottom-left-radius: 5px;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
-        }
-
-        .user-message {
-            align-self: flex-end;
-            background: linear-gradient(to right, var(--primary-color), var(--accent-color));
-            color: white;
-            border-bottom-right-radius: 5px;
-        }
-
-        .chat-input {
-            padding: 1.5rem;
-            background: white;
-            border-top: 1px solid #eee;
-        }
-
-        .chat-input select {
-            width: 100%;
-            padding: 1rem;
-            border: 2px solid #eee;
-            border-radius: 10px;
-            font-size: 1rem;
-            transition: var(--transition);
-            appearance: none;
-            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-            background-repeat: no-repeat;
-            background-position: right 1rem center;
-            background-size: 1em;
-        }
-
-        .chat-input select:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 4px rgba(67, 97, 238, 0.2);
-        }
-
-        /* Footer */
-        footer {
-            background: var(--dark-color);
-            color: white;
-            padding: 4rem 5% 2rem;
-            margin-top: 5rem;
-        }
-
-        .footer-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 3rem;
-        }
-
-        .footer-logo {
-            height: 60px;
-            margin-bottom: 1.5rem;
-        }
-
-        .footer-about p {
-            margin-bottom: 1.5rem;
-            color: var(--gray-color);
-        }
-
-        .footer-links h3, .footer-contact h3 {
-            font-size: 1.3rem;
-            margin-bottom: 1.5rem;
-            position: relative;
-            padding-bottom: 1rem;
-        }
-
-        .footer-links h3::after, .footer-contact h3::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 50px;
-            height: 3px;
-            background: var(--primary-color);
-            border-radius: 3px;
-        }
-
-        .footer-links ul {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 0.8rem;
-        }
-
-        .footer-links a {
-            color: var(--gray-color);
-            text-decoration: none;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .footer-links a:hover {
-            color: white;
-            transform: translateX(5px);
-        }
-
-        .footer-contact p {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            margin-bottom: 1rem;
-            color: var(--gray-color);
-        }
-
-        .footer-contact i {
-            font-size: 1.2rem;
-            color: var(--primary-color);
-            width: 25px;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 1.5rem;
-            margin-top: 1.5rem;
-        }
-
-        .social-links a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            color: white;
-            font-size: 1.2rem;
-            transition: var(--transition);
-        }
-
-        .social-links a:hover {
-            background: var(--primary-color);
-            transform: translateY(-5px);
-        }
-
-        .copyright {
-            text-align: center;
-            margin-top: 3rem;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: var(--gray-color);
-            font-size: 0.9rem;
-        }
-
-        /* Back to Top Button */
-        .back-to-top {
-            position: fixed;
-            bottom: 120px;
-            right: 40px;
-            width: 50px;
-            height: 50px;
-            background: var(--primary-color);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            z-index: 100;
-            opacity: 0;
-            visibility: hidden;
-            transition: var(--transition);
-            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
-        }
-
-        .back-to-top.visible {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .back-to-top:hover {
-            background: var(--primary-dark);
-            transform: translateY(-5px);
-        }
-
-        /* Responsive Design */
-        @media (max-width: 992px) {
-            .courses-grid {
-                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            }
-            
-            .home-slider {
-                height: 50vh;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .nav-links {
-                gap: 1.5rem;
-            }
-            
-            .section {
-                padding: 80px 5% 3rem;
-            }
-            
-            h2 {
-                font-size: 2rem;
-            }
-            
-            .news-content {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            .comments-section form {
-                flex-direction: column;
-            }
-            
-            .comments-section button {
-                width: 100%;
-            }
-            
-            .chat-window {
-                width: 90%;
-                right: 5%;
-            }
-        }
-
-        @media (max-width: 576px) {
-            .navbar {
-                padding: 1rem 5%;
-            }
-            
-            .nav-content {
-                flex-direction: column;
-                gap: 1rem;
-            }
-            
-            .nav-links {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            
-            .login-screen h1 {
-                font-size: 2.2rem;
-            }
-            
-            .login-screen button {
-                padding: 1rem 2rem;
-                font-size: 1rem;
-            }
-            
-            .home-slider {
-                height: 40vh;
-            }
-            
-            .course-card {
-                max-width: 350px;
-                margin: 0 auto;
-            }
-            
-            .footer-container {
-                grid-template-columns: 1fr;
-            }
-            
-            .chatbot-icon {
-                width: 60px;
-                height: 60px;
-                bottom: 20px;
-                right: 20px;
-            }
-            
-            .back-to-top {
-                bottom: 90px;
-                right: 20px;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SkyLearn Academy</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+--primary-color: #4361ee;
+--primary-dark: #3a0ca3;
+--secondary-color: #4cc9f0;
+--accent-color: #f72585;
+--dark-color: #14213d;
+--light-color: #f8f9fa;
+--gray-color: #adb5bd;
+--shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+--transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+--success-color: #2ecc71;
+--warning-color: #f39c12;
+}
+
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+font-family: 'Poppins', sans-serif;
+}
+
+body {
+background-color: var(--light-color);
+color: var(--dark-color);
+line-height: 1.6;
+overflow-x: hidden;
+}
+
+/* Pre-registration Screen */
+.pre-register-screen {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+z-index: 2000;
+transition: opacity 0.8s, visibility 0.8s;
+}
+
+.pre-register-container {
+background: white;
+padding: 3rem;
+border-radius: 20px;
+box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+width: 90%;
+max-width: 400px;
+text-align: center;
+}
+
+.pre-register-container h2 {
+color: var(--primary-color);
+margin-bottom: 1.5rem;
+font-size: 2rem;
+}
+
+.pre-register-container p {
+margin-bottom: 2rem;
+color: var(--gray-color);
+}
+
+.form-group {
+margin-bottom: 1.5rem;
+text-align: left;
+}
+
+.form-group label {
+display: block;
+margin-bottom: 0.5rem;
+font-weight: 500;
+color: var(--dark-color);
+}
+
+.form-group input {
+width: 100%;
+padding: 1rem;
+border: 2px solid #eee;
+border-radius: 10px;
+font-size: 1rem;
+transition: var(--transition);
+}
+
+.form-group input:focus {
+outline: none;
+border-color: var(--primary-color);
+box-shadow: 0 0 0 4px rgba(67, 97, 238, 0.2);
+}
+
+.pre-register-btn {
+background: linear-gradient(to right, var(--primary-color), var(--primary-dark));
+color: white;
+border: none;
+padding: 1rem 2rem;
+border-radius: 50px;
+cursor: pointer;
+transition: var(--transition);
+font-weight: 600;
+width: 100%;
+font-size: 1.1rem;
+box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
+}
+
+.pre-register-btn:hover {
+transform: translateY(-3px);
+box-shadow: 0 8px 25px rgba(67, 97, 238, 0.4);
+}
+
+.login-screen {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+z-index: 1000;
+transition: opacity 0.8s, visibility 0.8s;
+}
+
+.logo-container {
+animation: bounce 2s infinite alternate;
+margin-bottom: 2.5rem;
+text-align: center;
+}
+
+.logo-spin {
+width: 200px;
+filter: drop-shadow(0 8px 15px rgba(0, 0, 0, 0.2));
+transition: var(--transition);
+}
+
+.login-screen h1 {
+font-size: 3rem;
+color: white;
+margin-bottom: 2.5rem;
+text-align: center;
+text-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+font-weight: 700;
+letter-spacing: 1px;
+}
+
+.login-screen button {
+padding: 1.2rem 3rem;
+font-size: 1.2rem;
+background: white;
+color: var(--primary-color);
+border: none;
+border-radius: 50px;
+cursor: pointer;
+transition: var(--transition);
+font-weight: 600;
+box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+position: relative;
+overflow: hidden;
+}
+
+.login-screen button:hover {
+transform: translateY(-5px);
+box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+}
+
+.login-screen button::after {
+content: '';
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: linear-gradient(rgba(255, 255, 255, 0.3), transparent);
+transform: translateY(-100%);
+transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.login-screen button:hover::after {
+transform: translateY(0);
+}
+
+@keyframes bounce {
+0% { transform: translateY(0) rotate(-5deg); }
+100% { transform: translateY(-30px) rotate(5deg); }
+}
+
+/* Loading Bar */
+.loading-bar {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 4px;
+background: var(--light-color);
+z-index: 3000;
+}
+
+.loading-progress {
+height: 100%;
+width: 0;
+background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+transition: width 0.3s ease;
+}
+
+/* Navigation Styles */
+.navbar {
+background: white;
+padding: 1.5rem 5%;
+box-shadow: var(--shadow);
+position: fixed;
+width: 100%;
+top: 0;
+z-index: 100;
+transition: var(--transition);
+}
+
+.navbar.scrolled {
+padding: 1rem 5%;
+box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+}
+
+.nav-content {
+display: flex;
+justify-content: space-between;
+align-items: center;
+max-width: 1200px;
+margin: 0 auto;
+}
+
+.logo {
+height: 50px;
+transition: var(--transition);
+}
+
+.nav-links {
+display: flex;
+gap: 2.5rem;
+}
+
+.nav-links a {
+text-decoration: none;
+color: var(--dark-color);
+font-weight: 600;
+transition: var(--transition);
+padding: 0.5rem 0;
+position: relative;
+font-size: 1.1rem;
+}
+
+.nav-links a::after {
+content: '';
+position: absolute;
+width: 0;
+height: 3px;
+background: var(--primary-color);
+bottom: 0;
+left: 0;
+transition: var(--transition);
+border-radius: 3px;
+}
+
+.nav-links a:hover {
+color: var(--primary-color);
+}
+
+.nav-links a:hover::after {
+width: 100%;
+}
+
+.nav-links a.active {
+color: var(--primary-color);
+}
+
+.nav-links a.active::after {
+width: 100%;
+}
+
+/* Main Content */
+.section {
+padding: 100px 5% 5rem;
+min-height: 100vh;
+display: none;
+animation: fadeIn 0.8s ease forwards;
+}
+
+@keyframes fadeIn {
+from { opacity: 0; transform: translateY(30px); }
+to { opacity: 1; transform: translateY(0); }
+}
+
+.active {
+display: block;
+}
+
+h2 {
+font-size: 2.5rem;
+color: var(--dark-color);
+margin-bottom: 3rem;
+text-align: center;
+position: relative;
+padding-bottom: 1.5rem;
+}
+
+h2::after {
+content: '';
+position: absolute;
+width: 100px;
+height: 5px;
+background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+bottom: 0;
+left: 50%;
+transform: translateX(-50%);
+border-radius: 5px;
+}
+
+/* Home Section */
+.home-slider {
+height: 65vh;
+margin: 3rem 0;
+position: relative;
+border-radius: 15px;
+overflow: hidden;
+box-shadow: var(--shadow);
+}
+
+.slider-image {
+position: absolute;
+width: 100%;
+height: 100%;
+object-fit: cover;
+opacity: 0;
+transition: opacity 1.2s ease-in-out;
+}
+
+.slider-image.active {
+opacity: 1;
+}
+
+.slider-controls {
+position: absolute;
+bottom: 20px;
+left: 50%;
+transform: translateX(-50%);
+display: flex;
+gap: 10px;
+z-index: 10;
+}
+
+.slider-dot {
+width: 12px;
+height: 12px;
+border-radius: 50%;
+background: rgba(255, 255, 255, 0.5);
+cursor: pointer;
+transition: var(--transition);
+}
+
+.slider-dot.active {
+background: white;
+transform: scale(1.2);
+}
+
+/* Stats Section */
+.stats-container {
+display: flex;
+justify-content: space-around;
+flex-wrap: wrap;
+margin: 4rem 0;
+gap: 2rem;
+}
+
+.stat-item {
+text-align: center;
+flex: 1;
+min-width: 200px;
+padding: 1.5rem;
+background: white;
+border-radius: 15px;
+box-shadow: var(--shadow);
+transition: var(--transition);
+}
+
+.stat-item:hover {
+transform: translateY(-10px);
+box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+.stat-number {
+font-size: 3rem;
+font-weight: 700;
+color: var(--primary-color);
+margin-bottom: 0.5rem;
+}
+
+.stat-label {
+font-size: 1.1rem;
+color: var(--gray-color);
+}
+
+/* News & Comments Sections */
+.news-section,
+.comments-section {
+max-width: 900px;
+margin: 4rem auto;
+background: white;
+padding: 3rem;
+border-radius: 15px;
+box-shadow: var(--shadow);
+transition: var(--transition);
+}
+
+.news-section:hover,
+.comments-section:hover {
+transform: translateY(-10px);
+box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+}
+
+.news-section h2,
+.comments-section h2 {
+text-align: left;
+margin-bottom: 2rem;
+}
+
+.news-section h2::after,
+.comments-section h2::after {
+left: 0;
+transform: none;
+}
+
+.news-content {
+display: flex;
+align-items: center;
+gap: 2rem;
+}
+
+.news-icon {
+font-size: 3rem;
+color: var(--accent-color);
+flex-shrink: 0;
+}
+
+.news-section p {
+font-size: 1.2rem;
+color: var(--dark-color);
+padding: 1.5rem;
+background: var(--light-color);
+border-radius: 10px;
+text-align: center;
+font-weight: 500;
+position: relative;
+overflow: hidden;
+}
+
+.news-section p::before {
+content: '';
+position: absolute;
+top: 0;
+left: 0;
+width: 5px;
+height: 100%;
+background: linear-gradient(to bottom, var(--primary-color), var(--accent-color));
+}
+
+.comments-section form {
+margin-top: 2rem;
+display: flex;
+gap: 1.5rem;
+}
+
+.comments-section input[type="text"] {
+flex: 1;
+padding: 1rem 1.5rem;
+border: 2px solid #eee;
+border-radius: 50px;
+font-size: 1rem;
+transition: var(--transition);
+box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.comments-section input[type="text"]:focus {
+outline: none;
+border-color: var(--primary-color);
+box-shadow: 0 0 0 4px rgba(67, 97, 238, 0.2);
+}
+
+.comments-section button {
+padding: 1rem 2.5rem;
+background: var(--primary-color);
+color: white;
+border: none;
+border-radius: 50px;
+cursor: pointer;
+transition: var(--transition);
+font-weight: 600;
+display: flex;
+align-items: center;
+gap: 0.5rem;
+box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
+}
+
+.comments-section button:hover {
+background: var(--primary-dark);
+transform: translateY(-3px);
+box-shadow: 0 8px 20px rgba(67, 97, 238, 0.4);
+}
+
+/* Courses Grid */
+.courses-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+gap: 3rem;
+padding: 3rem 0;
+}
+
+.course-card {
+background: white;
+border-radius: 15px;
+overflow: hidden;
+transition: var(--transition);
+box-shadow: var(--shadow);
+position: relative;
+height: 100%;
+display: flex;
+flex-direction: column;
+}
+
+.course-card:hover {
+transform: translateY(-15px);
+box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.course-card::before {
+content: '';
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 5px;
+background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+}
+
+.course-img-container {
+overflow: hidden;
+height: 220px;
+position: relative;
+}
+
+.course-img {
+width: 100%;
+height: 100%;
+object-fit: cover;
+transition: var(--transition);
+}
+
+.course-card:hover .course-img {
+transform: scale(1.1);
+}
+
+.course-badge {
+position: absolute;
+top: 15px;
+right: 15px;
+background: var(--accent-color);
+color: white;
+padding: 0.3rem 1rem;
+border-radius: 50px;
+font-size: 0.8rem;
+font-weight: 600;
+z-index: 1;
+}
+
+.course-info {
+padding: 2rem;
+flex-grow: 1;
+display: flex;
+flex-direction: column;
+}
+
+.course-info h3 {
+font-size: 1.5rem;
+margin-bottom: 0.8rem;
+color: var(--dark-color);
+}
+
+.course-teacher {
+display: flex;
+align-items: center;
+gap: 0.8rem;
+margin-bottom: 1.5rem;
+}
+
+.teacher-avatar {
+width: 40px;
+height: 40px;
+border-radius: 50%;
+object-fit: cover;
+border: 2px solid var(--primary-color);
+}
+
+.teacher-name {
+font-weight: 500;
+color: var(--dark-color);
+}
+
+.course-meta {
+display: flex;
+justify-content: space-between;
+margin-bottom: 1.5rem;
+color: var(--gray-color);
+font-size: 0.9rem;
+}
+
+.course-price {
+font-size: 1.5rem;
+font-weight: 700;
+color: var(--primary-color);
+margin-bottom: 1.5rem;
+}
+
+.course-info button {
+background: var(--primary-color);
+color: white;
+border: none;
+padding: 1rem;
+border-radius: 8px;
+cursor: pointer;
+transition: var(--transition);
+font-weight: 600;
+width: 100%;
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 0.5rem;
+box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
+margin-top: auto;
+}
+
+.course-info button:hover {
+background: var(--primary-dark);
+transform: translateY(-3px);
+box-shadow: 0 8px 20px rgba(67, 97, 238, 0.4);
+}
+
+/* Course Details Flip Card - Applied to all courses */
+.course-card {
+perspective: 1000px;
+height: 500px;
+}
+
+.card-inner {
+position: relative;
+width: 100%;
+height: 100%;
+text-align: center;
+transition: transform 0.8s;
+transform-style: preserve-3d;
+}
+
+.course-card:hover .card-inner {
+transform: rotateY(180deg);
+}
+
+.card-front, .card-back {
+position: absolute;
+width: 100%;
+height: 100%;
+-webkit-backface-visibility: hidden;
+backface-visibility: hidden;
+border-radius: 15px;
+overflow: hidden;
+box-shadow: var(--shadow);
+}
+
+.card-back {
+transform: rotateY(180deg);
+background: white;
+padding: 2rem;
+display: flex;
+flex-direction: column;
+}
+
+.card-back h3 {
+color: var(--primary-color);
+margin-bottom: 1rem;
+}
+
+.card-back ul {
+list-style: none;
+text-align: left;
+margin-bottom: 1.5rem;
+}
+
+.card-back li {
+margin-bottom: 0.8rem;
+position: relative;
+padding-left: 1.5rem;
+}
+
+.card-back li::before {
+content: '✓';
+position: absolute;
+left: 0;
+color: var(--success-color);
+font-weight: bold;
+}
+
+.card-back button {
+margin-top: auto;
+}
+
+/* Pricing Table */
+.pricing-container {
+max-width: 1000px;
+margin: 3rem auto;
+}
+
+.pricing-tabs {
+display: flex;
+justify-content: center;
+margin-bottom: 3rem;
+gap: 1rem;
+}
+
+.pricing-tab {
+padding: 0.8rem 2rem;
+background: white;
+border: 2px solid var(--primary-color);
+border-radius: 50px;
+cursor: pointer;
+transition: var(--transition);
+font-weight: 600;
+color: var(--primary-color);
+}
+
+.pricing-tab.active {
+background: var(--primary-color);
+color: white;
+}
+
+.pricing-tab:hover:not(.active) {
+background: rgba(67, 97, 238, 0.1);
+}
+
+.pricing-table {
+width: 100%;
+border-collapse: separate;
+border-spacing: 0;
+box-shadow: var(--shadow);
+border-radius: 15px;
+overflow: hidden;
+background: white;
+}
+
+.pricing-table th {
+background: linear-gradient(to right, var(--primary-color), var(--primary-dark));
+color: white;
+padding: 1.5rem;
+font-weight: 600;
+text-align: center;
+font-size: 1.1rem;
+}
+
+.pricing-table td {
+padding: 1.5rem;
+border-bottom: 1px solid #eee;
+text-align: center;
+background: white;
+transition: var(--transition);
+}
+
+.pricing-table tr:last-child td {
+border-bottom: none;
+}
+
+.pricing-table tr:hover td {
+background: #f8f9fa;
+}
+
+.highlight {
+font-weight: 600;
+color: var(--primary-color);
+}
+
+/* Contact Section */
+.contact-container {
+max-width: 900px;
+margin: 0 auto;
+}
+
+.contact-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+gap: 2rem;
+margin-top: 3rem;
+}
+
+.contact-card {
+background: white;
+padding: 2.5rem;
+border-radius: 15px;
+box-shadow: var(--shadow);
+transition: var(--transition);
+text-align: center;
+}
+
+.contact-card:hover {
+transform: translateY(-10px);
+box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+}
+
+.contact-icon {
+font-size: 3rem;
+color: var(--primary-color);
+margin-bottom: 1.5rem;
+}
+
+.contact-card h3 {
+font-size: 1.5rem;
+margin-bottom: 1rem;
+color: var(--dark-color);
+}
+
+.contact-card p {
+color: var(--gray-color);
+margin-bottom: 1.5rem;
+}
+
+.contact-link {
+display: inline-block;
+padding: 0.8rem 1.5rem;
+background: var(--primary-color);
+color: white;
+border-radius: 50px;
+text-decoration: none;
+font-weight: 600;
+transition: var(--transition);
+}
+
+.contact-link:hover {
+background: var(--primary-dark);
+transform: translateY(-3px);
+box-shadow: 0 8px 20px rgba(67, 97, 238, 0.3);
+}
+
+/* Live Classes Section */
+.live-section {
+max-width: 1000px;
+margin: 3rem auto;
+background: white;
+padding: 3rem;
+border-radius: 15px;
+box-shadow: var(--shadow);
+text-align: center;
+}
+
+.live-section p {
+margin-bottom: 2rem;
+font-size: 1.2rem;
+color: var(--dark-color);
+max-width: 700px;
+margin-left: auto;
+margin-right: auto;
+}
+
+.live-section iframe {
+width: 100%;
+height: 500px;
+border: none;
+border-radius: 10px;
+box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.live-schedule {
+margin-top: 3rem;
+background: white;
+padding: 2rem;
+border-radius: 15px;
+box-shadow: var(--shadow);
+}
+
+.schedule-item {
+display: flex;
+justify-content: space-between;
+padding: 1.2rem 0;
+border-bottom: 1px solid #eee;
+cursor: pointer;
+transition: var(--transition);
+}
+
+.schedule-item:hover {
+background: #f8f9fa;
+padding-left: 1rem;
+padding-right: 1rem;
+border-radius: 10px;
+}
+
+.schedule-item:last-child {
+border-bottom: none;
+}
+
+.schedule-time {
+font-weight: 600;
+color: var(--primary-color);
+}
+
+/* Calendar */
+.calendar-container {
+margin-top: 3rem;
+background: white;
+border-radius: 15px;
+box-shadow: var(--shadow);
+overflow: hidden;
+}
+
+.calendar-header {
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 1.5rem;
+background: linear-gradient(to right, var(--primary-color), var(--primary-dark));
+color: white;
+}
+
+.calendar-header h3 {
+margin: 0;
+}
+
+.calendar-nav {
+display: flex;
+gap: 1rem;
+}
+
+.calendar-nav button {
+background: rgba(255, 255, 255, 0.2);
+border: none;
+color: white;
+width: 36px;
+height: 36px;
+border-radius: 50%;
+cursor: pointer;
+transition: var(--transition);
+}
+
+.calendar-nav button:hover {
+background: rgba(255, 255, 255, 0.3);
+}
+
+.calendar-grid {
+display: grid;
+grid-template-columns: repeat(7, 1fr);
+}
+
+.calendar-day {
+padding: 1rem;
+border-right: 1px solid #eee;
+border-bottom: 1px solid #eee;
+min-height: 100px;
+position: relative;
+cursor: pointer;
+transition: var(--transition);
+}
+
+.calendar-day:hover {
+background: #f8f9fa;
+}
+
+.calendar-day:nth-child(7n) {
+border-right: none;
+}
+
+.calendar-day.weekday {
+background: #f8f9fa;
+font-weight: 600;
+text-align: center;
+min-height: auto;
+padding: 0.8rem;
+cursor: default;
+}
+
+.calendar-day.weekday:hover {
+background: #f8f9fa;
+}
+
+.calendar-day.other-month {
+color: var(--gray-color);
+background: #f8f9fa;
+}
+
+.calendar-day.today {
+background: rgba(67, 97, 238, 0.1);
+}
+
+.calendar-day.has-class::after {
+content: '';
+position: absolute;
+bottom: 5px;
+left: 50%;
+transform: translateX(-50%);
+width: 8px;
+height: 8px;
+border-radius: 50%;
+background: var(--accent-color);
+}
+
+.class-event {
+position: absolute;
+bottom: 5px;
+left: 5px;
+right: 5px;
+background: var(--accent-color);
+color: white;
+font-size: 0.7rem;
+padding: 2px;
+border-radius: 3px;
+text-align: center;
+overflow: hidden;
+text-overflow: ellipsis;
+white-space: nowrap;
+}
+
+/* Testimonials Section */
+.testimonials {
+margin: 5rem auto;
+max-width: 1000px;
+position: relative;
+}
+
+.testimonial-slider {
+position: relative;
+overflow: hidden;
+border-radius: 15px;
+}
+
+.testimonial-track {
+display: flex;
+transition: transform 0.5s ease;
+}
+
+.testimonial-card {
+background: white;
+padding: 2.5rem;
+border-radius: 15px;
+box-shadow: var(--shadow);
+min-width: 100%;
+position: relative;
+}
+
+.testimonial-card::before {
+content: '"';
+position: absolute;
+top: 20px;
+left: 20px;
+font-size: 5rem;
+color: rgba(67, 97, 238, 0.1);
+font-family: serif;
+line-height: 1;
+}
+
+.testimonial-content {
+font-size: 1.1rem;
+line-height: 1.8;
+color: var(--dark-color);
+margin-bottom: 1.5rem;
+position: relative;
+z-index: 1;
+}
+
+.testimonial-author {
+display: flex;
+align-items: center;
+gap: 1rem;
+}
+
+.author-avatar {
+width: 60px;
+height: 60px;
+border-radius: 50%;
+object-fit: cover;
+border: 3px solid var(--primary-color);
+}
+
+.author-info h4 {
+font-size: 1.2rem;
+color: var(--dark-color);
+margin-bottom: 0.3rem;
+}
+
+.author-info p {
+color: var(--gray-color);
+font-size: 0.9rem;
+}
+
+.testimonial-controls {
+display: flex;
+justify-content: center;
+gap: 1rem;
+margin-top: 2rem;
+}
+
+.testimonial-btn {
+background: var(--primary-color);
+color: white;
+border: none;
+width: 40px;
+height: 40px;
+border-radius: 50%;
+cursor: pointer;
+transition: var(--transition);
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+.testimonial-btn:hover {
+background: var(--primary-dark);
+}
+
+.testimonial-indicators {
+display: flex;
+justify-content: center;
+gap: 0.5rem;
+margin-top: 1rem;
+}
+
+.testimonial-indicator {
+width: 10px;
+height: 10px;
+border-radius: 50%;
+background: var(--gray-color);
+cursor: pointer;
+transition: var(--transition);
+}
+
+.testimonial-indicator.active {
+background: var(--primary-color);
+}
+
+/* Chatbot */
+.chatbot-icon {
+position: fixed;
+bottom: 40px;
+right: 40px;
+width: 70px;
+height: 70px;
+background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+border-radius: 50%;
+display: flex;
+justify-content: center;
+align-items: center;
+color: white;
+cursor: pointer;
+z-index: 200;
+transition: var(--transition);
+box-shadow: 0 10px 30px rgba(67, 97, 238, 0.4);
+font-size: 1.8rem;
+animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+0% { transform: scale(1); }
+50% { transform: scale(1.1); }
+100% { transform: scale(1); }
+}
+
+.chatbot-icon:hover {
+transform: scale(1.1) rotate(10deg);
+box-shadow: 0 15px 40px rgba(67, 97, 238, 0.5);
+}
+
+.chat-window {
+position: fixed;
+bottom: 130px;
+right: 40px;
+width: 380px;
+height: 500px;
+background: white;
+border-radius: 20px;
+box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
+display: none;
+flex-direction: column;
+overflow: hidden;
+z-index: 200;
+transform-origin: bottom right;
+animation: scaleUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes scaleUp {
+from { transform: scale(0.8); opacity: 0; }
+to { transform: scale(1); opacity: 1; }
+}
+
+.chat-header {
+padding: 1.5rem;
+background: linear-gradient(to right, var(--primary-color), var(--primary-dark));
+color: white;
+font-weight: 600;
+font-size: 1.3rem;
+display: flex;
+align-items: center;
+gap: 1rem;
+}
+
+.chat-header i {
+font-size: 1.5rem;
+}
+
+.chat-messages {
+flex: 1;
+padding: 1.5rem;
+overflow-y: auto;
+background: #f9f9f9;
+display: flex;
+flex-direction: column;
+gap: 1rem;
+}
+
+.bot-message, .user-message {
+max-width: 80%;
+padding: 1rem 1.5rem;
+border-radius: 18px;
+position: relative;
+animation: fadeInUp 0.3s ease;
+}
+
+@keyframes fadeInUp {
+from { opacity: 0; transform: translateY(10px); }
+to { opacity: 1; transform: translateY(0); }
+}
+
+.bot-message {
+align-self: flex-start;
+background: white;
+color: var(--dark-color);
+border-bottom-left-radius: 5px;
+box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+}
+
+.user-message {
+align-self: flex-end;
+background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+color: white;
+border-bottom-right-radius: 5px;
+}
+
+.chat-input {
+padding: 1.5rem;
+background: white;
+border-top: 1px solid #eee;
+display: flex;
+gap: 0.8rem;
+}
+
+.chat-input input {
+flex: 1;
+padding: 1rem;
+border: 2px solid #eee;
+border-radius: 50px;
+font-size: 1rem;
+transition: var(--transition);
+}
+
+.chat-input input:focus {
+outline: none;
+border-color: var(--primary-color);
+box-shadow: 0 0 0 4px rgba(67, 97, 238, 0.2);
+}
+
+.chat-input button {
+background: var(--primary-color);
+color: white;
+border: none;
+width: 45px;
+height: 45px;
+border-radius: 50%;
+cursor: pointer;
+transition: var(--transition);
+display: flex;
+align-items: center;
+justify-content: center;
+box-shadow: 0 4px 10px rgba(67, 97, 238, 0.3);
+}
+
+.chat-input button:hover {
+background: var(--primary-dark);
+transform: scale(1.05);
+}
+
+.chat-suggestions {
+display: flex;
+flex-wrap: wrap;
+gap: 0.5rem;
+padding: 0 1.5rem 1rem;
+background: white;
+border-top: 1px solid #eee;
+}
+
+.suggestion-chip {
+padding: 0.5rem 1rem;
+background: #f8f9fa;
+border-radius: 50px;
+font-size: 0.9rem;
+cursor: pointer;
+transition: var(--transition);
+}
+
+.suggestion-chip:hover {
+background: var(--primary-color);
+color: white;
+}
+
+/* Footer */
+footer {
+background: var(--dark-color);
+color: white;
+padding: 4rem 5% 2rem;
+margin-top: 5rem;
+}
+
+.footer-container {
+max-width: 1200px;
+margin: 0 auto;
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+gap: 3rem;
+}
+
+.footer-logo {
+height: 60px;
+margin-bottom: 1.5rem;
+}
+
+.footer-about p {
+margin-bottom: 1.5rem;
+color: var(--gray-color);
+}
+
+.footer-links h3, .footer-contact h3, .footer-newsletter h3 {
+font-size: 1.3rem;
+margin-bottom: 1.5rem;
+position: relative;
+padding-bottom: 1rem;
+}
+
+.footer-links h3::after, .footer-contact h3::after, .footer-newsletter h3::after {
+content: '';
+position: absolute;
+bottom: 0;
+left: 0;
+width: 50px;
+height: 3px;
+background: var(--primary-color);
+border-radius: 3px;
+}
+
+.footer-links ul {
+list-style: none;
+}
+
+.footer-links li {
+margin-bottom: 0.8rem;
+}
+
+.footer-links a {
+color: var(--gray-color);
+text-decoration: none;
+transition: var(--transition);
+display: flex;
+align-items: center;
+gap: 0.5rem;
+}
+
+.footer-links a:hover {
+color: white;
+transform: translateX(5px);
+}
+
+.footer-contact p {
+display: flex;
+align-items: center;
+gap: 0.8rem;
+margin-bottom: 1rem;
+color: var(--gray-color);
+}
+
+.footer-contact i {
+font-size: 1.2rem;
+color: var(--primary-color);
+width: 25px;
+}
+
+.footer-newsletter p {
+margin-bottom: 1.5rem;
+color: var(--gray-color);
+}
+
+.footer-newsletter-form {
+display: flex;
+gap: 0.5rem;
+}
+
+.footer-newsletter input {
+flex: 1;
+padding: 0.8rem;
+border: none;
+border-radius: 5px;
+font-size: 1rem;
+}
+
+.footer-newsletter button {
+padding: 0.8rem 1.5rem;
+background: var(--primary-color);
+color: white;
+border: none;
+border-radius: 5px;
+cursor: pointer;
+transition: var(--transition);
+font-weight: 600;
+}
+
+.footer-newsletter button:hover {
+background: var(--primary-dark);
+}
+
+.social-links {
+display: flex;
+gap: 1.5rem;
+margin-top: 1.5rem;
+}
+
+.social-links a {
+display: flex;
+align-items: center;
+justify-content: center;
+width: 40px;
+height: 40px;
+background: rgba(255, 255, 255, 0.1);
+border-radius: 50%;
+color: white;
+font-size: 1.2rem;
+transition: var(--transition);
+}
+
+.social-links a:hover {
+background: var(--primary-color);
+transform: translateY(-5px);
+}
+
+.copyright {
+text-align: center;
+margin-top: 3rem;
+padding-top: 2rem;
+border-top: 1px solid rgba(255, 255, 255, 0.1);
+color: var(--gray-color);
+font-size: 0.9rem;
+}
+
+/* Back to Top Button */
+.back-to-top {
+position: fixed;
+bottom: 120px;
+right: 40px;
+width: 50px;
+height: 50px;
+background: var(--primary-color);
+color: white;
+border-radius: 50%;
+display: flex;
+justify-content: center;
+align-items: center;
+cursor: pointer;
+z-index: 100;
+opacity: 0;
+visibility: hidden;
+transition: var(--transition);
+box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
+}
+
+.back-to-top.visible {
+opacity: 1;
+visibility: visible;
+}
+
+.back-to-top:hover {
+background: var(--primary-dark);
+transform: translateY(-5px);
+}
+
+/* WhatsApp Button */
+.whatsapp-btn {
+position: fixed;
+bottom: 40px;
+left: 40px;
+width: 60px;
+height: 60px;
+background: #25d366;
+color: white;
+border-radius: 50%;
+display: flex;
+justify-content: center;
+align-items: center;
+cursor: pointer;
+z-index: 200;
+transition: var(--transition);
+box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4);
+font-size: 1.8rem;
+}
+
+.whatsapp-btn:hover {
+transform: scale(1.1);
+box-shadow: 0 8px 25px rgba(37, 211, 102, 0.5);
+}
+
+/* Notification */
+.notification {
+position: fixed;
+top: 100px;
+right: 20px;
+background: white;
+padding: 1.5rem;
+border-radius: 10px;
+box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+z-index: 3000;
+display: flex;
+align-items: center;
+gap: 1rem;
+max-width: 350px;
+transform: translateX(400px);
+transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.notification.show {
+transform: translateX(0);
+}
+
+.notification-icon {
+font-size: 2rem;
+}
+
+.notification.success .notification-icon {
+color: var(--success-color);
+}
+
+.notification.error .notification-icon {
+color: var(--accent-color);
+}
+
+.notification.warning .notification-icon {
+color: var(--warning-color);
+}
+
+.notification-content h4 {
+margin-bottom: 0.5rem;
+color: var(--dark-color);
+}
+
+.notification-content p {
+color: var(--gray-color);
+font-size: 0.9rem;
+}
+
+.notification-close {
+position: absolute;
+top: 10px;
+right: 10px;
+background: none;
+border: none;
+font-size: 1.2rem;
+color: var(--gray-color);
+cursor: pointer;
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+.courses-grid {
+grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.home-slider {
+height: 50vh;
+}
+}
+
+@media (max-width: 768px) {
+.nav-links {
+gap: 1.5rem;
+}
+
+.section {
+padding: 80px 5% 3rem;
+}
+
+h2 {
+font-size: 2rem;
+}
+
+.news-content {
+flex-direction: column;
+text-align: center;
+}
+
+.comments-section form {
+flex-direction: column;
+}
+
+.comments-section button {
+width: 100%;
+}
+
+.chat-window {
+width: 90%;
+right: 5%;
+}
+
+.whatsapp-btn {
+bottom: 20px;
+left: 20px;
+}
+}
+
+@media (max-width: 576px) {
+.navbar {
+padding: 1rem 5%;
+}
+
+.nav-content {
+flex-direction: column;
+gap: 1rem;
+}
+
+.nav-links {
+flex-wrap: wrap;
+justify-content: center;
+}
+
+.login-screen h1 {
+font-size: 2.2rem;
+}
+
+.login-screen button {
+padding: 1rem 2rem;
+font-size: 1rem;
+}
+
+.home-slider {
+height: 40vh;
+}
+
+.course-card {
+max-width: 350px;
+margin: 0 auto;
+}
+
+.footer-container {
+grid-template-columns: 1fr;
+}
+
+.chatbot-icon {
+width: 60px;
+height: 60px;
+bottom: 20px;
+right: 20px;
+}
+
+.back-to-top {
+bottom: 90px;
+right: 20px;
+}
+
+.notification {
+right: 10px;
+left: 10px;
+max-width: none;
+}
+}
+</style>
 </head>
 <body>
-    <!-- Pantalla de Bienvenida -->
-    <div class="login-screen" id="loginScreen">
-        <div class="logo-container">
-            <img src="https://i.postimg.cc/63d6XxfM/ponerle-fondo-blanco-removebg-preview.png" alt="Logo SkyLearn" class="logo-spin">
-        </div>
-        <h1>READY TO LEARN?</h1>
-        <button onclick="showMainContent()">COMENZAR</button>
-    </div>
+<!-- Loading Bar -->
+<div class="loading-bar">
+<div class="loading-progress" id="loadingProgress"></div>
+</div>
 
-    <!-- Navegador -->
-    <nav class="navbar" id="navbar">
-        <div class="nav-content">
-            <img src="https://i.postimg.cc/63d6XxfM/ponerle-fondo-blanco-removebg-preview.png" alt="Logo" class="logo">
-            <div class="nav-links">
-                <a href="#home" onclick="showSection('home')" class="active">Home</a>
-                <a href="#courses" onclick="showSection('courses')">Cursos</a>
-                <a href="#contact" onclick="showSection('contact')">Contacto</a>
-                <a href="#pricing" onclick="showSection('pricing')">Precios</a>
-                <a href="#live" onclick="showSection('live')">Clases en Vivo</a>
-            </div>
-        </div>
-    </nav>
+<!-- Pre-registration Screen -->
+<div class="pre-register-screen" id="preRegisterScreen">
+<div class="pre-register-container">
+<img src="https://i.postimg.cc/63d6XxfM/ponerle-fondo-blanco-removebg-preview.png" alt="Logo SkyLearn" class="logo-spin">
+<h2>¡Bienvenido a SkyLearn Academy!</h2>
+<p>Por favor, ingresa tu nombre para acceder a nuestra plataforma</p>
+<form id="preRegisterForm">
+<div class="form-group">
+<label for="preName">Nombre Completo</label>
+<input type="text" id="preName" required>
+</div>
+<button type="submit" class="pre-register-btn">Ingresar</button>
+</form>
+</div>
+</div>
 
-    <!-- Secciones -->
-    <!-- Home -->
-    <section id="home" class="section active">
-        <div class="home-slider">
-            <img src="https://via.placeholder.com/1200x500/3498db/ffffff?text=Banner+1" alt="Banner" class="slider-image active">
-            <img src="https://via.placeholder.com/1200x500/2ecc71/ffffff?text=Banner+2" alt="Banner" class="slider-image">
-            <img src="https://via.placeholder.com/1200x500/e74c3c/ffffff?text=Banner+3" alt="Banner" class="slider-image">
-            <div class="slider-controls">
-                <div class="slider-dot active" onclick="goToSlide(0)"></div>
-                <div class="slider-dot" onclick="goToSlide(1)"></div>
-                <div class="slider-dot" onclick="goToSlide(2)"></div>
-            </div>
-        </div>
+<!-- Pantalla de Bienvenida -->
+<div class="login-screen" id="loginScreen">
+<div class="logo-container">
+<img src="https://i.postimg.cc/63d6XxfM/ponerle-fondo-blanco-removebg-preview.png" alt="Logo SkyLearn" class="logo-spin">
+</div>
+<h1>READY TO LEARN ENGLISH?</h1>
+<button onclick="showMainContent()">COMENZAR</button>
+</div>
 
-        <div class="news-section">
-            <h2>Últimas Noticias</h2>
-            <div class="news-content">
-                <div class="news-icon">
-                    <i class="fas fa-bullhorn"></i>
-                </div>
-                <p>¡¡OBTÉN UN 30% DE DESCUENTO AL INSCRIBIRTE AHORA!! Válido hasta el 30 de noviembre.</p>
-            </div>
-        </div>
+<!-- Navegador -->
+<nav class="navbar" id="navbar">
+<div class="nav-content">
+<img src="https://i.postimg.cc/63d6XxfM/ponerle-fondo-blanco-removebg-preview.png" alt="Logo" class="logo">
+<div class="nav-links">
+<a href="#home" onclick="showSection('home')" class="active">Home</a>
+<a href="#courses" onclick="showSection('courses')">Cursos</a>
+<a href="#contact" onclick="showSection('contact')">Contacto</a>
+<a href="#pricing" onclick="showSection('pricing')">Precios</a>
+<a href="#live" onclick="showSection('live')">Clases en Vivo</a>
+</div>
+</div>
+</nav>
 
-        <div class="comments-section">
-            <h2>Comentarios Recientes</h2>
-            <div id="commentsContainer"></div>
-            <form onsubmit="addComment(event)">
-                <input type="text" id="commentInput" placeholder="Escribe un comentario..." required>
-                <button type="submit">
-                    <i class="fas fa-paper-plane"></i> Enviar
-                </button>
-            </form>
-        </div>
-    </section>
+<!-- Secciones -->
+<!-- Home -->
+<section id="home" class="section active">
+<div class="home-slider">
+<img src="https://via.placeholder.com/1200x500/3498db/ffffff?text=Learn+English+with+Us" alt="Banner" class="slider-image active">
+<img src="https://via.placeholder.com/1200x500/2ecc71/ffffff?text=Native+Teachers" alt="Banner" class="slider-image">
+<img src="https://via.placeholder.com/1200x500/e74c3c/ffffff?text=Interactive+Classes" alt="Banner" class="slider-image">
+<div class="slider-controls">
+<div class="slider-dot active" onclick="goToSlide(0)"></div>
+<div class="slider-dot" onclick="goToSlide(1)"></div>
+<div class="slider-dot" onclick="goToSlide(2)"></div>
+</div>
+</div>
 
-    <!-- Cursos -->
-    <section id="courses" class="section">
-        <h2>Cursos Disponibles</h2>
-        <div class="courses-grid">
-            <!-- Profesor 1 -->
-            <div class="course-card">
-                <div class="course-img-container">
-                    <img src="https://via.placeholder.com/400x300/3a86ff/ffffff?text=Matem%C3%A1ticas" alt="Matemáticas" class="course-img">
-                    <div class="course-badge">Popular</div>
-                </div>
-                <div class="course-info">
-                    <h3>Inglès Niños</h3>
-                    <div class="course-teacher">
-                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Prof. Ana Martínez" class="teacher-avatar">
-                        <span class="teacher-name">Prof. Ana Martínez</span>
-                                            <div class="course-meta">
-                        <span><i class="far fa-clock"></i> 12 semanas</span>
-                        <span><i class="fas fa-users"></i> 120 estudiantes</span>
-                    </div>
-                    <div class="course-price">S60/mes</div>
-                    <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?embedded=true', '_blank')">
-                        <i class="fas fa-sign-in-alt"></i> Inscribirse
-                    </button>
-                </div>
-            </div>
+<!-- Stats Section -->
+<div class="stats-container">
+<div class="stat-item">
+<div class="stat-number" data-target="5000">0</div>
+<div class="stat-label">Estudiantes</div>
+</div>
+<div class="stat-item">
+<div class="stat-number" data-target="120">0</div>
+<div class="stat-label">Cursos</div>
+</div>
+<div class="stat-item">
+<div class="stat-number" data-target="50">0</div>
+<div class="stat-label">Profesores</div>
+</div>
+<div class="stat-item">
+<div class="stat-number" data-target="98">0</div>
+<div class="stat-label">% Satisfacción</div>
+</div>
+</div>
 
-            <!-- Profesor 2 -->
-            <div class="course-card">
-                <div class="course-img-container">
-                    <img src="https://via.placeholder.com/400x300/4361ee/ffffff?text=Ingl%C3%A9s" alt="Inglés" class="course-img">
-                </div>
-                <div class="course-info">
-                    <h3>Inglés Basico</h3>
-                    <div class="course-teacher">
-                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Prof. Luis Ramírez" class="teacher-avatar">
-                        <span class="teacher-name">Prof. Yessica Ramírez</span>
-                    </div>
-                    <div class="course-meta">
-                        <span><i class="far fa-clock"></i> 8 semanas</span>
-                        <span><i class="fas fa-users"></i> 85 estudiantes</span>
-                    </div>
-                    <div class="course-price">S/70/mes</div>
-                    <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?embedded=true', '_blank')">
-                        <i class="fas fa-sign-in-alt"></i> Inscribirse
-                    </button>
-                </div>
-            </div>
+<div class="news-section">
+<h2>Últimas Noticias</h2>
+<div class="news-content">
+<div class="news-icon">
+<i class="fas fa-bullhorn"></i>
+</div>
+<p>¡¡OBTÉN UN 30% DE DESCUENTO AL INSCRIBIRTE AHORA!! Válido hasta el 30 de noviembre.</p>
+</div>
+</div>
 
-            <!-- Profesor 3 -->
-            <div class="course-card">
-                <div class="course-img-container">
-                    <img src="https://via.placeholder.com/400x300/7209b7/ffffff?text=Programaci%C3%B3n" alt="Programación" class="course-img">
-                    <div class="course-badge">Nuevo</div>
-                </div>
-                <div class="course-info">
-                    <h3>Inglès Intermedio</h3>
-                    <div class="course-teacher">
-                        <img src="https://randomuser.me/api/portraits/men/67.jpg" alt="Prof. Carlos Domínguez" class="teacher-avatar">
-                        <span class="teacher-name">Prof. Graciela Muñoz</span>
-                    </div>
-                    <div class="course-meta">
-                        <span><i class="far fa-clock"></i> 16 semanas</span>
-                        <span><i class="fas fa-users"></i> 210 estudiantes</span>
-                    </div>
-                    <div class="course-price">S/70/mes</div>
-                    <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?embedded=true', '_blank')">
-                        <i class="fas fa-sign-in-alt"></i> Inscribirse
-                    </button>
-                </div>
-            </div>
+<div class="comments-section">
+<h2>Comentarios Recientes</h2>
+<div id="commentsContainer"></div>
+<form onsubmit="addComment(event)">
+<input type="text" id="commentInput" placeholder="Escribe un comentario..." required>
+<button type="submit">
+<i class="fas fa-paper-plane"></i> Enviar
+</button>
+</form>
+</div>
+</section>
 
-            <!-- Profesor 4 -->
-            <div class="course-card">
-                <div class="course-img-container">
-                    <img src="https://via.placeholder.com/400x300/f72585/ffffff?text=F%C3%ADsica" alt="Física" class="course-img">
-                </div>
-                <div class="course-info">
-                    <h3>Inglès Intensivo</h3>
-                    <div class="course-teacher">
-                        <img src="https://randomuser.me/api/portraits/women/63.jpg" alt="Prof. Laura Gómez" class="teacher-avatar">
-                        <span class="teacher-name">Prof. Cesar Advincula</span>
-                    </div>
-                    <div class="course-meta">
-                        <span><i class="far fa-clock"></i> 10 semanas</span>
-                        <span><i class="fas fa-users"></i> 75 estudiantes</span>
-                    </div>
-                    <div class="course-price">S/90/mes</div>
-                    <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?embedded=true', '_blank')">
-                        <i class="fas fa-sign-in-alt"></i> Inscribirse
-                    </button>
-                </div>
-            </div>
+<!-- Cursos -->
+<section id="courses" class="section">
+<h2>Cursos de Inglés Disponibles</h2>
+<div class="courses-grid">
+<!-- English for Kids -->
+<div class="course-card">
+<div class="card-inner">
+<div class="card-front">
+<div class="course-img-container">
+<img src="https://via.placeholder.com/400x300/3a86ff/ffffff?text=English+for+Kids" alt="English for Kids" class="course-img">
+<div class="course-badge">Popular</div>
+</div>
+<div class="course-info">
+<h3>Inglès para Niños</h3>
+<div class="course-teacher">
+<img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Prof. Ana Martínez" class="teacher-avatar">
+<span class="teacher-name">Prof. Ana Martínez</span>
+</div>
+<div class="course-meta">
+<span><i class="far fa-clock"></i> 12 semanas</span>
+<span><i class="fas fa-users"></i> 120 estudiantes</span>
+</div>
+<div class="course-price">S60/mes</div>
+<button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?embedded=true', '_blank')">
+<i class="fas fa-sign-in-alt"></i> Inscribirse
+</button>
+</div>
+</div>
+<div class="card-back">
+<h3>Detalles del Curso</h3>
+<ul>
+<li>Clases interactivas para niños de 6-12 años</li>
+<li>Material didáctico incluido</li>
+<li>Actividades lúdicas y educativas</li>
+<li>Enfoque en conversación básica</li>
+<li>Grupos reducidos de 8-10 estudiantes</li>
+</ul>
+<button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?embedded=true', '_blank')">
+<i class="fas fa-sign-in-alt"></i> Inscribirse
+</button>
+</div>
+</div>
+</div>
 
-            <!-- Profesor 5 -->
-            <div class="course-card">
-                <div class="course-img-container">
-                    <img src="https://via.placeholder.com/400x300/4cc9f0/ffffff?text=Qu%C3%ADmica" alt="Química" class="course-img">
-                </div>
-                <div class="course-info">
-                    <h3>Herramientas IA</h3>
-                    <div class="course-teacher">
-                        <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Prof. Miguel Torres" class="teacher-avatar">
-                        <span class="teacher-name">Prof. Diego Torres</span>
-                    </div>
-                    <div class="course-meta">
-                        <span><i class="far fa-clock"></i> 14 semanas</span>
-                        <span><i class="fas fa-users"></i> 92 estudiantes</span>
-                    </div>
-                    <div class="course-price">S/70/mes</div>
-                    <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?embedded=true', '_blank')">
-                        <i class="fas fa-sign-in-alt"></i> Inscribirse
-                    </button>
-                </div>
-            </div>
+<!-- Basic English -->
+<div class="course-card">
+<div class="card-inner">
+<div class="card-front">
+<div class="course-img-container">
+<img src="https://via.placeholder.com/400x300/4361ee/ffffff?text=Basic+English" alt="Basic English" class="course-img">
+</div>
+<div class="course-info">
+<h3>Inglés Basico</h3>
+<div class="course-teacher">
+<img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Prof. Luis Ramírez" class="teacher-avatar">
+<span class="teacher-name">Prof. Yessica Ramírez</span>
+</div>
+<div class="course-meta">
+<span><i class="far fa-clock"></i> 8 semanas</span>
+<span><i class="fas fa-users"></i> 85 estudiantes</span>
+</div>
+<div class="course-price">S/70/mes</div>
+<button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?embedded=true', '_blank')">
+<i class="fas fa-sign-in-alt"></i> Inscribirse
+</button>
+</div>
+</div>
+<div class="card-back">
+<h3>Detalles del Curso</h3>
+<ul>
+<li>Vocabulario básico y expresiones cotidianas</li>
+<li>Gramática fundamental</li>
+<li>Comprensión auditiva y lectura</li>
+<li>Práctica de pronunciación</li>
+<li>Ejercicios interactivos</li>
+</ul>
+<button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?embedded=true', '_blank')">
+<i class="fas fa-sign-in-alt"></i> Inscribirse
+</button>
+</div>
+</div>
+</div>
 
-            <!-- Profesor 6 -->
-            <div class="course-card">
-                <div class="course-img-container">
-                    <img src="https://via.placeholder.com/400x300/4895ef/ffffff?text=Biolog%C3%ADa" alt="Biología" class="course-img">
-                    <div class="course-badge">Próximamente</div>
-                </div>
-                <div class="course-info">
-                    <h3>Inglès Para Docentes</h3>
-                    <div class="course-teacher">
-                        <img src="https://randomuser.me/api/portraits/women/28.jpg" alt="Prof. Diana López" class="teacher-avatar">
-                        <span class="teacher-name">Prof. Cesar Advincula</span>
-                    </div>
-                    <div class="course-meta">
-                        <span><i class="far fa-clock"></i> 12 semanas</span>
-                        <span><i class="fas fa-users"></i> 45 estudiantes</span>
-                    </div>
-                    <div class="course-price">S/120/mes</div>
-                    <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?embedded=true', '_blank')">
-                        <i class="fas fa-sign-in-alt"></i> Inscribirse
-                    </button>
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- Intermediate English -->
+<div class="course-card">
+<div class="card-inner">
+<div class="card-front">
+<div class="course-img-container">
+<img src="https://via.placeholder.com/400x300/7209b7/ffffff?text=Intermediate+English" alt="Intermediate English" class="course-img">
+<div class="course-badge">Nuevo</div>
+</div>
+<div class="course-info">
+<h3>Inglès Intermedio</h3>
+<div class="course-teacher">
+<img src="https://randomuser.me/api/portraits/men/67.jpg" alt="Prof. Carlos Domínguez" class="teacher-avatar">
+<span class="teacher-name">Prof. Graciela Muñoz</span>
+</div>
+<div class="course-meta">
+<span><i class="far fa-clock"></i> 16 semanas</span>
+<span><i class="fas fa-users"></i> 210 estudiantes</span>
+</div>
+<div class="course-price">S/70/mes</div>
+<button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?embedded=true', '_blank')">
+<i class="fas fa-sign-in-alt"></i> Inscribirse
+</button>
+</div>
+</div>
+<div class="card-back">
+<h3>Detalles del Curso</h3>
+<ul>
+<li>Conversación fluida en situaciones reales</li>
+<li>Vocabulario intermedio y expresiones idiomáticas</li>
+li>Gramática avanzada</li>
+<li>Comprensión de textos complejos</li>
+<li>Debates y discusiones grupales</li>
+</ul>
+<button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?embedded=true', '_blank')">
+<i class="fas fa-sign-in-alt"></i> Inscribirse
+</button>
+</div>
+</div>
+</div>
 
-    <!-- Contacto -->
-    <section id="contact" class="section">
-        <h2>Contacto</h2>
-        <div class="contact-container">
-            <div class="contact-grid">
-                <div class="contact-card">
-                    <div class="contact-icon">
-                        <i class="fas fa-envelope"></i>
-                    </div>
-                    <h3>Email</h3>
-                    <p>Envíanos tus consultas y te responderemos en menos de 24 horas</p>
-                    <a href="mailto:info@skylearn.com" class="contact-link">
-                        <i class="fas fa-paper-plane"></i> Enviar Email
-                    </a>
-                </div>
+<!-- Intensive English -->
+<div class="course-card">
+<div class="card-inner">
+<div class="card-front">
+<div class="course-img-container">
+<img src="https://via.placeholder.com/400x300/f72585/ffffff?text=Intensive+English" alt="Intensive English" class="course-img">
+</div>
+<div class="course-info">
+<h3>Inglès Intensivo</h3>
+<div class="course-teacher">
+<img src="https://randomuser.me/api/portraits/women/63.jpg" alt="Prof. Laura Gómez" class="teacher-avatar">
+<span class="teacher-name">Prof. Cesar Advincula</span>
+</div>
+<div class="course-meta">
+<span><i class="far fa-clock"></i> 10 semanas</span>
+<span><i class="fas fa-users"></i> 75 estudiantes</span>
+</div>
+<div class="course-price">S/90/mes</div>
+<button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?embedded=true', '_blank')">
+<i class="fas fa-sign-in-alt"></i> Inscribirse
+</button>
+</div>
+</div>
+<div class="card-back">
+<h3>Detalles del Curso</h3>
+<ul>
+<li>Clases diarias de 2 horas</li>
+<li>Inmersión total en el idioma</li>
+<li>Práctica intensiva de conversación</li>
+<li>Simulaciones de situaciones reales</li>
+<li>Tareas y proyectos prácticos</li>
+</ul>
+<button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?embedded=true', '_blank')">
+<i class="fas fa-sign-in-alt"></i> Inscribirse
+</button>
+</div>
+</div>
+</div>
 
-                <div class="contact-card">
-                    <div class="contact-icon">
-                        <i class="fas fa-phone-alt"></i>
-                    </div>
-                    <h3>Teléfono</h3>
-                    <p>Disponibles de lunes a viernes de 9:00 a 18:00 horas</p>
-                    <a href="tel:+51 929601732" class="contact-link">
-                        <i class="fas fa-phone"></i> Llamar Ahora
-                    </a>
-                </div>
+<!-- English for Teachers -->
+<div class="course-card">
+<div class="card-inner">
+<div class="card-front">
+<div class="course-img-container">
+<img src="https://via.placeholder.com/400x300/4cc9f0/ffffff?text=English+for+Teachers" alt="English for Teachers" class="course-img">
+</div>
+<div class="course-info">
+<h3>Inglès Para Docentes</h3>
+<div class="course-teacher">
+<img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Prof. Miguel Torres" class="teacher-avatar">
+<span class="teacher-name">Prof. Diego Torres</span>
+</div>
+<div class="course-meta">
+<span><i class="far fa-clock"></i> 14 semanas</span>
+<span><i class="fas fa-users"></i> 92 estudiantes</span>
+</div>
+<div class="course-price">S/120/mes</div>
+<button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?embedded=true', '_blank')">
+<i class="fas fa-sign-in-alt"></i> Inscribirse
+</button>
+</div>
+</div>
+<div class="card-back">
+<h3>Detalles del Curso</h3>
+<ul>
+<li>Vocabulario educativo especializado</li>
+<li>Técnicas de enseñanza en inglés</li>
+<li>Preparación de materiales didácticos</li>
+<li>Evaluación de estudiantes</li>
+<li>Comunicación efectiva en el aula</li>
+</ul>
+<button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?embedded=true', '_blank')">
+<i class="fas fa-sign-in-alt"></i> Inscribirse
+</button>
+</div>
+</div>
+</div>
 
-                <div class="contact-card">
-                    <div class="contact-icon">
-                        <i class="fas fa-map-marker-alt"></i>
-                    </div>
-                    <h3>Oficina</h3>
-                    <p>Av. Educación 1234, Ciudad del Aprendizaje</p>
-                    <a href="https://maps.google.com" target="_blank" class="contact-link">
-                        <i class="fas fa-directions"></i> Cómo Llegar
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- Business English -->
+<div class="course-card">
+<div class="card-inner">
+<div class="card-front">
+<div class="course-img-container">
+<img src="https://via.placeholder.com/400x300/4895ef/ffffff?text=Business+English" alt="Business English" class="course-img">
+<div class="course-badge">Próximamente</div>
+</div>
+<div class="course-info">
+<h3>Inglès de Negocios</h3>
+<div class="course-teacher">
+<img src="https://randomuser.me/api/portraits/women/28.jpg" alt="Prof. Diana López" class="teacher-avatar">
+<span class="teacher-name">Prof. Cesar Advincula</span>
+</div>
+<div class="course-meta">
+<span><i class="far fa-clock"></i> 12 semanas</span>
+<span><i class="fas fa-users"></i> 45 estudiantes</span>
+</div>
+<div class="course-price">S/120/mes</div>
+<button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?embedded=true', '_blank')">
+<i class="fas fa-sign-in-alt"></i> Inscribirse
+</button>
+</div>
+</div>
+<div class="card-back">
+<h3>Detalles del Curso</h3>
+<ul>
+<li>Vocabulario empresarial y financiero</li>
+<li>Redacción de correos y documentos</li>
+<li>Presentaciones efectivas</li>
+<li>Negociaciones en inglés</li>
+<li>Comunicación en reuniones</li>
+</ul>
+<button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?embedded=true', '_blank')">
+<i class="fas fa-sign-in-alt"></i> Inscribirse
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
 
-    <!-- Precios -->
-    <section id="pricing" class="section">
-        <h2>Precios y Horarios</h2>
-        <div class="pricing-container">
-            <div class="pricing-tabs">
-                <div class="pricing-tab active" onclick="showPricing('monthly')">Mensual</div>
-                <div class="pricing-tab" onclick="showPricing('quarterly')">Trimestral</div>
-                <div class="pricing-tab" onclick="showPricing('yearly')">Anual</div>
-            </div>
+<!-- Contacto -->
+<section id="contact" class="section">
+<h2>Contacto</h2>
+<div class="contact-container">
+<div class="contact-grid">
+<div class="contact-card">
+<div class="contact-icon">
+<i class="fas fa-envelope"></i>
+</div>
+<h3>Email</h3>
+<p>Envíanos tus consultas y te responderemos en menos de 24 horas</p>
+<a href="mailto:info@skylearn.com" class="contact-link">
+<i class="fas fa-paper-plane"></i> Enviar Email
+</a>
+</div>
 
-            <table class="pricing-table">
-                <thead>
-                    <tr>
-                        <th>Curso</th>
-                        <th>Precio</th>
-                        <th>Horario</th>
-                        <th>Duración</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Inglés para Niños</td>
-                        <td class="highlight">S/60/mes</td>
-                        <td>Lun - Mie - Vie | 9am - 10am</td>
-                        <td>12 semanas</td>
-                    </tr>
-                    <tr>
-                        <td>Inglés Basico</td>
-                        <td class="highlight">S/70/mes</td>
-                        <td>Lun - Mie - Vier | 3pm - 5pm</td>
-                        <td>8 semanas</td>
-                    </tr>
-                    <tr>
-                        <td>Inglés Intermedio</td>
-                        <td class="highlight">S/80/mes</td>
-                        <td>Mar - Jue - Sab | 4pm - 6pm</td>
-                        <td>16 semanas</td>
-                    </tr>
-                    <tr>
-                        <td>Inglès Intensivo</td>
-                        <td class="highlight">S/90/mes</td>
-                        <td>Mie - Vie | 10am - 12pm</td>
-                        <td>10 semanas</td>
-                    </tr>
-                    <tr>
-                        <td>Herramientas IA</td>
-                        <td class="highlight">S/70/mes</td>
-                        <td>Vie - Sab | 9pm - 10pm</td>
-                        <td>14 semanas</td>
-                    </tr>
-                    <tr>
-                        <td>Inglès para Docentes</td>
-                        <td class="highlight">S/120/mes</td>
-                        <td>Lun - Mie | 3pm - 4pm</td>
-                        <td>12 semanas</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </section>
+<div class="contact-card">
+<div class="contact-icon">
+<i class="fas fa-phone-alt"></i>
+</div>
+<h3>Teléfono</h3>
+<p>Disponibles de lunes a viernes de 9:00 a 18:00 horas</p>
+<a href="tel:+51 929601732" class="contact-link">
+<i class="fas fa-phone"></i> Llamar Ahora
+</a>
+</div>
 
-    <!-- Clases en Vivo -->
-    <section id="live" class="section">
-        <div class="live-section">
-            <h2>Clases en Vivo</h2>
-            <p>Únete a nuestras clases interactivas en tiempo real con profesores certificados. Participa, haz preguntas y aprende en un entorno colaborativo.</p>
-            <iframe src="https://www.youtube.com/embed/live_stream?channel=TU_ID_DEL_CANAL&autoplay=1" allowfullscreen></iframe>
-            
-            <div class="live-schedule">
-                <h3>Próximas Clases</h3>
-                <div class="schedule-item">
-                    <span>Lunes 15 Nov</span>
-                    <span class="schedule-time">10:00 AM - Matemáticas Avanzadas</span>
-                </div>
-                <div class="schedule-item">
-                    <span>Martes 16 Nov</span>
-                    <span class="schedule-time">3:00 PM - Inglés Intermedio</span>
-                </div>
-                <div class="schedule-item">
-                    <span>Miércoles 17 Nov</span>
-                    <span class="schedule-time">11:00 AM - Programación Web</span>
-                </div>
-                <div class="schedule-item">
-                    <span>Jueves 18 Nov</span>
-                    <span class="schedule-time">4:00 PM - Física Cuántica</span>
-                </div>
-            </div>
-        </div>
-    </section>
+<div class="contact-card">
+<div class="contact-icon">
+<i class="fas fa-map-marker-alt"></i>
+</div>
+<h3>Oficina</h3>
+<p>Av. Educación 1234, Ciudad del Aprendizaje</p>
+<a href="https://maps.google.com" target="_blank" class="contact-link">
+<i class="fas fa-directions"></i> Cómo Llegar
+</a>
+</div>
+</div>
+</div>
+</section>
 
-    <!-- Testimonios -->
-    <section id="testimonials" class="section">
-        <div class="testimonials">
-            <h2>Lo que dicen nuestros estudiantes</h2>
-            <div class="testimonial-card">
-                <div class="testimonial-content">
-                    Las clases de matemáticas con la profesora Ana han cambiado completamente mi perspectiva de la materia. Sus métodos de enseñanza son innovadores y fáciles de entender.
-                </div>
-                <div class="testimonial-author">
-                    <img src="https://randomuser.me/api/portraits/women/33.jpg" alt="María González" class="author-avatar">
-                    <div class="author-info">
-                        <h4>María González</h4>
-                        <p>Estudiante de Matemáticas</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="testimonial-card">
-                <div class="testimonial-content">
-                    El curso de programación superó todas mis expectativas. En solo 3 meses pude crear mi primer sitio web funcional. ¡Totalmente recomendado!
-                </div>
-                <div class="testimonial-author">
-                    <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="Carlos Mendoza" class="author-avatar">
-                    <div class="author-info">
-                        <h4>Carlos Mendoza</h4>
-                        <p>Estudiante de Programación</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- Precios -->
+<section id="pricing" class="section">
+<h2>Precios y Horarios</h2>
+<div class="pricing-container">
+<div class="pricing-tabs">
+<div class="pricing-tab active" onclick="showPricing('monthly')">Mensual</div>
+<div class="pricing-tab" onclick="showPricing('quarterly')">Trimestral</div>
+<div class="pricing-tab" onclick="showPricing('yearly')">Anual</div>
+</div>
 
-    <!-- Footer -->
-    <footer>
-        <div class="footer-container">
-            <div class="footer-about">
-                <img src="https://i.postimg.cc/63d6XxfM/ponerle-fondo-blanco-removebg-preview.png" alt="SkyLearn Logo" class="footer-logo">
-                <p>SkyLearn Academy es una plataforma de educación en línea comprometida con la excelencia académica y el aprendizaje accesible para todos.</p>
-                <div class="social-links">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-youtube"></i></a>
-                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                </div>
-            </div>
+<table class="pricing-table">
+<thead>
+<tr>
+<th>Curso</th>
+<th>Precio</th>
+<th>Horario</th>
+<th>Duración</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Inglés para Niños</td>
+<td class="highlight">S/60/mes</td>
+<td>Lun - Mie - Vie | 9am - 10am</td>
+<td>12 semanas</td>
+</tr>
+<tr>
+<td>Inglés Basico</td>
+<td class="highlight">S/70/mes</td>
+<td>Lun - Mie - Vier | 3pm - 5pm</td>
+<td>8 semanas</td>
+</tr>
+<tr>
+<td>Inglés Intermedio</td>
+<td class="highlight">S/80/mes</td>
+<td>Mar - Jue - Sab | 4pm - 6pm</td>
+<td>16 semanas</td>
+</tr>
+<tr>
+<td>Inglès Intensivo</td>
+<td class="highlight">S/90/mes</td>
+<td>Mie - Vie | 10am - 12pm</td>
+<td>10 semanas</td>
+</tr>
+<tr>
+<td>Inglès para Docentes</td>
+<td class="highlight">S/120/mes</td>
+<td>Lun - Mie | 3pm - 4pm</td>
+<td>12 semanas</td>
+</tr>
+<tr>
+<td>Inglès de Negocios</td>
+<td class="highlight">S/120/mes</td>
+<td>Vie - Sab | 9pm - 10pm</td>
+<td>14 semanas</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
 
-            <div class="footer-links">
-                <h3>Enlaces Rápidos</h3>
-                <ul>
-                    <li><a href="#home"><i class="fas fa-chevron-right"></i> Inicio</a></li>
-                    <li><a href="#courses"><i class="fas fa-chevron-right"></i> Cursos</a></li>
-                    <li><a href="#pricing"><i class="fas fa-chevron-right"></i> Precios</a></li>
-                    <li><a href="#live"><i class="fas fa-chevron-right"></i> Clases en Vivo</a></li>
-                    <li><a href="#testimonials"><i class="fas fa-chevron-right"></i> Testimonios</a></li>
-                </ul>
-            </div>
+<!-- Clases en Vivo -->
+<section id="live" class="section">
+<div class="live-section">
+<h2>Clases en Vivo</h2>
+<p>Únete a nuestras clases interactivas en tiempo real con profesores certificados. Participa, haz preguntas y aprende en un entorno colaborativo.</p>
+<iframe src="https://www.youtube.com/embed/live_stream?channel=TU_ID_DEL_CANAL&autoplay=1" allowfullscreen></iframe>
 
-            <div class="footer-contact">
-                <h3>Contacto</h3>
-                <p><i class="fas fa-envelope"></i> info@skylearn.com</p>
-                <p><i class="fas fa-phone"></i> +123 456 7890</p>
-                <p><i class="fas fa-map-marker-alt"></i> Av. Educación 1234, Ciudad del Aprendizaje</p>
-                <p><i class="fas fa-clock"></i> Lunes a Viernes: 9:00 - 18:00</p>
-            </div>
-        </div>
+<div class="live-schedule">
+<h3>Próximas Clases</h3>
+<div class="schedule-item">
+<span>Lunes 15 Nov</span>
+<span class="schedule-time">10:00 AM - Inglés Básico</span>
+</div>
+<div class="schedule-item">
+<span>Martes 16 Nov</span>
+<span class="schedule-time">3:00 PM - Inglés Intermedio</span>
+</div>
+<div class="schedule-item">
+<span>Miércoles 17 Nov</span>
+<span class="schedule-time">11:00 AM - Inglés para Niños</span>
+</div>
+<div class="schedule-item">
+<span>Jueves 18 Nov</span>
+<span class="schedule-time">4:00 PM - Inglés Intensivo</span>
+</div>
+</div>
+</div>
 
-        <div class="copyright">
-            <p>&copy; 2023 SkyLearn Academy. Todos los derechos reservados. | <a href="#">Términos y Condiciones</a> | <a href="#">Política de Privacidad</a></p>
-        </div>
-    </footer>
+<!-- Calendar -->
+<div class="calendar-container">
+<div class="calendar-header">
+<h3 id="currentMonth">Noviembre 2023</h3>
+<div class="calendar-nav">
+<button id="prevMonth"><i class="fas fa-chevron-left"></i></button>
+<button id="nextMonth"><i class="fas fa-chevron-right"></i></button>
+</div>
+</div>
+<div class="calendar-grid" id="calendarGrid">
+<!-- Calendar will be generated by JavaScript -->
+</div>
+</div>
+</section>
 
-    <!-- Back to Top Button -->
-    <div class="back-to-top" id="backToTop">
-        <i class="fas fa-arrow-up"></i>
-    </div>
+<!-- Testimonios -->
+<section id="testimonials" class="section">
+<div class="testimonials">
+<h2>Lo que dicen nuestros estudiantes</h2>
+<div class="testimonial-slider">
+<div class="testimonial-track" id="testimonialTrack">
+<div class="testimonial-card">
+<div class="testimonial-content">
+Las clases de inglés con la profesora Ana han cambiado completamente mi perspectiva del idioma. Sus métodos de enseñanza son innovadores y fáciles de entender.
+</div>
+<div class="testimonial-author">
+<img src="https://randomuser.me/api/portraits/women/33.jpg" alt="María González" class="author-avatar">
+<div class="author-info">
+<h4>María González</h4>
+<p>Estudiante de Inglés Básico</p>
+</div>
+</div>
+</div>
 
-    <!-- Chatbot -->
-    <div class="chatbot-icon" onclick="toggleChat()">
-        <i class="fas fa-comment-dots"></i>
-    </div>
+<div class="testimonial-card">
+<div class="testimonial-content">
+El curso de inglés intermedio superó todas mis expectativas. En solo 3 meses pude mantener conversaciones fluidas. ¡Totalmente recomendado!
+</div>
+<div class="testimonial-author">
+<img src="https://randomuser.me/api/portraits/men/22.jpg" alt="Carlos Mendoza" class="author-avatar">
+<div class="author-info">
+<h4>Carlos Mendoza</h4>
+<p>Estudiante de Inglés Intermedio</p>
+</div>
+</div>
+</div>
 
-    <div class="chat-window" id="chatWindow">
-        <div class="chat-header">
-            <i class="fas fa-robot"></i>
-            <span>Asistente Virtual</span>
-        </div>
-        <div class="chat-messages" id="chatMessages">
-            <div class="bot-message">¡Hola! Soy el asistente virtual de SkyLearn. ¿En qué puedo ayudarte hoy?</div>
-        </div>
-        <div class="chat-input">
-            <select onchange="handleChatResponse(this.value)">
-                <option value="">Selecciona una pregunta...</option>
-                <option value="horario">¿Cuál es el horario de clases?</option>
-                <option value="costos">¿Cuánto cuestan los cursos?</option>
-                <option value="registro">¿Cómo me registro en un curso?</option>
-                <option value="metodos">¿Qué métodos de pago aceptan?</option>
-                <option value="certificado">¿Otorgan certificados al finalizar?</option>
-            </select>
-        </div>
-    </div>
+<div class="testimonial-card">
+<div class="testimonial-content">
+Las clases de inglés intensivo me prepararon perfectamente para mi examen. Los profesores son excelentes y el material muy completo.
+</div>
+<div class="testimonial-author">
+<img src="https://randomuser.me/api/portraits/women/45.jpg" alt="Laura Fernández" class="author-avatar">
+<div class="author-info">
+<h4>Laura Fernández</h4>
+<p>Estudiante de Inglés Intensivo</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="testimonial-controls">
+<button class="testimonial-btn" id="prevTestimonial"><i class="fas fa-chevron-left"></i></button>
+<button class="testimonial-btn" id="nextTestimonial"><i class="fas fa-chevron-right"></i></button>
+</div>
+<div class="testimonial-indicators" id="testimonialIndicators">
+<!-- Indicators will be generated by JavaScript -->
+</div>
+</div>
+</section>
 
-    <script>
-        // Mostrar contenido principal
-        function showMainContent() {
-            document.getElementById('loginScreen').style.opacity = 0;
-            setTimeout(() => {
-                document.getElementById('loginScreen').style.display = 'none';
-            }, 500);
-        }
+<!-- Footer -->
+<footer>
+<div class="footer-container">
+<div class="footer-about">
+<img src="https://i.postimg.cc/63d6XxfM/ponerle-fondo-blanco-removebg-preview.png" alt="SkyLearn Logo" class="footer-logo">
+<p>SkyLearn Academy es una plataforma de educación en línea especializada en enseñanza de inglés, comprometida con la excelencia académica y el aprendizaje accesible para todos.</p>
+<div class="social-links">
+<a href="#"><i class="fab fa-facebook-f"></i></a>
+<a href="#"><i class="fab fa-twitter"></i></a>
+<a href="#"><i class="fab fa-instagram"></i></a>
+<a href="#"><i class="fab fa-youtube"></i></a>
+<a href="#"><i class="fab fa-linkedin-in"></i></a>
+</div>
+</div>
 
-        // Mostrar sección activa con scroll suave
-        function showSection(sectionId) {
-            document.querySelectorAll('.section').forEach(section => {
-                section.classList.remove('active');
-            });
-            document.getElementById(sectionId).classList.add('active');
-            
-            // Actualizar enlace activo en el navbar
-            document.querySelectorAll('.nav-links a').forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === `#${sectionId}`) {
-                    link.classList.add('active');
-                }
-            });
+<div class="footer-links">
+<h3>Enlaces Rápidos</h3>
+<ul>
+<li><a href="#home"><i class="fas fa-chevron-right"></i> Inicio</a></li>
+<li><a href="#courses"><i class="fas fa-chevron-right"></i> Cursos</a></li>
+<li><a href="#pricing"><i class="fas fa-chevron-right"></i> Precios</a></li>
+<li><a href="#live"><i class="fas fa-chevron-right"></i> Clases en Vivo</a></li>
+<li><a href="#testimonials"><i class="fas fa-chevron-right"></i> Testimonios</a></li>
+</ul>
+</div>
 
-            // Scroll suave al cambiar de sección
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        }
+<div class="footer-contact">
+<h3>Contacto</h3>
+<p><i class="fas fa-envelope"></i> info@skylearn.com</p>
+<p><i class="fas fa-phone"></i> +123 456 7890</p>
+<p><i class="fas fa-map-marker-alt"></i> Av. Educación 1234, Ciudad del Aprendizaje</p>
+<p><i class="fas fa-clock"></i> Lunes a Viernes: 9:00 - 18:00</p>
+</div>
 
-        // Carrusel automático mejorado
-        let currentSlide = 0;
-        const slides = document.querySelectorAll('.slider-image');
-        const dots = document.querySelectorAll('.slider-dot');
+<div class="footer-newsletter">
+<h3>Boletín Informativo</h3>
+<p>Suscríbete para recibir nuestras últimas noticias y ofertas especiales.</p>
+<form class="footer-newsletter-form" onsubmit="subscribeNewsletter(event)">
+<input type="email" placeholder="Tu correo electrónico" required>
+<button type="submit">Suscribirse</button>
+</form>
+</div>
+</div>
 
-        function showSlide(index) {
-            slides.forEach(slide => slide.classList.remove('active'));
-            dots.forEach(dot => dot.classList.remove('active'));
-            
-            currentSlide = index;
-            slides[currentSlide].classList.add('active');
-            dots[currentSlide].classList.add('active');
-        }
+<div class="copyright">
+<p>&copy; 2023 SkyLearn Academy. Todos los derechos reservados. | <a href="#">Términos y Condiciones</a> | <a href="#">Política de Privacidad</a></p>
+</div>
+</footer>
 
-        function nextSlide() {
-            let newIndex = (currentSlide + 1) % slides.length;
-            showSlide(newIndex);
-        }
+<!-- Back to Top Button -->
+<div class="back-to-top" id="backToTop">
+<i class="fas fa-arrow-up"></i>
+</div>
 
-        function goToSlide(index) {
-            showSlide(index);
-        }
+<!-- WhatsApp Button -->
+<a href="https://wa.me/1234567890" class="whatsapp-btn" target="_blank">
+<i class="fab fa-whatsapp"></i>
+</a>
 
-        const slideInterval = setInterval(nextSlide, 5000);
+<!-- Chatbot -->
+<div class="chatbot-icon" onclick="toggleChat()">
+<i class="fas fa-comment-dots"></i>
+</div>
 
-        // Pausar carrusel al hacer hover
-        const slider = document.querySelector('.home-slider');
-        slider.addEventListener('mouseenter', () => clearInterval(slideInterval));
-        slider.addEventListener('mouseleave', () => {
-            clearInterval(slideInterval);
-            slideInterval = setInterval(nextSlide, 5000);
-        });
+<div class="chat-window" id="chatWindow">
+<div class="chat-header">
+<i class="fas fa-robot"></i>
+<span>Asistente Virtual</span>
+</div>
+<div class="chat-messages" id="chatMessages">
+<div class="bot-message">¡Hola! Soy el asistente virtual de SkyLearn. ¿En qué puedo ayudarte hoy?</div>
+</div>
+<div class="chat-suggestions">
+<div class="suggestion-chip" onclick="sendSuggestion('¿Cuál es el horario de clases?')">¿Cuál es el horario de clases?</div>
+<div class="suggestion-chip" onclick="sendSuggestion('¿Cuánto cuestan los cursos?')">¿Cuánto cuestan los cursos?</div>
+<div class="suggestion-chip" onclick="sendSuggestion('¿Cómo me registro en un curso?')">¿Cómo me registro en un curso?</div>
+<div class="suggestion-chip" onclick="sendSuggestion('¿Qué métodos de pago aceptan?')">¿Qué métodos de pago aceptan?</div>
+<div class="suggestion-chip" onclick="sendSuggestion('¿Hay clases de prueba?')">¿Hay clases de prueba?</div>
+</div>
+<div class="chat-input">
+<input type="text" id="chatInputField" placeholder="Escribe tu pregunta..." onkeypress="handleChatKeyPress(event)">
+<button onclick="sendChatMessage()"><i class="fas fa-paper-plane"></i></button>
+</div>
+</div>
 
-        // Comentarios temporales con mejor feedback
-        function addComment(e) {
-            e.preventDefault();
-            const commentInput = document.getElementById('commentInput');
-            const comment = commentInput.value.trim();
-            
-            if (comment === '') {
-                commentInput.style.borderColor = '#f72585';
-                setTimeout(() => {
-                    commentInput.style.borderColor = '#eee';
-                }, 2000);
-                return;
-            }
+<!-- Notification -->
+<div class="notification" id="notification">
+<div class="notification-icon">
+<i class="fas fa-check-circle"></i>
+</div>
+<div class="notification-content">
+<h4 id="notificationTitle">Título</h4>
+<p id="notificationMessage">Mensaje</p>
+</div>
+<button class="notification-close" onclick="closeNotification()">
+<i class="fas fa-times"></i>
+</button>
+</div>
 
-            const comments = JSON.parse(localStorage.getItem('comments') || '[]');
-            comments.push({ 
-                text: comment, 
-                time: Date.now(),
-                user: 'Usuario' + Math.floor(Math.random() * 1000)
-            });
-            localStorage.setItem('comments', JSON.stringify(comments));
-            displayComments();
-            e.target.reset();
-            
-            // Feedback visual
-            const submitBtn = e.target.querySelector('button');
-            submitBtn.innerHTML = '<i class="fas fa-check"></i> Enviado';
-            submitBtn.style.backgroundColor = '#4cc9f0';
-            setTimeout(() => {
-                submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Enviar';
-                submitBtn.style.backgroundColor = '#4361ee';
-            }, 2000);
-        }
+<script>
+// Loading bar simulation
+window.addEventListener('load', function() {
+const loadingProgress = document.getElementById('loadingProgress');
+let width = 0;
+const interval = setInterval(() => {
+width += 10;
+loadingProgress.style.width = width + '%';
+if (width >= 100) {
+clearInterval(interval);
+setTimeout(() => {
+document.querySelector('.loading-bar').style.display = 'none';
+}, 500);
+}
+}, 100);
+});
 
-        function displayComments() {
-            const container = document.getElementById('commentsContainer');
-            const comments = JSON.parse(localStorage.getItem('comments') || '[]');
-            const validComments = comments.filter(c => Date.now() - c.time < 86400000); // 24 horas
-            
-            container.innerHTML = validComments.map(c => `
-                <div class="comment">
-                    <div class="comment-header">
-                        <i class="fas fa-user-circle"></i>
-                        <span class="comment-user">${c.user}</span>
-                        <span class="comment-time">${formatTime(c.time)}</span>
-                    </div>
-                    <div class="comment-text">${c.text}</div>
-                </div>
-            `).join('');
-            
-            localStorage.setItem('comments', JSON.stringify(validComments));
-        }
+// Pre-registration form - Only name
+document.getElementById('preRegisterForm').addEventListener('submit', function(e) {
+e.preventDefault();
+const name = document.getElementById('preName').value;
 
-        function formatTime(timestamp) {
-            const date = new Date(timestamp);
-            return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-        }
+// Save to localStorage
+const preRegistrations = JSON.parse(localStorage.getItem('preRegistrations') || '[]');
+preRegistrations.push({ name, date: new Date().toISOString() });
+localStorage.setItem('preRegistrations', JSON.stringify(preRegistrations));
 
-        // Chatbot mejorado
-        function toggleChat() {
-            const chat = document.getElementById('chatWindow');
-            chat.style.display = chat.style.display === 'flex' ? 'none' : 'flex';
-            
-            if (chat.style.display === 'flex') {
-                const chatMessages = document.getElementById('chatMessages');
-                chatMessages.scrollTop = chatMessages.scrollHeight;
-            }
-        }
+// Show notification
+showNotification('success', 'Bienvenido', `Gracias ${name}, por visitar SkyLearn Academy.`);
 
-        function handleChatResponse(value) {
-            if (!value) return;
-            
-            const chatMessages = document.getElementById('chatMessages');
-            const answers = {
-                'horario': 'Nuestras clases son de Lunes a Viernes de 8am a 5pm, con horarios flexibles según el curso. Puedes ver los horarios específicos en la sección "Precios y Horarios".',
-                'costos': 'Los precios van desde $50/mes en plan básico hasta $100/mes para acceso completo a todos los cursos. Tenemos descuentos especiales para inscripciones trimestrales y anuales.',
-                'registro': 'Puedes registrarte usando el botón "Inscribirse" en cada curso o visitando nuestra sección de contacto para asistencia personalizada. El proceso toma menos de 5 minutos.',
-                'metodos': 'Aceptamos todas las tarjetas de crédito/débito, PayPal y transferencias bancarias. También ofrecemos planes de pago en cuotas.',
-                'certificado': 'Sí, al completar satisfactoriamente cualquier curso recibirás un certificado digital acreditado por nuestra institución que puedes compartir en LinkedIn.'
-            };
+// Hide pre-registration screen
+setTimeout(() => {
+document.getElementById('preRegisterScreen').style.opacity = 0;
+setTimeout(() => {
+document.getElementById('preRegisterScreen').style.display = 'none';
+}, 500);
+}, 2000);
+});
 
-            // Agregar pregunta del usuario
-            const questionDiv = document.createElement('div');
-            questionDiv.className = 'user-message';
-            questionDiv.innerHTML = `
-                <div class="message-content">
-                    ${document.querySelector(`option[value="${value}"]`).text}
-                </div>
-            `;
-            chatMessages.appendChild(questionDiv);
+// Show main content
+function showMainContent() {
+document.getElementById('loginScreen').style.opacity = 0;
+setTimeout(() => {
+document.getElementById('loginScreen').style.display = 'none';
+}, 500);
+}
 
-            // Agregar respuesta del bot
-            const answerDiv = document.createElement('div');
-            answerDiv.className = 'bot-message';
-            answerDiv.innerHTML = `
-                <div class="message-content">
-                    ${answers[value] || 'Lo siento, no entendí tu pregunta. Por favor selecciona una opción del menú.'}
-                </div>
-            `;
-            chatMessages.appendChild(answerDiv);
+// Show section active with scroll smooth
+function showSection(sectionId) {
+document.querySelectorAll('.section').forEach(section => {
+section.classList.remove('active');
+});
+document.getElementById(sectionId).classList.add('active');
 
-            // Scroll al final
-            chatMessages.scrollTop = chatMessages.scrollHeight;
+// Update active link in navbar
+document.querySelectorAll('.nav-links a').forEach(link => {
+link.classList.remove('active');
+if (link.getAttribute('href') === `#${sectionId}`) {
+link.classList.add('active');
+}
+});
 
-            // Resetear el selector
-            document.querySelector('.chat-input select').value = '';
-        }
+// Smooth scroll when changing section
+window.scrollTo({
+top: 0,
+behavior: 'smooth'
+});
+}
 
-        // Mostrar planes de precios
-        function showPricing(plan) {
-            const tabs = document.querySelectorAll('.pricing-tab');
-            tabs.forEach(tab => tab.classList.remove('active'));
-            event.target.classList.add('active');
-            
-            // Aquí puedes agregar lógica para cambiar los precios según el plan
-            // Por ahora solo es visual
-        }
+// Carousel automatic improved
+let currentSlide = 0;
+const slides = document.querySelectorAll('.slider-image');
+const dots = document.querySelectorAll('.slider-dot');
 
-        // Efecto de navbar al hacer scroll
-        window.addEventListener('scroll', function() {
-            const navbar = document.getElementById('navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-            
-            // Back to top button
-            const backToTop = document.getElementById('backToTop');
-            if (window.scrollY > 300) {
-                backToTop.classList.add('visible');
-            } else {
-                backToTop.classList.remove('visible');
-            }
-        });
+function showSlide(index) {
+slides.forEach(slide => slide.classList.remove('active'));
+dots.forEach(dot => dot.classList.remove('active'));
 
-        // Back to top button
-        document.getElementById('backToTop').addEventListener('click', function() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
+currentSlide = index;
+slides[currentSlide].classList.add('active');
+dots[currentSlide].classList.add('active');
+}
 
-        // Inicializar al cargar
-        document.addEventListener('DOMContentLoaded', function() {
-            displayComments();
-            showSlide(0);
-            
-            // Agregar tooltips a los botones de inscripción
-            document.querySelectorAll('.course-info button').forEach(button => {
-                button.addEventListener('mouseenter', function() {
-                    const tooltip = document.createElement('div');
-                    tooltip.className = 'tooltip';
-                    tooltip.textContent = 'Se abrirá el formulario de inscripción';
-                    this.appendChild(tooltip);
-                    
-                    setTimeout(() => {
-                        tooltip.style.opacity = '1';
-                        tooltip.style.visibility = 'visible';
-                    }, 10);
-                });
-                
-                button.addEventListener('mouseleave', function() {
-                    const tooltip = this.querySelector('.tooltip');
-                    if (tooltip) {
-                        tooltip.remove();
-                    }
-                });
-            });
-        });
-    </script>
+function nextSlide() {
+let newIndex = (currentSlide + 1) % slides.length;
+showSlide(newIndex);
+}
+
+function goToSlide(index) {
+showSlide(index);
+}
+
+const slideInterval = setInterval(nextSlide, 5000);
+
+// Pause carousel on hover
+const slider = document.querySelector('.home-slider');
+slider.addEventListener('mouseenter', () => clearInterval(slideInterval));
+slider.addEventListener('mouseleave', () => {
+clearInterval(slideInterval);
+slideInterval = setInterval(nextSlide, 5000);
+});
+
+// Stats counter animation
+function animateStats() {
+const statNumbers = document.querySelectorAll('.stat-number');
+statNumbers.forEach(stat => {
+const target = parseInt(stat.getAttribute('data-target'));
+let count = 0;
+const increment = target / 100;
+const updateCount = () => {
+count += increment;
+if (count < target) {
+stat.textContent = Math.ceil(count);
+setTimeout(updateCount, 20);
+} else {
+stat.textContent = target;
+}
+};
+updateCount();
+});
+}
+
+// Trigger stats animation when home section is visible
+const homeSection = document.getElementById('home');
+const observerOptions = {
+root: null,
+rootMargin: '0px',
+threshold: 0.5
+};
+
+const observer = new IntersectionObserver((entries) => {
+entries.forEach(entry => {
+if (entry.isIntersecting) {
+animateStats();
+observer.unobserve(entry.target);
+}
+});
+}, observerOptions);
+
+observer.observe(homeSection);
+
+// Comments temporary with better feedback
+function addComment(e) {
+e.preventDefault();
+const commentInput = document.getElementById('commentInput');
+const comment = commentInput.value.trim();
+
+if (comment === '') {
+commentInput.style.borderColor = '#f72585';
+setTimeout(() => {
+commentInput.style.borderColor = '#eee';
+}, 2000);
+return;
+}
+
+const comments = JSON.parse(localStorage.getItem('comments') || '[]');
+comments.push({
+text: comment,
+time: Date.now(),
+user: 'Usuario' + Math.floor(Math.random() * 1000)
+});
+localStorage.setItem('comments', JSON.stringify(comments));
+displayComments();
+e.target.reset();
+
+// Visual feedback
+const submitBtn = e.target.querySelector('button');
+submitBtn.innerHTML = '<i class="fas fa-check"></i> Enviado';
+submitBtn.style.backgroundColor = '#4cc9f0';
+setTimeout(() => {
+submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Enviar';
+submitBtn.style.backgroundColor = '#4361ee';
+}, 2000);
+
+// Show notification
+showNotification('success', 'Comentario Enviado', 'Gracias por tu comentario. Lo revisaremos pronto.');
+}
+
+function displayComments() {
+const container = document.getElementById('commentsContainer');
+const comments = JSON.parse(localStorage.getItem('comments') || '[]');
+const validComments = comments.filter(c => Date.now() - c.time < 86400000); // 24 hours
+
+container.innerHTML = validComments.map(c => `
+<div class="comment">
+<div class="comment-header">
+<i class="fas fa-user-circle"></i>
+<span class="comment-user">${c.user}</span>
+<span class="comment-time">${formatTime(c.time)}</span>
+</div>
+<div class="comment-text">${c.text}</div>
+</div>
+`).join('');
+
+localStorage.setItem('comments', JSON.stringify(validComments));
+}
+
+function formatTime(timestamp) {
+const date = new Date(timestamp);
+return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+}
+
+// Show pricing plans
+function showPricing(plan) {
+const tabs = document.querySelectorAll('.pricing-tab');
+tabs.forEach(tab => tab.classList.remove('active'));
+event.target.classList.add('active');
+
+// Here you can add logic to change prices according to plan
+// For now it's just visual
+}
+
+// Calendar
+let currentMonth = new Date();
+const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", 
+"Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+
+function renderCalendar() {
+const year = currentMonth.getFullYear();
+const month = currentMonth.getMonth();
+const firstDay = new Date(year, month, 1).getDay();
+const daysInMonth = new Date(year, month + 1, 0).getDate();
+const daysInPrevMonth = new Date(year, month, 0).getDate();
+
+document.getElementById('currentMonth').textContent = `${monthNames[month]} ${year}`;
+
+let html = '';
+// Weekday headers
+const weekdays = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
+weekdays.forEach(day => {
+html += `<div class="calendar-day weekday">${day}</div>`;
+});
+
+// Previous month days
+for (let i = firstDay - 1; i >= 0; i--) {
+html += `<div class="calendar-day other-month">${daysInPrevMonth - i}</div>`;
+}
+
+// Current month days
+const today = new Date();
+for (let i = 1; i <= daysInMonth; i++) {
+const isToday = year === today.getFullYear() && month === today.getMonth() && i === today.getDate();
+const hasClass = Math.random() > 0.7; // Random classes for demo
+html += `<div class="calendar-day ${isToday ? 'today' : ''} ${hasClass ? 'has-class' : ''}">${i}`;
+if (hasClass) {
+html += `<div class="class-event">Clase ${Math.floor(Math.random() * 4) + 9}:00</div>`;
+}
+html += `</div>`;
+}
+
+// Next month days
+const totalCells = document.querySelectorAll('.calendar-day.weekday').length + firstDay + daysInMonth;
+const nextMonthDays = 42 - totalCells; // 6 rows x 7 days
+for (let i = 1; i <= nextMonthDays; i++) {
+html += `<div class="calendar-day other-month">${i}</div>`;
+}
+
+document.getElementById('calendarGrid').innerHTML = html;
+}
+
+document.getElementById('prevMonth').addEventListener('click', () => {
+currentMonth.setMonth(currentMonth.getMonth() - 1);
+renderCalendar();
+});
+
+document.getElementById('nextMonth').addEventListener('click', () => {
+currentMonth.setMonth(currentMonth.getMonth() + 1);
+renderCalendar();
+});
+
+// Initialize calendar
+renderCalendar();
+
+// Testimonial slider
+let currentTestimonial = 0;
+const testimonials = document.querySelectorAll('.testimonial-card');
+const totalTestimonials = testimonials.length;
+
+function showTestimonial(index) {
+const track = document.getElementById('testimonialTrack');
+track.style.transform = `translateX(-${index * 100}%)`;
+
+// Update indicators
+const indicators = document.querySelectorAll('.testimonial-indicator');
+indicators.forEach((indicator, i) => {
+indicator.classList.toggle('active', i === index);
+});
+}
+
+function nextTestimonial() {
+currentTestimonial = (currentTestimonial + 1) % totalTestimonials;
+showTestimonial(currentTestimonial);
+}
+
+function prevTestimonial() {
+currentTestimonial = (currentTestimonial - 1 + totalTestimonials) % totalTestimonials;
+showTestimonial(currentTestimonial);
+}
+
+// Create indicators
+const indicatorsContainer = document.getElementById('testimonialIndicators');
+for (let i = 0; i < totalTestimonials; i++) {
+const indicator = document.createElement('div');
+indicator.className = 'testimonial-indicator';
+if (i === 0) indicator.classList.add('active');
+indicator.addEventListener('click', () => {
+currentTestimonial = i;
+showTestimonial(i);
+});
+indicatorsContainer.appendChild(indicator);
+}
+
+document.getElementById('nextTestimonial').addEventListener('click', nextTestimonial);
+document.getElementById('prevTestimonial').addEventListener('click', prevTestimonial);
+
+// Auto-rotate testimonials
+const testimonialInterval = setInterval(nextTestimonial, 5000);
+
+// Pause on hover
+const testimonialSlider = document.querySelector('.testimonial-slider');
+testimonialSlider.addEventListener('mouseenter', () => clearInterval(testimonialInterval));
+testimonialSlider.addEventListener('mouseleave', () => {
+clearInterval(testimonialInterval);
+setInterval(nextTestimonial, 5000);
+});
+
+// Newsletter subscription
+function subscribeNewsletter(e) {
+e.preventDefault();
+const email = e.target.querySelector('input[type="email"]').value;
+const subscriptions = JSON.parse(localStorage.getItem('newsletterSubscriptions') || '[]');
+subscriptions.push({ email, date: new Date().toISOString() });
+localStorage.setItem('newsletterSubscriptions', JSON.stringify(subscriptions));
+e.target.reset();
+showNotification('success', 'Suscripción Exitosa', 'Gracias por suscribirte a nuestro boletín.');
+}
+
+// Chatbot improved
+function toggleChat() {
+const chat = document.getElementById('chatWindow');
+chat.style.display = chat.style.display === 'flex' ? 'none' : 'flex';
+
+if (chat.style.display === 'flex') {
+const chatMessages = document.getElementById('chatMessages');
+chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+}
+
+function handleChatKeyPress(event) {
+if (event.key === 'Enter') {
+sendChatMessage();
+}
+}
+
+function sendChatMessage() {
+const input = document.getElementById('chatInputField');
+const message = input.value.trim();
+
+if (message === '') return;
+
+// Add user message
+const chatMessages = document.getElementById('chatMessages');
+const userMessageDiv = document.createElement('div');
+userMessageDiv.className = 'user-message';
+userMessageDiv.innerHTML = `<div class="message-content">${message}</div>`;
+chatMessages.appendChild(userMessageDiv);
+
+// Generate bot response
+const botResponse = generateChatResponse(message);
+const botMessageDiv = document.createElement('div');
+botMessageDiv.className = 'bot-message';
+botMessageDiv.innerHTML = `<div class="message-content">${botResponse}</div>`;
+chatMessages.appendChild(botMessageDiv);
+
+// Scroll to bottom
+chatMessages.scrollTop = chatMessages.scrollHeight;
+
+// Clear input
+input.value = '';
+}
+
+function sendSuggestion(suggestion) {
+document.getElementById('chatInputField').value = suggestion;
+sendChatMessage();
+}
+
+function generateChatResponse(message) {
+const lowerMessage = message.toLowerCase();
+    
+// Check for keywords and return appropriate responses
+if (lowerMessage.includes('horario') || lowerMessage.includes('clases')) {
+    return 'Nuestras clases son de Lunes a Viernes de 8am a 5pm, con horarios flexibles según el curso. Puedes ver los horarios específicos en la sección "Precios y Horarios".';
+} else if (lowerMessage.includes('precio') || lowerMessage.includes('costo')) {
+    return 'Los precios van desde S/60/mes para Inglés para Niños hasta S/120/mes para cursos especializados. Tenemos descuentos especiales para inscripciones trimestrales y anuales.';
+} else if (lowerMessage.includes('registro') || lowerMessage.includes('inscribir')) {
+    return 'Puedes registrarte usando el botón "Inscribirse" en cada curso. El proceso toma menos de 5 minutos y recibirás un correo de confirmación.';
+} else if (lowerMessage.includes('pago') || lowerMessage.includes('tarjeta')) {
+    return 'Aceptamos todas las tarjetas de crédito/débito, PayPal y transferencias bancarias. También ofrecemos planes de pago en cuotas sin intereses.';
+} else if (lowerMessage.includes('profesor') || lowerMessage.includes('maestro')) {
+    return 'Todos nuestros profesores son hablantes nativos de inglés con experiencia en enseñanza de idiomas.';
+} else if (lowerMessage.includes('niño') || lowerMessage.includes('niños')) {
+    return 'Nuestro curso de inglés para niños está diseñado para edades entre 6 y 12 años, con métodos interactivos y divertidos.';
+} else if (lowerMessage.includes('negocio') || lowerMessage.includes('empresa')) {
+    return 'El curso de inglés de negocios se enfoca en vocabulario empresarial, presentaciones efectivas y comunicación profesional.';
+} else if (lowerMessage.includes('prueba') || lowerMessage.includes('demo')) {
+    return 'Sí, ofrecemos una clase de prueba gratuita para todos nuestros cursos. Puedes solicitarla a través de nuestro formulario de contacto.';
+} else {
+    return 'Gracias por tu pregunta. Nuestro equipo de atención al cliente te responderá pronto. También puedes llamarnos al +123 456 7890 de lunes a viernes de 9am a 5pm.';
+}
+}
+
+// Notification system
+function showNotification(type, title, message) {
+const notification = document.getElementById('notification');
+const icon = notification.querySelector('.notification-icon i');
+const titleEl = document.getElementById('notificationTitle');
+const messageEl = document.getElementById('notificationMessage');
+
+// Set notification type
+notification.className = 'notification ' + type;
+if (type === 'success') {
+icon.className = 'fas fa-check-circle';
+} else if (type === 'error') {
+icon.className = 'fas fa-exclamation-circle';
+} else if (type === 'warning') {
+icon.className = 'fas fa-exclamation-triangle';
+}
+
+// Set content
+titleEl.textContent = title;
+messageEl.textContent = message;
+
+// Show notification
+notification.classList.add('show');
+
+// Auto hide after 5 seconds
+setTimeout(() => {
+closeNotification();
+}, 5000);
+}
+
+function closeNotification() {
+document.getElementById('notification').classList.remove('show');
+}
+
+// Navbar effect on scroll
+window.addEventListener('scroll', function() {
+const navbar = document.getElementById('navbar');
+if (window.scrollY > 50) {
+navbar.classList.add('scrolled');
+} else {
+navbar.classList.remove('scrolled');
+}
+
+// Back to top button
+const backToTop = document.getElementById('backToTop');
+if (window.scrollY > 300) {
+backToTop.classList.add('visible');
+} else {
+backToTop.classList.remove('visible');
+}
+});
+
+// Back to top button
+document.getElementById('backToTop').addEventListener('click', function() {
+window.scrollTo({
+top: 0,
+behavior: 'smooth'
+});
+});
+
+// Initialize on load
+document.addEventListener('DOMContentLoaded', function() {
+displayComments();
+showSlide(0);
+
+// Add tooltips to enrollment buttons
+document.querySelectorAll('.course-info button').forEach(button => {
+button.addEventListener('mouseenter', function() {
+const tooltip = document.createElement('div');
+tooltip.className = 'tooltip';
+tooltip.textContent = 'Se abrirá el formulario de inscripción';
+this.appendChild(tooltip);
+
+setTimeout(() => {
+tooltip.style.opacity = '1';
+tooltip.style.visibility = 'visible';
+}, 10);
+});
+
+button.addEventListener('mouseleave', function() {
+const tooltip = this.querySelector('.tooltip');
+if (tooltip) {
+tooltip.remove();
+}
+});
+});
+});
+</script>
 </body>
 </html>
