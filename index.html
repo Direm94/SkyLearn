@@ -35,14 +35,14 @@ line-height: 1.6;
 overflow-x: hidden;
 }
 
-/* Pre-registration Screen */
+/* Pre-registration Screen - Updated Colors */
 .pre-register-screen {
 position: fixed;
 top: 0;
 left: 0;
 width: 100%;
 height: 100%;
-background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+background: linear-gradient(135deg, #f8f9fa, #e9ecef);
 display: flex;
 flex-direction: column;
 justify-content: center;
@@ -55,10 +55,11 @@ transition: opacity 0.8s, visibility 0.8s;
 background: white;
 padding: 3rem;
 border-radius: 20px;
-box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
 width: 90%;
 max-width: 400px;
 text-align: center;
+border: 1px solid #e9ecef;
 }
 
 .pre-register-container h2 {
@@ -87,7 +88,7 @@ color: var(--dark-color);
 .form-group input {
 width: 100%;
 padding: 1rem;
-border: 2px solid #eee;
+border: 2px solid #e9ecef;
 border-radius: 10px;
 font-size: 1rem;
 transition: var(--transition);
@@ -124,7 +125,7 @@ top: 0;
 left: 0;
 width: 100%;
 height: 100%;
-background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+background: linear-gradient(135deg, #f8f9fa, #e9ecef);
 display: flex;
 flex-direction: column;
 justify-content: center;
@@ -141,16 +142,18 @@ text-align: center;
 
 .logo-spin {
 width: 200px;
-filter: drop-shadow(0 8px 15px rgba(0, 0, 0, 0.2));
+filter: drop-shadow(0 8px 15px rgba(0, 0, 0, 0.1));
 transition: var(--transition);
+background: white;
+padding: 10px;
+border-radius: 50%;
 }
 
 .login-screen h1 {
 font-size: 3rem;
-color: white;
+color: var(--primary-color);
 margin-bottom: 2.5rem;
 text-align: center;
-text-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 font-weight: 700;
 letter-spacing: 1px;
 }
@@ -158,21 +161,21 @@ letter-spacing: 1px;
 .login-screen button {
 padding: 1.2rem 3rem;
 font-size: 1.2rem;
-background: white;
-color: var(--primary-color);
+background: linear-gradient(to right, var(--primary-color), var(--primary-dark));
+color: white;
 border: none;
 border-radius: 50px;
 cursor: pointer;
 transition: var(--transition);
 font-weight: 600;
-box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+box-shadow: 0 10px 25px rgba(67, 97, 238, 0.3);
 position: relative;
 overflow: hidden;
 }
 
 .login-screen button:hover {
 transform: translateY(-5px);
-box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+box-shadow: 0 15px 30px rgba(67, 97, 238, 0.4);
 }
 
 .login-screen button::after {
@@ -854,9 +857,9 @@ transform: translateY(-3px);
 box-shadow: 0 8px 20px rgba(67, 97, 238, 0.3);
 }
 
-/* Live Classes Section */
+/* Live Classes Section - Updated Layout */
 .live-section {
-max-width: 1000px;
+max-width: 1200px;
 margin: 3rem auto;
 background: white;
 padding: 3rem;
@@ -874,12 +877,115 @@ margin-left: auto;
 margin-right: auto;
 }
 
-.live-section iframe {
+.live-container {
+display: flex;
+gap: 2rem;
+margin-bottom: 3rem;
+}
+
+.live-video {
+flex: 2;
+border-radius: 15px;
+overflow: hidden;
+box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.live-video iframe {
 width: 100%;
 height: 500px;
 border: none;
-border-radius: 10px;
+}
+
+.live-chat {
+flex: 1;
+display: flex;
+flex-direction: column;
+border-radius: 15px;
+overflow: hidden;
 box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.chat-header {
+padding: 1rem;
+background: linear-gradient(to right, var(--primary-color), var(--primary-dark));
+color: white;
+font-weight: 600;
+}
+
+.chat-messages {
+flex: 1;
+padding: 1rem;
+overflow-y: auto;
+background: #f9f9f9;
+height: 400px;
+display: flex;
+flex-direction: column;
+gap: 0.8rem;
+}
+
+.chat-message {
+max-width: 80%;
+padding: 0.8rem 1rem;
+border-radius: 15px;
+font-size: 0.9rem;
+}
+
+.user-message {
+align-self: flex-end;
+background: var(--primary-color);
+color: white;
+border-bottom-right-radius: 5px;
+}
+
+.other-message {
+align-self: flex-start;
+background: white;
+color: var(--dark-color);
+border-bottom-left-radius: 5px;
+box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.chat-input {
+padding: 1rem;
+background: white;
+border-top: 1px solid #eee;
+display: flex;
+gap: 0.8rem;
+}
+
+.chat-input input {
+flex: 1;
+padding: 0.8rem;
+border: 2px solid #eee;
+border-radius: 50px;
+font-size: 0.9rem;
+transition: var(--transition);
+}
+
+.chat-input input:focus {
+outline: none;
+border-color: var(--primary-color);
+box-shadow: 0 0 0 4px rgba(67, 97, 238, 0.2);
+}
+
+.chat-input button {
+background: var(--primary-color);
+color: white;
+border: none;
+width: 40px;
+height: 40px;
+border-radius: 50%;
+cursor: pointer;
+transition: var(--transition);
+display: flex;
+align-items: center;
+justify-content: center;
+box-shadow: 0 4px 10px rgba(67, 97, 238, 0.3);
+}
+
+.chat-input button:hover {
+background: var(--primary-dark);
+transform: scale(1.05);
 }
 
 .live-schedule {
@@ -1590,6 +1696,18 @@ grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 .home-slider {
 height: 50vh;
 }
+
+.live-container {
+flex-direction: column;
+}
+
+.live-video {
+width: 100%;
+}
+
+.live-chat {
+width: 100%;
+}
 }
 
 @media (max-width: 768px) {
@@ -1692,7 +1810,7 @@ max-width: none;
 <div class="loading-progress" id="loadingProgress"></div>
 </div>
 
-<!-- Pre-registration Screen -->
+<!-- Pre-registration Screen - Updated Colors -->
 <div class="pre-register-screen" id="preRegisterScreen">
 <div class="pre-register-container">
 <img src="https://i.postimg.cc/63d6XxfM/ponerle-fondo-blanco-removebg-preview.png" alt="Logo SkyLearn" class="logo-spin">
@@ -1899,7 +2017,7 @@ max-width: none;
 <ul>
 <li>Conversación fluida en situaciones reales</li>
 <li>Vocabulario intermedio y expresiones idiomáticas</li>
-li>Gramática avanzada</li>
+<li>Gramática avanzada</li>
 <li>Comprensión de textos complejos</li>
 <li>Debates y discusiones grupales</li>
 </ul>
@@ -2132,12 +2250,38 @@ li>Gramática avanzada</li>
 </div>
 </section>
 
-<!-- Clases en Vivo -->
+<!-- Clases en Vivo - Updated Layout -->
 <section id="live" class="section">
 <div class="live-section">
 <h2>Clases en Vivo</h2>
 <p>Únete a nuestras clases interactivas en tiempo real con profesores certificados. Participa, haz preguntas y aprende en un entorno colaborativo.</p>
+
+<div class="live-container">
+<div class="live-video">
 <iframe src="https://www.youtube.com/embed/live_stream?channel=TU_ID_DEL_CANAL&autoplay=1" allowfullscreen></iframe>
+</div>
+
+<div class="live-chat">
+<div class="chat-header">
+<i class="fas fa-comments"></i> Chat en Vivo
+</div>
+<div class="chat-messages" id="liveChatMessages">
+<div class="chat-message other-message">
+¡Bienvenidos a la clase de hoy! Vamos a practicar conversación.
+</div>
+<div class="chat-message user-message">
+¡Hola! Tengo una pregunta sobre la pronunciación.
+</div>
+<div class="chat-message other-message">
+Claro, ¿cuál es tu duda? Estoy aquí para ayudarte.
+</div>
+</div>
+<div class="chat-input">
+<input type="text" id="liveChatInput" placeholder="Escribe tu mensaje..." onkeypress="handleLiveChatKeyPress(event)">
+<button onclick="sendLiveChatMessage()"><i class="fas fa-paper-plane"></i></button>
+</div>
+</div>
+</div>
 
 <div class="live-schedule">
 <h3>Próximas Clases</h3>
@@ -2540,6 +2684,47 @@ event.target.classList.add('active');
 
 // Here you can add logic to change prices according to plan
 // For now it's just visual
+}
+
+// Live chat functionality
+function handleLiveChatKeyPress(event) {
+if (event.key === 'Enter') {
+sendLiveChatMessage();
+}
+}
+
+function sendLiveChatMessage() {
+const input = document.getElementById('liveChatInput');
+const message = input.value.trim();
+
+if (message === '') return;
+
+// Add user message
+const chatMessages = document.getElementById('liveChatMessages');
+const userMessageDiv = document.createElement('div');
+userMessageDiv.className = 'chat-message user-message';
+userMessageDiv.textContent = message;
+chatMessages.appendChild(userMessageDiv);
+
+// Simulate response after a delay
+setTimeout(() => {
+const responses = [
+"¡Buena pregunta! Vamos a ver eso en detalle.",
+"Gracias por tu participación. ¿Alguien más tiene una pregunta?",
+"Excelente punto. ¿Qué opinan los demás?",
+"Vamos a practicar eso con un ejemplo.",
+"¿Puedes repetir la pregunta por favor?"
+];
+const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+const botMessageDiv = document.createElement('div');
+botMessageDiv.className = 'chat-message other-message';
+botMessageDiv.textContent = randomResponse;
+chatMessages.appendChild(botMessageDiv);
+}, 2000);
+
+// Clear input and scroll to bottom
+input.value = '';
+chatMessages.scrollTop = chatMessages.scrollHeight;
 }
 
 // Calendar
