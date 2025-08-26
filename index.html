@@ -85,22 +85,31 @@ font-weight: 500;
 color: var(--dark-color);
 }
 
-.form-group input {
+.form-group input,
+.form-group textarea {
 width: 100%;
 padding: 1rem;
 border: 2px solid #e9ecef;
 border-radius: 10px;
 font-size: 1rem;
 transition: var(--transition);
+font-family: 'Poppins', sans-serif;
 }
 
-.form-group input:focus {
+.form-group input:focus,
+.form-group textarea:focus {
 outline: none;
 border-color: var(--primary-color);
 box-shadow: 0 0 0 4px rgba(67, 97, 238, 0.2);
 }
 
-.pre-register-btn {
+.form-group textarea {
+resize: vertical;
+min-height: 100px;
+}
+
+.pre-register-btn,
+.admin-btn {
 background: linear-gradient(to right, var(--primary-color), var(--primary-dark));
 color: white;
 border: none;
@@ -114,7 +123,8 @@ font-size: 1.1rem;
 box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
 }
 
-.pre-register-btn:hover {
+.pre-register-btn:hover,
+.admin-btn:hover {
 transform: translateY(-3px);
 box-shadow: 0 8px 25px rgba(67, 97, 238, 0.4);
 }
@@ -288,6 +298,11 @@ color: var(--primary-color);
 
 .nav-links a.active::after {
 width: 100%;
+}
+
+.admin-link {
+display: none;
+color: var(--accent-color);
 }
 
 /* Main Content */
@@ -1253,6 +1268,171 @@ transition: var(--transition);
 background: var(--primary-color);
 }
 
+/* Admin Panel Styles */
+.admin-panel {
+max-width: 1200px;
+margin: 3rem auto;
+background: white;
+padding: 3rem;
+border-radius: 15px;
+box-shadow: var(--shadow);
+}
+
+.admin-tabs {
+display: flex;
+flex-wrap: wrap;
+gap: 1rem;
+margin-bottom: 2rem;
+border-bottom: 1px solid #eee;
+}
+
+.admin-tab {
+padding: 1rem 1.5rem;
+background: none;
+border: none;
+border-bottom: 3px solid transparent;
+cursor: pointer;
+transition: var(--transition);
+font-weight: 600;
+color: var(--gray-color);
+}
+
+.admin-tab.active {
+color: var(--primary-color);
+border-bottom-color: var(--primary-color);
+}
+
+.admin-tab:hover {
+color: var(--primary-color);
+}
+
+.admin-content {
+display: none;
+}
+
+.admin-content.active {
+display: block;
+}
+
+.admin-form {
+max-width: 800px;
+}
+
+.admin-form h3 {
+margin-bottom: 1.5rem;
+color: var(--dark-color);
+}
+
+.form-row {
+display: flex;
+gap: 1.5rem;
+margin-bottom: 1.5rem;
+}
+
+.form-actions {
+display: flex;
+gap: 1rem;
+margin-top: 2rem;
+}
+
+.btn-primary {
+background: var(--primary-color);
+color: white;
+border: none;
+padding: 0.8rem 1.5rem;
+border-radius: 8px;
+cursor: pointer;
+transition: var(--transition);
+font-weight: 600;
+}
+
+.btn-primary:hover {
+background: var(--primary-dark);
+}
+
+.btn-secondary {
+background: var(--gray-color);
+color: white;
+border: none;
+padding: 0.8rem 1.5rem;
+border-radius: 8px;
+cursor: pointer;
+transition: var(--transition);
+font-weight: 600;
+}
+
+.btn-secondary:hover {
+background: #6c757d;
+}
+
+.admin-list {
+margin-top: 2rem;
+}
+
+.admin-item {
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 1rem;
+background: var(--light-color);
+border-radius: 10px;
+margin-bottom: 1rem;
+}
+
+.admin-item-actions {
+display: flex;
+gap: 0.5rem;
+}
+
+.btn-small {
+padding: 0.5rem 1rem;
+font-size: 0.9rem;
+}
+
+/* Login Modal */
+.login-modal {
+display: none;
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: rgba(0, 0, 0, 0.7);
+z-index: 3000;
+justify-content: center;
+align-items: center;
+}
+
+.login-modal-content {
+background: white;
+padding: 2.5rem;
+border-radius: 15px;
+max-width: 400px;
+width: 90%;
+box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+position: relative;
+animation: modalFadeIn 0.3s ease;
+}
+
+@keyframes modalFadeIn {
+from { opacity: 0; transform: translateY(-50px); }
+to { opacity: 1; transform: translateY(0); }
+}
+
+.login-modal-close {
+position: absolute;
+top: 15px;
+right: 15px;
+font-size: 1.5rem;
+color: var(--gray-color);
+cursor: pointer;
+transition: var(--transition);
+}
+
+.login-modal-close:hover {
+color: var(--accent-color);
+}
+
 /* Chatbot */
 .chatbot-icon {
 position: fixed;
@@ -1572,6 +1752,18 @@ color: var(--gray-color);
 font-size: 0.9rem;
 }
 
+.admin-link-footer {
+color: var(--gray-color);
+font-size: 0.8rem;
+margin-top: 1rem;
+cursor: pointer;
+transition: var(--transition);
+}
+
+.admin-link-footer:hover {
+color: var(--primary-color);
+}
+
 /* Back to Top Button */
 .back-to-top {
 position: fixed;
@@ -1745,6 +1937,10 @@ right: 5%;
 bottom: 20px;
 left: 20px;
 }
+
+.form-row {
+flex-direction: column;
+}
 }
 
 @media (max-width: 576px) {
@@ -1845,6 +2041,7 @@ max-width: none;
 <a href="#contact" onclick="showSection('contact')">Contacto</a>
 <a href="#pricing" onclick="showSection('pricing')">Precios</a>
 <a href="#live" onclick="showSection('live')">Clases en Vivo</a>
+<a href="#admin" onclick="showSection('admin')" class="admin-link" style="display: none;">Admin Panel</a>
 </div>
 </div>
 </nav>
@@ -1889,7 +2086,7 @@ max-width: none;
 <div class="news-icon">
 <i class="fas fa-bullhorn"></i>
 </div>
-<p>¡¡OBTÉN UN 30% DE DESCUENTO AL INSCRIBIRTE AHORA!! Válido hasta el 30 de noviembre.</p>
+<p id="newsText">¡¡OBTÉN UN 30% DE DESCUENTO AL INSCRIBIRTE AHORA!! Válido hasta el 30 de noviembre.</p>
 </div>
 </div>
 
@@ -1908,243 +2105,8 @@ max-width: none;
 <!-- Cursos -->
 <section id="courses" class="section">
 <h2>Cursos de Inglés Disponibles</h2>
-<div class="courses-grid">
-<!-- English for Kids -->
-<div class="course-card">
-<div class="card-inner">
-<div class="card-front">
-<div class="course-img-container">
-<img src="https://via.placeholder.com/400x300/3a86ff/ffffff?text=English+for+Kids" alt="English for Kids" class="course-img">
-<div class="course-badge">Popular</div>
-</div>
-<div class="course-info">
-<h3>Inglès para Niños</h3>
-<div class="course-teacher">
-<img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Prof. Ana Martínez" class="teacher-avatar">
-<span class="teacher-name">Prof. Ana Martínez</span>
-</div>
-<div class="course-meta">
-<span><i class="far fa-clock"></i> 12 semanas</span>
-<span><i class="fas fa-users"></i> 120 estudiantes</span>
-</div>
-<div class="course-price">S60/mes</div>
-<button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?embedded=true', '_blank')">
-<i class="fas fa-sign-in-alt"></i> Inscribirse
-</button>
-</div>
-</div>
-<div class="card-back">
-<h3>Detalles del Curso</h3>
-<ul>
-<li>Clases interactivas para niños de 6-12 años</li>
-<li>Material didáctico incluido</li>
-<li>Actividades lúdicas y educativas</li>
-<li>Enfoque en conversación básica</li>
-<li>Grupos reducidos de 8-10 estudiantes</li>
-</ul>
-<button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?embedded=true', '_blank')">
-<i class="fas fa-sign-in-alt"></i> Inscribirse
-</button>
-</div>
-</div>
-</div>
-
-<!-- Basic English -->
-<div class="course-card">
-<div class="card-inner">
-<div class="card-front">
-<div class="course-img-container">
-<img src="https://via.placeholder.com/400x300/4361ee/ffffff?text=Basic+English" alt="Basic English" class="course-img">
-</div>
-<div class="course-info">
-<h3>Inglés Basico</h3>
-<div class="course-teacher">
-<img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Prof. Luis Ramírez" class="teacher-avatar">
-<span class="teacher-name">Prof. Yessica Ramírez</span>
-</div>
-<div class="course-meta">
-<span><i class="far fa-clock"></i> 8 semanas</span>
-<span><i class="fas fa-users"></i> 85 estudiantes</span>
-</div>
-<div class="course-price">S/70/mes</div>
-<button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?embedded=true', '_blank')">
-<i class="fas fa-sign-in-alt"></i> Inscribirse
-</button>
-</div>
-</div>
-<div class="card-back">
-<h3>Detalles del Curso</h3>
-<ul>
-<li>Vocabulario básico y expresiones cotidianas</li>
-<li>Gramática fundamental</li>
-<li>Comprensión auditiva y lectura</li>
-<li>Práctica de pronunciación</li>
-<li>Ejercicios interactivos</li>
-</ul>
-<button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?embedded=true', '_blank')">
-<i class="fas fa-sign-in-alt"></i> Inscribirse
-</button>
-</div>
-</div>
-</div>
-
-<!-- Intermediate English -->
-<div class="course-card">
-<div class="card-inner">
-<div class="card-front">
-<div class="course-img-container">
-<img src="https://via.placeholder.com/400x300/7209b7/ffffff?text=Intermediate+English" alt="Intermediate English" class="course-img">
-<div class="course-badge">Nuevo</div>
-</div>
-<div class="course-info">
-<h3>Inglès Intermedio</h3>
-<div class="course-teacher">
-<img src="https://randomuser.me/api/portraits/men/67.jpg" alt="Prof. Carlos Domínguez" class="teacher-avatar">
-<span class="teacher-name">Prof. Graciela Muñoz</span>
-</div>
-<div class="course-meta">
-<span><i class="far fa-clock"></i> 16 semanas</span>
-<span><i class="fas fa-users"></i> 210 estudiantes</span>
-</div>
-<div class="course-price">S/70/mes</div>
-<button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?embedded=true', '_blank')">
-<i class="fas fa-sign-in-alt"></i> Inscribirse
-</button>
-</div>
-</div>
-<div class="card-back">
-<h3>Detalles del Curso</h3>
-<ul>
-<li>Conversación fluida en situaciones reales</li>
-<li>Vocabulario intermedio y expresiones idiomáticas</li>
-<li>Gramática avanzada</li>
-<li>Comprensión de textos complejos</li>
-<li>Debates y discusiones grupales</li>
-</ul>
-<button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?embedded=true', '_blank')">
-<i class="fas fa-sign-in-alt"></i> Inscribirse
-</button>
-</div>
-</div>
-</div>
-
-<!-- Intensive English -->
-<div class="course-card">
-<div class="card-inner">
-<div class="card-front">
-<div class="course-img-container">
-<img src="https://via.placeholder.com/400x300/f72585/ffffff?text=Intensive+English" alt="Intensive English" class="course-img">
-</div>
-<div class="course-info">
-<h3>Inglès Intensivo</h3>
-<div class="course-teacher">
-<img src="https://randomuser.me/api/portraits/women/63.jpg" alt="Prof. Laura Gómez" class="teacher-avatar">
-<span class="teacher-name">Prof. Cesar Advincula</span>
-</div>
-<div class="course-meta">
-<span><i class="far fa-clock"></i> 10 semanas</span>
-<span><i class="fas fa-users"></i> 75 estudiantes</span>
-</div>
-<div class="course-price">S/90/mes</div>
-<button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?embedded=true', '_blank')">
-<i class="fas fa-sign-in-alt"></i> Inscribirse
-</button>
-</div>
-</div>
-<div class="card-back">
-<h3>Detalles del Curso</h3>
-<ul>
-<li>Clases diarias de 2 horas</li>
-<li>Inmersión total en el idioma</li>
-<li>Práctica intensiva de conversación</li>
-<li>Simulaciones de situaciones reales</li>
-<li>Tareas y proyectos prácticos</li>
-</ul>
-<button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?embedded=true', '_blank')">
-<i class="fas fa-sign-in-alt"></i> Inscribirse
-</button>
-</div>
-</div>
-</div>
-
-<!-- English for Teachers -->
-<div class="course-card">
-<div class="card-inner">
-<div class="card-front">
-<div class="course-img-container">
-<img src="https://via.placeholder.com/400x300/4cc9f0/ffffff?text=English+for+Teachers" alt="English for Teachers" class="course-img">
-</div>
-<div class="course-info">
-<h3>Inglès Para Docentes</h3>
-<div class="course-teacher">
-<img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Prof. Miguel Torres" class="teacher-avatar">
-<span class="teacher-name">Prof. Diego Torres</span>
-</div>
-<div class="course-meta">
-<span><i class="far fa-clock"></i> 14 semanas</span>
-<span><i class="fas fa-users"></i> 92 estudiantes</span>
-</div>
-<div class="course-price">S/120/mes</div>
-<button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?embedded=true', '_blank')">
-<i class="fas fa-sign-in-alt"></i> Inscribirse
-</button>
-</div>
-</div>
-<div class="card-back">
-<h3>Detalles del Curso</h3>
-<ul>
-<li>Vocabulario educativo especializado</li>
-<li>Técnicas de enseñanza en inglés</li>
-<li>Preparación de materiales didácticos</li>
-<li>Evaluación de estudiantes</li>
-<li>Comunicación efectiva en el aula</li>
-</ul>
-<button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?embedded=true', '_blank')">
-<i class="fas fa-sign-in-alt"></i> Inscribirse
-</button>
-</div>
-</div>
-</div>
-
-<!-- Business English -->
-<div class="course-card">
-<div class="card-inner">
-<div class="card-front">
-<div class="course-img-container">
-<img src="https://via.placeholder.com/400x300/4895ef/ffffff?text=Business+English" alt="Business English" class="course-img">
-<div class="course-badge">Próximamente</div>
-</div>
-<div class="course-info">
-<h3>Inglès de Negocios</h3>
-<div class="course-teacher">
-<img src="https://randomuser.me/api/portraits/women/28.jpg" alt="Prof. Diana López" class="teacher-avatar">
-<span class="teacher-name">Prof. Cesar Advincula</span>
-</div>
-<div class="course-meta">
-<span><i class="far fa-clock"></i> 12 semanas</span>
-<span><i class="fas fa-users"></i> 45 estudiantes</span>
-</div>
-<div class="course-price">S/120/mes</div>
-<button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?embedded=true', '_blank')">
-<i class="fas fa-sign-in-alt"></i> Inscribirse
-</button>
-</div>
-</div>
-<div class="card-back">
-<h3>Detalles del Curso</h3>
-<ul>
-<li>Vocabulario empresarial y financiero</li>
-<li>Redacción de correos y documentos</li>
-<li>Presentaciones efectivas</li>
-<li>Negociaciones en inglés</li>
-<li>Comunicación en reuniones</li>
-</ul>
-<button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?embedded=true', '_blank')">
-<i class="fas fa-sign-in-alt"></i> Inscribirse
-</button>
-</div>
-</div>
-</div>
+<div class="courses-grid" id="coursesGrid">
+<!-- Courses will be dynamically loaded here -->
 </div>
 </section>
 
@@ -2158,7 +2120,7 @@ max-width: none;
 <i class="fas fa-envelope"></i>
 </div>
 <h3>Email</h3>
-<p>Envíanos tus consultas y te responderemos en menos de 24 horas</p>
+<p id="contactEmail">Envíanos tus consultas y te responderemos en menos de 24 horas</p>
 <a href="mailto:info@skylearn.com" class="contact-link">
 <i class="fas fa-paper-plane"></i> Enviar Email
 </a>
@@ -2169,7 +2131,7 @@ max-width: none;
 <i class="fas fa-phone-alt"></i>
 </div>
 <h3>Teléfono</h3>
-<p>Disponibles de lunes a viernes de 9:00 a 18:00 horas</p>
+<p id="contactPhone">Disponibles de lunes a viernes de 9:00 a 18:00 horas</p>
 <a href="tel:+51 929601732" class="contact-link">
 <i class="fas fa-phone"></i> Llamar Ahora
 </a>
@@ -2180,7 +2142,7 @@ max-width: none;
 <i class="fas fa-map-marker-alt"></i>
 </div>
 <h3>Oficina</h3>
-<p>Av. Educación 1234, Ciudad del Aprendizaje</p>
+<p id="contactAddress">Av. Educación 1234, Ciudad del Aprendizaje</p>
 <a href="https://maps.google.com" target="_blank" class="contact-link">
 <i class="fas fa-directions"></i> Cómo Llegar
 </a>
@@ -2208,43 +2170,8 @@ max-width: none;
 <th>Duración</th>
 </tr>
 </thead>
-<tbody>
-<tr>
-<td>Inglés para Niños</td>
-<td class="highlight">S/60/mes</td>
-<td>Lun - Mie - Vie | 9am - 10am</td>
-<td>12 semanas</td>
-</tr>
-<tr>
-<td>Inglés Basico</td>
-<td class="highlight">S/70/mes</td>
-<td>Lun - Mie - Vier | 3pm - 5pm</td>
-<td>8 semanas</td>
-</tr>
-<tr>
-<td>Inglés Intermedio</td>
-<td class="highlight">S/80/mes</td>
-<td>Mar - Jue - Sab | 4pm - 6pm</td>
-<td>16 semanas</td>
-</tr>
-<tr>
-<td>Inglès Intensivo</td>
-<td class="highlight">S/90/mes</td>
-<td>Mie - Vie | 10am - 12pm</td>
-<td>10 semanas</td>
-</tr>
-<tr>
-<td>Inglès para Docentes</td>
-<td class="highlight">S/120/mes</td>
-<td>Lun - Mie | 3pm - 4pm</td>
-<td>12 semanas</td>
-</tr>
-<tr>
-<td>Inglès de Negocios</td>
-<td class="highlight">S/120/mes</td>
-<td>Vie - Sab | 9pm - 10pm</td>
-<td>14 semanas</td>
-</tr>
+<tbody id="pricingTableBody">
+<!-- Pricing data will be dynamically loaded here -->
 </tbody>
 </table>
 </div>
@@ -2315,6 +2242,108 @@ Claro, ¿cuál es tu duda? Estoy aquí para ayudarte.
 </div>
 <div class="calendar-grid" id="calendarGrid">
 <!-- Calendar will be generated by JavaScript -->
+</div>
+</div>
+</section>
+
+<!-- Admin Panel -->
+<section id="admin" class="section">
+<div class="admin-panel">
+<h2>Panel de Administración</h2>
+<div class="admin-tabs">
+<button class="admin-tab active" onclick="showAdminTab('news')">Noticias</button>
+<button class="admin-tab" onclick="showAdminTab('courses')">Cursos</button>
+<button class="admin-tab" onclick="showAdminTab('pricing')">Precios</button>
+<button class="admin-tab" onclick="showAdminTab('contact')">Contacto</button>
+<button class="admin-tab" onclick="showAdminTab('banners')">Banners</button>
+</div>
+
+<!-- News Admin -->
+<div id="admin-news" class="admin-content active">
+<form class="admin-form" onsubmit="updateNews(event)">
+<h3>Actualizar Noticias</h3>
+<div class="form-group">
+<label for="newsInput">Texto de la Noticia</label>
+<textarea id="newsInput" required>¡¡OBTÉN UN 30% DE DESCUENTO AL INSCRIBIRTE AHORA!! Válido hasta el 30 de noviembre.</textarea>
+</div>
+<div class="form-actions">
+<button type="submit" class="btn-primary">Actualizar</button>
+<button type="button" class="btn-secondary" onclick="resetForm('news')">Cancelar</button>
+</div>
+</form>
+</div>
+
+<!-- Courses Admin -->
+<div id="admin-courses" class="admin-content">
+<form class="admin-form" onsubmit="updateCourses(event)">
+<h3>Administrar Cursos</h3>
+<div class="admin-list" id="coursesList">
+<!-- Courses will be listed here -->
+</div>
+<div class="form-actions">
+<button type="button" class="btn-primary" onclick="addNewCourse()">Agregar Nuevo Curso</button>
+</div>
+</form>
+</div>
+
+<!-- Pricing Admin -->
+<div id="admin-pricing" class="admin-content">
+<form class="admin-form" onsubmit="updatePricing(event)">
+<h3>Actualizar Precios</h3>
+<div id="pricingFormContainer">
+<!-- Pricing form will be generated here -->
+</div>
+<div class="form-actions">
+<button type="submit" class="btn-primary">Actualizar</button>
+<button type="button" class="btn-secondary" onclick="resetForm('pricing')">Cancelar</button>
+</div>
+</form>
+</div>
+
+<!-- Contact Admin -->
+<div id="admin-contact" class="admin-content">
+<form class="admin-form" onsubmit="updateContact(event)">
+<h3>Actualizar Información de Contacto</h3>
+<div class="form-group">
+<label for="contactEmailInput">Email</label>
+<input type="text" id="contactEmailInput" value="Envíanos tus consultas y te responderemos en menos de 24 horas">
+</div>
+<div class="form-group">
+<label for="contactPhoneInput">Teléfono</label>
+<input type="text" id="contactPhoneInput" value="Disponibles de lunes a viernes de 9:00 a 18:00 horas">
+</div>
+<div class="form-group">
+<label for="contactAddressInput">Dirección</label>
+<input type="text" id="contactAddressInput" value="Av. Educación 1234, Ciudad del Aprendizaje">
+</div>
+<div class="form-actions">
+<button type="submit" class="btn-primary">Actualizar</button>
+<button type="button" class="btn-secondary" onclick="resetForm('contact')">Cancelar</button>
+</div>
+</form>
+</div>
+
+<!-- Banners Admin -->
+<div id="admin-banners" class="admin-content">
+<form class="admin-form" onsubmit="updateBanners(event)">
+<h3>Actualizar Banners</h3>
+<div class="form-group">
+<label for="banner1Input">Banner 1 URL</label>
+<input type="text" id="banner1Input" value="https://via.placeholder.com/1200x500/3498db/ffffff?text=Learn+English+with+Us">
+</div>
+<div class="form-group">
+<label for="banner2Input">Banner 2 URL</label>
+<input type="text" id="banner2Input" value="https://via.placeholder.com/1200x500/2ecc71/ffffff?text=Native+Teachers">
+</div>
+<div class="form-group">
+<label for="banner3Input">Banner 3 URL</label>
+<input type="text" id="banner3Input" value="https://via.placeholder.com/1200x500/e74c3c/ffffff?text=Interactive+Classes">
+</div>
+<div class="form-actions">
+<button type="submit" class="btn-primary">Actualizar</button>
+<button type="button" class="btn-secondary" onclick="resetForm('banners')">Cancelar</button>
+</div>
+</form>
 </div>
 </div>
 </section>
@@ -2416,6 +2445,7 @@ Las clases de inglés intensivo me prepararon perfectamente para mi examen. Los 
 <input type="email" placeholder="Tu correo electrónico" required>
 <button type="submit">Suscribirse</button>
 </form>
+<div class="admin-link-footer" onclick="showLoginModal()">Acceso Administrador</div>
 </div>
 </div>
 
@@ -2460,6 +2490,25 @@ Las clases de inglés intensivo me prepararon perfectamente para mi examen. Los 
 </div>
 </div>
 
+<!-- Login Modal -->
+<div class="login-modal" id="loginModal">
+<div class="login-modal-content">
+<span class="login-modal-close" onclick="closeLoginModal()">&times;</span>
+<h2>Acceso Administrador</h2>
+<form id="adminLoginForm" onsubmit="adminLogin(event)">
+<div class="form-group">
+<label for="adminEmail">Email</label>
+<input type="email" id="adminEmail" required>
+</div>
+<div class="form-group">
+<label for="adminPassword">Contraseña</label>
+<input type="password" id="adminPassword" required>
+</div>
+<button type="submit" class="admin-btn">Iniciar Sesión</button>
+</form>
+</div>
+</div>
+
 <!-- Notification -->
 <div class="notification" id="notification">
 <div class="notification-icon">
@@ -2475,8 +2524,186 @@ Las clases de inglés intensivo me prepararon perfectamente para mi examen. Los 
 </div>
 
 <script>
+// Initialize data
+let websiteData = {
+news: "¡¡OBTÉN UN 30% DE DESCUENTO AL INSCRIBIRTE AHORA!! Válido hasta el 30 de noviembre.",
+courses: [
+{
+id: 1,
+title: "Inglès para Niños",
+teacher: "Prof. Ana Martínez",
+teacherAvatar: "https://randomuser.me/api/portraits/women/44.jpg",
+duration: "12 semanas",
+students: "120 estudiantes",
+price: "S60/mes",
+image: "https://via.placeholder.com/400x300/3a86ff/ffffff?text=English+for+Kids",
+badge: "Popular",
+details: [
+"Clases interactivas para niños de 6-12 años",
+"Material didáctico incluido",
+"Actividades lúdicas y educativas",
+"Enfoque en conversación básica",
+"Grupos reducidos de 8-10 estudiantes"
+]
+},
+{
+id: 2,
+title: "Inglés Basico",
+teacher: "Prof. Yessica Ramírez",
+teacherAvatar: "https://randomuser.me/api/portraits/men/32.jpg",
+duration: "8 semanas",
+students: "85 estudiantes",
+price: "S/70/mes",
+image: "https://via.placeholder.com/400x300/4361ee/ffffff?text=Basic+English",
+badge: "",
+details: [
+"Vocabulario básico y expresiones cotidianas",
+"Gramática fundamental",
+"Comprensión auditiva y lectura",
+"Práctica de pronunciación",
+"Ejercicios interactivos"
+]
+},
+{
+id: 3,
+title: "Inglès Intermedio",
+teacher: "Prof. Graciela Muñoz",
+teacherAvatar: "https://randomuser.me/api/portraits/men/67.jpg",
+duration: "16 semanas",
+students: "210 estudiantes",
+price: "S/70/mes",
+image: "https://via.placeholder.com/400x300/7209b7/ffffff?text=Intermediate+English",
+badge: "Nuevo",
+details: [
+"Conversación fluida en situaciones reales",
+"Vocabulario intermedio y expresiones idiomáticas",
+"Gramática avanzada",
+"Comprensión de textos complejos",
+"Debates y discusiones grupales"
+]
+},
+{
+id: 4,
+title: "Inglès Intensivo",
+teacher: "Prof. Cesar Advincula",
+teacherAvatar: "https://randomuser.me/api/portraits/women/63.jpg",
+duration: "10 semanas",
+students: "75 estudiantes",
+price: "S/90/mes",
+image: "https://via.placeholder.com/400x300/f72585/ffffff?text=Intensive+English",
+badge: "",
+details: [
+"Clases diarias de 2 horas",
+"Inmersión total en el idioma",
+"Práctica intensiva de conversación",
+"Simulaciones de situaciones reales",
+"Tareas y proyectos prácticos"
+]
+},
+{
+id: 5,
+title: "Inglès Para Docentes",
+teacher: "Prof. Diego Torres",
+teacherAvatar: "https://randomuser.me/api/portraits/men/45.jpg",
+duration: "14 semanas",
+students: "92 estudiantes",
+price: "S/120/mes",
+image: "https://via.placeholder.com/400x300/4cc9f0/ffffff?text=English+for+Teachers",
+badge: "",
+details: [
+"Vocabulario educativo especializado",
+"Técnicas de enseñanza en inglés",
+"Preparación de materiales didácticos",
+"Evaluación de estudiantes",
+"Comunicación efectiva en el aula"
+]
+},
+{
+id: 6,
+title: "Inglès de Negocios",
+teacher: "Prof. Cesar Advincula",
+teacherAvatar: "https://randomuser.me/api/portraits/women/28.jpg",
+duration: "12 semanas",
+students: "45 estudiantes",
+price: "S/120/mes",
+image: "https://via.placeholder.com/400x300/4895ef/ffffff?text=Business+English",
+badge: "Próximamente",
+details: [
+"Vocabulario empresarial y financiero",
+"Redacción de correos y documentos",
+"Presentaciones efectivas",
+"Negociaciones en inglés",
+"Comunicación en reuniones"
+]
+}
+],
+pricing: [
+{
+course: "Inglés para Niños",
+price: "S/60/mes",
+schedule: "Lun - Mie - Vie | 9am - 10am",
+duration: "12 semanas"
+},
+{
+course: "Inglés Basico",
+price: "S/70/mes",
+schedule: "Lun - Mie - Vier | 3pm - 5pm",
+duration: "8 semanas"
+},
+{
+course: "Inglés Intermedio",
+price: "S/80/mes",
+schedule: "Mar - Jue - Sab | 4pm - 6pm",
+duration: "16 semanas"
+},
+{
+course: "Inglès Intensivo",
+price: "S/90/mes",
+schedule: "Mie - Vie | 10am - 12pm",
+duration: "10 semanas"
+},
+{
+course: "Inglès para Docentes",
+price: "S/120/mes",
+schedule: "Lun - Mie | 3pm - 4pm",
+duration: "12 semanas"
+},
+{
+course: "Inglès de Negocios",
+price: "S/120/mes",
+schedule: "Vie - Sab | 9pm - 10pm",
+duration: "14 semanas"
+}
+],
+contact: {
+email: "Envíanos tus consultas y te responderemos en menos de 24 horas",
+phone: "Disponibles de lunes a viernes de 9:00 a 18:00 horas",
+address: "Av. Educación 1234, Ciudad del Aprendizaje"
+},
+banners: [
+"https://via.placeholder.com/1200x500/3498db/ffffff?text=Learn+English+with+Us",
+"https://via.placeholder.com/1200x500/2ecc71/ffffff?text=Native+Teachers",
+"https://via.placeholder.com/1200x500/e74c3c/ffffff?text=Interactive+Classes"
+]
+};
+
+// Load data from localStorage if available
+function loadData() {
+const savedData = localStorage.getItem('skylearnData');
+if (savedData) {
+websiteData = JSON.parse(savedData);
+}
+}
+
+// Save data to localStorage
+function saveData() {
+localStorage.setItem('skylearnData', JSON.stringify(websiteData));
+}
+
 // Loading bar simulation
 window.addEventListener('load', function() {
+loadData();
+renderAllContent();
 const loadingProgress = document.getElementById('loadingProgress');
 let width = 0;
 const interval = setInterval(() => {
@@ -2541,6 +2768,148 @@ window.scrollTo({
 top: 0,
 behavior: 'smooth'
 });
+}
+
+// Render all content based on websiteData
+function renderAllContent() {
+// Render news
+document.getElementById('newsText').textContent = websiteData.news;
+document.getElementById('newsInput').value = websiteData.news;
+
+// Render courses
+renderCourses();
+renderCoursesAdmin();
+
+// Render pricing
+renderPricing();
+renderPricingAdmin();
+
+// Render contact
+document.getElementById('contactEmail').textContent = websiteData.contact.email;
+document.getElementById('contactPhone').textContent = websiteData.contact.phone;
+document.getElementById('contactAddress').textContent = websiteData.contact.address;
+
+document.getElementById('contactEmailInput').value = websiteData.contact.email;
+document.getElementById('contactPhoneInput').value = websiteData.contact.phone;
+document.getElementById('contactAddressInput').value = websiteData.contact.address;
+
+// Render banners
+renderBanners();
+renderBannersAdmin();
+}
+
+// Render courses
+function renderCourses() {
+const coursesGrid = document.getElementById('coursesGrid');
+coursesGrid.innerHTML = websiteData.courses.map(course => `
+<div class="course-card">
+<div class="card-inner">
+<div class="card-front">
+<div class="course-img-container">
+<img src="${course.image}" alt="${course.title}" class="course-img">
+${course.badge ? `<div class="course-badge">${course.badge}</div>` : ''}
+</div>
+<div class="course-info">
+<h3>${course.title}</h3>
+<div class="course-teacher">
+<img src="${course.teacherAvatar}" alt="${course.teacher}" class="teacher-avatar">
+<span class="teacher-name">${course.teacher}</span>
+</div>
+<div class="course-meta">
+<span><i class="far fa-clock"></i> ${course.duration}</span>
+<span><i class="fas fa-users"></i> ${course.students}</span>
+</div>
+<div class="course-price">${course.price}</div>
+<button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?embedded=true', '_blank')">
+<i class="fas fa-sign-in-alt"></i> Inscribirse
+</button>
+</div>
+</div>
+<div class="card-back">
+<h3>Detalles del Curso</h3>
+<ul>
+${course.details.map(detail => `<li>${detail}</li>`).join('')}
+</ul>
+<button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?embedded=true', '_blank')">
+<i class="fas fa-sign-in-alt"></i> Inscribirse
+</button>
+</div>
+</div>
+</div>
+`).join('');
+}
+
+// Render courses admin
+function renderCoursesAdmin() {
+const coursesList = document.getElementById('coursesList');
+coursesList.innerHTML = websiteData.courses.map(course => `
+<div class="admin-item">
+<div>
+<strong>${course.title}</strong> - ${course.teacher}
+</div>
+<div class="admin-item-actions">
+<button class="btn-primary btn-small" onclick="editCourse(${course.id})">Editar</button>
+<button class="btn-secondary btn-small" onclick="deleteCourse(${course.id})">Eliminar</button>
+</div>
+</div>
+`).join('');
+}
+
+// Render pricing
+function renderPricing() {
+const pricingTableBody = document.getElementById('pricingTableBody');
+pricingTableBody.innerHTML = websiteData.pricing.map(item => `
+<tr>
+<td>${item.course}</td>
+<td class="highlight">${item.price}</td>
+<td>${item.schedule}</td>
+<td>${item.duration}</td>
+</tr>
+`).join('');
+}
+
+// Render pricing admin
+function renderPricingAdmin() {
+const pricingFormContainer = document.getElementById('pricingFormContainer');
+pricingFormContainer.innerHTML = websiteData.pricing.map((item, index) => `
+<div class="form-row">
+<div class="form-group">
+<label>Curso</label>
+<input type="text" value="${item.course}" data-index="${index}" data-field="course">
+</div>
+<div class="form-group">
+<label>Precio</label>
+<input type="text" value="${item.price}" data-index="${index}" data-field="price">
+</div>
+</div>
+<div class="form-row">
+<div class="form-group">
+<label>Horario</label>
+<input type="text" value="${item.schedule}" data-index="${index}" data-field="schedule">
+</div>
+<div class="form-group">
+<label>Duración</label>
+<input type="text" value="${item.duration}" data-index="${index}" data-field="duration">
+</div>
+</div>
+`).join('');
+}
+
+// Render banners
+function renderBanners() {
+const slides = document.querySelectorAll('.slider-image');
+slides.forEach((slide, index) => {
+if (websiteData.banners[index]) {
+slide.src = websiteData.banners[index];
+}
+});
+}
+
+// Render banners admin
+function renderBannersAdmin() {
+document.getElementById('banner1Input').value = websiteData.banners[0];
+document.getElementById('banner2Input').value = websiteData.banners[1];
+document.getElementById('banner3Input').value = websiteData.banners[2];
 }
 
 // Carousel automatic improved
@@ -2852,6 +3221,168 @@ e.target.reset();
 showNotification('success', 'Suscripción Exitosa', 'Gracias por suscribirte a nuestro boletín.');
 }
 
+// Admin Panel Functions
+function showLoginModal() {
+document.getElementById('loginModal').style.display = 'flex';
+}
+
+function closeLoginModal() {
+document.getElementById('loginModal').style.display = 'none';
+document.getElementById('adminLoginForm').reset();
+}
+
+function adminLogin(e) {
+e.preventDefault();
+const email = document.getElementById('adminEmail').value;
+const password = document.getElementById('adminPassword').value;
+
+// Check credentials
+if ((email === 'program@skylearn.com' && password === 'dev123') || 
+(email === 'admin@skylearn.com' && password === 'admin123')) {
+// Save login state
+sessionStorage.setItem('isAdminLoggedIn', 'true');
+sessionStorage.setItem('adminEmail', email);
+
+// Show admin link
+document.querySelector('.admin-link').style.display = 'block';
+
+// Close modal
+closeLoginModal();
+
+// Go to admin panel
+showSection('admin');
+
+showNotification('success', 'Inicio de Sesión Exitoso', 'Bienvenido al panel de administración.');
+} else {
+showNotification('error', 'Error de Autenticación', 'Email o contraseña incorrectos.');
+}
+}
+
+// Check if admin is logged in
+function checkAdminLogin() {
+const isLoggedIn = sessionStorage.getItem('isAdminLoggedIn');
+if (isLoggedIn === 'true') {
+document.querySelector('.admin-link').style.display = 'block';
+}
+}
+
+// Admin logout
+function adminLogout() {
+sessionStorage.removeItem('isAdminLoggedIn');
+sessionStorage.removeItem('adminEmail');
+document.querySelector('.admin-link').style.display = 'none';
+showSection('home');
+showNotification('success', 'Sesión Cerrada', 'Has cerrado sesión correctamente.');
+}
+
+// Show admin tab
+function showAdminTab(tabName) {
+// Hide all admin contents
+document.querySelectorAll('.admin-content').forEach(content => {
+content.classList.remove('active');
+});
+
+// Remove active class from all tabs
+document.querySelectorAll('.admin-tab').forEach(tab => {
+tab.classList.remove('active');
+});
+
+// Show selected content
+document.getElementById(`admin-${tabName}`).classList.add('active');
+
+// Add active class to clicked tab
+event.target.classList.add('active');
+}
+
+// Update news
+function updateNews(e) {
+e.preventDefault();
+const newsText = document.getElementById('newsInput').value;
+websiteData.news = newsText;
+saveData();
+renderAllContent();
+showNotification('success', 'Noticias Actualizadas', 'Las noticias han sido actualizadas correctamente.');
+}
+
+// Course management
+function editCourse(id) {
+const course = websiteData.courses.find(c => c.id === id);
+if (course) {
+// In a real application, this would open a modal with a form to edit the course
+alert(`Editar curso: ${course.title}\n\nEsta funcionalidad se implementaría con un modal de edición.`);
+}
+}
+
+function deleteCourse(id) {
+if (confirm('¿Estás seguro de que quieres eliminar este curso?')) {
+websiteData.courses = websiteData.courses.filter(c => c.id !== id);
+saveData();
+renderAllContent();
+showNotification('success', 'Curso Eliminado', 'El curso ha sido eliminado correctamente.');
+}
+}
+
+function addNewCourse() {
+// In a real application, this would open a modal with a form to add a new course
+alert('Esta funcionalidad abriría un formulario para agregar un nuevo curso.');
+}
+
+// Update pricing
+function updatePricing(e) {
+e.preventDefault();
+const pricingInputs = document.querySelectorAll('#pricingFormContainer input');
+pricingInputs.forEach(input => {
+const index = parseInt(input.dataset.index);
+const field = input.dataset.field;
+websiteData.pricing[index][field] = input.value;
+});
+saveData();
+renderAllContent();
+showNotification('success', 'Precios Actualizados', 'Los precios han sido actualizados correctamente.');
+}
+
+// Update contact
+function updateContact(e) {
+e.preventDefault();
+websiteData.contact.email = document.getElementById('contactEmailInput').value;
+websiteData.contact.phone = document.getElementById('contactPhoneInput').value;
+websiteData.contact.address = document.getElementById('contactAddressInput').value;
+saveData();
+renderAllContent();
+showNotification('success', 'Contacto Actualizado', 'La información de contacto ha sido actualizada correctamente.');
+}
+
+// Update banners
+function updateBanners(e) {
+e.preventDefault();
+websiteData.banners[0] = document.getElementById('banner1Input').value;
+websiteData.banners[1] = document.getElementById('banner2Input').value;
+websiteData.banners[2] = document.getElementById('banner3Input').value;
+saveData();
+renderAllContent();
+showNotification('success', 'Banners Actualizados', 'Los banners han sido actualizados correctamente.');
+}
+
+// Reset form
+function resetForm(formType) {
+switch(formType) {
+case 'news':
+document.getElementById('newsInput').value = websiteData.news;
+break;
+case 'pricing':
+renderPricingAdmin();
+break;
+case 'contact':
+document.getElementById('contactEmailInput').value = websiteData.contact.email;
+document.getElementById('contactPhoneInput').value = websiteData.contact.phone;
+document.getElementById('contactAddressInput').value = websiteData.contact.address;
+break;
+case 'banners':
+renderBannersAdmin();
+break;
+}
+}
+
 // Chatbot improved
 function toggleChat() {
 const chat = document.getElementById('chatWindow');
@@ -2988,6 +3519,7 @@ behavior: 'smooth'
 
 // Initialize on load
 document.addEventListener('DOMContentLoaded', function() {
+checkAdminLogin();
 displayComments();
 showSlide(0);
 
