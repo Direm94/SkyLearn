@@ -86,7 +86,8 @@ color: var(--dark-color);
 }
 
 .form-group input,
-.form-group textarea {
+.form-group textarea,
+.form-group select {
 width: 100%;
 padding: 1rem;
 border: 2px solid #e9ecef;
@@ -97,7 +98,8 @@ font-family: 'Poppins', sans-serif;
 }
 
 .form-group input:focus,
-.form-group textarea:focus {
+.form-group textarea:focus,
+.form-group select:focus {
 outline: none;
 border-color: var(--primary-color);
 box-shadow: 0 0 0 4px rgba(67, 97, 238, 0.2);
@@ -1389,6 +1391,58 @@ padding: 0.5rem 1rem;
 font-size: 0.9rem;
 }
 
+/* Modal Styles */
+.modal {
+display: none;
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: rgba(0, 0, 0, 0.7);
+z-index: 3000;
+justify-content: center;
+align-items: center;
+}
+
+.modal-content {
+background: white;
+padding: 2.5rem;
+border-radius: 15px;
+max-width: 600px;
+width: 90%;
+box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+position: relative;
+animation: modalFadeIn 0.3s ease;
+}
+
+@keyframes modalFadeIn {
+from { opacity: 0; transform: translateY(-50px); }
+to { opacity: 1; transform: translateY(0); }
+}
+
+.modal-close {
+position: absolute;
+top: 15px;
+right: 15px;
+font-size: 1.5rem;
+color: var(--gray-color);
+cursor: pointer;
+transition: var(--transition);
+}
+
+.modal-close:hover {
+color: var(--accent-color);
+}
+
+.modal-header {
+margin-bottom: 1.5rem;
+}
+
+.modal-header h3 {
+color: var(--primary-color);
+}
+
 /* Login Modal */
 .login-modal {
 display: none;
@@ -2256,6 +2310,7 @@ Claro, ¿cuál es tu duda? Estoy aquí para ayudarte.
 <button class="admin-tab" onclick="showAdminTab('pricing')">Precios</button>
 <button class="admin-tab" onclick="showAdminTab('contact')">Contacto</button>
 <button class="admin-tab" onclick="showAdminTab('banners')">Banners</button>
+<button class="admin-tab" onclick="showAdminTab('comments')">Comentarios</button>
 </div>
 
 <!-- News Admin -->
@@ -2275,7 +2330,7 @@ Claro, ¿cuál es tu duda? Estoy aquí para ayudarte.
 
 <!-- Courses Admin -->
 <div id="admin-courses" class="admin-content">
-<form class="admin-form" onsubmit="updateCourses(event)">
+<form class="admin-form">
 <h3>Administrar Cursos</h3>
 <div class="admin-list" id="coursesList">
 <!-- Courses will be listed here -->
@@ -2342,6 +2397,19 @@ Claro, ¿cuál es tu duda? Estoy aquí para ayudarte.
 <div class="form-actions">
 <button type="submit" class="btn-primary">Actualizar</button>
 <button type="button" class="btn-secondary" onclick="resetForm('banners')">Cancelar</button>
+</div>
+</form>
+</div>
+
+<!-- Comments Admin -->
+<div id="admin-comments" class="admin-content">
+<form class="admin-form">
+<h3>Administrar Comentarios</h3>
+<div class="admin-list" id="commentsList">
+<!-- Comments will be listed here -->
+</div>
+<div class="form-actions">
+<button type="button" class="btn-primary" onclick="refreshComments()">Actualizar Lista</button>
 </div>
 </form>
 </div>
@@ -2487,6 +2555,59 @@ Las clases de inglés intensivo me prepararon perfectamente para mi examen. Los 
 <div class="chat-input">
 <input type="text" id="chatInputField" placeholder="Escribe tu pregunta..." onkeypress="handleChatKeyPress(event)">
 <button onclick="sendChatMessage()"><i class="fas fa-paper-plane"></i></button>
+</div>
+</div>
+
+<!-- Course Modal -->
+<div class="modal" id="courseModal">
+<div class="modal-content">
+<span class="modal-close" onclick="closeCourseModal()">&times;</span>
+<div class="modal-header">
+<h3 id="courseModalTitle">Agregar/Editar Curso</h3>
+</div>
+<form id="courseForm" onsubmit="saveCourse(event)">
+<input type="hidden" id="courseId">
+<div class="form-group">
+<label for="courseTitle">Título del Curso</label>
+<input type="text" id="courseTitle" required>
+</div>
+<div class="form-group">
+<label for="courseTeacher">Profesor</label>
+<input type="text" id="courseTeacher" required>
+</div>
+<div class="form-group">
+<label for="courseTeacherAvatar">URL Avatar del Profesor</label>
+<input type="text" id="courseTeacherAvatar" required>
+</div>
+<div class="form-group">
+<label for="courseDuration">Duración</label>
+<input type="text" id="courseDuration" required>
+</div>
+<div class="form-group">
+<label for="courseStudents">Número de Estudiantes</label>
+<input type="text" id="courseStudents" required>
+</div>
+<div class="form-group">
+<label for="coursePrice">Precio</label>
+<input type="text" id="coursePrice" required>
+</div>
+<div class="form-group">
+<label for="courseImage">URL de la Imagen</label>
+<input type="text" id="courseImage" required>
+</div>
+<div class="form-group">
+<label for="courseBadge">Etiqueta (opcional)</label>
+<input type="text" id="courseBadge">
+</div>
+<div class="form-group">
+<label for="courseDetails">Detalles del Curso (un detalle por línea)</label>
+<textarea id="courseDetails" rows="5" required></textarea>
+</div>
+<div class="form-actions">
+<button type="submit" class="btn-primary">Guardar</button>
+<button type="button" class="btn-secondary" onclick="closeCourseModal()">Cancelar</button>
+</div>
+</form>
 </div>
 </div>
 
@@ -2740,360 +2861,179 @@ document.getElementById('preRegisterScreen').style.display = 'none';
 }, 2000);
 });
 
-// Show main content
+// Mostrar contenido principal
 function showMainContent() {
-document.getElementById('loginScreen').style.opacity = 0;
-setTimeout(() => {
-document.getElementById('loginScreen').style.display = 'none';
-}, 500);
+    document.getElementById('loginScreen').style.opacity = 0;
+    setTimeout(() => {
+        document.getElementById('loginScreen').style.display = 'none';
+    }, 500);
 }
 
-// Show section active with scroll smooth
+// Mostrar sección activa con scroll suave
 function showSection(sectionId) {
-document.querySelectorAll('.section').forEach(section => {
-section.classList.remove('active');
-});
-document.getElementById(sectionId).classList.add('active');
-
-// Update active link in navbar
-document.querySelectorAll('.nav-links a').forEach(link => {
-link.classList.remove('active');
-if (link.getAttribute('href') === `#${sectionId}`) {
-link.classList.add('active');
-}
-});
-
-// Smooth scroll when changing section
-window.scrollTo({
-top: 0,
-behavior: 'smooth'
-});
-}
-
-// Render all content based on websiteData
-function renderAllContent() {
-// Render news
-document.getElementById('newsText').textContent = websiteData.news;
-document.getElementById('newsInput').value = websiteData.news;
-
-// Render courses
-renderCourses();
-renderCoursesAdmin();
-
-// Render pricing
-renderPricing();
-renderPricingAdmin();
-
-// Render contact
-document.getElementById('contactEmail').textContent = websiteData.contact.email;
-document.getElementById('contactPhone').textContent = websiteData.contact.phone;
-document.getElementById('contactAddress').textContent = websiteData.contact.address;
-
-document.getElementById('contactEmailInput').value = websiteData.contact.email;
-document.getElementById('contactPhoneInput').value = websiteData.contact.phone;
-document.getElementById('contactAddressInput').value = websiteData.contact.address;
-
-// Render banners
-renderBanners();
-renderBannersAdmin();
+    document.querySelectorAll('.section').forEach(section => {
+        section.classList.remove('active');
+    });
+    document.getElementById(sectionId).classList.add('active');
+    
+    // Actualizar enlace activo en la barra de navegación
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === `#${sectionId}`) {
+            link.classList.add('active');
+        }
+    });
+    
+    // Scroll suave al cambiar de sección
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
 }
 
-// Render courses
-function renderCourses() {
-const coursesGrid = document.getElementById('coursesGrid');
-coursesGrid.innerHTML = websiteData.courses.map(course => `
-<div class="course-card">
-<div class="card-inner">
-<div class="card-front">
-<div class="course-img-container">
-<img src="${course.image}" alt="${course.title}" class="course-img">
-${course.badge ? `<div class="course-badge">${course.badge}</div>` : ''}
-</div>
-<div class="course-info">
-<h3>${course.title}</h3>
-<div class="course-teacher">
-<img src="${course.teacherAvatar}" alt="${course.teacher}" class="teacher-avatar">
-<span class="teacher-name">${course.teacher}</span>
-</div>
-<div class="course-meta">
-<span><i class="far fa-clock"></i> ${course.duration}</span>
-<span><i class="fas fa-users"></i> ${course.students}</span>
-</div>
-<div class="course-price">${course.price}</div>
-<button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?embedded=true', '_blank')">
-<i class="fas fa-sign-in-alt"></i> Inscribirse
-</button>
-</div>
-</div>
-<div class="card-back">
-<h3>Detalles del Curso</h3>
-<ul>
-${course.details.map(detail => `<li>${detail}</li>`).join('')}
-</ul>
-<button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?embedded=true', '_blank')">
-<i class="fas fa-sign-in-alt"></i> Inscribirse
-</button>
-</div>
-</div>
-</div>
-`).join('');
-}
-
-// Render courses admin
-function renderCoursesAdmin() {
-const coursesList = document.getElementById('coursesList');
-coursesList.innerHTML = websiteData.courses.map(course => `
-<div class="admin-item">
-<div>
-<strong>${course.title}</strong> - ${course.teacher}
-</div>
-<div class="admin-item-actions">
-<button class="btn-primary btn-small" onclick="editCourse(${course.id})">Editar</button>
-<button class="btn-secondary btn-small" onclick="deleteCourse(${course.id})">Eliminar</button>
-</div>
-</div>
-`).join('');
-}
-
-// Render pricing
-function renderPricing() {
-const pricingTableBody = document.getElementById('pricingTableBody');
-pricingTableBody.innerHTML = websiteData.pricing.map(item => `
-<tr>
-<td>${item.course}</td>
-<td class="highlight">${item.price}</td>
-<td>${item.schedule}</td>
-<td>${item.duration}</td>
-</tr>
-`).join('');
-}
-
-// Render pricing admin
-function renderPricingAdmin() {
-const pricingFormContainer = document.getElementById('pricingFormContainer');
-pricingFormContainer.innerHTML = websiteData.pricing.map((item, index) => `
-<div class="form-row">
-<div class="form-group">
-<label>Curso</label>
-<input type="text" value="${item.course}" data-index="${index}" data-field="course">
-</div>
-<div class="form-group">
-<label>Precio</label>
-<input type="text" value="${item.price}" data-index="${index}" data-field="price">
-</div>
-</div>
-<div class="form-row">
-<div class="form-group">
-<label>Horario</label>
-<input type="text" value="${item.schedule}" data-index="${index}" data-field="schedule">
-</div>
-<div class="form-group">
-<label>Duración</label>
-<input type="text" value="${item.duration}" data-index="${index}" data-field="duration">
-</div>
-</div>
-`).join('');
-}
-
-// Render banners
-function renderBanners() {
-const slides = document.querySelectorAll('.slider-image');
-slides.forEach((slide, index) => {
-if (websiteData.banners[index]) {
-slide.src = websiteData.banners[index];
-}
-});
-}
-
-// Render banners admin
-function renderBannersAdmin() {
-document.getElementById('banner1Input').value = websiteData.banners[0];
-document.getElementById('banner2Input').value = websiteData.banners[1];
-document.getElementById('banner3Input').value = websiteData.banners[2];
-}
-
-// Carousel automatic improved
+// Carrusel automático mejorado
 let currentSlide = 0;
 const slides = document.querySelectorAll('.slider-image');
 const dots = document.querySelectorAll('.slider-dot');
 
 function showSlide(index) {
-slides.forEach(slide => slide.classList.remove('active'));
-dots.forEach(dot => dot.classList.remove('active'));
+    slides.forEach(slide => slide.classList.remove('active'));
+    dots.forEach(dot => dot.classList.remove('active'));
 
-currentSlide = index;
-slides[currentSlide].classList.add('active');
-dots[currentSlide].classList.add('active');
+    currentSlide = index;
+    slides[currentSlide].classList.add('active');
+    dots[currentSlide].classList.add('active');
 }
 
 function nextSlide() {
-let newIndex = (currentSlide + 1) % slides.length;
-showSlide(newIndex);
+    let newIndex = (currentSlide + 1) % slides.length;
+    showSlide(newIndex);
 }
 
 function goToSlide(index) {
-showSlide(index);
+    showSlide(index);
 }
 
 const slideInterval = setInterval(nextSlide, 5000);
 
-// Pause carousel on hover
+// Pausar carrusel al hacer hover
 const slider = document.querySelector('.home-slider');
 slider.addEventListener('mouseenter', () => clearInterval(slideInterval));
 slider.addEventListener('mouseleave', () => {
-clearInterval(slideInterval);
-slideInterval = setInterval(nextSlide, 5000);
+    clearInterval(slideInterval);
+    slideInterval = setInterval(nextSlide, 5000);
 });
 
-// Stats counter animation
-function animateStats() {
-const statNumbers = document.querySelectorAll('.stat-number');
-statNumbers.forEach(stat => {
-const target = parseInt(stat.getAttribute('data-target'));
-let count = 0;
-const increment = target / 100;
-const updateCount = () => {
-count += increment;
-if (count < target) {
-stat.textContent = Math.ceil(count);
-setTimeout(updateCount, 20);
-} else {
-stat.textContent = target;
-}
-};
-updateCount();
-});
-}
-
-// Trigger stats animation when home section is visible
-const homeSection = document.getElementById('home');
-const observerOptions = {
-root: null,
-rootMargin: '0px',
-threshold: 0.5
-};
-
-const observer = new IntersectionObserver((entries) => {
-entries.forEach(entry => {
-if (entry.isIntersecting) {
-animateStats();
-observer.unobserve(entry.target);
-}
-});
-}, observerOptions);
-
-observer.observe(homeSection);
-
-// Comments temporary with better feedback
+// Comentarios temporales con mejor feedback
 function addComment(e) {
-e.preventDefault();
-const commentInput = document.getElementById('commentInput');
-const comment = commentInput.value.trim();
-
-if (comment === '') {
-commentInput.style.borderColor = '#f72585';
-setTimeout(() => {
-commentInput.style.borderColor = '#eee';
-}, 2000);
-return;
-}
-
-const comments = JSON.parse(localStorage.getItem('comments') || '[]');
-comments.push({
-text: comment,
-time: Date.now(),
-user: 'Usuario' + Math.floor(Math.random() * 1000)
-});
-localStorage.setItem('comments', JSON.stringify(comments));
-displayComments();
-e.target.reset();
-
-// Visual feedback
-const submitBtn = e.target.querySelector('button');
-submitBtn.innerHTML = '<i class="fas fa-check"></i> Enviado';
-submitBtn.style.backgroundColor = '#4cc9f0';
-setTimeout(() => {
-submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Enviar';
-submitBtn.style.backgroundColor = '#4361ee';
-}, 2000);
-
-// Show notification
-showNotification('success', 'Comentario Enviado', 'Gracias por tu comentario. Lo revisaremos pronto.');
+    e.preventDefault();
+    const commentInput = document.getElementById('commentInput');
+    const comment = commentInput.value.trim();
+    
+    if (comment === '') {
+        commentInput.style.borderColor = '#e74c3c';
+        setTimeout(() => {
+            commentInput.style.borderColor = '#ddd';
+        }, 2000);
+        return;
+    }
+    
+    const comments = JSON.parse(localStorage.getItem('comments') || '[]');
+    comments.push({ 
+        text: comment, 
+        time: Date.now(),
+        user: 'Usuario' + Math.floor(Math.random() * 1000)
+    });
+    localStorage.setItem('comments', JSON.stringify(comments));
+    displayComments();
+    e.target.reset();
+    
+    // Feedback visual
+    const submitBtn = e.target.querySelector('button');
+    submitBtn.innerHTML = '<i class="fas fa-check"></i> Enviado';
+    submitBtn.style.backgroundColor = '#2ecc71';
+    setTimeout(() => {
+        submitBtn.innerHTML = 'Enviar';
+        submitBtn.style.backgroundColor = '#3498db';
+    }, 2000);
+    
+    // Show notification
+    showNotification('success', 'Comentario Enviado', 'Gracias por tu comentario. Lo revisaremos pronto.');
 }
 
 function displayComments() {
-const container = document.getElementById('commentsContainer');
-const comments = JSON.parse(localStorage.getItem('comments') || '[]');
-const validComments = comments.filter(c => Date.now() - c.time < 86400000); // 24 hours
-
-container.innerHTML = validComments.map(c => `
-<div class="comment">
-<div class="comment-header">
-<i class="fas fa-user-circle"></i>
-<span class="comment-user">${c.user}</span>
-<span class="comment-time">${formatTime(c.time)}</span>
-</div>
-<div class="comment-text">${c.text}</div>
-</div>
-`).join('');
-
-localStorage.setItem('comments', JSON.stringify(validComments));
+    const container = document.getElementById('commentsContainer');
+    const comments = JSON.parse(localStorage.getItem('comments') || '[]');
+    const validComments = comments.filter(c => Date.now() - c.time < 86400000); // 24 horas
+    
+    container.innerHTML = validComments.map(c => `
+        <div class="comment">
+            <div class="comment-header">
+                <i class="fas fa-user-circle"></i>
+                <span class="comment-user">${c.user}</span>
+                <span class="comment-time">${formatTime(c.time)}</span>
+            </div>
+            <div class="comment-text">${c.text}</div>
+        </div>
+    `).join('');
+    
+    localStorage.setItem('comments', JSON.stringify(validComments));
 }
 
 function formatTime(timestamp) {
-const date = new Date(timestamp);
-return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    const date = new Date(timestamp);
+    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 }
 
 // Show pricing plans
 function showPricing(plan) {
-const tabs = document.querySelectorAll('.pricing-tab');
-tabs.forEach(tab => tab.classList.remove('active'));
-event.target.classList.add('active');
+    const tabs = document.querySelectorAll('.pricing-tab');
+    tabs.forEach(tab => tab.classList.remove('active'));
+    event.target.classList.add('active');
 
-// Here you can add logic to change prices according to plan
-// For now it's just visual
+    // Aquí puedes agregar lógica para cambiar precios según el plan
+    // Por ahora es solo visual
 }
 
 // Live chat functionality
 function handleLiveChatKeyPress(event) {
-if (event.key === 'Enter') {
-sendLiveChatMessage();
-}
+    if (event.key === 'Enter') {
+        sendLiveChatMessage();
+    }
 }
 
 function sendLiveChatMessage() {
-const input = document.getElementById('liveChatInput');
-const message = input.value.trim();
+    const input = document.getElementById('liveChatInput');
+    const message = input.value.trim();
 
-if (message === '') return;
+    if (message === '') return;
 
-// Add user message
-const chatMessages = document.getElementById('liveChatMessages');
-const userMessageDiv = document.createElement('div');
-userMessageDiv.className = 'chat-message user-message';
-userMessageDiv.textContent = message;
-chatMessages.appendChild(userMessageDiv);
+    // Add user message
+    const chatMessages = document.getElementById('liveChatMessages');
+    const userMessageDiv = document.createElement('div');
+    userMessageDiv.className = 'chat-message user-message';
+    userMessageDiv.textContent = message;
+    chatMessages.appendChild(userMessageDiv);
 
-// Simulate response after a delay
-setTimeout(() => {
-const responses = [
-"¡Buena pregunta! Vamos a ver eso en detalle.",
-"Gracias por tu participación. ¿Alguien más tiene una pregunta?",
-"Excelente punto. ¿Qué opinan los demás?",
-"Vamos a practicar eso con un ejemplo.",
-"¿Puedes repetir la pregunta por favor?"
-];
-const randomResponse = responses[Math.floor(Math.random() * responses.length)];
-const botMessageDiv = document.createElement('div');
-botMessageDiv.className = 'chat-message other-message';
-botMessageDiv.textContent = randomResponse;
-chatMessages.appendChild(botMessageDiv);
-}, 2000);
+    // Simulate response after a delay
+    setTimeout(() => {
+        const responses = [
+            "¡Buena pregunta! Vamos a ver eso en detalle.",
+            "Gracias por tu participación. ¿Alguien más tiene una pregunta?",
+            "Excelente punto. ¿Qué opinan los demás?",
+            "Vamos a practicar eso con un ejemplo.",
+            "¿Puedes repetir la pregunta por favor?"
+        ];
+        const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+        const botMessageDiv = document.createElement('div');
+        botMessageDiv.className = 'chat-message other-message';
+        botMessageDiv.textContent = randomResponse;
+        chatMessages.appendChild(botMessageDiv);
+    }, 2000);
 
-// Clear input and scroll to bottom
-input.value = '';
-chatMessages.scrollTop = chatMessages.scrollHeight;
+    // Clear input and scroll to bottom
+    input.value = '';
+    chatMessages.scrollTop = chatMessages.scrollHeight;
 }
 
 // Calendar
@@ -3102,56 +3042,56 @@ const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
 "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
 
 function renderCalendar() {
-const year = currentMonth.getFullYear();
-const month = currentMonth.getMonth();
-const firstDay = new Date(year, month, 1).getDay();
-const daysInMonth = new Date(year, month + 1, 0).getDate();
-const daysInPrevMonth = new Date(year, month, 0).getDate();
+    const year = currentMonth.getFullYear();
+    const month = currentMonth.getMonth();
+    const firstDay = new Date(year, month, 1).getDay();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    const daysInPrevMonth = new Date(year, month, 0).getDate();
 
-document.getElementById('currentMonth').textContent = `${monthNames[month]} ${year}`;
+    document.getElementById('currentMonth').textContent = `${monthNames[month]} ${year}`;
 
-let html = '';
-// Weekday headers
-const weekdays = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
-weekdays.forEach(day => {
-html += `<div class="calendar-day weekday">${day}</div>`;
-});
+    let html = '';
+    // Weekday headers
+    const weekdays = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
+    weekdays.forEach(day => {
+        html += `<div class="calendar-day weekday">${day}</div>`;
+    });
 
-// Previous month days
-for (let i = firstDay - 1; i >= 0; i--) {
-html += `<div class="calendar-day other-month">${daysInPrevMonth - i}</div>`;
-}
+    // Previous month days
+    for (let i = firstDay - 1; i >= 0; i--) {
+        html += `<div class="calendar-day other-month">${daysInPrevMonth - i}</div>`;
+    }
 
-// Current month days
-const today = new Date();
-for (let i = 1; i <= daysInMonth; i++) {
-const isToday = year === today.getFullYear() && month === today.getMonth() && i === today.getDate();
-const hasClass = Math.random() > 0.7; // Random classes for demo
-html += `<div class="calendar-day ${isToday ? 'today' : ''} ${hasClass ? 'has-class' : ''}">${i}`;
-if (hasClass) {
-html += `<div class="class-event">Clase ${Math.floor(Math.random() * 4) + 9}:00</div>`;
-}
-html += `</div>`;
-}
+    // Current month days
+    const today = new Date();
+    for (let i = 1; i <= daysInMonth; i++) {
+        const isToday = year === today.getFullYear() && month === today.getMonth() && i === today.getDate();
+        const hasClass = Math.random() > 0.7; // Random classes for demo
+        html += `<div class="calendar-day ${isToday ? 'today' : ''} ${hasClass ? 'has-class' : ''}">${i}`;
+        if (hasClass) {
+            html += `<div class="class-event">Clase ${Math.floor(Math.random() * 4) + 9}:00</div>`;
+        }
+        html += `</div>`;
+    }
 
-// Next month days
-const totalCells = document.querySelectorAll('.calendar-day.weekday').length + firstDay + daysInMonth;
-const nextMonthDays = 42 - totalCells; // 6 rows x 7 days
-for (let i = 1; i <= nextMonthDays; i++) {
-html += `<div class="calendar-day other-month">${i}</div>`;
-}
+    // Next month days
+    const totalCells = document.querySelectorAll('.calendar-day.weekday').length + firstDay + daysInMonth;
+    const nextMonthDays = 42 - totalCells; // 6 rows x 7 days
+    for (let i = 1; i <= nextMonthDays; i++) {
+        html += `<div class="calendar-day other-month">${i}</div>`;
+    }
 
-document.getElementById('calendarGrid').innerHTML = html;
+    document.getElementById('calendarGrid').innerHTML = html;
 }
 
 document.getElementById('prevMonth').addEventListener('click', () => {
-currentMonth.setMonth(currentMonth.getMonth() - 1);
-renderCalendar();
+    currentMonth.setMonth(currentMonth.getMonth() - 1);
+    renderCalendar();
 });
 
 document.getElementById('nextMonth').addEventListener('click', () => {
-currentMonth.setMonth(currentMonth.getMonth() + 1);
-renderCalendar();
+    currentMonth.setMonth(currentMonth.getMonth() + 1);
+    renderCalendar();
 });
 
 // Initialize calendar
@@ -3163,37 +3103,37 @@ const testimonials = document.querySelectorAll('.testimonial-card');
 const totalTestimonials = testimonials.length;
 
 function showTestimonial(index) {
-const track = document.getElementById('testimonialTrack');
-track.style.transform = `translateX(-${index * 100}%)`;
+    const track = document.getElementById('testimonialTrack');
+    track.style.transform = `translateX(-${index * 100}%)`;
 
-// Update indicators
-const indicators = document.querySelectorAll('.testimonial-indicator');
-indicators.forEach((indicator, i) => {
-indicator.classList.toggle('active', i === index);
-});
+    // Update indicators
+    const indicators = document.querySelectorAll('.testimonial-indicator');
+    indicators.forEach((indicator, i) => {
+        indicator.classList.toggle('active', i === index);
+    });
 }
 
 function nextTestimonial() {
-currentTestimonial = (currentTestimonial + 1) % totalTestimonials;
-showTestimonial(currentTestimonial);
+    currentTestimonial = (currentTestimonial + 1) % totalTestimonials;
+    showTestimonial(currentTestimonial);
 }
 
 function prevTestimonial() {
-currentTestimonial = (currentTestimonial - 1 + totalTestimonials) % totalTestimonials;
-showTestimonial(currentTestimonial);
+    currentTestimonial = (currentTestimonial - 1 + totalTestimonials) % totalTestimonials;
+    showTestimonial(currentTestimonial);
 }
 
 // Create indicators
 const indicatorsContainer = document.getElementById('testimonialIndicators');
 for (let i = 0; i < totalTestimonials; i++) {
-const indicator = document.createElement('div');
-indicator.className = 'testimonial-indicator';
-if (i === 0) indicator.classList.add('active');
-indicator.addEventListener('click', () => {
-currentTestimonial = i;
-showTestimonial(i);
-});
-indicatorsContainer.appendChild(indicator);
+    const indicator = document.createElement('div');
+    indicator.className = 'testimonial-indicator';
+    if (i === 0) indicator.classList.add('active');
+    indicator.addEventListener('click', () => {
+        currentTestimonial = i;
+        showTestimonial(i);
+    });
+    indicatorsContainer.appendChild(indicator);
 }
 
 document.getElementById('nextTestimonial').addEventListener('click', nextTestimonial);
@@ -3206,345 +3146,489 @@ const testimonialInterval = setInterval(nextTestimonial, 5000);
 const testimonialSlider = document.querySelector('.testimonial-slider');
 testimonialSlider.addEventListener('mouseenter', () => clearInterval(testimonialInterval));
 testimonialSlider.addEventListener('mouseleave', () => {
-clearInterval(testimonialInterval);
-setInterval(nextTestimonial, 5000);
+    clearInterval(testimonialInterval);
+    setInterval(nextTestimonial, 5000);
 });
 
 // Newsletter subscription
 function subscribeNewsletter(e) {
-e.preventDefault();
-const email = e.target.querySelector('input[type="email"]').value;
-const subscriptions = JSON.parse(localStorage.getItem('newsletterSubscriptions') || '[]');
-subscriptions.push({ email, date: new Date().toISOString() });
-localStorage.setItem('newsletterSubscriptions', JSON.stringify(subscriptions));
-e.target.reset();
-showNotification('success', 'Suscripción Exitosa', 'Gracias por suscribirte a nuestro boletín.');
+    e.preventDefault();
+    const email = e.target.querySelector('input[type="email"]').value;
+    const subscriptions = JSON.parse(localStorage.getItem('newsletterSubscriptions') || '[]');
+    subscriptions.push({ email, date: new Date().toISOString() });
+    localStorage.setItem('newsletterSubscriptions', JSON.stringify(subscriptions));
+    e.target.reset();
+    showNotification('success', 'Suscripción Exitosa', 'Gracias por suscribirte a nuestro boletín.');
+}
+
+// Render all content based on websiteData
+function renderAllContent() {
+    // Render news
+    document.getElementById('newsText').textContent = websiteData.news;
+    document.getElementById('newsInput').value = websiteData.news;
+
+    // Render courses
+    renderCourses();
+    renderCoursesAdmin();
+
+    // Render pricing
+    renderPricing();
+    renderPricingAdmin();
+
+    // Render contact
+    document.getElementById('contactEmail').textContent = websiteData.contact.email;
+    document.getElementById('contactPhone').textContent = websiteData.contact.phone;
+    document.getElementById('contactAddress').textContent = websiteData.contact.address;
+
+    document.getElementById('contactEmailInput').value = websiteData.contact.email;
+    document.getElementById('contactPhoneInput').value = websiteData.contact.phone;
+    document.getElementById('contactAddressInput').value = websiteData.contact.address;
+
+    // Render banners
+    renderBanners();
+    renderBannersAdmin();
+    
+    // Render comments admin
+    renderCommentsAdmin();
+}
+
+// Render courses
+function renderCourses() {
+    const coursesGrid = document.getElementById('coursesGrid');
+    coursesGrid.innerHTML = websiteData.courses.map(course => `
+        <div class="course-card">
+            <div class="card-inner">
+                <div class="card-front">
+                    <div class="course-img-container">
+                        <img src="${course.image}" alt="${course.title}" class="course-img">
+                        ${course.badge ? `<div class="course-badge">${course.badge}</div>` : ''}
+                    </div>
+                    <div class="course-info">
+                        <h3>${course.title}</h3>
+                        <div class="course-teacher">
+                            <img src="${course.teacherAvatar}" alt="${course.teacher}" class="teacher-avatar">
+                            <span class="teacher-name">${course.teacher}</span>
+                        </div>
+                        <div class="course-meta">
+                            <span><i class="far fa-clock"></i> ${course.duration}</span>
+                            <span><i class="fas fa-users"></i> ${course.students}</span>
+                        </div>
+                        <div class="course-price">${course.price}</div>
+                        <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?embedded=true', '_blank')">
+                            <i class="fas fa-sign-in-alt"></i> Inscribirse
+                        </button>
+                    </div>
+                </div>
+                <div class="card-back">
+                    <h3>Detalles del Curso</h3>
+                    <ul>
+                        ${course.details.map(detail => `<li>${detail}</li>`).join('')}
+                    </ul>
+                    <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?embedded=true', '_blank')">
+                        <i class="fas fa-sign-in-alt"></i> Inscribirse
+                    </button>
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+
+// Render courses admin
+function renderCoursesAdmin() {
+    const coursesList = document.getElementById('coursesList');
+    coursesList.innerHTML = websiteData.courses.map(course => `
+        <div class="admin-item">
+            <div>
+                <strong>${course.title}</strong> - ${course.teacher}
+            </div>
+            <div class="admin-item-actions">
+                <button class="btn-primary btn-small" onclick="editCourse(${course.id})">Editar</button>
+                <button class="btn-secondary btn-small" onclick="deleteCourse(${course.id})">Eliminar</button>
+            </div>
+        </div>
+    `).join('');
+}
+
+// Render pricing
+function renderPricing() {
+    const pricingTableBody = document.getElementById('pricingTableBody');
+    pricingTableBody.innerHTML = websiteData.pricing.map(item => `
+        <tr>
+            <td>${item.course}</td>
+            <td class="highlight">${item.price}</td>
+            <td>${item.schedule}</td>
+            <td>${item.duration}</td>
+        </tr>
+    `).join('');
+}
+
+// Render pricing admin
+function renderPricingAdmin() {
+    const pricingFormContainer = document.getElementById('pricingFormContainer');
+    pricingFormContainer.innerHTML = websiteData.pricing.map((item, index) => `
+        <div class="form-row">
+            <div class="form-group">
+                <label>Curso</label>
+                <input type="text" value="${item.course}" data-index="${index}" data-field="course">
+            </div>
+            <div class="form-group">
+                <label>Precio</label>
+                <input type="text" value="${item.price}" data-index="${index}" data-field="price">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label>Horario</label>
+                <input type="text" value="${item.schedule}" data-index="${index}" data-field="schedule">
+            </div>
+            <div class="form-group">
+                <label>Duración</label>
+                <input type="text" value="${item.duration}" data-index="${index}" data-field="duration">
+            </div>
+        </div>
+    `).join('');
+}
+
+// Render banners
+function renderBanners() {
+    const slides = document.querySelectorAll('.slider-image');
+    slides.forEach((slide, index) => {
+        if (websiteData.banners[index]) {
+            slide.src = websiteData.banners[index];
+        }
+    });
+}
+
+// Render banners admin
+function renderBannersAdmin() {
+    document.getElementById('banner1Input').value = websiteData.banners[0];
+    document.getElementById('banner2Input').value = websiteData.banners[1];
+    document.getElementById('banner3Input').value = websiteData.banners[2];
+}
+
+// Render comments admin
+function renderCommentsAdmin() {
+    const commentsList = document.getElementById('commentsList');
+    const comments = JSON.parse(localStorage.getItem('comments') || '[]');
+    
+    if (comments.length === 0) {
+        commentsList.innerHTML = '<p>No hay comentarios para mostrar.</p>';
+        return;
+    }
+    
+    commentsList.innerHTML = comments.map(comment => `
+        <div class="admin-item">
+            <div>
+                <strong>${comment.user}</strong>: ${comment.text}
+                <br><small>${formatTime(comment.time)}</small>
+            </div>
+            <div class="admin-item-actions">
+                <button class="btn-secondary btn-small" onclick="deleteComment(${comment.time})">Eliminar</button>
+            </div>
+        </div>
+    `).join('');
+}
+
+// Delete comment
+function deleteComment(timestamp) {
+    if (confirm('¿Estás seguro de que quieres eliminar este comentario?')) {
+        let comments = JSON.parse(localStorage.getItem('comments') || '[]');
+        comments = comments.filter(c => c.time !== timestamp);
+        localStorage.setItem('comments', JSON.stringify(comments));
+        renderCommentsAdmin();
+        displayComments();
+        showNotification('success', 'Comentario Eliminado', 'El comentario ha sido eliminado correctamente.');
+    }
+}
+
+// Refresh comments list
+function refreshComments() {
+    renderCommentsAdmin();
+    showNotification('success', 'Lista Actualizada', 'La lista de comentarios ha sido actualizada.');
 }
 
 // Admin Panel Functions
 function showLoginModal() {
-document.getElementById('loginModal').style.display = 'flex';
+    document.getElementById('loginModal').style.display = 'flex';
 }
 
 function closeLoginModal() {
-document.getElementById('loginModal').style.display = 'none';
-document.getElementById('adminLoginForm').reset();
+    document.getElementById('loginModal').style.display = 'none';
+    document.getElementById('adminLoginForm').reset();
 }
 
 function adminLogin(e) {
-e.preventDefault();
-const email = document.getElementById('adminEmail').value;
-const password = document.getElementById('adminPassword').value;
+    e.preventDefault();
+    const email = document.getElementById('adminEmail').value;
+    const password = document.getElementById('adminPassword').value;
 
-// Check credentials
-if ((email === 'program@skylearn.com' && password === 'dev123') || 
-(email === 'admin@skylearn.com' && password === 'admin123')) {
-// Save login state
-sessionStorage.setItem('isAdminLoggedIn', 'true');
-sessionStorage.setItem('adminEmail', email);
+    // Check credentials
+    if ((email === 'program@skylearn.com' && password === 'dev123') || 
+        (email === 'admin@skylearn.com' && password === 'admin123')) {
+        // Save login state
+        sessionStorage.setItem('isAdminLoggedIn', 'true');
+        sessionStorage.setItem('adminEmail', email);
 
-// Show admin link
-document.querySelector('.admin-link').style.display = 'block';
+        // Show admin link
+        document.querySelector('.admin-link').style.display = 'block';
 
-// Close modal
-closeLoginModal();
+        // Close modal
+        closeLoginModal();
 
-// Go to admin panel
-showSection('admin');
+        // Go to admin panel
+        showSection('admin');
 
-showNotification('success', 'Inicio de Sesión Exitoso', 'Bienvenido al panel de administración.');
-} else {
-showNotification('error', 'Error de Autenticación', 'Email o contraseña incorrectos.');
-}
+        showNotification('success', 'Inicio de Sesión Exitoso', 'Bienvenido al panel de administración.');
+    } else {
+        showNotification('error', 'Error de Autenticación', 'Email o contraseña incorrectos.');
+    }
 }
 
 // Check if admin is logged in
 function checkAdminLogin() {
-const isLoggedIn = sessionStorage.getItem('isAdminLoggedIn');
-if (isLoggedIn === 'true') {
-document.querySelector('.admin-link').style.display = 'block';
-}
+    const isLoggedIn = sessionStorage.getItem('isAdminLoggedIn');
+    if (isLoggedIn === 'true') {
+        document.querySelector('.admin-link').style.display = 'block';
+    }
 }
 
 // Admin logout
 function adminLogout() {
-sessionStorage.removeItem('isAdminLoggedIn');
-sessionStorage.removeItem('adminEmail');
-document.querySelector('.admin-link').style.display = 'none';
-showSection('home');
-showNotification('success', 'Sesión Cerrada', 'Has cerrado sesión correctamente.');
+    sessionStorage.removeItem('isAdminLoggedIn');
+    sessionStorage.removeItem('adminEmail');
+    document.querySelector('.admin-link').style.display = 'none';
+    showSection('home');
+    showNotification('success', 'Sesión Cerrada', 'Has cerrado sesión correctamente.');
 }
 
 // Show admin tab
 function showAdminTab(tabName) {
-// Hide all admin contents
-document.querySelectorAll('.admin-content').forEach(content => {
-content.classList.remove('active');
-});
+    // Hide all admin contents
+    document.querySelectorAll('.admin-content').forEach(content => {
+        content.classList.remove('active');
+    });
 
-// Remove active class from all tabs
-document.querySelectorAll('.admin-tab').forEach(tab => {
-tab.classList.remove('active');
-});
+    // Remove active class from all tabs
+    document.querySelectorAll('.admin-tab').forEach(tab => {
+        tab.classList.remove('active');
+    });
 
-// Show selected content
-document.getElementById(`admin-${tabName}`).classList.add('active');
+    // Show selected content
+    document.getElementById(`admin-${tabName}`).classList.add('active');
 
-// Add active class to clicked tab
-event.target.classList.add('active');
+    // Add active class to clicked tab
+    event.target.classList.add('active');
 }
 
 // Update news
 function updateNews(e) {
-e.preventDefault();
-const newsText = document.getElementById('newsInput').value;
-websiteData.news = newsText;
-saveData();
-renderAllContent();
-showNotification('success', 'Noticias Actualizadas', 'Las noticias han sido actualizadas correctamente.');
+    e.preventDefault();
+    const newsText = document.getElementById('newsInput').value;
+    websiteData.news = newsText;
+    saveData();
+    renderAllContent();
+    showNotification('success', 'Noticias Actualizadas', 'Las noticias han sido actualizadas correctamente.');
 }
 
 // Course management
 function editCourse(id) {
-const course = websiteData.courses.find(c => c.id === id);
-if (course) {
-// In a real application, this would open a modal with a form to edit the course
-alert(`Editar curso: ${course.title}\n\nEsta funcionalidad se implementaría con un modal de edición.`);
-}
+    const course = websiteData.courses.find(c => c.id === id);
+    if (course) {
+        // Fill form with course data
+        document.getElementById('courseId').value = course.id;
+        document.getElementById('courseTitle').value = course.title;
+        document.getElementById('courseTeacher').value = course.teacher;
+        document.getElementById('courseTeacherAvatar').value = course.teacherAvatar;
+        document.getElementById('courseDuration').value = course.duration;
+        document.getElementById('courseStudents').value = course.students;
+        document.getElementById('coursePrice').value = course.price;
+        document.getElementById('courseImage').value = course.image;
+        document.getElementById('courseBadge').value = course.badge || '';
+        document.getElementById('courseDetails').value = course.details.join('\n');
+        
+        // Show modal
+        document.getElementById('courseModal').style.display = 'flex';
+        document.getElementById('courseModalTitle').textContent = 'Editar Curso';
+    }
 }
 
 function deleteCourse(id) {
-if (confirm('¿Estás seguro de que quieres eliminar este curso?')) {
-websiteData.courses = websiteData.courses.filter(c => c.id !== id);
-saveData();
-renderAllContent();
-showNotification('success', 'Curso Eliminado', 'El curso ha sido eliminado correctamente.');
-}
+    if (confirm('¿Estás seguro de que quieres eliminar este curso?')) {
+        websiteData.courses = websiteData.courses.filter(c => c.id !== id);
+        saveData();
+        renderAllContent();
+        showNotification('success', 'Curso Eliminado', 'El curso ha sido eliminado correctamente.');
+    }
 }
 
 function addNewCourse() {
-// In a real application, this would open a modal with a form to add a new course
-alert('Esta funcionalidad abriría un formulario para agregar un nuevo curso.');
+    // Clear form
+    document.getElementById('courseId').value = '';
+    document.getElementById('courseTitle').value = '';
+    document.getElementById('courseTeacher').value = '';
+    document.getElementById('courseTeacherAvatar').value = '';
+    document.getElementById('courseDuration').value = '';
+    document.getElementById('courseStudents').value = '';
+    document.getElementById('coursePrice').value = '';
+    document.getElementById('courseImage').value = '';
+    document.getElementById('courseBadge').value = '';
+    document.getElementById('courseDetails').value = '';
+    
+    // Show modal
+    document.getElementById('courseModal').style.display = 'flex';
+    document.getElementById('courseModalTitle').textContent = 'Agregar Nuevo Curso';
+}
+
+function closeCourseModal() {
+    document.getElementById('courseModal').style.display = 'none';
+}
+
+function saveCourse(e) {
+    e.preventDefault();
+    
+    const courseId = document.getElementById('courseId').value;
+    const courseData = {
+        title: document.getElementById('courseTitle').value,
+        teacher: document.getElementById('courseTeacher').value,
+        teacherAvatar: document.getElementById('courseTeacherAvatar').value,
+        duration: document.getElementById('courseDuration').value,
+        students: document.getElementById('courseStudents').value,
+        price: document.getElementById('coursePrice').value,
+        image: document.getElementById('courseImage').value,
+        badge: document.getElementById('courseBadge').value,
+        details: document.getElementById('courseDetails').value.split('\n').filter(detail => detail.trim() !== '')
+    };
+    
+    if (courseId) {
+        // Update existing course
+        const index = websiteData.courses.findIndex(c => c.id == courseId);
+        if (index !== -1) {
+            websiteData.courses[index] = { ...websiteData.courses[index], ...courseData };
+        }
+    } else {
+        // Add new course
+        const newId = Math.max(...websiteData.courses.map(c => c.id), 0) + 1;
+        websiteData.courses.push({ id: newId, ...courseData });
+    }
+    
+    saveData();
+    renderAllContent();
+    closeCourseModal();
+    
+    const action = courseId ? 'actualizado' : 'agregado';
+    showNotification('success', `Curso ${action}`, `El curso ha sido ${action} correctamente.`);
 }
 
 // Update pricing
 function updatePricing(e) {
-e.preventDefault();
-const pricingInputs = document.querySelectorAll('#pricingFormContainer input');
-pricingInputs.forEach(input => {
-const index = parseInt(input.dataset.index);
-const field = input.dataset.field;
-websiteData.pricing[index][field] = input.value;
-});
-saveData();
-renderAllContent();
-showNotification('success', 'Precios Actualizados', 'Los precios han sido actualizados correctamente.');
+    e.preventDefault();
+    const pricingInputs = document.querySelectorAll('#pricingFormContainer input');
+    pricingInputs.forEach(input => {
+        const index = parseInt(input.dataset.index);
+        const field = input.dataset.field;
+        websiteData.pricing[index][field] = input.value;
+    });
+    saveData();
+    renderAllContent();
+    showNotification('success', 'Precios Actualizados', 'Los precios han sido actualizados correctamente.');
 }
 
 // Update contact
 function updateContact(e) {
-e.preventDefault();
-websiteData.contact.email = document.getElementById('contactEmailInput').value;
-websiteData.contact.phone = document.getElementById('contactPhoneInput').value;
-websiteData.contact.address = document.getElementById('contactAddressInput').value;
-saveData();
-renderAllContent();
-showNotification('success', 'Contacto Actualizado', 'La información de contacto ha sido actualizada correctamente.');
+    e.preventDefault();
+    websiteData.contact.email = document.getElementById('contactEmailInput').value;
+    websiteData.contact.phone = document.getElementById('contactPhoneInput').value;
+    websiteData.contact.address = document.getElementById('contactAddressInput').value;
+    saveData();
+    renderAllContent();
+    showNotification('success', 'Contacto Actualizado', 'La información de contacto ha sido actualizada correctamente.');
 }
 
 // Update banners
 function updateBanners(e) {
-e.preventDefault();
-websiteData.banners[0] = document.getElementById('banner1Input').value;
-websiteData.banners[1] = document.getElementById('banner2Input').value;
-websiteData.banners[2] = document.getElementById('banner3Input').value;
-saveData();
-renderAllContent();
-showNotification('success', 'Banners Actualizados', 'Los banners han sido actualizados correctamente.');
+    e.preventDefault();
+    websiteData.banners[0] = document.getElementById('banner1Input').value;
+    websiteData.banners[1] = document.getElementById('banner2Input').value;
+    websiteData.banners[2] = document.getElementById('banner3Input').value;
+    saveData();
+    renderAllContent();
+    showNotification('success', 'Banners Actualizados', 'Los banners han sido actualizados correctamente.');
 }
 
 // Reset form
 function resetForm(formType) {
-switch(formType) {
-case 'news':
-document.getElementById('newsInput').value = websiteData.news;
-break;
-case 'pricing':
-renderPricingAdmin();
-break;
-case 'contact':
-document.getElementById('contactEmailInput').value = websiteData.contact.email;
-document.getElementById('contactPhoneInput').value = websiteData.contact.phone;
-document.getElementById('contactAddressInput').value = websiteData.contact.address;
-break;
-case 'banners':
-renderBannersAdmin();
-break;
-}
+    switch(formType) {
+        case 'news':
+            document.getElementById('newsInput').value = websiteData.news;
+            break;
+        case 'pricing':
+            renderPricingAdmin();
+            break;
+        case 'contact':
+            document.getElementById('contactEmailInput').value = websiteData.contact.email;
+            document.getElementById('contactPhoneInput').value = websiteData.contact.phone;
+            document.getElementById('contactAddressInput').value = websiteData.contact.address;
+            break;
+        case 'banners':
+            renderBannersAdmin();
+            break;
+    }
 }
 
 // Chatbot improved
 function toggleChat() {
-const chat = document.getElementById('chatWindow');
-chat.style.display = chat.style.display === 'flex' ? 'none' : 'flex';
-
-if (chat.style.display === 'flex') {
-const chatMessages = document.getElementById('chatMessages');
-chatMessages.scrollTop = chatMessages.scrollHeight;
-}
+    const chat = document.getElementById('chatWindow');
+    chat.style.display = chat.style.display === 'flex' ? 'none' : 'flex';
+    
+    if (chat.style.display === 'flex') {
+        const chatMessages = document.getElementById('chatMessages');
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
 }
 
 function handleChatKeyPress(event) {
-if (event.key === 'Enter') {
-sendChatMessage();
-}
+    if (event.key === 'Enter') {
+        sendChatMessage();
+    }
 }
 
 function sendChatMessage() {
-const input = document.getElementById('chatInputField');
-const message = input.value.trim();
+    const input = document.getElementById('chatInputField');
+    const message = input.value.trim();
 
-if (message === '') return;
+    if (message === '') return;
 
-// Add user message
-const chatMessages = document.getElementById('chatMessages');
-const userMessageDiv = document.createElement('div');
-userMessageDiv.className = 'user-message';
-userMessageDiv.innerHTML = `<div class="message-content">${message}</div>`;
-chatMessages.appendChild(userMessageDiv);
+    // Add user message
+    const chatMessages = document.getElementById('chatMessages');
+    const userMessageDiv = document.createElement('div');
+    userMessageDiv.className = 'user-message';
+    userMessageDiv.innerHTML = `<div class="message-content">${message}</div>`;
+    chatMessages.appendChild(userMessageDiv);
 
-// Generate bot response
-const botResponse = generateChatResponse(message);
-const botMessageDiv = document.createElement('div');
-botMessageDiv.className = 'bot-message';
-botMessageDiv.innerHTML = `<div class="message-content">${botResponse}</div>`;
-chatMessages.appendChild(botMessageDiv);
+    // Generate bot response
+    const botResponse = generateChatResponse(message);
+    const botMessageDiv = document.createElement('div');
+    botMessageDiv.className = 'bot-message';
+    botMessageDiv.innerHTML = `<div class="message-content">${botResponse}</div>`;
+    chatMessages.appendChild(botMessageDiv);
 
-// Scroll to bottom
-chatMessages.scrollTop = chatMessages.scrollHeight;
+    // Scroll to bottom
+    chatMessages.scrollTop = chatMessages.scrollHeight;
 
-// Clear input
-input.value = '';
+    // Clear input
+    input.value = '';
 }
 
 function sendSuggestion(suggestion) {
-document.getElementById('chatInputField').value = suggestion;
-sendChatMessage();
+    document.getElementById('chatInputField').value = suggestion;
+    sendChatMessage();
 }
 
 function generateChatResponse(message) {
-const lowerMessage = message.toLowerCase();
+    const lowerMessage = message.toLowerCase();
     
-// Check for keywords and return appropriate responses
-if (lowerMessage.includes('horario') || lowerMessage.includes('clases')) {
-    return 'Nuestras clases son de Lunes a Viernes de 8am a 5pm, con horarios flexibles según el curso. Puedes ver los horarios específicos en la sección "Precios y Horarios".';
-} else if (lowerMessage.includes('precio') || lowerMessage.includes('costo')) {
-    return 'Los precios van desde S/60/mes para Inglés para Niños hasta S/120/mes para cursos especializados. Tenemos descuentos especiales para inscripciones trimestrales y anuales.';
-} else if (lowerMessage.includes('registro') || lowerMessage.includes('inscribir')) {
-    return 'Puedes registrarte usando el botón "Inscribirse" en cada curso. El proceso toma menos de 5 minutos y recibirás un correo de confirmación.';
-} else if (lowerMessage.includes('pago') || lowerMessage.includes('tarjeta')) {
-    return 'Aceptamos todas las tarjetas de crédito/débito, PayPal y transferencias bancarias. También ofrecemos planes de pago en cuotas sin intereses.';
-} else if (lowerMessage.includes('profesor') || lowerMessage.includes('maestro')) {
-    return 'Todos nuestros profesores son hablantes nativos de inglés con experiencia en enseñanza de idiomas.';
-} else if (lowerMessage.includes('niño') || lowerMessage.includes('niños')) {
-    return 'Nuestro curso de inglés para niños está diseñado para edades entre 6 y 12 años, con métodos interactivos y divertidos.';
-} else if (lowerMessage.includes('negocio') || lowerMessage.includes('empresa')) {
-    return 'El curso de inglés de negocios se enfoca en vocabulario empresarial, presentaciones efectivas y comunicación profesional.';
-} else if (lowerMessage.includes('prueba') || lowerMessage.includes('demo')) {
-    return 'Sí, ofrecemos una clase de prueba gratuita para todos nuestros cursos. Puedes solicitarla a través de nuestro formulario de contacto.';
-} else {
-    return 'Gracias por tu pregunta. Nuestro equipo de atención al cliente te responderá pronto. También puedes llamarnos al +123 456 7890 de lunes a viernes de 9am a 5pm.';
-}
-}
-
-// Notification system
-function showNotification(type, title, message) {
-const notification = document.getElementById('notification');
-const icon = notification.querySelector('.notification-icon i');
-const titleEl = document.getElementById('notificationTitle');
-const messageEl = document.getElementById('notificationMessage');
-
-// Set notification type
-notification.className = 'notification ' + type;
-if (type === 'success') {
-icon.className = 'fas fa-check-circle';
-} else if (type === 'error') {
-icon.className = 'fas fa-exclamation-circle';
-} else if (type === 'warning') {
-icon.className = 'fas fa-exclamation-triangle';
-}
-
-// Set content
-titleEl.textContent = title;
-messageEl.textContent = message;
-
-// Show notification
-notification.classList.add('show');
-
-// Auto hide after 5 seconds
-setTimeout(() => {
-closeNotification();
-}, 5000);
-}
-
-function closeNotification() {
-document.getElementById('notification').classList.remove('show');
-}
-
-// Navbar effect on scroll
-window.addEventListener('scroll', function() {
-const navbar = document.getElementById('navbar');
-if (window.scrollY > 50) {
-navbar.classList.add('scrolled');
-} else {
-navbar.classList.remove('scrolled');
-}
-
-// Back to top button
-const backToTop = document.getElementById('backToTop');
-if (window.scrollY > 300) {
-backToTop.classList.add('visible');
-} else {
-backToTop.classList.remove('visible');
-}
-});
-
-// Back to top button
-document.getElementById('backToTop').addEventListener('click', function() {
-window.scrollTo({
-top: 0,
-behavior: 'smooth'
-});
-});
-
-// Initialize on load
-document.addEventListener('DOMContentLoaded', function() {
-checkAdminLogin();
-displayComments();
-showSlide(0);
-
-// Add tooltips to enrollment buttons
-document.querySelectorAll('.course-info button').forEach(button => {
-button.addEventListener('mouseenter', function() {
-const tooltip = document.createElement('div');
-tooltip.className = 'tooltip';
-tooltip.textContent = 'Se abrirá el formulario de inscripción';
-this.appendChild(tooltip);
-
-setTimeout(() => {
-tooltip.style.opacity = '1';
-tooltip.style.visibility = 'visible';
-}, 10);
-});
-
-button.addEventListener('mouseleave', function() {
-const tooltip = this.querySelector('.tooltip');
-if (tooltip) {
-tooltip.remove();
-}
-});
-});
-});
-</script>
-</body>
-</html>
+    // Check for keywords and return appropriate responses
+    if (lowerMessage.includes('horario') || lowerMessage.includes('clases')) {
+        return 'Nuestras clases son de Lunes a Viernes de 8am a 5pm, con horarios flexibles según el curso. Puedes ver los horarios específicos en la sección "Precios y Horarios".';
+    } else if (lowerMessage.includes('precio') || lowerMessage.includes('costo')) {
+        return 'Los precios van desde S/60/mes para Inglés para Niños hasta S/120/mes para
