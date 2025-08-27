@@ -20,22 +20,19 @@
 --success-color: #2ecc71;
 --warning-color: #f39c12;
 }
-
 * {
 margin: 0;
 padding: 0;
 box-sizing: border-box;
 font-family: 'Poppins', sans-serif;
 }
-
 body {
 background-color: var(--light-color);
 color: var(--dark-color);
 line-height: 1.6;
 overflow-x: hidden;
 }
-
-/* Pre-registration Screen - Updated Colors */
+/* Pre-registration Screen */
 .pre-register-screen {
 position: fixed;
 top: 0;
@@ -50,7 +47,6 @@ align-items: center;
 z-index: 2000;
 transition: opacity 0.8s, visibility 0.8s;
 }
-
 .pre-register-container {
 background: white;
 padding: 3rem;
@@ -61,30 +57,25 @@ max-width: 400px;
 text-align: center;
 border: 1px solid #e9ecef;
 }
-
 .pre-register-container h2 {
 color: var(--primary-color);
 margin-bottom: 1.5rem;
 font-size: 2rem;
 }
-
 .pre-register-container p {
 margin-bottom: 2rem;
 color: var(--gray-color);
 }
-
 .form-group {
 margin-bottom: 1.5rem;
 text-align: left;
 }
-
 .form-group label {
 display: block;
 margin-bottom: 0.5rem;
 font-weight: 500;
 color: var(--dark-color);
 }
-
 .form-group input,
 .form-group textarea,
 .form-group select {
@@ -96,7 +87,6 @@ font-size: 1rem;
 transition: var(--transition);
 font-family: 'Poppins', sans-serif;
 }
-
 .form-group input:focus,
 .form-group textarea:focus,
 .form-group select:focus {
@@ -104,12 +94,10 @@ outline: none;
 border-color: var(--primary-color);
 box-shadow: 0 0 0 4px rgba(67, 97, 238, 0.2);
 }
-
 .form-group textarea {
 resize: vertical;
 min-height: 100px;
 }
-
 .pre-register-btn,
 .admin-btn {
 background: linear-gradient(to right, var(--primary-color), var(--primary-dark));
@@ -124,13 +112,11 @@ width: 100%;
 font-size: 1.1rem;
 box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
 }
-
 .pre-register-btn:hover,
 .admin-btn:hover {
 transform: translateY(-3px);
 box-shadow: 0 8px 25px rgba(67, 97, 238, 0.4);
 }
-
 .login-screen {
 position: fixed;
 top: 0;
@@ -145,13 +131,11 @@ align-items: center;
 z-index: 1000;
 transition: opacity 0.8s, visibility 0.8s;
 }
-
 .logo-container {
 animation: bounce 2s infinite alternate;
 margin-bottom: 2.5rem;
 text-align: center;
 }
-
 .logo-spin {
 width: 200px;
 filter: drop-shadow(0 8px 15px rgba(0, 0, 0, 0.1));
@@ -160,7 +144,6 @@ background: white;
 padding: 10px;
 border-radius: 50%;
 }
-
 .login-screen h1 {
 font-size: 3rem;
 color: var(--primary-color);
@@ -169,7 +152,6 @@ text-align: center;
 font-weight: 700;
 letter-spacing: 1px;
 }
-
 .login-screen button {
 padding: 1.2rem 3rem;
 font-size: 1.2rem;
@@ -184,12 +166,10 @@ box-shadow: 0 10px 25px rgba(67, 97, 238, 0.3);
 position: relative;
 overflow: hidden;
 }
-
 .login-screen button:hover {
 transform: translateY(-5px);
 box-shadow: 0 15px 30px rgba(67, 97, 238, 0.4);
 }
-
 .login-screen button::after {
 content: '';
 position: absolute;
@@ -201,16 +181,13 @@ background: linear-gradient(rgba(255, 255, 255, 0.3), transparent);
 transform: translateY(-100%);
 transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
-
 .login-screen button:hover::after {
 transform: translateY(0);
 }
-
 @keyframes bounce {
 0% { transform: translateY(0) rotate(-5deg); }
 100% { transform: translateY(-30px) rotate(5deg); }
 }
-
 /* Loading Bar */
 .loading-bar {
 position: fixed;
@@ -221,14 +198,12 @@ height: 4px;
 background: var(--light-color);
 z-index: 3000;
 }
-
 .loading-progress {
 height: 100%;
 width: 0;
 background: linear-gradient(to right, var(--primary-color), var(--accent-color));
 transition: width 0.3s ease;
 }
-
 /* Navigation Styles */
 .navbar {
 background: white;
@@ -240,12 +215,10 @@ top: 0;
 z-index: 100;
 transition: var(--transition);
 }
-
 .navbar.scrolled {
 padding: 1rem 5%;
 box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
 }
-
 .nav-content {
 display: flex;
 justify-content: space-between;
@@ -253,17 +226,14 @@ align-items: center;
 max-width: 1200px;
 margin: 0 auto;
 }
-
 .logo {
 height: 50px;
 transition: var(--transition);
 }
-
 .nav-links {
 display: flex;
 gap: 2.5rem;
 }
-
 .nav-links a {
 text-decoration: none;
 color: var(--dark-color);
@@ -273,7 +243,6 @@ padding: 0.5rem 0;
 position: relative;
 font-size: 1.1rem;
 }
-
 .nav-links a::after {
 content: '';
 position: absolute;
@@ -285,28 +254,22 @@ left: 0;
 transition: var(--transition);
 border-radius: 3px;
 }
-
 .nav-links a:hover {
 color: var(--primary-color);
 }
-
 .nav-links a:hover::after {
 width: 100%;
 }
-
 .nav-links a.active {
 color: var(--primary-color);
 }
-
 .nav-links a.active::after {
 width: 100%;
 }
-
 .admin-link {
 display: none;
 color: var(--accent-color);
 }
-
 /* Main Content */
 .section {
 padding: 100px 5% 5rem;
@@ -314,16 +277,13 @@ min-height: 100vh;
 display: none;
 animation: fadeIn 0.8s ease forwards;
 }
-
 @keyframes fadeIn {
 from { opacity: 0; transform: translateY(30px); }
 to { opacity: 1; transform: translateY(0); }
 }
-
 .active {
 display: block;
 }
-
 h2 {
 font-size: 2.5rem;
 color: var(--dark-color);
@@ -332,7 +292,6 @@ text-align: center;
 position: relative;
 padding-bottom: 1.5rem;
 }
-
 h2::after {
 content: '';
 position: absolute;
@@ -344,7 +303,6 @@ left: 50%;
 transform: translateX(-50%);
 border-radius: 5px;
 }
-
 /* Home Section */
 .home-slider {
 height: 65vh;
@@ -354,7 +312,6 @@ border-radius: 15px;
 overflow: hidden;
 box-shadow: var(--shadow);
 }
-
 .slider-image {
 position: absolute;
 width: 100%;
@@ -363,11 +320,9 @@ object-fit: cover;
 opacity: 0;
 transition: opacity 1.2s ease-in-out;
 }
-
 .slider-image.active {
 opacity: 1;
 }
-
 .slider-controls {
 position: absolute;
 bottom: 20px;
@@ -377,7 +332,6 @@ display: flex;
 gap: 10px;
 z-index: 10;
 }
-
 .slider-dot {
 width: 12px;
 height: 12px;
@@ -386,12 +340,10 @@ background: rgba(255, 255, 255, 0.5);
 cursor: pointer;
 transition: var(--transition);
 }
-
 .slider-dot.active {
 background: white;
 transform: scale(1.2);
 }
-
 /* Stats Section */
 .stats-container {
 display: flex;
@@ -400,7 +352,6 @@ flex-wrap: wrap;
 margin: 4rem 0;
 gap: 2rem;
 }
-
 .stat-item {
 text-align: center;
 flex: 1;
@@ -411,24 +362,20 @@ border-radius: 15px;
 box-shadow: var(--shadow);
 transition: var(--transition);
 }
-
 .stat-item:hover {
 transform: translateY(-10px);
 box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
 }
-
 .stat-number {
 font-size: 3rem;
 font-weight: 700;
 color: var(--primary-color);
 margin-bottom: 0.5rem;
 }
-
 .stat-label {
 font-size: 1.1rem;
 color: var(--gray-color);
 }
-
 /* News & Comments Sections */
 .news-section,
 .comments-section {
@@ -440,37 +387,31 @@ border-radius: 15px;
 box-shadow: var(--shadow);
 transition: var(--transition);
 }
-
 .news-section:hover,
 .comments-section:hover {
 transform: translateY(-10px);
 box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
 }
-
 .news-section h2,
 .comments-section h2 {
 text-align: left;
 margin-bottom: 2rem;
 }
-
 .news-section h2::after,
 .comments-section h2::after {
 left: 0;
 transform: none;
 }
-
 .news-content {
 display: flex;
 align-items: center;
 gap: 2rem;
 }
-
 .news-icon {
 font-size: 3rem;
 color: var(--accent-color);
 flex-shrink: 0;
 }
-
 .news-section p {
 font-size: 1.2rem;
 color: var(--dark-color);
@@ -482,7 +423,6 @@ font-weight: 500;
 position: relative;
 overflow: hidden;
 }
-
 .news-section p::before {
 content: '';
 position: absolute;
@@ -492,13 +432,11 @@ width: 5px;
 height: 100%;
 background: linear-gradient(to bottom, var(--primary-color), var(--accent-color));
 }
-
 .comments-section form {
 margin-top: 2rem;
 display: flex;
 gap: 1.5rem;
 }
-
 .comments-section input[type="text"] {
 flex: 1;
 padding: 1rem 1.5rem;
@@ -508,13 +446,11 @@ font-size: 1rem;
 transition: var(--transition);
 box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
-
 .comments-section input[type="text"]:focus {
 outline: none;
 border-color: var(--primary-color);
 box-shadow: 0 0 0 4px rgba(67, 97, 238, 0.2);
 }
-
 .comments-section button {
 padding: 1rem 2.5rem;
 background: var(--primary-color);
@@ -529,13 +465,11 @@ align-items: center;
 gap: 0.5rem;
 box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
 }
-
 .comments-section button:hover {
 background: var(--primary-dark);
 transform: translateY(-3px);
 box-shadow: 0 8px 20px rgba(67, 97, 238, 0.4);
 }
-
 /* Courses Grid */
 .courses-grid {
 display: grid;
@@ -543,7 +477,6 @@ grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
 gap: 3rem;
 padding: 3rem 0;
 }
-
 .course-card {
 background: white;
 border-radius: 15px;
@@ -555,12 +488,10 @@ height: 100%;
 display: flex;
 flex-direction: column;
 }
-
 .course-card:hover {
 transform: translateY(-15px);
 box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
 }
-
 .course-card::before {
 content: '';
 position: absolute;
@@ -570,24 +501,20 @@ width: 100%;
 height: 5px;
 background: linear-gradient(to right, var(--primary-color), var(--accent-color));
 }
-
 .course-img-container {
 overflow: hidden;
 height: 220px;
 position: relative;
 }
-
 .course-img {
 width: 100%;
 height: 100%;
 object-fit: cover;
 transition: var(--transition);
 }
-
 .course-card:hover .course-img {
 transform: scale(1.1);
 }
-
 .course-badge {
 position: absolute;
 top: 15px;
@@ -600,27 +527,23 @@ font-size: 0.8rem;
 font-weight: 600;
 z-index: 1;
 }
-
 .course-info {
 padding: 2rem;
 flex-grow: 1;
 display: flex;
 flex-direction: column;
 }
-
 .course-info h3 {
 font-size: 1.5rem;
 margin-bottom: 0.8rem;
 color: var(--dark-color);
 }
-
 .course-teacher {
 display: flex;
 align-items: center;
 gap: 0.8rem;
 margin-bottom: 1.5rem;
 }
-
 .teacher-avatar {
 width: 40px;
 height: 40px;
@@ -628,12 +551,10 @@ border-radius: 50%;
 object-fit: cover;
 border: 2px solid var(--primary-color);
 }
-
 .teacher-name {
 font-weight: 500;
 color: var(--dark-color);
 }
-
 .course-meta {
 display: flex;
 justify-content: space-between;
@@ -641,14 +562,12 @@ margin-bottom: 1.5rem;
 color: var(--gray-color);
 font-size: 0.9rem;
 }
-
 .course-price {
 font-size: 1.5rem;
 font-weight: 700;
 color: var(--primary-color);
 margin-bottom: 1.5rem;
 }
-
 .course-info button {
 background: var(--primary-color);
 color: white;
@@ -666,19 +585,16 @@ gap: 0.5rem;
 box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
 margin-top: auto;
 }
-
 .course-info button:hover {
 background: var(--primary-dark);
 transform: translateY(-3px);
 box-shadow: 0 8px 20px rgba(67, 97, 238, 0.4);
 }
-
-/* Course Details Flip Card - Applied to all courses */
+/* Course Details Flip Card */
 .course-card {
 perspective: 1000px;
 height: 500px;
 }
-
 .card-inner {
 position: relative;
 width: 100%;
@@ -687,11 +603,9 @@ text-align: center;
 transition: transform 0.8s;
 transform-style: preserve-3d;
 }
-
 .course-card:hover .card-inner {
 transform: rotateY(180deg);
 }
-
 .card-front, .card-back {
 position: absolute;
 width: 100%;
@@ -702,7 +616,6 @@ border-radius: 15px;
 overflow: hidden;
 box-shadow: var(--shadow);
 }
-
 .card-back {
 transform: rotateY(180deg);
 background: white;
@@ -710,24 +623,20 @@ padding: 2rem;
 display: flex;
 flex-direction: column;
 }
-
 .card-back h3 {
 color: var(--primary-color);
 margin-bottom: 1rem;
 }
-
 .card-back ul {
 list-style: none;
 text-align: left;
 margin-bottom: 1.5rem;
 }
-
 .card-back li {
 margin-bottom: 0.8rem;
 position: relative;
 padding-left: 1.5rem;
 }
-
 .card-back li::before {
 content: '✓';
 position: absolute;
@@ -735,24 +644,20 @@ left: 0;
 color: var(--success-color);
 font-weight: bold;
 }
-
 .card-back button {
 margin-top: auto;
 }
-
 /* Pricing Table */
 .pricing-container {
 max-width: 1000px;
 margin: 3rem auto;
 }
-
 .pricing-tabs {
 display: flex;
 justify-content: center;
 margin-bottom: 3rem;
 gap: 1rem;
 }
-
 .pricing-tab {
 padding: 0.8rem 2rem;
 background: white;
@@ -763,16 +668,13 @@ transition: var(--transition);
 font-weight: 600;
 color: var(--primary-color);
 }
-
 .pricing-tab.active {
 background: var(--primary-color);
 color: white;
 }
-
 .pricing-tab:hover:not(.active) {
 background: rgba(67, 97, 238, 0.1);
 }
-
 .pricing-table {
 width: 100%;
 border-collapse: separate;
@@ -782,7 +684,6 @@ border-radius: 15px;
 overflow: hidden;
 background: white;
 }
-
 .pricing-table th {
 background: linear-gradient(to right, var(--primary-color), var(--primary-dark));
 color: white;
@@ -791,7 +692,6 @@ font-weight: 600;
 text-align: center;
 font-size: 1.1rem;
 }
-
 .pricing-table td {
 padding: 1.5rem;
 border-bottom: 1px solid #eee;
@@ -799,33 +699,27 @@ text-align: center;
 background: white;
 transition: var(--transition);
 }
-
 .pricing-table tr:last-child td {
 border-bottom: none;
 }
-
 .pricing-table tr:hover td {
 background: #f8f9fa;
 }
-
 .highlight {
 font-weight: 600;
 color: var(--primary-color);
 }
-
 /* Contact Section */
 .contact-container {
 max-width: 900px;
 margin: 0 auto;
 }
-
 .contact-grid {
 display: grid;
 grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 gap: 2rem;
 margin-top: 3rem;
 }
-
 .contact-card {
 background: white;
 padding: 2.5rem;
@@ -834,29 +728,24 @@ box-shadow: var(--shadow);
 transition: var(--transition);
 text-align: center;
 }
-
 .contact-card:hover {
 transform: translateY(-10px);
 box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
 }
-
 .contact-icon {
 font-size: 3rem;
 color: var(--primary-color);
 margin-bottom: 1.5rem;
 }
-
 .contact-card h3 {
 font-size: 1.5rem;
 margin-bottom: 1rem;
 color: var(--dark-color);
 }
-
 .contact-card p {
 color: var(--gray-color);
 margin-bottom: 1.5rem;
 }
-
 .contact-link {
 display: inline-block;
 padding: 0.8rem 1.5rem;
@@ -867,14 +756,12 @@ text-decoration: none;
 font-weight: 600;
 transition: var(--transition);
 }
-
 .contact-link:hover {
 background: var(--primary-dark);
 transform: translateY(-3px);
 box-shadow: 0 8px 20px rgba(67, 97, 238, 0.3);
 }
-
-/* Live Classes Section - Updated Layout */
+/* Live Classes Section */
 .live-section {
 max-width: 1200px;
 margin: 3rem auto;
@@ -884,7 +771,6 @@ border-radius: 15px;
 box-shadow: var(--shadow);
 text-align: center;
 }
-
 .live-section p {
 margin-bottom: 2rem;
 font-size: 1.2rem;
@@ -893,26 +779,22 @@ max-width: 700px;
 margin-left: auto;
 margin-right: auto;
 }
-
 .live-container {
 display: flex;
 gap: 2rem;
 margin-bottom: 3rem;
 }
-
 .live-video {
 flex: 2;
 border-radius: 15px;
 overflow: hidden;
 box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
-
 .live-video iframe {
 width: 100%;
 height: 500px;
 border: none;
 }
-
 .live-chat {
 flex: 1;
 display: flex;
@@ -921,14 +803,12 @@ border-radius: 15px;
 overflow: hidden;
 box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
-
 .chat-header {
 padding: 1rem;
 background: linear-gradient(to right, var(--primary-color), var(--primary-dark));
 color: white;
 font-weight: 600;
 }
-
 .chat-messages {
 flex: 1;
 padding: 1rem;
@@ -939,21 +819,18 @@ display: flex;
 flex-direction: column;
 gap: 0.8rem;
 }
-
 .chat-message {
 max-width: 80%;
 padding: 0.8rem 1rem;
 border-radius: 15px;
 font-size: 0.9rem;
 }
-
 .user-message {
 align-self: flex-end;
 background: var(--primary-color);
 color: white;
 border-bottom-right-radius: 5px;
 }
-
 .other-message {
 align-self: flex-start;
 background: white;
@@ -961,7 +838,6 @@ color: var(--dark-color);
 border-bottom-left-radius: 5px;
 box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
-
 .chat-input {
 padding: 1rem;
 background: white;
@@ -969,7 +845,6 @@ border-top: 1px solid #eee;
 display: flex;
 gap: 0.8rem;
 }
-
 .chat-input input {
 flex: 1;
 padding: 0.8rem;
@@ -978,13 +853,11 @@ border-radius: 50px;
 font-size: 0.9rem;
 transition: var(--transition);
 }
-
 .chat-input input:focus {
 outline: none;
 border-color: var(--primary-color);
 box-shadow: 0 0 0 4px rgba(67, 97, 238, 0.2);
 }
-
 .chat-input button {
 background: var(--primary-color);
 color: white;
@@ -999,12 +872,10 @@ align-items: center;
 justify-content: center;
 box-shadow: 0 4px 10px rgba(67, 97, 238, 0.3);
 }
-
 .chat-input button:hover {
 background: var(--primary-dark);
 transform: scale(1.05);
 }
-
 .live-schedule {
 margin-top: 3rem;
 background: white;
@@ -1012,7 +883,6 @@ padding: 2rem;
 border-radius: 15px;
 box-shadow: var(--shadow);
 }
-
 .schedule-item {
 display: flex;
 justify-content: space-between;
@@ -1021,23 +891,19 @@ border-bottom: 1px solid #eee;
 cursor: pointer;
 transition: var(--transition);
 }
-
 .schedule-item:hover {
 background: #f8f9fa;
 padding-left: 1rem;
 padding-right: 1rem;
 border-radius: 10px;
 }
-
 .schedule-item:last-child {
 border-bottom: none;
 }
-
 .schedule-time {
 font-weight: 600;
 color: var(--primary-color);
 }
-
 /* Calendar */
 .calendar-container {
 margin-top: 3rem;
@@ -1046,7 +912,6 @@ border-radius: 15px;
 box-shadow: var(--shadow);
 overflow: hidden;
 }
-
 .calendar-header {
 display: flex;
 justify-content: space-between;
@@ -1055,16 +920,13 @@ padding: 1.5rem;
 background: linear-gradient(to right, var(--primary-color), var(--primary-dark));
 color: white;
 }
-
 .calendar-header h3 {
 margin: 0;
 }
-
 .calendar-nav {
 display: flex;
 gap: 1rem;
 }
-
 .calendar-nav button {
 background: rgba(255, 255, 255, 0.2);
 border: none;
@@ -1075,16 +937,13 @@ border-radius: 50%;
 cursor: pointer;
 transition: var(--transition);
 }
-
 .calendar-nav button:hover {
 background: rgba(255, 255, 255, 0.3);
 }
-
 .calendar-grid {
 display: grid;
 grid-template-columns: repeat(7, 1fr);
 }
-
 .calendar-day {
 padding: 1rem;
 border-right: 1px solid #eee;
@@ -1094,15 +953,12 @@ position: relative;
 cursor: pointer;
 transition: var(--transition);
 }
-
 .calendar-day:hover {
 background: #f8f9fa;
 }
-
 .calendar-day:nth-child(7n) {
 border-right: none;
 }
-
 .calendar-day.weekday {
 background: #f8f9fa;
 font-weight: 600;
@@ -1111,20 +967,16 @@ min-height: auto;
 padding: 0.8rem;
 cursor: default;
 }
-
 .calendar-day.weekday:hover {
 background: #f8f9fa;
 }
-
 .calendar-day.other-month {
 color: var(--gray-color);
 background: #f8f9fa;
 }
-
 .calendar-day.today {
 background: rgba(67, 97, 238, 0.1);
 }
-
 .calendar-day.has-class::after {
 content: '';
 position: absolute;
@@ -1136,7 +988,6 @@ height: 8px;
 border-radius: 50%;
 background: var(--accent-color);
 }
-
 .class-event {
 position: absolute;
 bottom: 5px;
@@ -1152,25 +1003,21 @@ overflow: hidden;
 text-overflow: ellipsis;
 white-space: nowrap;
 }
-
 /* Testimonials Section */
 .testimonials {
 margin: 5rem auto;
 max-width: 1000px;
 position: relative;
 }
-
 .testimonial-slider {
 position: relative;
 overflow: hidden;
 border-radius: 15px;
 }
-
 .testimonial-track {
 display: flex;
 transition: transform 0.5s ease;
 }
-
 .testimonial-card {
 background: white;
 padding: 2.5rem;
@@ -1179,7 +1026,6 @@ box-shadow: var(--shadow);
 min-width: 100%;
 position: relative;
 }
-
 .testimonial-card::before {
 content: '"';
 position: absolute;
@@ -1190,7 +1036,6 @@ color: rgba(67, 97, 238, 0.1);
 font-family: serif;
 line-height: 1;
 }
-
 .testimonial-content {
 font-size: 1.1rem;
 line-height: 1.8;
@@ -1199,13 +1044,11 @@ margin-bottom: 1.5rem;
 position: relative;
 z-index: 1;
 }
-
 .testimonial-author {
 display: flex;
 align-items: center;
 gap: 1rem;
 }
-
 .author-avatar {
 width: 60px;
 height: 60px;
@@ -1213,25 +1056,21 @@ border-radius: 50%;
 object-fit: cover;
 border: 3px solid var(--primary-color);
 }
-
 .author-info h4 {
 font-size: 1.2rem;
 color: var(--dark-color);
 margin-bottom: 0.3rem;
 }
-
 .author-info p {
 color: var(--gray-color);
 font-size: 0.9rem;
 }
-
 .testimonial-controls {
 display: flex;
 justify-content: center;
 gap: 1rem;
 margin-top: 2rem;
 }
-
 .testimonial-btn {
 background: var(--primary-color);
 color: white;
@@ -1245,18 +1084,15 @@ display: flex;
 align-items: center;
 justify-content: center;
 }
-
 .testimonial-btn:hover {
 background: var(--primary-dark);
 }
-
 .testimonial-indicators {
 display: flex;
 justify-content: center;
 gap: 0.5rem;
 margin-top: 1rem;
 }
-
 .testimonial-indicator {
 width: 10px;
 height: 10px;
@@ -1265,11 +1101,9 @@ background: var(--gray-color);
 cursor: pointer;
 transition: var(--transition);
 }
-
 .testimonial-indicator.active {
 background: var(--primary-color);
 }
-
 /* Admin Panel Styles */
 .admin-panel {
 max-width: 1200px;
@@ -1279,7 +1113,6 @@ padding: 3rem;
 border-radius: 15px;
 box-shadow: var(--shadow);
 }
-
 .admin-tabs {
 display: flex;
 flex-wrap: wrap;
@@ -1287,7 +1120,6 @@ gap: 1rem;
 margin-bottom: 2rem;
 border-bottom: 1px solid #eee;
 }
-
 .admin-tab {
 padding: 1rem 1.5rem;
 background: none;
@@ -1298,45 +1130,36 @@ transition: var(--transition);
 font-weight: 600;
 color: var(--gray-color);
 }
-
 .admin-tab.active {
 color: var(--primary-color);
 border-bottom-color: var(--primary-color);
 }
-
 .admin-tab:hover {
 color: var(--primary-color);
 }
-
 .admin-content {
 display: none;
 }
-
 .admin-content.active {
 display: block;
 }
-
 .admin-form {
 max-width: 800px;
 }
-
 .admin-form h3 {
 margin-bottom: 1.5rem;
 color: var(--dark-color);
 }
-
 .form-row {
 display: flex;
 gap: 1.5rem;
 margin-bottom: 1.5rem;
 }
-
 .form-actions {
 display: flex;
 gap: 1rem;
 margin-top: 2rem;
 }
-
 .btn-primary {
 background: var(--primary-color);
 color: white;
@@ -1347,11 +1170,9 @@ cursor: pointer;
 transition: var(--transition);
 font-weight: 600;
 }
-
 .btn-primary:hover {
 background: var(--primary-dark);
 }
-
 .btn-secondary {
 background: var(--gray-color);
 color: white;
@@ -1362,15 +1183,12 @@ cursor: pointer;
 transition: var(--transition);
 font-weight: 600;
 }
-
 .btn-secondary:hover {
 background: #6c757d;
 }
-
 .admin-list {
 margin-top: 2rem;
 }
-
 .admin-item {
 display: flex;
 justify-content: space-between;
@@ -1380,17 +1198,14 @@ background: var(--light-color);
 border-radius: 10px;
 margin-bottom: 1rem;
 }
-
 .admin-item-actions {
 display: flex;
 gap: 0.5rem;
 }
-
 .btn-small {
 padding: 0.5rem 1rem;
 font-size: 0.9rem;
 }
-
 /* Modal Styles */
 .modal {
 display: none;
@@ -1404,7 +1219,6 @@ z-index: 3000;
 justify-content: center;
 align-items: center;
 }
-
 .modal-content {
 background: white;
 padding: 2.5rem;
@@ -1415,12 +1229,10 @@ box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
 position: relative;
 animation: modalFadeIn 0.3s ease;
 }
-
 @keyframes modalFadeIn {
 from { opacity: 0; transform: translateY(-50px); }
 to { opacity: 1; transform: translateY(0); }
 }
-
 .modal-close {
 position: absolute;
 top: 15px;
@@ -1430,19 +1242,15 @@ color: var(--gray-color);
 cursor: pointer;
 transition: var(--transition);
 }
-
 .modal-close:hover {
 color: var(--accent-color);
 }
-
 .modal-header {
 margin-bottom: 1.5rem;
 }
-
 .modal-header h3 {
 color: var(--primary-color);
 }
-
 /* Login Modal */
 .login-modal {
 display: none;
@@ -1456,7 +1264,6 @@ z-index: 3000;
 justify-content: center;
 align-items: center;
 }
-
 .login-modal-content {
 background: white;
 padding: 2.5rem;
@@ -1467,12 +1274,6 @@ box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
 position: relative;
 animation: modalFadeIn 0.3s ease;
 }
-
-@keyframes modalFadeIn {
-from { opacity: 0; transform: translateY(-50px); }
-to { opacity: 1; transform: translateY(0); }
-}
-
 .login-modal-close {
 position: absolute;
 top: 15px;
@@ -1482,11 +1283,9 @@ color: var(--gray-color);
 cursor: pointer;
 transition: var(--transition);
 }
-
 .login-modal-close:hover {
 color: var(--accent-color);
 }
-
 /* Chatbot */
 .chatbot-icon {
 position: fixed;
@@ -1507,18 +1306,15 @@ box-shadow: 0 10px 30px rgba(67, 97, 238, 0.4);
 font-size: 1.8rem;
 animation: pulse 2s infinite;
 }
-
 @keyframes pulse {
 0% { transform: scale(1); }
 50% { transform: scale(1.1); }
 100% { transform: scale(1); }
 }
-
 .chatbot-icon:hover {
 transform: scale(1.1) rotate(10deg);
 box-shadow: 0 15px 40px rgba(67, 97, 238, 0.5);
 }
-
 .chat-window {
 position: fixed;
 bottom: 130px;
@@ -1535,12 +1331,10 @@ z-index: 200;
 transform-origin: bottom right;
 animation: scaleUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
-
 @keyframes scaleUp {
 from { transform: scale(0.8); opacity: 0; }
 to { transform: scale(1); opacity: 1; }
 }
-
 .chat-header {
 padding: 1.5rem;
 background: linear-gradient(to right, var(--primary-color), var(--primary-dark));
@@ -1551,11 +1345,9 @@ display: flex;
 align-items: center;
 gap: 1rem;
 }
-
 .chat-header i {
 font-size: 1.5rem;
 }
-
 .chat-messages {
 flex: 1;
 padding: 1.5rem;
@@ -1565,7 +1357,6 @@ display: flex;
 flex-direction: column;
 gap: 1rem;
 }
-
 .bot-message, .user-message {
 max-width: 80%;
 padding: 1rem 1.5rem;
@@ -1573,12 +1364,10 @@ border-radius: 18px;
 position: relative;
 animation: fadeInUp 0.3s ease;
 }
-
 @keyframes fadeInUp {
 from { opacity: 0; transform: translateY(10px); }
 to { opacity: 1; transform: translateY(0); }
 }
-
 .bot-message {
 align-self: flex-start;
 background: white;
@@ -1586,14 +1375,12 @@ color: var(--dark-color);
 border-bottom-left-radius: 5px;
 box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
 }
-
 .user-message {
 align-self: flex-end;
 background: linear-gradient(to right, var(--primary-color), var(--accent-color));
 color: white;
 border-bottom-right-radius: 5px;
 }
-
 .chat-input {
 padding: 1.5rem;
 background: white;
@@ -1601,7 +1388,6 @@ border-top: 1px solid #eee;
 display: flex;
 gap: 0.8rem;
 }
-
 .chat-input input {
 flex: 1;
 padding: 1rem;
@@ -1610,13 +1396,11 @@ border-radius: 50px;
 font-size: 1rem;
 transition: var(--transition);
 }
-
 .chat-input input:focus {
 outline: none;
 border-color: var(--primary-color);
 box-shadow: 0 0 0 4px rgba(67, 97, 238, 0.2);
 }
-
 .chat-input button {
 background: var(--primary-color);
 color: white;
@@ -1631,12 +1415,10 @@ align-items: center;
 justify-content: center;
 box-shadow: 0 4px 10px rgba(67, 97, 238, 0.3);
 }
-
 .chat-input button:hover {
 background: var(--primary-dark);
 transform: scale(1.05);
 }
-
 .chat-suggestions {
 display: flex;
 flex-wrap: wrap;
@@ -1645,7 +1427,6 @@ padding: 0 1.5rem 1rem;
 background: white;
 border-top: 1px solid #eee;
 }
-
 .suggestion-chip {
 padding: 0.5rem 1rem;
 background: #f8f9fa;
@@ -1654,12 +1435,10 @@ font-size: 0.9rem;
 cursor: pointer;
 transition: var(--transition);
 }
-
 .suggestion-chip:hover {
 background: var(--primary-color);
 color: white;
 }
-
 /* Footer */
 footer {
 background: var(--dark-color);
@@ -1667,7 +1446,6 @@ color: white;
 padding: 4rem 5% 2rem;
 margin-top: 5rem;
 }
-
 .footer-container {
 max-width: 1200px;
 margin: 0 auto;
@@ -1675,24 +1453,20 @@ display: grid;
 grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 gap: 3rem;
 }
-
 .footer-logo {
 height: 60px;
 margin-bottom: 1.5rem;
 }
-
 .footer-about p {
 margin-bottom: 1.5rem;
 color: var(--gray-color);
 }
-
 .footer-links h3, .footer-contact h3, .footer-newsletter h3 {
 font-size: 1.3rem;
 margin-bottom: 1.5rem;
 position: relative;
 padding-bottom: 1rem;
 }
-
 .footer-links h3::after, .footer-contact h3::after, .footer-newsletter h3::after {
 content: '';
 position: absolute;
@@ -1703,15 +1477,12 @@ height: 3px;
 background: var(--primary-color);
 border-radius: 3px;
 }
-
 .footer-links ul {
 list-style: none;
 }
-
 .footer-links li {
 margin-bottom: 0.8rem;
 }
-
 .footer-links a {
 color: var(--gray-color);
 text-decoration: none;
@@ -1720,12 +1491,10 @@ display: flex;
 align-items: center;
 gap: 0.5rem;
 }
-
 .footer-links a:hover {
 color: white;
 transform: translateX(5px);
 }
-
 .footer-contact p {
 display: flex;
 align-items: center;
@@ -1733,23 +1502,19 @@ gap: 0.8rem;
 margin-bottom: 1rem;
 color: var(--gray-color);
 }
-
 .footer-contact i {
 font-size: 1.2rem;
 color: var(--primary-color);
 width: 25px;
 }
-
 .footer-newsletter p {
 margin-bottom: 1.5rem;
 color: var(--gray-color);
 }
-
 .footer-newsletter-form {
 display: flex;
 gap: 0.5rem;
 }
-
 .footer-newsletter input {
 flex: 1;
 padding: 0.8rem;
@@ -1757,7 +1522,6 @@ border: none;
 border-radius: 5px;
 font-size: 1rem;
 }
-
 .footer-newsletter button {
 padding: 0.8rem 1.5rem;
 background: var(--primary-color);
@@ -1768,17 +1532,14 @@ cursor: pointer;
 transition: var(--transition);
 font-weight: 600;
 }
-
 .footer-newsletter button:hover {
 background: var(--primary-dark);
 }
-
 .social-links {
 display: flex;
 gap: 1.5rem;
 margin-top: 1.5rem;
 }
-
 .social-links a {
 display: flex;
 align-items: center;
@@ -1791,12 +1552,10 @@ color: white;
 font-size: 1.2rem;
 transition: var(--transition);
 }
-
 .social-links a:hover {
 background: var(--primary-color);
 transform: translateY(-5px);
 }
-
 .copyright {
 text-align: center;
 margin-top: 3rem;
@@ -1805,7 +1564,6 @@ border-top: 1px solid rgba(255, 255, 255, 0.1);
 color: var(--gray-color);
 font-size: 0.9rem;
 }
-
 .admin-link-footer {
 color: var(--gray-color);
 font-size: 0.8rem;
@@ -1813,11 +1571,9 @@ margin-top: 1rem;
 cursor: pointer;
 transition: var(--transition);
 }
-
 .admin-link-footer:hover {
 color: var(--primary-color);
 }
-
 /* Back to Top Button */
 .back-to-top {
 position: fixed;
@@ -1838,17 +1594,14 @@ visibility: hidden;
 transition: var(--transition);
 box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
 }
-
 .back-to-top.visible {
 opacity: 1;
 visibility: visible;
 }
-
 .back-to-top:hover {
 background: var(--primary-dark);
 transform: translateY(-5px);
 }
-
 /* WhatsApp Button */
 .whatsapp-btn {
 position: fixed;
@@ -1868,12 +1621,10 @@ transition: var(--transition);
 box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4);
 font-size: 1.8rem;
 }
-
 .whatsapp-btn:hover {
 transform: scale(1.1);
 box-shadow: 0 8px 25px rgba(37, 211, 102, 0.5);
 }
-
 /* Notification */
 .notification {
 position: fixed;
@@ -1891,37 +1642,29 @@ max-width: 350px;
 transform: translateX(400px);
 transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
-
 .notification.show {
 transform: translateX(0);
 }
-
 .notification-icon {
 font-size: 2rem;
 }
-
 .notification.success .notification-icon {
 color: var(--success-color);
 }
-
 .notification.error .notification-icon {
 color: var(--accent-color);
 }
-
 .notification.warning .notification-icon {
 color: var(--warning-color);
 }
-
 .notification-content h4 {
 margin-bottom: 0.5rem;
 color: var(--dark-color);
 }
-
 .notification-content p {
 color: var(--gray-color);
 font-size: 0.9rem;
 }
-
 .notification-close {
 position: absolute;
 top: 10px;
@@ -1932,120 +1675,95 @@ font-size: 1.2rem;
 color: var(--gray-color);
 cursor: pointer;
 }
-
 /* Responsive Design */
 @media (max-width: 992px) {
 .courses-grid {
 grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 }
-
 .home-slider {
 height: 50vh;
 }
-
 .live-container {
 flex-direction: column;
 }
-
 .live-video {
 width: 100%;
 }
-
 .live-chat {
 width: 100%;
 }
 }
-
 @media (max-width: 768px) {
 .nav-links {
 gap: 1.5rem;
 }
-
 .section {
 padding: 80px 5% 3rem;
 }
-
 h2 {
 font-size: 2rem;
 }
-
 .news-content {
 flex-direction: column;
 text-align: center;
 }
-
 .comments-section form {
 flex-direction: column;
 }
-
 .comments-section button {
 width: 100%;
 }
-
 .chat-window {
 width: 90%;
 right: 5%;
 }
-
 .whatsapp-btn {
 bottom: 20px;
 left: 20px;
 }
-
 .form-row {
 flex-direction: column;
 }
 }
-
 @media (max-width: 576px) {
 .navbar {
 padding: 1rem 5%;
 }
-
 .nav-content {
 flex-direction: column;
 gap: 1rem;
 }
-
 .nav-links {
 flex-wrap: wrap;
 justify-content: center;
 }
-
 .login-screen h1 {
 font-size: 2.2rem;
 }
-
 .login-screen button {
 padding: 1rem 2rem;
 font-size: 1rem;
 }
-
 .home-slider {
 height: 40vh;
 }
-
 .course-card {
 max-width: 350px;
 margin: 0 auto;
 }
-
 .footer-container {
 grid-template-columns: 1fr;
 }
-
 .chatbot-icon {
 width: 60px;
 height: 60px;
 bottom: 20px;
 right: 20px;
 }
-
 .back-to-top {
 bottom: 90px;
 right: 20px;
 }
-
 .notification {
 right: 10px;
 left: 10px;
@@ -2060,7 +1778,7 @@ max-width: none;
 <div class="loading-progress" id="loadingProgress"></div>
 </div>
 
-<!-- Pre-registration Screen - Updated Colors -->
+<!-- Pre-registration Screen -->
 <div class="pre-register-screen" id="preRegisterScreen">
 <div class="pre-register-container">
 <img src="https://i.postimg.cc/63d6XxfM/ponerle-fondo-blanco-removebg-preview.png" alt="Logo SkyLearn" class="logo-spin">
@@ -2179,7 +1897,6 @@ max-width: none;
 <i class="fas fa-paper-plane"></i> Enviar Email
 </a>
 </div>
-
 <div class="contact-card">
 <div class="contact-icon">
 <i class="fas fa-phone-alt"></i>
@@ -2190,7 +1907,6 @@ max-width: none;
 <i class="fas fa-phone"></i> Llamar Ahora
 </a>
 </div>
-
 <div class="contact-card">
 <div class="contact-icon">
 <i class="fas fa-map-marker-alt"></i>
@@ -2214,7 +1930,6 @@ max-width: none;
 <div class="pricing-tab" onclick="showPricing('quarterly')">Trimestral</div>
 <div class="pricing-tab" onclick="showPricing('yearly')">Anual</div>
 </div>
-
 <table class="pricing-table">
 <thead>
 <tr>
@@ -2231,17 +1946,15 @@ max-width: none;
 </div>
 </section>
 
-<!-- Clases en Vivo - Updated Layout -->
+<!-- Clases en Vivo -->
 <section id="live" class="section">
 <div class="live-section">
 <h2>Clases en Vivo</h2>
 <p>Únete a nuestras clases interactivas en tiempo real con profesores certificados. Participa, haz preguntas y aprende en un entorno colaborativo.</p>
-
 <div class="live-container">
 <div class="live-video">
 <iframe src="https://www.youtube.com/embed/live_stream?channel=TU_ID_DEL_CANAL&autoplay=1" allowfullscreen></iframe>
 </div>
-
 <div class="live-chat">
 <div class="chat-header">
 <i class="fas fa-comments"></i> Chat en Vivo
@@ -2263,7 +1976,6 @@ Claro, ¿cuál es tu duda? Estoy aquí para ayudarte.
 </div>
 </div>
 </div>
-
 <div class="live-schedule">
 <h3>Próximas Clases</h3>
 <div class="schedule-item">
@@ -2434,7 +2146,6 @@ Las clases de inglés con la profesora Ana han cambiado completamente mi perspec
 </div>
 </div>
 </div>
-
 <div class="testimonial-card">
 <div class="testimonial-content">
 El curso de inglés intermedio superó todas mis expectativas. En solo 3 meses pude mantener conversaciones fluidas. ¡Totalmente recomendado!
@@ -2447,7 +2158,6 @@ El curso de inglés intermedio superó todas mis expectativas. En solo 3 meses p
 </div>
 </div>
 </div>
-
 <div class="testimonial-card">
 <div class="testimonial-content">
 Las clases de inglés intensivo me prepararon perfectamente para mi examen. Los profesores son excelentes y el material muy completo.
@@ -2457,7 +2167,6 @@ Las clases de inglés intensivo me prepararon perfectamente para mi examen. Los 
 <div class="author-info">
 <h4>Laura Fernández</h4>
 <p>Estudiante de Inglés Intensivo</p>
-</div>
 </div>
 </div>
 </div>
@@ -2486,7 +2195,6 @@ Las clases de inglés intensivo me prepararon perfectamente para mi examen. Los 
 <a href="#"><i class="fab fa-linkedin-in"></i></a>
 </div>
 </div>
-
 <div class="footer-links">
 <h3>Enlaces Rápidos</h3>
 <ul>
@@ -2497,7 +2205,6 @@ Las clases de inglés intensivo me prepararon perfectamente para mi examen. Los 
 <li><a href="#testimonials"><i class="fas fa-chevron-right"></i> Testimonios</a></li>
 </ul>
 </div>
-
 <div class="footer-contact">
 <h3>Contacto</h3>
 <p><i class="fas fa-envelope"></i> info@skylearn.com</p>
@@ -2505,7 +2212,6 @@ Las clases de inglés intensivo me prepararon perfectamente para mi examen. Los 
 <p><i class="fas fa-map-marker-alt"></i> Av. Educación 1234, Ciudad del Aprendizaje</p>
 <p><i class="fas fa-clock"></i> Lunes a Viernes: 9:00 - 18:00</p>
 </div>
-
 <div class="footer-newsletter">
 <h3>Boletín Informativo</h3>
 <p>Suscríbete para recibir nuestras últimas noticias y ofertas especiales.</p>
@@ -2516,7 +2222,6 @@ Las clases de inglés intensivo me prepararon perfectamente para mi examen. Los 
 <div class="admin-link-footer" onclick="showLoginModal()">Acceso Administrador</div>
 </div>
 </div>
-
 <div class="copyright">
 <p>&copy; 2023 SkyLearn Academy. Todos los derechos reservados. | <a href="#">Términos y Condiciones</a> | <a href="#">Política de Privacidad</a></p>
 </div>
@@ -2536,7 +2241,6 @@ Las clases de inglés intensivo me prepararon perfectamente para mi examen. Los 
 <div class="chatbot-icon" onclick="toggleChat()">
 <i class="fas fa-comment-dots"></i>
 </div>
-
 <div class="chat-window" id="chatWindow">
 <div class="chat-header">
 <i class="fas fa-robot"></i>
@@ -2674,7 +2378,7 @@ teacher: "Prof. Yessica Ramírez",
 teacherAvatar: "https://randomuser.me/api/portraits/men/32.jpg",
 duration: "8 semanas",
 students: "85 estudiantes",
-price: "S/70/mes",
+price: "S70/mes",
 image: "https://via.placeholder.com/400x300/4361ee/ffffff?text=Basic+English",
 badge: "",
 details: [
@@ -2692,7 +2396,7 @@ teacher: "Prof. Graciela Muñoz",
 teacherAvatar: "https://randomuser.me/api/portraits/men/67.jpg",
 duration: "16 semanas",
 students: "210 estudiantes",
-price: "S/70/mes",
+price: "S70/mes",
 image: "https://via.placeholder.com/400x300/7209b7/ffffff?text=Intermediate+English",
 badge: "Nuevo",
 details: [
@@ -2710,7 +2414,7 @@ teacher: "Prof. Cesar Advincula",
 teacherAvatar: "https://randomuser.me/api/portraits/women/63.jpg",
 duration: "10 semanas",
 students: "75 estudiantes",
-price: "S/90/mes",
+price: "S90/mes",
 image: "https://via.placeholder.com/400x300/f72585/ffffff?text=Intensive+English",
 badge: "",
 details: [
@@ -2728,7 +2432,7 @@ teacher: "Prof. Diego Torres",
 teacherAvatar: "https://randomuser.me/api/portraits/men/45.jpg",
 duration: "14 semanas",
 students: "92 estudiantes",
-price: "S/120/mes",
+price: "S120/mes",
 image: "https://via.placeholder.com/400x300/4cc9f0/ffffff?text=English+for+Teachers",
 badge: "",
 details: [
@@ -2746,7 +2450,7 @@ teacher: "Prof. Cesar Advincula",
 teacherAvatar: "https://randomuser.me/api/portraits/women/28.jpg",
 duration: "12 semanas",
 students: "45 estudiantes",
-price: "S/120/mes",
+price: "S120/mes",
 image: "https://via.placeholder.com/400x300/4895ef/ffffff?text=Business+English",
 badge: "Próximamente",
 details: [
@@ -2839,56 +2543,55 @@ document.querySelector('.loading-bar').style.display = 'none';
 }, 100);
 });
 
-// Pre-registration form - Only name
+// Pre-registration form
 document.getElementById('preRegisterForm').addEventListener('submit', function(e) {
 e.preventDefault();
 const name = document.getElementById('preName').value;
-
 // Save to localStorage
 const preRegistrations = JSON.parse(localStorage.getItem('preRegistrations') || '[]');
 preRegistrations.push({ name, date: new Date().toISOString() });
 localStorage.setItem('preRegistrations', JSON.stringify(preRegistrations));
-
 // Show notification
 showNotification('success', 'Bienvenido', `Gracias ${name}, por visitar SkyLearn Academy.`);
-
-// Hide pre-registration screen
+// Hide pre-registration screen and show login screen
 setTimeout(() => {
-document.getElementById('preRegisterScreen').style.opacity = 0;
+document.getElementById('preRegisterScreen').style.opacity = '0';
 setTimeout(() => {
 document.getElementById('preRegisterScreen').style.display = 'none';
+document.getElementById('loginScreen').style.display = 'flex';
 }, 500);
 }, 2000);
 });
 
 // Mostrar contenido principal
 function showMainContent() {
-    document.getElementById('loginScreen').style.opacity = 0;
-    setTimeout(() => {
-        document.getElementById('loginScreen').style.display = 'none';
-    }, 500);
+const loginScreen = document.getElementById('loginScreen');
+loginScreen.style.opacity = '0';
+setTimeout(() => {
+loginScreen.style.display = 'none';
+}, 500);
 }
 
 // Mostrar sección activa con scroll suave
 function showSection(sectionId) {
-    document.querySelectorAll('.section').forEach(section => {
-        section.classList.remove('active');
-    });
-    document.getElementById(sectionId).classList.add('active');
-    
-    // Actualizar enlace activo en la barra de navegación
-    document.querySelectorAll('.nav-links a').forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('href') === `#${sectionId}`) {
-            link.classList.add('active');
-        }
-    });
-    
-    // Scroll suave al cambiar de sección
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-    });
+document.querySelectorAll('.section').forEach(section => {
+section.classList.remove('active');
+});
+document.getElementById(sectionId).classList.add('active');
+
+// Actualizar enlace activo en la barra de navegación
+document.querySelectorAll('.nav-links a').forEach(link => {
+link.classList.remove('active');
+if (link.getAttribute('href') === `#${sectionId}`) {
+link.classList.add('active');
+}
+});
+
+// Scroll suave al cambiar de sección
+window.scrollTo({
+top: 0,
+behavior: 'smooth'
+});
 }
 
 // Carrusel automático mejorado
@@ -2897,21 +2600,20 @@ const slides = document.querySelectorAll('.slider-image');
 const dots = document.querySelectorAll('.slider-dot');
 
 function showSlide(index) {
-    slides.forEach(slide => slide.classList.remove('active'));
-    dots.forEach(dot => dot.classList.remove('active'));
-
-    currentSlide = index;
-    slides[currentSlide].classList.add('active');
-    dots[currentSlide].classList.add('active');
+slides.forEach(slide => slide.classList.remove('active'));
+dots.forEach(dot => dot.classList.remove('active'));
+currentSlide = index;
+slides[currentSlide].classList.add('active');
+dots[currentSlide].classList.add('active');
 }
 
 function nextSlide() {
-    let newIndex = (currentSlide + 1) % slides.length;
-    showSlide(newIndex);
+let newIndex = (currentSlide + 1) % slides.length;
+showSlide(newIndex);
 }
 
 function goToSlide(index) {
-    showSlide(index);
+showSlide(index);
 }
 
 const slideInterval = setInterval(nextSlide, 5000);
@@ -2920,120 +2622,115 @@ const slideInterval = setInterval(nextSlide, 5000);
 const slider = document.querySelector('.home-slider');
 slider.addEventListener('mouseenter', () => clearInterval(slideInterval));
 slider.addEventListener('mouseleave', () => {
-    clearInterval(slideInterval);
-    slideInterval = setInterval(nextSlide, 5000);
+clearInterval(slideInterval);
+slideInterval = setInterval(nextSlide, 5000);
 });
 
 // Comentarios temporales con mejor feedback
 function addComment(e) {
-    e.preventDefault();
-    const commentInput = document.getElementById('commentInput');
-    const comment = commentInput.value.trim();
-    
-    if (comment === '') {
-        commentInput.style.borderColor = '#e74c3c';
-        setTimeout(() => {
-            commentInput.style.borderColor = '#ddd';
-        }, 2000);
-        return;
-    }
-    
-    const comments = JSON.parse(localStorage.getItem('comments') || '[]');
-    comments.push({ 
-        text: comment, 
-        time: Date.now(),
-        user: 'Usuario' + Math.floor(Math.random() * 1000)
-    });
-    localStorage.setItem('comments', JSON.stringify(comments));
-    displayComments();
-    e.target.reset();
-    
-    // Feedback visual
-    const submitBtn = e.target.querySelector('button');
-    submitBtn.innerHTML = '<i class="fas fa-check"></i> Enviado';
-    submitBtn.style.backgroundColor = '#2ecc71';
-    setTimeout(() => {
-        submitBtn.innerHTML = 'Enviar';
-        submitBtn.style.backgroundColor = '#3498db';
-    }, 2000);
-    
-    // Show notification
-    showNotification('success', 'Comentario Enviado', 'Gracias por tu comentario. Lo revisaremos pronto.');
+e.preventDefault();
+const commentInput = document.getElementById('commentInput');
+const comment = commentInput.value.trim();
+
+if (comment === '') {
+commentInput.style.borderColor = '#e74c3c';
+setTimeout(() => {
+commentInput.style.borderColor = '#ddd';
+}, 2000);
+return;
+}
+
+const comments = JSON.parse(localStorage.getItem('comments') || '[]');
+comments.push({ 
+text: comment, 
+time: Date.now(),
+user: 'Usuario' + Math.floor(Math.random() * 1000)
+});
+localStorage.setItem('comments', JSON.stringify(comments));
+displayComments();
+e.target.reset();
+
+// Feedback visual
+const submitBtn = e.target.querySelector('button');
+submitBtn.innerHTML = '<i class="fas fa-check"></i> Enviado';
+submitBtn.style.backgroundColor = '#2ecc71';
+setTimeout(() => {
+submitBtn.innerHTML = 'Enviar';
+submitBtn.style.backgroundColor = '#3498db';
+}, 2000);
+
+// Show notification
+showNotification('success', 'Comentario Enviado', 'Gracias por tu comentario. Lo revisaremos pronto.');
 }
 
 function displayComments() {
-    const container = document.getElementById('commentsContainer');
-    const comments = JSON.parse(localStorage.getItem('comments') || '[]');
-    const validComments = comments.filter(c => Date.now() - c.time < 86400000); // 24 horas
-    
-    container.innerHTML = validComments.map(c => `
-        <div class="comment">
-            <div class="comment-header">
-                <i class="fas fa-user-circle"></i>
-                <span class="comment-user">${c.user}</span>
-                <span class="comment-time">${formatTime(c.time)}</span>
-            </div>
-            <div class="comment-text">${c.text}</div>
-        </div>
-    `).join('');
-    
-    localStorage.setItem('comments', JSON.stringify(validComments));
+const container = document.getElementById('commentsContainer');
+const comments = JSON.parse(localStorage.getItem('comments') || '[]');
+const validComments = comments.filter(c => Date.now() - c.time < 86400000); // 24 horas
+
+container.innerHTML = validComments.map(c => `
+<div class="comment">
+<div class="comment-header">
+<i class="fas fa-user-circle"></i>
+<span class="comment-user">${c.user}</span>
+<span class="comment-time">${formatTime(c.time)}</span>
+</div>
+<div class="comment-text">${c.text}</div>
+</div>
+`).join('');
+
+localStorage.setItem('comments', JSON.stringify(validComments));
 }
 
 function formatTime(timestamp) {
-    const date = new Date(timestamp);
-    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+const date = new Date(timestamp);
+return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 }
 
 // Show pricing plans
 function showPricing(plan) {
-    const tabs = document.querySelectorAll('.pricing-tab');
-    tabs.forEach(tab => tab.classList.remove('active'));
-    event.target.classList.add('active');
-
-    // Aquí puedes agregar lógica para cambiar precios según el plan
-    // Por ahora es solo visual
+const tabs = document.querySelectorAll('.pricing-tab');
+tabs.forEach(tab => tab.classList.remove('active'));
+event.target.classList.add('active');
+// Aquí puedes agregar lógica para cambiar precios según el plan
+// Por ahora es solo visual
 }
 
 // Live chat functionality
 function handleLiveChatKeyPress(event) {
-    if (event.key === 'Enter') {
-        sendLiveChatMessage();
-    }
+if (event.key === 'Enter') {
+sendLiveChatMessage();
+}
 }
 
 function sendLiveChatMessage() {
-    const input = document.getElementById('liveChatInput');
-    const message = input.value.trim();
-
-    if (message === '') return;
-
-    // Add user message
-    const chatMessages = document.getElementById('liveChatMessages');
-    const userMessageDiv = document.createElement('div');
-    userMessageDiv.className = 'chat-message user-message';
-    userMessageDiv.textContent = message;
-    chatMessages.appendChild(userMessageDiv);
-
-    // Simulate response after a delay
-    setTimeout(() => {
-        const responses = [
-            "¡Buena pregunta! Vamos a ver eso en detalle.",
-            "Gracias por tu participación. ¿Alguien más tiene una pregunta?",
-            "Excelente punto. ¿Qué opinan los demás?",
-            "Vamos a practicar eso con un ejemplo.",
-            "¿Puedes repetir la pregunta por favor?"
-        ];
-        const randomResponse = responses[Math.floor(Math.random() * responses.length)];
-        const botMessageDiv = document.createElement('div');
-        botMessageDiv.className = 'chat-message other-message';
-        botMessageDiv.textContent = randomResponse;
-        chatMessages.appendChild(botMessageDiv);
-    }, 2000);
-
-    // Clear input and scroll to bottom
-    input.value = '';
-    chatMessages.scrollTop = chatMessages.scrollHeight;
+const input = document.getElementById('liveChatInput');
+const message = input.value.trim();
+if (message === '') return;
+// Add user message
+const chatMessages = document.getElementById('liveChatMessages');
+const userMessageDiv = document.createElement('div');
+userMessageDiv.className = 'chat-message user-message';
+userMessageDiv.textContent = message;
+chatMessages.appendChild(userMessageDiv);
+// Simulate response after a delay
+setTimeout(() => {
+const responses = [
+"¡Buena pregunta! Vamos a ver eso en detalle.",
+"Gracias por tu participación. ¿Alguien más tiene una pregunta?",
+"Excelente punto. ¿Qué opinan los demás?",
+"Vamos a practicar eso con un ejemplo.",
+"¿Puedes repetir la pregunta por favor?"
+];
+const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+const botMessageDiv = document.createElement('div');
+botMessageDiv.className = 'chat-message other-message';
+botMessageDiv.textContent = randomResponse;
+chatMessages.appendChild(botMessageDiv);
+}, 2000);
+// Clear input and scroll to bottom
+input.value = '';
+chatMessages.scrollTop = chatMessages.scrollHeight;
 }
 
 // Calendar
@@ -3042,56 +2739,57 @@ const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
 "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
 
 function renderCalendar() {
-    const year = currentMonth.getFullYear();
-    const month = currentMonth.getMonth();
-    const firstDay = new Date(year, month, 1).getDay();
-    const daysInMonth = new Date(year, month + 1, 0).getDate();
-    const daysInPrevMonth = new Date(year, month, 0).getDate();
+const year = currentMonth.getFullYear();
+const month = currentMonth.getMonth();
+const firstDay = new Date(year, month, 1).getDay();
+const daysInMonth = new Date(year, month + 1, 0).getDate();
+const daysInPrevMonth = new Date(year, month, 0).getDate();
 
-    document.getElementById('currentMonth').textContent = `${monthNames[month]} ${year}`;
+document.getElementById('currentMonth').textContent = `${monthNames[month]} ${year}`;
 
-    let html = '';
-    // Weekday headers
-    const weekdays = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
-    weekdays.forEach(day => {
-        html += `<div class="calendar-day weekday">${day}</div>`;
-    });
+let html = '';
 
-    // Previous month days
-    for (let i = firstDay - 1; i >= 0; i--) {
-        html += `<div class="calendar-day other-month">${daysInPrevMonth - i}</div>`;
-    }
+// Weekday headers
+const weekdays = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
+weekdays.forEach(day => {
+html += `<div class="calendar-day weekday">${day}</div>`;
+});
 
-    // Current month days
-    const today = new Date();
-    for (let i = 1; i <= daysInMonth; i++) {
-        const isToday = year === today.getFullYear() && month === today.getMonth() && i === today.getDate();
-        const hasClass = Math.random() > 0.7; // Random classes for demo
-        html += `<div class="calendar-day ${isToday ? 'today' : ''} ${hasClass ? 'has-class' : ''}">${i}`;
-        if (hasClass) {
-            html += `<div class="class-event">Clase ${Math.floor(Math.random() * 4) + 9}:00</div>`;
-        }
-        html += `</div>`;
-    }
+// Previous month days
+for (let i = firstDay - 1; i >= 0; i--) {
+html += `<div class="calendar-day other-month">${daysInPrevMonth - i}</div>`;
+}
 
-    // Next month days
-    const totalCells = document.querySelectorAll('.calendar-day.weekday').length + firstDay + daysInMonth;
-    const nextMonthDays = 42 - totalCells; // 6 rows x 7 days
-    for (let i = 1; i <= nextMonthDays; i++) {
-        html += `<div class="calendar-day other-month">${i}</div>`;
-    }
+// Current month days
+const today = new Date();
+for (let i = 1; i <= daysInMonth; i++) {
+const isToday = year === today.getFullYear() && month === today.getMonth() && i === today.getDate();
+const hasClass = Math.random() > 0.7; // Random classes for demo
+html += `<div class="calendar-day ${isToday ? 'today' : ''} ${hasClass ? 'has-class' : ''}">${i}`;
+if (hasClass) {
+html += `<div class="class-event">Clase ${Math.floor(Math.random() * 4) + 9}:00</div>`;
+}
+html += `</div>`;
+}
 
-    document.getElementById('calendarGrid').innerHTML = html;
+// Next month days
+const totalCells = document.querySelectorAll('.calendar-day.weekday').length + firstDay + daysInMonth;
+const nextMonthDays = 42 - totalCells; // 6 rows x 7 days
+for (let i = 1; i <= nextMonthDays; i++) {
+html += `<div class="calendar-day other-month">${i}</div>`;
+}
+
+document.getElementById('calendarGrid').innerHTML = html;
 }
 
 document.getElementById('prevMonth').addEventListener('click', () => {
-    currentMonth.setMonth(currentMonth.getMonth() - 1);
-    renderCalendar();
+currentMonth.setMonth(currentMonth.getMonth() - 1);
+renderCalendar();
 });
 
 document.getElementById('nextMonth').addEventListener('click', () => {
-    currentMonth.setMonth(currentMonth.getMonth() + 1);
-    renderCalendar();
+currentMonth.setMonth(currentMonth.getMonth() + 1);
+renderCalendar();
 });
 
 // Initialize calendar
@@ -3103,37 +2801,37 @@ const testimonials = document.querySelectorAll('.testimonial-card');
 const totalTestimonials = testimonials.length;
 
 function showTestimonial(index) {
-    const track = document.getElementById('testimonialTrack');
-    track.style.transform = `translateX(-${index * 100}%)`;
+const track = document.getElementById('testimonialTrack');
+track.style.transform = `translateX(-${index * 100}%)`;
 
-    // Update indicators
-    const indicators = document.querySelectorAll('.testimonial-indicator');
-    indicators.forEach((indicator, i) => {
-        indicator.classList.toggle('active', i === index);
-    });
+// Update indicators
+const indicators = document.querySelectorAll('.testimonial-indicator');
+indicators.forEach((indicator, i) => {
+indicator.classList.toggle('active', i === index);
+});
 }
 
 function nextTestimonial() {
-    currentTestimonial = (currentTestimonial + 1) % totalTestimonials;
-    showTestimonial(currentTestimonial);
+currentTestimonial = (currentTestimonial + 1) % totalTestimonials;
+showTestimonial(currentTestimonial);
 }
 
 function prevTestimonial() {
-    currentTestimonial = (currentTestimonial - 1 + totalTestimonials) % totalTestimonials;
-    showTestimonial(currentTestimonial);
+currentTestimonial = (currentTestimonial - 1 + totalTestimonials) % totalTestimonials;
+showTestimonial(currentTestimonial);
 }
 
 // Create indicators
 const indicatorsContainer = document.getElementById('testimonialIndicators');
 for (let i = 0; i < totalTestimonials; i++) {
-    const indicator = document.createElement('div');
-    indicator.className = 'testimonial-indicator';
-    if (i === 0) indicator.classList.add('active');
-    indicator.addEventListener('click', () => {
-        currentTestimonial = i;
-        showTestimonial(i);
-    });
-    indicatorsContainer.appendChild(indicator);
+const indicator = document.createElement('div');
+indicator.className = 'testimonial-indicator';
+if (i === 0) indicator.classList.add('active');
+indicator.addEventListener('click', () => {
+currentTestimonial = i;
+showTestimonial(i);
+});
+indicatorsContainer.appendChild(indicator);
 }
 
 document.getElementById('nextTestimonial').addEventListener('click', nextTestimonial);
@@ -3146,489 +2844,595 @@ const testimonialInterval = setInterval(nextTestimonial, 5000);
 const testimonialSlider = document.querySelector('.testimonial-slider');
 testimonialSlider.addEventListener('mouseenter', () => clearInterval(testimonialInterval));
 testimonialSlider.addEventListener('mouseleave', () => {
-    clearInterval(testimonialInterval);
-    setInterval(nextTestimonial, 5000);
+clearInterval(testimonialInterval);
+setInterval(nextTestimonial, 5000);
 });
 
 // Newsletter subscription
 function subscribeNewsletter(e) {
-    e.preventDefault();
-    const email = e.target.querySelector('input[type="email"]').value;
-    const subscriptions = JSON.parse(localStorage.getItem('newsletterSubscriptions') || '[]');
-    subscriptions.push({ email, date: new Date().toISOString() });
-    localStorage.setItem('newsletterSubscriptions', JSON.stringify(subscriptions));
-    e.target.reset();
-    showNotification('success', 'Suscripción Exitosa', 'Gracias por suscribirte a nuestro boletín.');
+e.preventDefault();
+const email = e.target.querySelector('input[type="email"]').value;
+const subscriptions = JSON.parse(localStorage.getItem('newsletterSubscriptions') || '[]');
+subscriptions.push({ email, date: new Date().toISOString() });
+localStorage.setItem('newsletterSubscriptions', JSON.stringify(subscriptions));
+e.target.reset();
+showNotification('success', 'Suscripción Exitosa', 'Gracias por suscribirte a nuestro boletín.');
 }
 
 // Render all content based on websiteData
 function renderAllContent() {
-    // Render news
-    document.getElementById('newsText').textContent = websiteData.news;
-    document.getElementById('newsInput').value = websiteData.news;
+// Render news
+document.getElementById('newsText').textContent = websiteData.news;
+document.getElementById('newsInput').value = websiteData.news;
 
-    // Render courses
-    renderCourses();
-    renderCoursesAdmin();
+// Render courses
+renderCourses();
+renderCoursesAdmin();
 
-    // Render pricing
-    renderPricing();
-    renderPricingAdmin();
+// Render pricing
+renderPricing();
+renderPricingAdmin();
 
-    // Render contact
-    document.getElementById('contactEmail').textContent = websiteData.contact.email;
-    document.getElementById('contactPhone').textContent = websiteData.contact.phone;
-    document.getElementById('contactAddress').textContent = websiteData.contact.address;
+// Render contact
+document.getElementById('contactEmail').textContent = websiteData.contact.email;
+document.getElementById('contactPhone').textContent = websiteData.contact.phone;
+document.getElementById('contactAddress').textContent = websiteData.contact.address;
+document.getElementById('contactEmailInput').value = websiteData.contact.email;
+document.getElementById('contactPhoneInput').value = websiteData.contact.phone;
+document.getElementById('contactAddressInput').value = websiteData.contact.address;
 
-    document.getElementById('contactEmailInput').value = websiteData.contact.email;
-    document.getElementById('contactPhoneInput').value = websiteData.contact.phone;
-    document.getElementById('contactAddressInput').value = websiteData.contact.address;
+// Render banners
+renderBanners();
+renderBannersAdmin();
 
-    // Render banners
-    renderBanners();
-    renderBannersAdmin();
-    
-    // Render comments admin
-    renderCommentsAdmin();
+// Render comments admin
+renderCommentsAdmin();
 }
 
 // Render courses
 function renderCourses() {
-    const coursesGrid = document.getElementById('coursesGrid');
-    coursesGrid.innerHTML = websiteData.courses.map(course => `
-        <div class="course-card">
-            <div class="card-inner">
-                <div class="card-front">
-                    <div class="course-img-container">
-                        <img src="${course.image}" alt="${course.title}" class="course-img">
-                        ${course.badge ? `<div class="course-badge">${course.badge}</div>` : ''}
-                    </div>
-                    <div class="course-info">
-                        <h3>${course.title}</h3>
-                        <div class="course-teacher">
-                            <img src="${course.teacherAvatar}" alt="${course.teacher}" class="teacher-avatar">
-                            <span class="teacher-name">${course.teacher}</span>
-                        </div>
-                        <div class="course-meta">
-                            <span><i class="far fa-clock"></i> ${course.duration}</span>
-                            <span><i class="fas fa-users"></i> ${course.students}</span>
-                        </div>
-                        <div class="course-price">${course.price}</div>
-                        <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?embedded=true', '_blank')">
-                            <i class="fas fa-sign-in-alt"></i> Inscribirse
-                        </button>
-                    </div>
-                </div>
-                <div class="card-back">
-                    <h3>Detalles del Curso</h3>
-                    <ul>
-                        ${course.details.map(detail => `<li>${detail}</li>`).join('')}
-                    </ul>
-                    <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?embedded=true', '_blank')">
-                        <i class="fas fa-sign-in-alt"></i> Inscribirse
-                    </button>
-                </div>
-            </div>
-        </div>
-    `).join('');
+const coursesGrid = document.getElementById('coursesGrid');
+coursesGrid.innerHTML = websiteData.courses.map(course => `
+<div class="course-card">
+<div class="card-inner">
+<div class="card-front">
+<div class="course-img-container">
+<img src="${course.image}" alt="${course.title}" class="course-img">
+${course.badge ? `<div class="course-badge">${course.badge}</div>` : ''}
+</div>
+<div class="course-info">
+<h3>${course.title}</h3>
+<div class="course-teacher">
+<img src="${course.teacherAvatar}" alt="${course.teacher}" class="teacher-avatar">
+<span class="teacher-name">${course.teacher}</span>
+</div>
+<div class="course-meta">
+<span><i class="far fa-clock"></i> ${course.duration}</span>
+<span><i class="fas fa-users"></i> ${course.students}</span>
+</div>
+<div class="course-price">${course.price}</div>
+<button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?embedded=true', '_blank')">
+<i class="fas fa-sign-in-alt"></i> Inscribirse
+</button>
+</div>
+</div>
+<div class="card-back">
+<h3>Detalles del Curso</h3>
+<ul>
+${course.details.map(detail => `<li>${detail}</li>`).join('')}
+</ul>
+<button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfXOgR-BEq2U6wck2UXfikqsWcke-pxco3WxniC9EaRPKJu_w/viewform?embedded=true', '_blank')">
+<i class="fas fa-sign-in-alt"></i> Inscribirse
+</button>
+</div>
+</div>
+</div>
+`).join('');
 }
 
 // Render courses admin
 function renderCoursesAdmin() {
-    const coursesList = document.getElementById('coursesList');
-    coursesList.innerHTML = websiteData.courses.map(course => `
-        <div class="admin-item">
-            <div>
-                <strong>${course.title}</strong> - ${course.teacher}
-            </div>
-            <div class="admin-item-actions">
-                <button class="btn-primary btn-small" onclick="editCourse(${course.id})">Editar</button>
-                <button class="btn-secondary btn-small" onclick="deleteCourse(${course.id})">Eliminar</button>
-            </div>
-        </div>
-    `).join('');
+const coursesList = document.getElementById('coursesList');
+coursesList.innerHTML = websiteData.courses.map(course => `
+<div class="admin-item">
+<div>
+<strong>${course.title}</strong> - ${course.teacher}
+</div>
+<div class="admin-item-actions">
+<button class="btn-primary btn-small" onclick="editCourse(${course.id})">Editar</button>
+<button class="btn-secondary btn-small" onclick="deleteCourse(${course.id})">Eliminar</button>
+</div>
+</div>
+`).join('');
 }
 
 // Render pricing
 function renderPricing() {
-    const pricingTableBody = document.getElementById('pricingTableBody');
-    pricingTableBody.innerHTML = websiteData.pricing.map(item => `
-        <tr>
-            <td>${item.course}</td>
-            <td class="highlight">${item.price}</td>
-            <td>${item.schedule}</td>
-            <td>${item.duration}</td>
-        </tr>
-    `).join('');
+const pricingTableBody = document.getElementById('pricingTableBody');
+pricingTableBody.innerHTML = websiteData.pricing.map(item => `
+<tr>
+<td>${item.course}</td>
+<td class="highlight">${item.price}</td>
+<td>${item.schedule}</td>
+<td>${item.duration}</td>
+</tr>
+`).join('');
 }
 
 // Render pricing admin
 function renderPricingAdmin() {
-    const pricingFormContainer = document.getElementById('pricingFormContainer');
-    pricingFormContainer.innerHTML = websiteData.pricing.map((item, index) => `
-        <div class="form-row">
-            <div class="form-group">
-                <label>Curso</label>
-                <input type="text" value="${item.course}" data-index="${index}" data-field="course">
-            </div>
-            <div class="form-group">
-                <label>Precio</label>
-                <input type="text" value="${item.price}" data-index="${index}" data-field="price">
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="form-group">
-                <label>Horario</label>
-                <input type="text" value="${item.schedule}" data-index="${index}" data-field="schedule">
-            </div>
-            <div class="form-group">
-                <label>Duración</label>
-                <input type="text" value="${item.duration}" data-index="${index}" data-field="duration">
-            </div>
-        </div>
-    `).join('');
+const pricingFormContainer = document.getElementById('pricingFormContainer');
+pricingFormContainer.innerHTML = websiteData.pricing.map((item, index) => `
+<div class="pricing-item" data-index="${index}">
+<div class="form-row">
+<div class="form-group">
+<label>Curso</label>
+<input type="text" value="${item.course}" data-field="course">
+</div>
+<div class="form-group">
+<label>Precio</label>
+<input type="text" value="${item.price}" data-field="price">
+</div>
+</div>
+<div class="form-row">
+<div class="form-group">
+<label>Horario</label>
+<input type="text" value="${item.schedule}" data-field="schedule">
+</div>
+<div class="form-group">
+<label>Duración</label>
+<input type="text" value="${item.duration}" data-field="duration">
+</div>
+</div>
+</div>
+`).join('');
 }
 
 // Render banners
 function renderBanners() {
-    const slides = document.querySelectorAll('.slider-image');
-    slides.forEach((slide, index) => {
-        if (websiteData.banners[index]) {
-            slide.src = websiteData.banners[index];
-        }
-    });
+const slides = document.querySelectorAll('.slider-image');
+slides.forEach((slide, index) => {
+if (websiteData.banners[index]) {
+slide.src = websiteData.banners[index];
+}
+});
 }
 
 // Render banners admin
 function renderBannersAdmin() {
-    document.getElementById('banner1Input').value = websiteData.banners[0];
-    document.getElementById('banner2Input').value = websiteData.banners[1];
-    document.getElementById('banner3Input').value = websiteData.banners[2];
+document.getElementById('banner1Input').value = websiteData.banners[0];
+document.getElementById('banner2Input').value = websiteData.banners[1];
+document.getElementById('banner3Input').value = websiteData.banners[2];
 }
 
 // Render comments admin
 function renderCommentsAdmin() {
-    const commentsList = document.getElementById('commentsList');
-    const comments = JSON.parse(localStorage.getItem('comments') || '[]');
-    
-    if (comments.length === 0) {
-        commentsList.innerHTML = '<p>No hay comentarios para mostrar.</p>';
-        return;
-    }
-    
-    commentsList.innerHTML = comments.map(comment => `
-        <div class="admin-item">
-            <div>
-                <strong>${comment.user}</strong>: ${comment.text}
-                <br><small>${formatTime(comment.time)}</small>
-            </div>
-            <div class="admin-item-actions">
-                <button class="btn-secondary btn-small" onclick="deleteComment(${comment.time})">Eliminar</button>
-            </div>
-        </div>
-    `).join('');
+const commentsList = document.getElementById('commentsList');
+const comments = JSON.parse(localStorage.getItem('comments') || '[]');
+
+if (comments.length === 0) {
+commentsList.innerHTML = '<p>No hay comentarios para mostrar.</p>';
+return;
+}
+
+commentsList.innerHTML = comments.map(comment => `
+<div class="admin-item">
+<div>
+<strong>${comment.user}</strong>: ${comment.text}
+<br><small>${formatTime(comment.time)}</small>
+</div>
+<div class="admin-item-actions">
+<button class="btn-secondary btn-small" onclick="deleteComment(${comment.time})">Eliminar</button>
+</div>
+</div>
+`).join('');
 }
 
 // Delete comment
 function deleteComment(timestamp) {
-    if (confirm('¿Estás seguro de que quieres eliminar este comentario?')) {
-        let comments = JSON.parse(localStorage.getItem('comments') || '[]');
-        comments = comments.filter(c => c.time !== timestamp);
-        localStorage.setItem('comments', JSON.stringify(comments));
-        renderCommentsAdmin();
-        displayComments();
-        showNotification('success', 'Comentario Eliminado', 'El comentario ha sido eliminado correctamente.');
-    }
+if (confirm('¿Estás seguro de que quieres eliminar este comentario?')) {
+let comments = JSON.parse(localStorage.getItem('comments') || '[]');
+comments = comments.filter(c => c.time !== timestamp);
+localStorage.setItem('comments', JSON.stringify(comments));
+renderCommentsAdmin();
+displayComments();
+showNotification('success', 'Comentario Eliminado', 'El comentario ha sido eliminado correctamente.');
+}
 }
 
 // Refresh comments list
 function refreshComments() {
-    renderCommentsAdmin();
-    showNotification('success', 'Lista Actualizada', 'La lista de comentarios ha sido actualizada.');
+renderCommentsAdmin();
+showNotification('success', 'Lista Actualizada', 'La lista de comentarios ha sido actualizada.');
 }
 
 // Admin Panel Functions
 function showLoginModal() {
-    document.getElementById('loginModal').style.display = 'flex';
+document.getElementById('loginModal').style.display = 'flex';
 }
 
 function closeLoginModal() {
-    document.getElementById('loginModal').style.display = 'none';
-    document.getElementById('adminLoginForm').reset();
+document.getElementById('loginModal').style.display = 'none';
+document.getElementById('adminLoginForm').reset();
 }
 
 function adminLogin(e) {
-    e.preventDefault();
-    const email = document.getElementById('adminEmail').value;
-    const password = document.getElementById('adminPassword').value;
-
-    // Check credentials
-    if ((email === 'program@skylearn.com' && password === 'dev123') || 
-        (email === 'admin@skylearn.com' && password === 'admin123')) {
-        // Save login state
-        sessionStorage.setItem('isAdminLoggedIn', 'true');
-        sessionStorage.setItem('adminEmail', email);
-
-        // Show admin link
-        document.querySelector('.admin-link').style.display = 'block';
-
-        // Close modal
-        closeLoginModal();
-
-        // Go to admin panel
-        showSection('admin');
-
-        showNotification('success', 'Inicio de Sesión Exitoso', 'Bienvenido al panel de administración.');
-    } else {
-        showNotification('error', 'Error de Autenticación', 'Email o contraseña incorrectos.');
-    }
+e.preventDefault();
+const email = document.getElementById('adminEmail').value;
+const password = document.getElementById('adminPassword').value;
+// Check credentials
+if ((email === 'program@skylearn.com' && password === 'dev123') || 
+(email === 'admin@skylearn.com' && password === 'admin123')) {
+// Save login state
+sessionStorage.setItem('isAdminLoggedIn', 'true');
+sessionStorage.setItem('adminEmail', email);
+// Show admin link
+document.querySelector('.admin-link').style.display = 'block';
+// Close modal
+closeLoginModal();
+// Go to admin panel
+showSection('admin');
+showNotification('success', 'Inicio de Sesión Exitoso', 'Bienvenido al panel de administración.');
+} else {
+showNotification('error', 'Error de Autenticación', 'Email o contraseña incorrectos.');
+}
 }
 
 // Check if admin is logged in
 function checkAdminLogin() {
-    const isLoggedIn = sessionStorage.getItem('isAdminLoggedIn');
-    if (isLoggedIn === 'true') {
-        document.querySelector('.admin-link').style.display = 'block';
-    }
+const isLoggedIn = sessionStorage.getItem('isAdminLoggedIn');
+if (isLoggedIn === 'true') {
+document.querySelector('.admin-link').style.display = 'block';
+}
 }
 
 // Admin logout
 function adminLogout() {
-    sessionStorage.removeItem('isAdminLoggedIn');
-    sessionStorage.removeItem('adminEmail');
-    document.querySelector('.admin-link').style.display = 'none';
-    showSection('home');
-    showNotification('success', 'Sesión Cerrada', 'Has cerrado sesión correctamente.');
+sessionStorage.removeItem('isAdminLoggedIn');
+sessionStorage.removeItem('adminEmail');
+document.querySelector('.admin-link').style.display = 'none';
+showSection('home');
+showNotification('success', 'Sesión Cerrada', 'Has cerrado sesión correctamente.');
 }
 
 // Show admin tab
 function showAdminTab(tabName) {
-    // Hide all admin contents
-    document.querySelectorAll('.admin-content').forEach(content => {
-        content.classList.remove('active');
-    });
-
-    // Remove active class from all tabs
-    document.querySelectorAll('.admin-tab').forEach(tab => {
-        tab.classList.remove('active');
-    });
-
-    // Show selected content
-    document.getElementById(`admin-${tabName}`).classList.add('active');
-
-    // Add active class to clicked tab
-    event.target.classList.add('active');
+// Hide all admin contents
+document.querySelectorAll('.admin-content').forEach(content => {
+content.classList.remove('active');
+});
+// Remove active class from all tabs
+document.querySelectorAll('.admin-tab').forEach(tab => {
+tab.classList.remove('active');
+});
+// Show selected content
+document.getElementById(`admin-${tabName}`).classList.add('active');
+// Add active class to clicked tab
+event.target.classList.add('active');
 }
 
 // Update news
 function updateNews(e) {
-    e.preventDefault();
-    const newsText = document.getElementById('newsInput').value;
-    websiteData.news = newsText;
-    saveData();
-    renderAllContent();
-    showNotification('success', 'Noticias Actualizadas', 'Las noticias han sido actualizadas correctamente.');
+e.preventDefault();
+const newsText = document.getElementById('newsInput').value;
+websiteData.news = newsText;
+saveData();
+renderAllContent();
+showNotification('success', 'Noticias Actualizadas', 'Las noticias han sido actualizadas correctamente.');
 }
 
 // Course management
 function editCourse(id) {
-    const course = websiteData.courses.find(c => c.id === id);
-    if (course) {
-        // Fill form with course data
-        document.getElementById('courseId').value = course.id;
-        document.getElementById('courseTitle').value = course.title;
-        document.getElementById('courseTeacher').value = course.teacher;
-        document.getElementById('courseTeacherAvatar').value = course.teacherAvatar;
-        document.getElementById('courseDuration').value = course.duration;
-        document.getElementById('courseStudents').value = course.students;
-        document.getElementById('coursePrice').value = course.price;
-        document.getElementById('courseImage').value = course.image;
-        document.getElementById('courseBadge').value = course.badge || '';
-        document.getElementById('courseDetails').value = course.details.join('\n');
-        
-        // Show modal
-        document.getElementById('courseModal').style.display = 'flex';
-        document.getElementById('courseModalTitle').textContent = 'Editar Curso';
-    }
+const course = websiteData.courses.find(c => c.id === id);
+if (course) {
+// Fill form with course data
+document.getElementById('courseId').value = course.id;
+document.getElementById('courseTitle').value = course.title;
+document.getElementById('courseTeacher').value = course.teacher;
+document.getElementById('courseTeacherAvatar').value = course.teacherAvatar;
+document.getElementById('courseDuration').value = course.duration;
+document.getElementById('courseStudents').value = course.students;
+document.getElementById('coursePrice').value = course.price;
+document.getElementById('courseImage').value = course.image;
+document.getElementById('courseBadge').value = course.badge || '';
+document.getElementById('courseDetails').value = course.details.join('\n');
+
+// Show modal
+document.getElementById('courseModal').style.display = 'flex';
+document.getElementById('courseModalTitle').textContent = 'Editar Curso';
+}
 }
 
 function deleteCourse(id) {
-    if (confirm('¿Estás seguro de que quieres eliminar este curso?')) {
-        websiteData.courses = websiteData.courses.filter(c => c.id !== id);
-        saveData();
-        renderAllContent();
-        showNotification('success', 'Curso Eliminado', 'El curso ha sido eliminado correctamente.');
-    }
+if (confirm('¿Estás seguro de que quieres eliminar este curso?')) {
+websiteData.courses = websiteData.courses.filter(c => c.id !== id);
+saveData();
+renderAllContent();
+showNotification('success', 'Curso Eliminado', 'El curso ha sido eliminado correctamente.');
+}
 }
 
 function addNewCourse() {
-    // Clear form
-    document.getElementById('courseId').value = '';
-    document.getElementById('courseTitle').value = '';
-    document.getElementById('courseTeacher').value = '';
-    document.getElementById('courseTeacherAvatar').value = '';
-    document.getElementById('courseDuration').value = '';
-    document.getElementById('courseStudents').value = '';
-    document.getElementById('coursePrice').value = '';
-    document.getElementById('courseImage').value = '';
-    document.getElementById('courseBadge').value = '';
-    document.getElementById('courseDetails').value = '';
-    
-    // Show modal
-    document.getElementById('courseModal').style.display = 'flex';
-    document.getElementById('courseModalTitle').textContent = 'Agregar Nuevo Curso';
+// Clear form
+document.getElementById('courseId').value = '';
+document.getElementById('courseTitle').value = '';
+document.getElementById('courseTeacher').value = '';
+document.getElementById('courseTeacherAvatar').value = '';
+document.getElementById('courseDuration').value = '';
+document.getElementById('courseStudents').value = '';
+document.getElementById('coursePrice').value = '';
+document.getElementById('courseImage').value = '';
+document.getElementById('courseBadge').value = '';
+document.getElementById('courseDetails').value = '';
+
+// Show modal
+document.getElementById('courseModal').style.display = 'flex';
+document.getElementById('courseModalTitle').textContent = 'Agregar Nuevo Curso';
 }
 
 function closeCourseModal() {
-    document.getElementById('courseModal').style.display = 'none';
+document.getElementById('courseModal').style.display = 'none';
 }
 
 function saveCourse(e) {
-    e.preventDefault();
-    
-    const courseId = document.getElementById('courseId').value;
-    const courseData = {
-        title: document.getElementById('courseTitle').value,
-        teacher: document.getElementById('courseTeacher').value,
-        teacherAvatar: document.getElementById('courseTeacherAvatar').value,
-        duration: document.getElementById('courseDuration').value,
-        students: document.getElementById('courseStudents').value,
-        price: document.getElementById('coursePrice').value,
-        image: document.getElementById('courseImage').value,
-        badge: document.getElementById('courseBadge').value,
-        details: document.getElementById('courseDetails').value.split('\n').filter(detail => detail.trim() !== '')
-    };
-    
-    if (courseId) {
-        // Update existing course
-        const index = websiteData.courses.findIndex(c => c.id == courseId);
-        if (index !== -1) {
-            websiteData.courses[index] = { ...websiteData.courses[index], ...courseData };
-        }
-    } else {
-        // Add new course
-        const newId = Math.max(...websiteData.courses.map(c => c.id), 0) + 1;
-        websiteData.courses.push({ id: newId, ...courseData });
-    }
-    
-    saveData();
-    renderAllContent();
-    closeCourseModal();
-    
-    const action = courseId ? 'actualizado' : 'agregado';
-    showNotification('success', `Curso ${action}`, `El curso ha sido ${action} correctamente.`);
+e.preventDefault();
+
+const courseId = document.getElementById('courseId').value;
+const courseData = {
+title: document.getElementById('courseTitle').value,
+teacher: document.getElementById('courseTeacher').value,
+teacherAvatar: document.getElementById('courseTeacherAvatar').value,
+duration: document.getElementById('courseDuration').value,
+students: document.getElementById('courseStudents').value,
+price: document.getElementById('coursePrice').value,
+image: document.getElementById('courseImage').value,
+badge: document.getElementById('courseBadge').value,
+details: document.getElementById('courseDetails').value.split('\n').filter(detail => detail.trim() !== '')
+};
+
+if (courseId) {
+// Update existing course
+const index = websiteData.courses.findIndex(c => c.id == courseId);
+if (index !== -1) {
+websiteData.courses[index] = { ...websiteData.courses[index], ...courseData };
+}
+} else {
+// Add new course
+const newId = Math.max(...websiteData.courses.map(c => c.id), 0) + 1;
+websiteData.courses.push({ id: newId, ...courseData });
+}
+
+saveData();
+renderAllContent();
+closeCourseModal();
+
+const action = courseId ? 'actualizado' : 'agregado';
+showNotification('success', `Curso ${action}`, `El curso ha sido ${action} correctamente.`);
 }
 
 // Update pricing
 function updatePricing(e) {
-    e.preventDefault();
-    const pricingInputs = document.querySelectorAll('#pricingFormContainer input');
-    pricingInputs.forEach(input => {
-        const index = parseInt(input.dataset.index);
-        const field = input.dataset.field;
-        websiteData.pricing[index][field] = input.value;
-    });
-    saveData();
-    renderAllContent();
-    showNotification('success', 'Precios Actualizados', 'Los precios han sido actualizados correctamente.');
+e.preventDefault();
+const pricingItems = document.querySelectorAll('#pricingFormContainer .pricing-item');
+pricingItems.forEach((item, index) => {
+const inputs = item.querySelectorAll('input');
+inputs.forEach(input => {
+const field = input.getAttribute('data-field');
+websiteData.pricing[index][field] = input.value;
+});
+});
+saveData();
+renderAllContent();
+showNotification('success', 'Precios Actualizados', 'Los precios han sido actualizados correctamente.');
 }
 
 // Update contact
 function updateContact(e) {
-    e.preventDefault();
-    websiteData.contact.email = document.getElementById('contactEmailInput').value;
-    websiteData.contact.phone = document.getElementById('contactPhoneInput').value;
-    websiteData.contact.address = document.getElementById('contactAddressInput').value;
-    saveData();
-    renderAllContent();
-    showNotification('success', 'Contacto Actualizado', 'La información de contacto ha sido actualizada correctamente.');
+e.preventDefault();
+websiteData.contact.email = document.getElementById('contactEmailInput').value;
+websiteData.contact.phone = document.getElementById('contactPhoneInput').value;
+websiteData.contact.address = document.getElementById('contactAddressInput').value;
+saveData();
+renderAllContent();
+showNotification('success', 'Contacto Actualizado', 'La información de contacto ha sido actualizada correctamente.');
 }
 
 // Update banners
 function updateBanners(e) {
-    e.preventDefault();
-    websiteData.banners[0] = document.getElementById('banner1Input').value;
-    websiteData.banners[1] = document.getElementById('banner2Input').value;
-    websiteData.banners[2] = document.getElementById('banner3Input').value;
-    saveData();
-    renderAllContent();
-    showNotification('success', 'Banners Actualizados', 'Los banners han sido actualizados correctamente.');
+e.preventDefault();
+websiteData.banners[0] = document.getElementById('banner1Input').value;
+websiteData.banners[1] = document.getElementById('banner2Input').value;
+websiteData.banners[2] = document.getElementById('banner3Input').value;
+saveData();
+renderAllContent();
+showNotification('success', 'Banners Actualizados', 'Los banners han sido actualizados correctamente.');
 }
 
 // Reset form
 function resetForm(formType) {
-    switch(formType) {
-        case 'news':
-            document.getElementById('newsInput').value = websiteData.news;
-            break;
-        case 'pricing':
-            renderPricingAdmin();
-            break;
-        case 'contact':
-            document.getElementById('contactEmailInput').value = websiteData.contact.email;
-            document.getElementById('contactPhoneInput').value = websiteData.contact.phone;
-            document.getElementById('contactAddressInput').value = websiteData.contact.address;
-            break;
-        case 'banners':
-            renderBannersAdmin();
-            break;
-    }
+switch(formType) {
+case 'news':
+document.getElementById('newsInput').value = websiteData.news;
+break;
+case 'pricing':
+renderPricingAdmin();
+break;
+case 'contact':
+document.getElementById('contactEmailInput').value = websiteData.contact.email;
+document.getElementById('contactPhoneInput').value = websiteData.contact.phone;
+document.getElementById('contactAddressInput').value = websiteData.contact.address;
+break;
+case 'banners':
+renderBannersAdmin();
+break;
+}
 }
 
 // Chatbot improved
 function toggleChat() {
-    const chat = document.getElementById('chatWindow');
-    chat.style.display = chat.style.display === 'flex' ? 'none' : 'flex';
-    
-    if (chat.style.display === 'flex') {
-        const chatMessages = document.getElementById('chatMessages');
-        chatMessages.scrollTop = chatMessages.scrollHeight;
-    }
+const chat = document.getElementById('chatWindow');
+chat.style.display = chat.style.display === 'flex' ? 'none' : 'flex';
+
+if (chat.style.display === 'flex') {
+const chatMessages = document.getElementById('chatMessages');
+chatMessages.scrollTop = chatMessages.scrollHeight;
+}
 }
 
 function handleChatKeyPress(event) {
-    if (event.key === 'Enter') {
-        sendChatMessage();
-    }
+if (event.key === 'Enter') {
+sendChatMessage();
+}
 }
 
 function sendChatMessage() {
-    const input = document.getElementById('chatInputField');
-    const message = input.value.trim();
+const input = document.getElementById('chatInputField');
+const message = input.value.trim();
+if (message === '') return;
 
-    if (message === '') return;
+// Add user message
+const chatMessages = document.getElementById('chatMessages');
+const userMessageDiv = document.createElement('div');
+userMessageDiv.className = 'user-message';
+userMessageDiv.innerHTML = `<div class="message-content">${message}</div>`;
+chatMessages.appendChild(userMessageDiv);
 
-    // Add user message
-    const chatMessages = document.getElementById('chatMessages');
-    const userMessageDiv = document.createElement('div');
-    userMessageDiv.className = 'user-message';
-    userMessageDiv.innerHTML = `<div class="message-content">${message}</div>`;
-    chatMessages.appendChild(userMessageDiv);
+// Generate bot response
+const botResponse = generateChatResponse(message);
+const botMessageDiv = document.createElement('div');
+botMessageDiv.className = 'bot-message';
+botMessageDiv.innerHTML = `<div class="message-content">${botResponse}</div>`;
+chatMessages.appendChild(botMessageDiv);
 
-    // Generate bot response
-    const botResponse = generateChatResponse(message);
-    const botMessageDiv = document.createElement('div');
-    botMessageDiv.className = 'bot-message';
-    botMessageDiv.innerHTML = `<div class="message-content">${botResponse}</div>`;
-    chatMessages.appendChild(botMessageDiv);
+// Scroll to bottom
+chatMessages.scrollTop = chatMessages.scrollHeight;
 
-    // Scroll to bottom
-    chatMessages.scrollTop = chatMessages.scrollHeight;
-
-    // Clear input
-    input.value = '';
+// Clear input
+input.value = '';
 }
 
 function sendSuggestion(suggestion) {
-    document.getElementById('chatInputField').value = suggestion;
-    sendChatMessage();
+document.getElementById('chatInputField').value = suggestion;
+sendChatMessage();
 }
 
 function generateChatResponse(message) {
-    const lowerMessage = message.toLowerCase();
-    
-    // Check for keywords and return appropriate responses
-    if (lowerMessage.includes('horario') || lowerMessage.includes('clases')) {
-        return 'Nuestras clases son de Lunes a Viernes de 8am a 5pm, con horarios flexibles según el curso. Puedes ver los horarios específicos en la sección "Precios y Horarios".';
-    } else if (lowerMessage.includes('precio') || lowerMessage.includes('costo')) {
-        return 'Los precios van desde S/60/mes para Inglés para Niños hasta S/120/mes para
+const lowerMessage = message.toLowerCase();
+
+// Check for keywords and return appropriate responses
+if (lowerMessage.includes('horario') || lowerMessage.includes('clases')) {
+return 'Nuestras clases son de Lunes a Viernes de 8am a 5pm, con horarios flexibles según el curso. Puedes ver los horarios específicos en la sección "Precios y Horarios".';
+} else if (lowerMessage.includes('precio') || lowerMessage.includes('costo')) {
+return 'Los precios van desde S/60/mes para Inglés para Niños hasta S/120/mes para cursos especializados. Consulta la sección "Precios y Horarios" para más detalles.';
+} else if (lowerMessage.includes('registro') || lowerMessage.includes('inscribir')) {
+return 'Puedes inscribirte haciendo clic en el botón "Inscribirse" en cualquier curso que te interese. También puedes contactarnos para asistencia personalizada.';
+} else if (lowerMessage.includes('pago') || lowerMessage.includes('métodos')) {
+return 'Aceptamos varios métodos de pago incluyendo tarjetas de crédito/débito, transferencias bancarias y pagos en efectivo en nuestras oficinas.';
+} else if (lowerMessage.includes('prueba') || lowerMessage.includes('demo')) {
+return 'Sí, ofrecemos una clase de prueba gratuita para nuevos estudiantes. Contáctanos para agendar tu clase de prueba hoy mismo.';
+} else {
+return 'Gracias por tu pregunta. ¿Hay algo específico sobre nuestros cursos que te gustaría saber? Puedes preguntar sobre horarios, precios, registro o métodos de pago.';
+}
+}
+
+// Efecto de navbar al hacer scroll
+window.addEventListener('scroll', function() {
+const navbar = document.getElementById('navbar');
+if (window.scrollY > 50) {
+navbar.classList.add('scrolled');
+} else {
+navbar.classList.remove('scrolled');
+}
+
+// Back to top button
+const backToTop = document.getElementById('backToTop');
+if (window.scrollY > 300) {
+backToTop.classList.add('visible');
+} else {
+backToTop.classList.remove('visible');
+}
+});
+
+// Back to top button
+document.getElementById('backToTop').addEventListener('click', function() {
+window.scrollTo({
+top: 0,
+behavior: 'smooth'
+});
+});
+
+// Inicializar al cargar la página
+document.addEventListener('DOMContentLoaded', function() {
+displayComments();
+checkAdminLogin();
+
+// Agregar tooltips a los botones de inscripción
+document.querySelectorAll('.course-info button').forEach(button => {
+button.addEventListener('mouseenter', function() {
+const tooltip = document.createElement('div');
+tooltip.className = 'tooltip';
+tooltip.textContent = 'Se abrirá el formulario de inscripción';
+this.appendChild(tooltip);
+setTimeout(() => {
+tooltip.style.opacity = '1';
+tooltip.style.visibility = 'visible';
+}, 10);
+});
+button.addEventListener('mouseleave', function() {
+const tooltip = this.querySelector('.tooltip');
+if (tooltip) {
+tooltip.remove();
+}
+});
+});
+
+// Verificar si el usuario ya se ha pre-registrado
+const preRegistrations = JSON.parse(localStorage.getItem('preRegistrations') || '[]');
+if (preRegistrations.length > 0) {
+// Si ya se ha pre-registrado, ocultar la pantalla de pre-registro y mostrar la de bienvenida
+document.getElementById('preRegisterScreen').style.display = 'none';
+document.getElementById('loginScreen').style.display = 'flex';
+} else {
+// Si no, mostrar la pantalla de pre-registro y ocultar la de bienvenida
+document.getElementById('preRegisterScreen').style.display = 'flex';
+document.getElementById('loginScreen').style.display = 'none';
+}
+});
+
+// Show notification
+function showNotification(type, title, message) {
+const notification = document.getElementById('notification');
+const notificationTitle = document.getElementById('notificationTitle');
+const notificationMessage = document.getElementById('notificationMessage');
+const notificationIcon = notification.querySelector('.notification-icon i');
+
+// Set content
+notificationTitle.textContent = title;
+notificationMessage.textContent = message;
+
+// Set type
+notification.className = 'notification ' + type;
+if (type === 'success') {
+notificationIcon.className = 'fas fa-check-circle';
+} else if (type === 'error') {
+notificationIcon.className = 'fas fa-exclamation-circle';
+} else if (type === 'warning') {
+notificationIcon.className = 'fas fa-exclamation-triangle';
+}
+
+// Show notification
+notification.classList.add('show');
+
+// Auto hide after 5 seconds
+setTimeout(() => {
+closeNotification();
+}, 5000);
+}
+
+function closeNotification() {
+const notification = document.getElementById('notification');
+notification.classList.remove('show');
+}
+</script>
+</body>
+</html>
