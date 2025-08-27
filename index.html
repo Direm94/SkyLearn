@@ -1218,13 +1218,16 @@ background: rgba(0, 0, 0, 0.7);
 z-index: 3000;
 justify-content: center;
 align-items: center;
+overflow-y: auto;
 }
 .modal-content {
 background: white;
 padding: 2.5rem;
 border-radius: 15px;
-max-width: 600px;
+max-width: 700px;
 width: 90%;
+max-height: 90vh;
+overflow-y: auto;
 box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
 position: relative;
 animation: modalFadeIn 0.3s ease;
@@ -1241,15 +1244,23 @@ font-size: 1.5rem;
 color: var(--gray-color);
 cursor: pointer;
 transition: var(--transition);
+z-index: 10;
 }
 .modal-close:hover {
 color: var(--accent-color);
 }
 .modal-header {
 margin-bottom: 1.5rem;
+position: sticky;
+top: 0;
+background: white;
+z-index: 5;
+padding-bottom: 1rem;
+border-bottom: 1px solid #eee;
 }
 .modal-header h3 {
 color: var(--primary-color);
+margin: 0;
 }
 /* Login Modal */
 .login-modal {
@@ -1769,6 +1780,9 @@ right: 10px;
 left: 10px;
 max-width: none;
 }
+.modal-content {
+padding: 1.5rem;
+}
 }
 </style>
 </head>
@@ -1978,21 +1992,8 @@ Claro, ¿cuál es tu duda? Estoy aquí para ayudarte.
 </div>
 <div class="live-schedule">
 <h3>Próximas Clases</h3>
-<div class="schedule-item">
-<span>Lunes 15 Nov</span>
-<span class="schedule-time">10:00 AM - Inglés Básico</span>
-</div>
-<div class="schedule-item">
-<span>Martes 16 Nov</span>
-<span class="schedule-time">3:00 PM - Inglés Intermedio</span>
-</div>
-<div class="schedule-item">
-<span>Miércoles 17 Nov</span>
-<span class="schedule-time">11:00 AM - Inglés para Niños</span>
-</div>
-<div class="schedule-item">
-<span>Jueves 18 Nov</span>
-<span class="schedule-time">4:00 PM - Inglés Intensivo</span>
+<div id="liveScheduleContainer">
+<!-- Live schedule will be dynamically loaded here -->
 </div>
 </div>
 </div>
@@ -2023,6 +2024,8 @@ Claro, ¿cuál es tu duda? Estoy aquí para ayudarte.
 <button class="admin-tab" onclick="showAdminTab('contact')">Contacto</button>
 <button class="admin-tab" onclick="showAdminTab('banners')">Banners</button>
 <button class="admin-tab" onclick="showAdminTab('comments')">Comentarios</button>
+<button class="admin-tab" onclick="showAdminTab('live-classes')">Clases en Vivo</button>
+<button class="admin-tab" onclick="showAdminTab('calendar')">Calendario</button>
 </div>
 
 <!-- News Admin -->
@@ -2122,6 +2125,33 @@ Claro, ¿cuál es tu duda? Estoy aquí para ayudarte.
 </div>
 <div class="form-actions">
 <button type="button" class="btn-primary" onclick="refreshComments()">Actualizar Lista</button>
+</div>
+</form>
+</div>
+
+<!-- Live Classes Admin -->
+<div id="admin-live-classes" class="admin-content">
+<form class="admin-form" onsubmit="updateLiveClasses(event)">
+<h3>Administrar Clases en Vivo</h3>
+<div id="liveClassesFormContainer">
+<!-- Live classes form will be generated here -->
+</div>
+<div class="form-actions">
+<button type="submit" class="btn-primary">Actualizar</button>
+<button type="button" class="btn-secondary" onclick="resetForm('live-classes')">Cancelar</button>
+</div>
+</form>
+</div>
+
+<!-- Calendar Admin -->
+<div id="admin-calendar" class="admin-content">
+<form class="admin-form">
+<h3>Administrar Calendario</h3>
+<div class="admin-list" id="calendarEventsList">
+<!-- Calendar events will be listed here -->
+</div>
+<div class="form-actions">
+<button type="button" class="btn-primary" onclick="addNewCalendarEvent()">Agregar Nuevo Evento</button>
 </div>
 </form>
 </div>
@@ -2310,6 +2340,72 @@ Las clases de inglés intensivo me prepararon perfectamente para mi examen. Los 
 <div class="form-actions">
 <button type="submit" class="btn-primary">Guardar</button>
 <button type="button" class="btn-secondary" onclick="closeCourseModal()">Cancelar</button>
+</div>
+</form>
+</div>
+</div>
+
+<!-- Live Class Modal -->
+<div class="modal" id="liveClassModal">
+<div class="modal-content">
+<span class="modal-close" onclick="closeLiveClassModal()">&times;</span>
+<div class="modal-header">
+<h3 id="liveClassModalTitle">Agregar/Editar Clase en Vivo</h3>
+</div>
+<form id="liveClassForm" onsubmit="saveLiveClass(event)">
+<input type="hidden" id="liveClassId">
+<div class="form-group">
+<label for="liveClassDate">Fecha</label>
+<input type="date" id="liveClassDate" required>
+</div>
+<div class="form-group">
+<label for="liveClassTime">Hora</label>
+<input type="time" id="liveClassTime" required>
+</div>
+<div class="form-group">
+<label for="liveClassTitle">Título de la Clase</label>
+<input type="text" id="liveClassTitle" required>
+</div>
+<div class="form-group">
+<label for="liveClassDescription">Descripción</label>
+<textarea id="liveClassDescription" rows="3" required></textarea>
+</div>
+<div class="form-actions">
+<button type="submit" class="btn-primary">Guardar</button>
+<button type="button" class="btn-secondary" onclick="closeLiveClassModal()">Cancelar</button>
+</div>
+</form>
+</div>
+</div>
+
+<!-- Calendar Event Modal -->
+<div class="modal" id="calendarEventModal">
+<div class="modal-content">
+<span class="modal-close" onclick="closeCalendarEventModal()">&times;</span>
+<div class="modal-header">
+<h3 id="calendarEventModalTitle">Agregar/Editar Evento de Calendario</h3>
+</div>
+<form id="calendarEventForm" onsubmit="saveCalendarEvent(event)">
+<input type="hidden" id="calendarEventId">
+<div class="form-group">
+<label for="calendarEventDate">Fecha</label>
+<input type="date" id="calendarEventDate" required>
+</div>
+<div class="form-group">
+<label for="calendarEventTime">Hora</label>
+<input type="time" id="calendarEventTime" required>
+</div>
+<div class="form-group">
+<label for="calendarEventTitle">Título del Evento</label>
+<input type="text" id="calendarEventTitle" required>
+</div>
+<div class="form-group">
+<label for="calendarEventDescription">Descripción</label>
+<textarea id="calendarEventDescription" rows="3" required></textarea>
+</div>
+<div class="form-actions">
+<button type="submit" class="btn-primary">Guardar</button>
+<button type="button" class="btn-secondary" onclick="closeCalendarEventModal()">Cancelar</button>
 </div>
 </form>
 </div>
@@ -2509,6 +2605,66 @@ banners: [
 "https://via.placeholder.com/1200x500/3498db/ffffff?text=Learn+English+with+Us",
 "https://via.placeholder.com/1200x500/2ecc71/ffffff?text=Native+Teachers",
 "https://via.placeholder.com/1200x500/e74c3c/ffffff?text=Interactive+Classes"
+],
+liveClasses: [
+{
+id: 1,
+date: "2023-11-20",
+time: "10:00",
+title: "Inglés Básico",
+description: "Clase introductoria de inglés básico para principiantes"
+},
+{
+id: 2,
+date: "2023-11-21",
+time: "15:00",
+title: "Inglés Intermedio",
+description: "Conversación fluida en situaciones cotidianas"
+},
+{
+id: 3,
+date: "2023-11-22",
+time: "11:00",
+title: "Inglés para Niños",
+description: "Actividades lúdicas para niños de 6-12 años"
+},
+{
+id: 4,
+date: "2023-11-23",
+time: "16:00",
+title: "Inglés Intensivo",
+description: "Técnicas avanzadas de inmersión en el idioma"
+}
+],
+calendarEvents: [
+{
+id: 1,
+date: "2023-11-20",
+time: "10:00",
+title: "Clase de Inglés Básico",
+description: "Sesión de vocabulario básico"
+},
+{
+id: 2,
+date: "2023-11-21",
+time: "15:00",
+title: "Taller de Conversación",
+description: "Práctica de conversación en grupos pequeños"
+},
+{
+id: 3,
+date: "2023-11-22",
+time: "11:00",
+title: "Clase para Niños",
+description: "Actividades interactivas para niños"
+},
+{
+id: 4,
+date: "2023-11-24",
+time: "16:00",
+title: "Evaluación Mensual",
+description: "Evaluación de progreso mensual"
+}
 ]
 };
 
@@ -2764,10 +2920,13 @@ html += `<div class="calendar-day other-month">${daysInPrevMonth - i}</div>`;
 const today = new Date();
 for (let i = 1; i <= daysInMonth; i++) {
 const isToday = year === today.getFullYear() && month === today.getMonth() && i === today.getDate();
-const hasClass = Math.random() > 0.7; // Random classes for demo
+const hasClass = checkHasClass(year, month, i);
 html += `<div class="calendar-day ${isToday ? 'today' : ''} ${hasClass ? 'has-class' : ''}">${i}`;
 if (hasClass) {
-html += `<div class="class-event">Clase ${Math.floor(Math.random() * 4) + 9}:00</div>`;
+const event = getEventForDate(year, month, i);
+if (event) {
+html += `<div class="class-event">${event.time} - ${event.title}</div>`;
+}
 }
 html += `</div>`;
 }
@@ -2780,6 +2939,16 @@ html += `<div class="calendar-day other-month">${i}</div>`;
 }
 
 document.getElementById('calendarGrid').innerHTML = html;
+}
+
+function checkHasClass(year, month, day) {
+const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+return websiteData.calendarEvents.some(event => event.date === dateStr);
+}
+
+function getEventForDate(year, month, day) {
+const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+return websiteData.calendarEvents.find(event => event.date === dateStr);
 }
 
 document.getElementById('prevMonth').addEventListener('click', () => {
@@ -2887,6 +3056,13 @@ renderBannersAdmin();
 
 // Render comments admin
 renderCommentsAdmin();
+
+// Render live classes
+renderLiveClasses();
+renderLiveClassesAdmin();
+
+// Render calendar events
+renderCalendarEventsAdmin();
 }
 
 // Render courses
@@ -3023,6 +3199,65 @@ commentsList.innerHTML = comments.map(comment => `
 </div>
 <div class="admin-item-actions">
 <button class="btn-secondary btn-small" onclick="deleteComment(${comment.time})">Eliminar</button>
+</div>
+</div>
+`).join('');
+}
+
+// Render live classes
+function renderLiveClasses() {
+const liveScheduleContainer = document.getElementById('liveScheduleContainer');
+liveScheduleContainer.innerHTML = websiteData.liveClasses.map(item => `
+<div class="schedule-item">
+<span>${formatDate(item.date)}</span>
+<span class="schedule-time">${item.time} - ${item.title}</span>
+</div>
+`).join('');
+}
+
+// Render live classes admin
+function renderLiveClassesAdmin() {
+const liveClassesFormContainer = document.getElementById('liveClassesFormContainer');
+liveClassesFormContainer.innerHTML = websiteData.liveClasses.map((item, index) => `
+<div class="live-class-item" data-index="${index}">
+<div class="form-row">
+<div class="form-group">
+<label>Fecha</label>
+<input type="date" value="${item.date}" data-field="date">
+</div>
+<div class="form-group">
+<label>Hora</label>
+<input type="time" value="${item.time}" data-field="time">
+</div>
+</div>
+<div class="form-row">
+<div class="form-group">
+<label>Título</label>
+<input type="text" value="${item.title}" data-field="title">
+</div>
+</div>
+<div class="form-row">
+<div class="form-group">
+<label>Descripción</label>
+<textarea data-field="description">${item.description}</textarea>
+</div>
+</div>
+</div>
+`).join('');
+}
+
+// Render calendar events admin
+function renderCalendarEventsAdmin() {
+const calendarEventsList = document.getElementById('calendarEventsList');
+calendarEventsList.innerHTML = websiteData.calendarEvents.map(event => `
+<div class="admin-item">
+<div>
+<strong>${formatDate(event.date)} ${event.time}</strong> - ${event.title}
+<br><small>${event.description}</small>
+</div>
+<div class="admin-item-actions">
+<button class="btn-primary btn-small" onclick="editCalendarEvent(${event.id})">Editar</button>
+<button class="btn-secondary btn-small" onclick="deleteCalendarEvent(${event.id})">Eliminar</button>
 </div>
 </div>
 `).join('');
@@ -3248,6 +3483,172 @@ renderAllContent();
 showNotification('success', 'Banners Actualizados', 'Los banners han sido actualizados correctamente.');
 }
 
+// Update live classes
+function updateLiveClasses(e) {
+e.preventDefault();
+const liveClassesItems = document.querySelectorAll('#liveClassesFormContainer .live-class-item');
+liveClassesItems.forEach((item, index) => {
+const inputs = item.querySelectorAll('input, textarea');
+inputs.forEach(input => {
+const field = input.getAttribute('data-field');
+websiteData.liveClasses[index][field] = input.value;
+});
+});
+saveData();
+renderAllContent();
+showNotification('success', 'Clases en Vivo Actualizadas', 'Las clases en vivo han sido actualizadas correctamente.');
+}
+
+// Live class management
+function editLiveClass(id) {
+const liveClass = websiteData.liveClasses.find(c => c.id === id);
+if (liveClass) {
+// Fill form with live class data
+document.getElementById('liveClassId').value = liveClass.id;
+document.getElementById('liveClassDate').value = liveClass.date;
+document.getElementById('liveClassTime').value = liveClass.time;
+document.getElementById('liveClassTitle').value = liveClass.title;
+document.getElementById('liveClassDescription').value = liveClass.description;
+
+// Show modal
+document.getElementById('liveClassModal').style.display = 'flex';
+document.getElementById('liveClassModalTitle').textContent = 'Editar Clase en Vivo';
+}
+}
+
+function deleteLiveClass(id) {
+if (confirm('¿Estás seguro de que quieres eliminar esta clase en vivo?')) {
+websiteData.liveClasses = websiteData.liveClasses.filter(c => c.id !== id);
+saveData();
+renderAllContent();
+showNotification('success', 'Clase en Vivo Eliminada', 'La clase en vivo ha sido eliminada correctamente.');
+}
+}
+
+function addNewLiveClass() {
+// Clear form
+document.getElementById('liveClassId').value = '';
+document.getElementById('liveClassDate').value = '';
+document.getElementById('liveClassTime').value = '';
+document.getElementById('liveClassTitle').value = '';
+document.getElementById('liveClassDescription').value = '';
+
+// Show modal
+document.getElementById('liveClassModal').style.display = 'flex';
+document.getElementById('liveClassModalTitle').textContent = 'Agregar Nueva Clase en Vivo';
+}
+
+function closeLiveClassModal() {
+document.getElementById('liveClassModal').style.display = 'none';
+}
+
+function saveLiveClass(e) {
+e.preventDefault();
+
+const liveClassId = document.getElementById('liveClassId').value;
+const liveClassData = {
+date: document.getElementById('liveClassDate').value,
+time: document.getElementById('liveClassTime').value,
+title: document.getElementById('liveClassTitle').value,
+description: document.getElementById('liveClassDescription').value
+};
+
+if (liveClassId) {
+// Update existing live class
+const index = websiteData.liveClasses.findIndex(c => c.id == liveClassId);
+if (index !== -1) {
+websiteData.liveClasses[index] = { ...websiteData.liveClasses[index], ...liveClassData };
+}
+} else {
+// Add new live class
+const newId = Math.max(...websiteData.liveClasses.map(c => c.id), 0) + 1;
+websiteData.liveClasses.push({ id: newId, ...liveClassData });
+}
+
+saveData();
+renderAllContent();
+closeLiveClassModal();
+
+const action = liveClassId ? 'actualizada' : 'agregada';
+showNotification('success', `Clase en Vivo ${action}`, `La clase en vivo ha sido ${action} correctamente.`);
+}
+
+// Calendar event management
+function editCalendarEvent(id) {
+const calendarEvent = websiteData.calendarEvents.find(c => c.id === id);
+if (calendarEvent) {
+// Fill form with calendar event data
+document.getElementById('calendarEventId').value = calendarEvent.id;
+document.getElementById('calendarEventDate').value = calendarEvent.date;
+document.getElementById('calendarEventTime').value = calendarEvent.time;
+document.getElementById('calendarEventTitle').value = calendarEvent.title;
+document.getElementById('calendarEventDescription').value = calendarEvent.description;
+
+// Show modal
+document.getElementById('calendarEventModal').style.display = 'flex';
+document.getElementById('calendarEventModalTitle').textContent = 'Editar Evento de Calendario';
+}
+}
+
+function deleteCalendarEvent(id) {
+if (confirm('¿Estás seguro de que quieres eliminar este evento del calendario?')) {
+websiteData.calendarEvents = websiteData.calendarEvents.filter(c => c.id !== id);
+saveData();
+renderAllContent();
+renderCalendar();
+showNotification('success', 'Evento Eliminado', 'El evento del calendario ha sido eliminado correctamente.');
+}
+}
+
+function addNewCalendarEvent() {
+// Clear form
+document.getElementById('calendarEventId').value = '';
+document.getElementById('calendarEventDate').value = '';
+document.getElementById('calendarEventTime').value = '';
+document.getElementById('calendarEventTitle').value = '';
+document.getElementById('calendarEventDescription').value = '';
+
+// Show modal
+document.getElementById('calendarEventModal').style.display = 'flex';
+document.getElementById('calendarEventModalTitle').textContent = 'Agregar Nuevo Evento de Calendario';
+}
+
+function closeCalendarEventModal() {
+document.getElementById('calendarEventModal').style.display = 'none';
+}
+
+function saveCalendarEvent(e) {
+e.preventDefault();
+
+const calendarEventId = document.getElementById('calendarEventId').value;
+const calendarEventData = {
+date: document.getElementById('calendarEventDate').value,
+time: document.getElementById('calendarEventTime').value,
+title: document.getElementById('calendarEventTitle').value,
+description: document.getElementById('calendarEventDescription').value
+};
+
+if (calendarEventId) {
+// Update existing calendar event
+const index = websiteData.calendarEvents.findIndex(c => c.id == calendarEventId);
+if (index !== -1) {
+websiteData.calendarEvents[index] = { ...websiteData.calendarEvents[index], ...calendarEventData };
+}
+} else {
+// Add new calendar event
+const newId = Math.max(...websiteData.calendarEvents.map(c => c.id), 0) + 1;
+websiteData.calendarEvents.push({ id: newId, ...calendarEventData });
+}
+
+saveData();
+renderAllContent();
+renderCalendar();
+closeCalendarEventModal();
+
+const action = calendarEventId ? 'actualizado' : 'agregado';
+showNotification('success', `Evento ${action}`, `El evento del calendario ha sido ${action} correctamente.`);
+}
+
 // Reset form
 function resetForm(formType) {
 switch(formType) {
@@ -3264,6 +3665,9 @@ document.getElementById('contactAddressInput').value = websiteData.contact.addre
 break;
 case 'banners':
 renderBannersAdmin();
+break;
+case 'live-classes':
+renderLiveClassesAdmin();
 break;
 }
 }
@@ -3432,6 +3836,13 @@ closeNotification();
 function closeNotification() {
 const notification = document.getElementById('notification');
 notification.classList.remove('show');
+}
+
+// Format date helper function
+function formatDate(dateString) {
+const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+const date = new Date(dateString);
+return date.toLocaleDateString('es-ES', options);
 }
 </script>
 </body>
