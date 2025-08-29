@@ -77,7 +77,8 @@ font-weight: 500;
 color: var(--dark-color);
 }
 .form-group input,
-.form-group textarea {
+.form-group textarea,
+.form-group select {
 width: 100%;
 padding: 1rem;
 border: 2px solid #e9ecef;
@@ -87,7 +88,8 @@ transition: var(--transition);
 font-family: 'Poppins', sans-serif;
 }
 .form-group input:focus,
-.form-group textarea:focus {
+.form-group textarea:focus,
+.form-group select:focus {
 outline: none;
 border-color: var(--primary-color);
 box-shadow: 0 0 0 4px rgba(67, 97, 238, 0.2);
@@ -2240,6 +2242,46 @@ Claro, ¿cuál es tu duda? Estoy aquí para ayudarte.
 <button type="button" class="btn-secondary" onclick="hideAddCourseForm()">Cancelar</button>
 </div>
 </div>
+<div id="editCourseForm" style="display: none;" class="admin-form">
+<h3>Editar Curso</h3>
+<input type="hidden" id="editCourseId">
+<div class="form-group">
+<label for="editCourseTitle">Título del Curso</label>
+<input type="text" id="editCourseTitle" required>
+</div>
+<div class="form-group">
+<label for="editCourseTeacher">Profesor</label>
+<input type="text" id="editCourseTeacher" required>
+</div>
+<div class="form-group">
+<label for="editCourseDuration">Duración</label>
+<input type="text" id="editCourseDuration" required>
+</div>
+<div class="form-group">
+<label for="editCourseStudents">Estudiantes</label>
+<input type="text" id="editCourseStudents" required>
+</div>
+<div class="form-group">
+<label for="editCoursePrice">Precio</label>
+<input type="text" id="editCoursePrice" required>
+</div>
+<div class="form-group">
+<label for="editCourseImage">URL de la Imagen</label>
+<input type="text" id="editCourseImage" required>
+</div>
+<div class="form-group">
+<label for="editCourseBadge">Etiqueta (opcional)</label>
+<input type="text" id="editCourseBadge">
+</div>
+<div class="form-group">
+<label for="editCourseDetails">Detalles del Curso (separados por coma)</label>
+<textarea id="editCourseDetails" rows="4" required></textarea>
+</div>
+<div class="form-actions">
+<button type="button" class="btn-primary" onclick="updateCourse()">Actualizar Curso</button>
+<button type="button" class="btn-secondary" onclick="hideEditCourseForm()">Cancelar</button>
+</div>
+</div>
 <table class="admin-table">
 <thead>
 <tr>
@@ -2285,6 +2327,30 @@ Claro, ¿cuál es tu duda? Estoy aquí para ayudarte.
 <div class="form-actions">
 <button type="button" class="btn-primary" onclick="addNewPricing()">Guardar Precio</button>
 <button type="button" class="btn-secondary" onclick="hideAddPricingForm()">Cancelar</button>
+</div>
+</div>
+<div id="editPricingForm" style="display: none;" class="admin-form">
+<h3>Editar Precio</h3>
+<input type="hidden" id="editPricingId">
+<div class="form-group">
+<label for="editPricingCourse">Curso</label>
+<input type="text" id="editPricingCourse" required>
+</div>
+<div class="form-group">
+<label for="editPricingPrice">Precio</label>
+<input type="text" id="editPricingPrice" required>
+</div>
+<div class="form-group">
+<label for="editPricingSchedule">Horario</label>
+<input type="text" id="editPricingSchedule" required>
+</div>
+<div class="form-group">
+<label for="editPricingDuration">Duración</label>
+<input type="text" id="editPricingDuration" required>
+</div>
+<div class="form-actions">
+<button type="button" class="btn-primary" onclick="updatePricing()">Actualizar Precio</button>
+<button type="button" class="btn-secondary" onclick="hideEditPricingForm()">Cancelar</button>
 </div>
 </div>
 <table class="admin-table" id="pricingAdminTable">
@@ -2357,6 +2423,30 @@ Claro, ¿cuál es tu duda? Estoy aquí para ayudarte.
 <button type="button" class="btn-secondary" onclick="hideAddLiveClassForm()">Cancelar</button>
 </div>
 </div>
+<div id="editLiveClassForm" style="display: none;" class="admin-form">
+<h3>Editar Clase en Vivo</h3>
+<input type="hidden" id="editLiveClassId">
+<div class="form-group">
+<label for="editLiveClassDate">Fecha</label>
+<input type="date" id="editLiveClassDate" required>
+</div>
+<div class="form-group">
+<label for="editLiveClassTime">Hora</label>
+<input type="time" id="editLiveClassTime" required>
+</div>
+<div class="form-group">
+<label for="editLiveClassTitle">Título de la Clase</label>
+<input type="text" id="editLiveClassTitle" required>
+</div>
+<div class="form-group">
+<label for="editLiveClassDescription">Descripción</label>
+<textarea id="editLiveClassDescription" rows="3" required></textarea>
+</div>
+<div class="form-actions">
+<button type="button" class="btn-primary" onclick="updateLiveClass()">Actualizar Clase</button>
+<button type="button" class="btn-secondary" onclick="hideEditLiveClassForm()">Cancelar</button>
+</div>
+</div>
 <div class="event-list">
 <h3>Próximas Clases en Vivo</h3>
 <div id="liveClassesList">
@@ -2395,6 +2485,30 @@ Claro, ¿cuál es tu duda? Estoy aquí para ayudarte.
 <div class="form-actions">
 <button type="button" class="btn-primary" onclick="addNewEvent()">Guardar Evento</button>
 <button type="button" class="btn-secondary" onclick="hideAddEventForm()">Cancelar</button>
+</div>
+</div>
+<div id="editEventForm" style="display: none;" class="event-form">
+<h4>Editar Evento</h4>
+<input type="hidden" id="editEventId">
+<div class="form-group">
+<label for="editEventDate">Fecha</label>
+<input type="date" id="editEventDate" required>
+</div>
+<div class="form-group">
+<label for="editEventTime">Hora</label>
+<input type="time" id="editEventTime" required>
+</div>
+<div class="form-group">
+<label for="editEventTitle">Título del Evento</label>
+<input type="text" id="editEventTitle" required>
+</div>
+<div class="form-group">
+<label for="editEventDescription">Descripción</label>
+<textarea id="editEventDescription" rows="2"></textarea>
+</div>
+<div class="form-actions">
+<button type="button" class="btn-primary" onclick="updateEvent()">Actualizar Evento</button>
+<button type="button" class="btn-secondary" onclick="hideEditEventForm()">Cancelar</button>
 </div>
 </div>
 <div class="calendar-container" id="adminCalendarContainer">
@@ -3612,8 +3726,54 @@ showNotification('success', 'Curso Agregado', 'El nuevo curso ha sido agregado c
 function editCourse(id) {
 const course = websiteData.courses.find(c => c.id === id);
 if (course) {
-// In a real application, this would open a modal with a form to edit the course
-alert(`Editar curso: ${course.title}\n\nEsta funcionalidad se implementaría con un modal de edición.`);
+// Fill edit form with course data
+document.getElementById('editCourseId').value = course.id;
+document.getElementById('editCourseTitle').value = course.title;
+document.getElementById('editCourseTeacher').value = course.teacher;
+document.getElementById('editCourseDuration').value = course.duration;
+document.getElementById('editCourseStudents').value = course.students;
+document.getElementById('editCoursePrice').value = course.price;
+document.getElementById('editCourseImage').value = course.image;
+document.getElementById('editCourseBadge').value = course.badge;
+document.getElementById('editCourseDetails').value = course.details.join(', ');
+// Show edit form
+document.getElementById('editCourseForm').style.display = 'block';
+}
+}
+
+function hideEditCourseForm() {
+document.getElementById('editCourseForm').style.display = 'none';
+}
+
+function updateCourse() {
+const id = parseInt(document.getElementById('editCourseId').value);
+const title = document.getElementById('editCourseTitle').value;
+const teacher = document.getElementById('editCourseTeacher').value;
+const duration = document.getElementById('editCourseDuration').value;
+const students = document.getElementById('editCourseStudents').value;
+const price = document.getElementById('editCoursePrice').value;
+const image = document.getElementById('editCourseImage').value;
+const badge = document.getElementById('editCourseBadge').value;
+const details = document.getElementById('editCourseDetails').value.split(',').map(detail => detail.trim());
+// Find and update course
+const courseIndex = websiteData.courses.findIndex(c => c.id === id);
+if (courseIndex !== -1) {
+websiteData.courses[courseIndex] = {
+id,
+title,
+teacher,
+teacherAvatar: websiteData.courses[courseIndex].teacherAvatar,
+duration,
+students,
+price,
+image,
+badge,
+details
+};
+saveData();
+renderAllContent();
+hideEditCourseForm();
+showNotification('success', 'Curso Actualizado', 'El curso ha sido actualizado correctamente.');
 }
 }
 
@@ -3659,8 +3819,41 @@ showNotification('success', 'Precio Agregado', 'El nuevo precio ha sido agregado
 function editPricing(id) {
 const pricing = websiteData.pricing.find(p => p.id === id);
 if (pricing) {
-// In a real application, this would open a modal with a form to edit the pricing
-alert(`Editar precio: ${pricing.course}\n\nEsta funcionalidad se implementaría con un modal de edición.`);
+// Fill edit form with pricing data
+document.getElementById('editPricingId').value = pricing.id;
+document.getElementById('editPricingCourse').value = pricing.course;
+document.getElementById('editPricingPrice').value = pricing.price;
+document.getElementById('editPricingSchedule').value = pricing.schedule;
+document.getElementById('editPricingDuration').value = pricing.duration;
+// Show edit form
+document.getElementById('editPricingForm').style.display = 'block';
+}
+}
+
+function hideEditPricingForm() {
+document.getElementById('editPricingForm').style.display = 'none';
+}
+
+function updatePricing() {
+const id = parseInt(document.getElementById('editPricingId').value);
+const course = document.getElementById('editPricingCourse').value;
+const price = document.getElementById('editPricingPrice').value;
+const schedule = document.getElementById('editPricingSchedule').value;
+const duration = document.getElementById('editPricingDuration').value;
+// Find and update pricing
+const pricingIndex = websiteData.pricing.findIndex(p => p.id === id);
+if (pricingIndex !== -1) {
+websiteData.pricing[pricingIndex] = {
+id,
+course,
+price,
+schedule,
+duration
+};
+saveData();
+renderAllContent();
+hideEditPricingForm();
+showNotification('success', 'Precio Actualizado', 'El precio ha sido actualizado correctamente.');
 }
 }
 
@@ -3717,8 +3910,41 @@ showNotification('success', 'Clase Agregada', 'La nueva clase en vivo ha sido ag
 function editLiveClass(id) {
 const liveClass = websiteData.liveClasses.find(lc => lc.id === id);
 if (liveClass) {
-// In a real application, this would open a modal with a form to edit the live class
-alert(`Editar clase en vivo: ${liveClass.title}\n\nEsta funcionalidad se implementaría con un modal de edición.`);
+// Fill edit form with live class data
+document.getElementById('editLiveClassId').value = liveClass.id;
+document.getElementById('editLiveClassDate').value = liveClass.date;
+document.getElementById('editLiveClassTime').value = liveClass.time;
+document.getElementById('editLiveClassTitle').value = liveClass.title;
+document.getElementById('editLiveClassDescription').value = liveClass.description;
+// Show edit form
+document.getElementById('editLiveClassForm').style.display = 'block';
+}
+}
+
+function hideEditLiveClassForm() {
+document.getElementById('editLiveClassForm').style.display = 'none';
+}
+
+function updateLiveClass() {
+const id = parseInt(document.getElementById('editLiveClassId').value);
+const date = document.getElementById('editLiveClassDate').value;
+const time = document.getElementById('editLiveClassTime').value;
+const title = document.getElementById('editLiveClassTitle').value;
+const description = document.getElementById('editLiveClassDescription').value;
+// Find and update live class
+const liveClassIndex = websiteData.liveClasses.findIndex(lc => lc.id === id);
+if (liveClassIndex !== -1) {
+websiteData.liveClasses[liveClassIndex] = {
+id,
+date,
+time,
+title,
+description
+};
+saveData();
+renderAllContent();
+hideEditLiveClassForm();
+showNotification('success', 'Clase Actualizada', 'La clase en vivo ha sido actualizada correctamente.');
 }
 }
 
@@ -3764,8 +3990,41 @@ showNotification('success', 'Evento Agregado', 'El nuevo evento ha sido agregado
 function editEvent(id) {
 const event = websiteData.calendarEvents.find(e => e.id === id);
 if (event) {
-// In a real application, this would open a modal with a form to edit the event
-alert(`Editar evento: ${event.title}\n\nEsta funcionalidad se implementaría con un modal de edición.`);
+// Fill edit form with event data
+document.getElementById('editEventId').value = event.id;
+document.getElementById('editEventDate').value = event.date;
+document.getElementById('editEventTime').value = event.time;
+document.getElementById('editEventTitle').value = event.title;
+document.getElementById('editEventDescription').value = event.description;
+// Show edit form
+document.getElementById('editEventForm').style.display = 'block';
+}
+}
+
+function hideEditEventForm() {
+document.getElementById('editEventForm').style.display = 'none';
+}
+
+function updateEvent() {
+const id = parseInt(document.getElementById('editEventId').value);
+const date = document.getElementById('editEventDate').value;
+const time = document.getElementById('editEventTime').value;
+const title = document.getElementById('editEventTitle').value;
+const description = document.getElementById('editEventDescription').value;
+// Find and update event
+const eventIndex = websiteData.calendarEvents.findIndex(e => e.id === id);
+if (eventIndex !== -1) {
+websiteData.calendarEvents[eventIndex] = {
+id,
+date,
+time,
+title,
+description
+};
+saveData();
+renderAllContent();
+hideEditEventForm();
+showNotification('success', 'Evento Actualizado', 'El evento ha sido actualizado correctamente.');
 }
 }
 
