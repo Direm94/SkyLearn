@@ -1001,6 +1001,12 @@ overflow: hidden;
 text-overflow: ellipsis;
 white-space: nowrap;
 }
+.calendar-day.editable {
+border: 2px dashed var(--primary-color);
+}
+.calendar-day.editable:hover {
+background: rgba(67, 97, 238, 0.1);
+}
 /* Testimonials Section */
 .testimonials {
 margin: 5rem auto;
@@ -1273,6 +1279,56 @@ border-bottom: none;
 }
 .admin-table tr:hover td {
 background: #f8f9fa;
+}
+.admin-table input {
+width: 100%;
+padding: 0.5rem;
+border: 1px solid #ddd;
+border-radius: 4px;
+}
+.admin-table input:focus {
+outline: none;
+border-color: var(--primary-color);
+}
+/* Admin Calendar Styles */
+.admin-calendar-container {
+margin-top: 2rem;
+}
+.admin-calendar-header {
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-bottom: 1rem;
+}
+.admin-calendar-actions {
+display: flex;
+gap: 1rem;
+}
+.event-form {
+background: var(--light-color);
+padding: 1.5rem;
+border-radius: 10px;
+margin-bottom: 2rem;
+}
+.event-form h4 {
+margin-bottom: 1rem;
+color: var(--dark-color);
+}
+.event-list {
+margin-top: 2rem;
+}
+.event-item {
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 1rem;
+background: var(--light-color);
+border-radius: 10px;
+margin-bottom: 1rem;
+}
+.event-item-actions {
+display: flex;
+gap: 0.5rem;
 }
 /* Login Modal */
 .login-modal {
@@ -2009,21 +2065,8 @@ Claro, ¿cuál es tu duda? Estoy aquí para ayudarte.
 </div>
 <div class="live-schedule">
 <h3>Próximas Clases</h3>
-<div class="schedule-item">
-<span>Lunes 15 Nov</span>
-<span class="schedule-time">10:00 AM - Inglés Básico</span>
-</div>
-<div class="schedule-item">
-<span>Martes 16 Nov</span>
-<span class="schedule-time">3:00 PM - Inglés Intermedio</span>
-</div>
-<div class="schedule-item">
-<span>Miércoles 17 Nov</span>
-<span class="schedule-time">11:00 AM - Inglés para Niños</span>
-</div>
-<div class="schedule-item">
-<span>Jueves 18 Nov</span>
-<span class="schedule-time">4:00 PM - Inglés Intensivo</span>
+<div id="liveScheduleContainer">
+<!-- Live schedule will be dynamically loaded here -->
 </div>
 </div>
 </div>
@@ -2054,10 +2097,13 @@ Claro, ¿cuál es tu duda? Estoy aquí para ayudarte.
 </div>
 <div class="admin-tabs">
 <button class="admin-tab active" onclick="showAdminTab('dashboard')">Dashboard</button>
+<button class="admin-tab" onclick="showAdminTab('home')">Home</button>
 <button class="admin-tab" onclick="showAdminTab('news')">Noticias</button>
 <button class="admin-tab" onclick="showAdminTab('courses')">Cursos</button>
 <button class="admin-tab" onclick="showAdminTab('pricing')">Precios</button>
 <button class="admin-tab" onclick="showAdminTab('contact')">Contacto</button>
+<button class="admin-tab" onclick="showAdminTab('live')">Clases en Vivo</button>
+<button class="admin-tab" onclick="showAdminTab('calendar')">Calendario</button>
 <button class="admin-tab" onclick="showAdminTab('banners')">Banners</button>
 <button class="admin-tab" onclick="showAdminTab('users')">Usuarios</button>
 </div>
@@ -2098,6 +2144,36 @@ Claro, ¿cuál es tu duda? Estoy aquí para ayudarte.
 </div>
 </div>
 </div>
+</div>
+</div>
+</div>
+
+<!-- Home Admin -->
+<div id="admin-home" class="admin-content">
+<div class="admin-form">
+<h3>Editar Estadísticas de Home</h3>
+<div class="form-row">
+<div class="form-group">
+<label for="statsStudents">Número de Estudiantes</label>
+<input type="number" id="statsStudents" value="5000">
+</div>
+<div class="form-group">
+<label for="statsCourses">Número de Cursos</label>
+<input type="number" id="statsCourses" value="120">
+</div>
+</div>
+<div class="form-row">
+<div class="form-group">
+<label for="statsTeachers">Número de Profesores</label>
+<input type="number" id="statsTeachers" value="50">
+</div>
+<div class="form-group">
+<label for="statsSatisfaction">% Satisfacción</label>
+<input type="number" id="statsSatisfaction" value="98" min="0" max="100">
+</div>
+</div>
+<div class="form-actions">
+<button type="button" class="btn-primary" onclick="updateHomeStats()">Actualizar Estadísticas</button>
 </div>
 </div>
 </div>
@@ -2155,6 +2231,10 @@ Claro, ¿cuál es tu duda? Estoy aquí para ayudarte.
 <label for="newCourseBadge">Etiqueta (opcional)</label>
 <input type="text" id="newCourseBadge">
 </div>
+<div class="form-group">
+<label for="newCourseDetails">Detalles del Curso (separados por coma)</label>
+<textarea id="newCourseDetails" rows="4" required></textarea>
+</div>
 <div class="form-actions">
 <button type="button" class="btn-primary" onclick="addNewCourse()">Guardar Curso</button>
 <button type="button" class="btn-secondary" onclick="hideAddCourseForm()">Cancelar</button>
@@ -2178,16 +2258,49 @@ Claro, ¿cuál es tu duda? Estoy aquí para ayudarte.
 
 <!-- Pricing Admin -->
 <div id="admin-pricing" class="admin-content">
-<form class="admin-form" onsubmit="updatePricing(event)">
+<div class="admin-form">
 <h3>Actualizar Precios</h3>
-<div id="pricingFormContainer">
-<!-- Pricing form will be generated here -->
+<div class="form-actions">
+<button type="button" class="btn-primary" onclick="showAddPricingForm()">Agregar Nuevo Precio</button>
+</div>
+</div>
+<div id="addPricingForm" style="display: none;" class="admin-form">
+<h3>Agregar Nuevo Precio</h3>
+<div class="form-group">
+<label for="newPricingCourse">Curso</label>
+<input type="text" id="newPricingCourse" required>
+</div>
+<div class="form-group">
+<label for="newPricingPrice">Precio</label>
+<input type="text" id="newPricingPrice" required>
+</div>
+<div class="form-group">
+<label for="newPricingSchedule">Horario</label>
+<input type="text" id="newPricingSchedule" required>
+</div>
+<div class="form-group">
+<label for="newPricingDuration">Duración</label>
+<input type="text" id="newPricingDuration" required>
 </div>
 <div class="form-actions">
-<button type="submit" class="btn-primary">Actualizar</button>
-<button type="button" class="btn-secondary" onclick="resetForm('pricing')">Cancelar</button>
+<button type="button" class="btn-primary" onclick="addNewPricing()">Guardar Precio</button>
+<button type="button" class="btn-secondary" onclick="hideAddPricingForm()">Cancelar</button>
 </div>
-</form>
+</div>
+<table class="admin-table" id="pricingAdminTable">
+<thead>
+<tr>
+<th>Curso</th>
+<th>Precio</th>
+<th>Horario</th>
+<th>Duración</th>
+<th>Acciones</th>
+</tr>
+</thead>
+<tbody id="pricingTableBodyAdmin">
+<!-- Pricing data will be dynamically loaded here -->
+</tbody>
+</table>
 </div>
 
 <!-- Contact Admin -->
@@ -2211,6 +2324,89 @@ Claro, ¿cuál es tu duda? Estoy aquí para ayudarte.
 <button type="button" class="btn-secondary" onclick="resetForm('contact')">Cancelar</button>
 </div>
 </form>
+</div>
+
+<!-- Live Classes Admin -->
+<div id="admin-live" class="admin-content">
+<div class="admin-form">
+<h3>Administrar Clases en Vivo</h3>
+<div class="form-actions">
+<button type="button" class="btn-primary" onclick="showAddLiveClassForm()">Agregar Nueva Clase</button>
+</div>
+</div>
+<div id="addLiveClassForm" style="display: none;" class="admin-form">
+<h3>Agregar Nueva Clase en Vivo</h3>
+<div class="form-group">
+<label for="newLiveClassDate">Fecha</label>
+<input type="date" id="newLiveClassDate" required>
+</div>
+<div class="form-group">
+<label for="newLiveClassTime">Hora</label>
+<input type="time" id="newLiveClassTime" required>
+</div>
+<div class="form-group">
+<label for="newLiveClassTitle">Título de la Clase</label>
+<input type="text" id="newLiveClassTitle" required>
+</div>
+<div class="form-group">
+<label for="newLiveClassDescription">Descripción</label>
+<textarea id="newLiveClassDescription" rows="3" required></textarea>
+</div>
+<div class="form-actions">
+<button type="button" class="btn-primary" onclick="addNewLiveClass()">Guardar Clase</button>
+<button type="button" class="btn-secondary" onclick="hideAddLiveClassForm()">Cancelar</button>
+</div>
+</div>
+<div class="event-list">
+<h3>Próximas Clases en Vivo</h3>
+<div id="liveClassesList">
+<!-- Live classes will be listed here -->
+</div>
+</div>
+</div>
+
+<!-- Calendar Admin -->
+<div id="admin-calendar" class="admin-content">
+<div class="admin-calendar-container">
+<div class="admin-calendar-header">
+<h3>Editar Calendario</h3>
+<div class="admin-calendar-actions">
+<button type="button" class="btn-primary" onclick="showAddEventForm()">Agregar Evento</button>
+</div>
+</div>
+<div id="addEventForm" style="display: none;" class="event-form">
+<h4>Agregar Nuevo Evento</h4>
+<div class="form-group">
+<label for="newEventDate">Fecha</label>
+<input type="date" id="newEventDate" required>
+</div>
+<div class="form-group">
+<label for="newEventTime">Hora</label>
+<input type="time" id="newEventTime" required>
+</div>
+<div class="form-group">
+<label for="newEventTitle">Título del Evento</label>
+<input type="text" id="newEventTitle" required>
+</div>
+<div class="form-group">
+<label for="newEventDescription">Descripción</label>
+<textarea id="newEventDescription" rows="2"></textarea>
+</div>
+<div class="form-actions">
+<button type="button" class="btn-primary" onclick="addNewEvent()">Guardar Evento</button>
+<button type="button" class="btn-secondary" onclick="hideAddEventForm()">Cancelar</button>
+</div>
+</div>
+<div class="calendar-container" id="adminCalendarContainer">
+<!-- Calendar will be generated by JavaScript -->
+</div>
+<div class="event-list">
+<h3>Eventos del Calendario</h3>
+<div id="eventsList">
+<!-- Events will be listed here -->
+</div>
+</div>
+</div>
 </div>
 
 <!-- Banners Admin -->
@@ -2448,6 +2644,12 @@ Las clases de inglés intensivo me prepararon perfectamente para mi examen. Los 
 <script>
 // Initialize data
 let websiteData = {
+stats: {
+students: 5000,
+courses: 120,
+teachers: 50,
+satisfaction: 98
+},
 news: "¡¡OBTÉN UN 30% DE DESCUENTO AL INSCRIBIRTE AHORA!! Válido hasta el 30 de noviembre.",
 courses: [
 {
@@ -2561,36 +2763,42 @@ details: [
 ],
 pricing: [
 {
+id: 1,
 course: "Inglés para Niños",
 price: "S/60/mes",
 schedule: "Lun - Mie - Vie | 9am - 10am",
 duration: "12 semanas"
 },
 {
+id: 2,
 course: "Inglés Basico",
 price: "S/70/mes",
 schedule: "Lun - Mie - Vier | 3pm - 5pm",
 duration: "8 semanas"
 },
 {
+id: 3,
 course: "Inglés Intermedio",
 price: "S/80/mes",
 schedule: "Mar - Jue - Sab | 4pm - 6pm",
 duration: "16 semanas"
 },
 {
+id: 4,
 course: "Inglès Intensivo",
 price: "S/90/mes",
 schedule: "Mie - Vie | 10am - 12pm",
 duration: "10 semanas"
 },
 {
+id: 5,
 course: "Inglès para Docentes",
 price: "S/120/mes",
 schedule: "Lun - Mie | 3pm - 4pm",
 duration: "12 semanas"
 },
 {
+id: 6,
 course: "Inglès de Negocios",
 price: "S/120/mes",
 schedule: "Vie - Sab | 9pm - 10pm",
@@ -2606,6 +2814,66 @@ banners: [
 "https://via.placeholder.com/1200x500/3498db/ffffff?text=Learn+English+with+Us",
 "https://via.placeholder.com/1200x500/2ecc71/ffffff?text=Native+Teachers",
 "https://via.placeholder.com/1200x500/e74c3c/ffffff?text=Interactive+Classes"
+],
+liveClasses: [
+{
+id: 1,
+date: "2023-11-20",
+time: "10:00",
+title: "Inglés Básico - Conversación",
+description: "Clase de conversación para principiantes"
+},
+{
+id: 2,
+date: "2023-11-22",
+time: "15:00",
+title: "Inglés Intermedio - Gramática",
+description: "Repaso de tiempos verbales"
+},
+{
+id: 3,
+date: "2023-11-24",
+time: "11:00",
+title: "Inglés para Niños - Juegos",
+description: "Aprendizaje divertido con juegos interactivos"
+},
+{
+id: 4,
+date: "2023-11-27",
+time: "16:00",
+title: "Inglés de Negocios - Presentaciones",
+description: "Cómo hacer presentaciones efectivas en inglés"
+}
+],
+calendarEvents: [
+{
+id: 1,
+date: "2023-11-15",
+time: "09:00",
+title: "Clase de Inglés Básico",
+description: "Grupo A - Sala 1"
+},
+{
+id: 2,
+date: "2023-11-16",
+time: "15:00",
+title: "Clase de Inglés Intermedio",
+description: "Grupo B - Sala 2"
+},
+{
+id: 3,
+date: "2023-11-17",
+time: "11:00",
+title: "Clase de Inglés para Niños",
+description: "Grupo Infantil - Sala 3"
+},
+{
+id: 4,
+date: "2023-11-18",
+time: "10:00",
+title: "Taller de Pronunciación",
+description: "Abierto a todos los niveles"
+}
 ],
 users: [
 {
@@ -2697,6 +2965,11 @@ behavior: 'smooth'
 
 // Render all content based on websiteData
 function renderAllContent() {
+// Render stats
+document.querySelectorAll('.stat-number').forEach(stat => {
+const target = parseInt(stat.getAttribute('data-target'));
+stat.textContent = target;
+});
 // Render news
 document.getElementById('newsText').textContent = websiteData.news;
 document.getElementById('newsInput').value = websiteData.news;
@@ -2716,6 +2989,12 @@ document.getElementById('contactAddressInput').value = websiteData.contact.addre
 // Render banners
 renderBanners();
 renderBannersAdmin();
+// Render live classes
+renderLiveClasses();
+renderLiveClassesAdmin();
+// Render calendar
+renderCalendar();
+renderCalendarAdmin();
 // Render users
 renderUsersAdmin();
 // Update dashboard stats
@@ -2819,26 +3098,47 @@ pricingTableBody.innerHTML = websiteData.pricing.map(item => `
 
 // Render pricing admin
 function renderPricingAdmin() {
-const pricingFormContainer = document.getElementById('pricingFormContainer');
-pricingFormContainer.innerHTML = websiteData.pricing.map((item, index) => `
-<div class="form-row">
-<div class="form-group">
-<label>Curso</label>
-<input type="text" value="${item.course}" data-index="${index}" data-field="course">
+const pricingTableBodyAdmin = document.getElementById('pricingTableBodyAdmin');
+pricingTableBodyAdmin.innerHTML = websiteData.pricing.map(item => `
+<tr>
+<td>${item.course}</td>
+<td>${item.price}</td>
+<td>${item.schedule}</td>
+<td>${item.duration}</td>
+<td>
+<div class="admin-item-actions">
+<button class="btn-primary btn-small" onclick="editPricing(${item.id})">Editar</button>
+<button class="btn-danger btn-small" onclick="deletePricing(${item.id})">Eliminar</button>
 </div>
-<div class="form-group">
-<label>Precio</label>
-<input type="text" value="${item.price}" data-index="${index}" data-field="price">
+</td>
+</tr>
+`).join('');
+}
+
+// Render live classes
+function renderLiveClasses() {
+const liveScheduleContainer = document.getElementById('liveScheduleContainer');
+liveScheduleContainer.innerHTML = websiteData.liveClasses.map(item => `
+<div class="schedule-item">
+<span>${new Date(item.date).toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</span>
+<span class="schedule-time">${item.time} - ${item.title}</span>
 </div>
+`).join('');
+}
+
+// Render live classes admin
+function renderLiveClassesAdmin() {
+const liveClassesList = document.getElementById('liveClassesList');
+liveClassesList.innerHTML = websiteData.liveClasses.map(item => `
+<div class="event-item">
+<div>
+<strong>${item.title}</strong> - ${new Date(item.date).toLocaleDateString()} a las ${item.time}
+<br>
+<small>${item.description}</small>
 </div>
-<div class="form-row">
-<div class="form-group">
-<label>Horario</label>
-<input type="text" value="${item.schedule}" data-index="${index}" data-field="schedule">
-</div>
-<div class="form-group">
-<label>Duración</label>
-<input type="text" value="${item.duration}" data-index="${index}" data-field="duration">
+<div class="event-item-actions">
+<button class="btn-primary btn-small" onclick="editLiveClass(${item.id})">Editar</button>
+<button class="btn-danger btn-small" onclick="deleteLiveClass(${item.id})">Eliminar</button>
 </div>
 </div>
 `).join('');
@@ -2859,6 +3159,66 @@ function renderBannersAdmin() {
 document.getElementById('banner1Input').value = websiteData.banners[0];
 document.getElementById('banner2Input').value = websiteData.banners[1];
 document.getElementById('banner3Input').value = websiteData.banners[2];
+}
+
+// Render calendar
+function renderCalendar() {
+const year = currentMonth.getFullYear();
+const month = currentMonth.getMonth();
+const firstDay = new Date(year, month, 1).getDay();
+const daysInMonth = new Date(year, month + 1, 0).getDate();
+const daysInPrevMonth = new Date(year, month, 0).getDate();
+document.getElementById('currentMonth').textContent = `${monthNames[month]} ${year}`;
+let html = '';
+// Weekday headers
+const weekdays = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
+weekdays.forEach(day => {
+html += `<div class="calendar-day weekday">${day}</div>`;
+});
+// Previous month days
+for (let i = firstDay - 1; i >= 0; i--) {
+html += `<div class="calendar-day other-month">${daysInPrevMonth - i}</div>`;
+}
+// Current month days
+const today = new Date();
+for (let i = 1; i <= daysInMonth; i++) {
+const isToday = year === today.getFullYear() && month === today.getMonth() && i === today.getDate();
+const dayEvents = websiteData.calendarEvents.filter(event => {
+const eventDate = new Date(event.date);
+return eventDate.getDate() === i && eventDate.getMonth() === month && eventDate.getFullYear() === year;
+});
+html += `<div class="calendar-day ${isToday ? 'today' : ''} ${dayEvents.length > 0 ? 'has-class' : ''}">${i}`;
+if (dayEvents.length > 0) {
+html += `<div class="class-event">${dayEvents[0].time} ${dayEvents[0].title}</div>`;
+}
+html += `</div>`;
+}
+// Next month days
+const totalCells = document.querySelectorAll('.calendar-day.weekday').length + firstDay + daysInMonth;
+const nextMonthDays = 42 - totalCells; // 6 rows x 7 days
+for (let i = 1; i <= nextMonthDays; i++) {
+html += `<div class="calendar-day other-month">${i}</div>`;
+}
+document.getElementById('calendarGrid').innerHTML = html;
+}
+
+// Render calendar admin
+function renderCalendarAdmin() {
+renderCalendar(); // Reuse the same function
+const eventsList = document.getElementById('eventsList');
+eventsList.innerHTML = websiteData.calendarEvents.map(event => `
+<div class="event-item">
+<div>
+<strong>${event.title}</strong> - ${new Date(event.date).toLocaleDateString()} a las ${event.time}
+<br>
+<small>${event.description}</small>
+</div>
+<div class="event-item-actions">
+<button class="btn-primary btn-small" onclick="editEvent(${event.id})">Editar</button>
+<button class="btn-danger btn-small" onclick="deleteEvent(${event.id})">Eliminar</button>
+</div>
+</div>
+`).join('');
 }
 
 // Render users admin
@@ -3048,42 +3408,6 @@ chatMessages.scrollTop = chatMessages.scrollHeight;
 let currentMonth = new Date();
 const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", 
 "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
-function renderCalendar() {
-const year = currentMonth.getFullYear();
-const month = currentMonth.getMonth();
-const firstDay = new Date(year, month, 1).getDay();
-const daysInMonth = new Date(year, month + 1, 0).getDate();
-const daysInPrevMonth = new Date(year, month, 0).getDate();
-document.getElementById('currentMonth').textContent = `${monthNames[month]} ${year}`;
-let html = '';
-// Weekday headers
-const weekdays = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
-weekdays.forEach(day => {
-html += `<div class="calendar-day weekday">${day}</div>`;
-});
-// Previous month days
-for (let i = firstDay - 1; i >= 0; i--) {
-html += `<div class="calendar-day other-month">${daysInPrevMonth - i}</div>`;
-}
-// Current month days
-const today = new Date();
-for (let i = 1; i <= daysInMonth; i++) {
-const isToday = year === today.getFullYear() && month === today.getMonth() && i === today.getDate();
-const hasClass = Math.random() > 0.7; // Random classes for demo
-html += `<div class="calendar-day ${isToday ? 'today' : ''} ${hasClass ? 'has-class' : ''}">${i}`;
-if (hasClass) {
-html += `<div class="class-event">Clase ${Math.floor(Math.random() * 4) + 9}:00</div>`;
-}
-html += `</div>`;
-}
-// Next month days
-const totalCells = document.querySelectorAll('.calendar-day.weekday').length + firstDay + daysInMonth;
-const nextMonthDays = 42 - totalCells; // 6 rows x 7 days
-for (let i = 1; i <= nextMonthDays; i++) {
-html += `<div class="calendar-day other-month">${i}</div>`;
-}
-document.getElementById('calendarGrid').innerHTML = html;
-}
 
 document.getElementById('prevMonth').addEventListener('click', () => {
 currentMonth.setMonth(currentMonth.getMonth() - 1);
@@ -3094,9 +3418,6 @@ document.getElementById('nextMonth').addEventListener('click', () => {
 currentMonth.setMonth(currentMonth.getMonth() + 1);
 renderCalendar();
 });
-
-// Initialize calendar
-renderCalendar();
 
 // Testimonial slider
 let currentTestimonial = 0;
@@ -3224,6 +3545,21 @@ document.getElementById(`admin-${tabName}`).classList.add('active');
 event.target.classList.add('active');
 }
 
+// Update home stats
+function updateHomeStats() {
+websiteData.stats.students = parseInt(document.getElementById('statsStudents').value);
+websiteData.stats.courses = parseInt(document.getElementById('statsCourses').value);
+websiteData.stats.teachers = parseInt(document.getElementById('statsTeachers').value);
+websiteData.stats.satisfaction = parseInt(document.getElementById('statsSatisfaction').value);
+saveData();
+// Update stats display
+document.querySelectorAll('.stat-number').forEach(stat => {
+const target = parseInt(stat.getAttribute('data-target'));
+stat.textContent = target;
+});
+showNotification('success', 'Estadísticas Actualizadas', 'Las estadísticas han sido actualizadas correctamente.');
+}
+
 // Update news
 function updateNews(e) {
 e.preventDefault();
@@ -3235,6 +3571,44 @@ showNotification('success', 'Noticias Actualizadas', 'Las noticias han sido actu
 }
 
 // Course management
+function showAddCourseForm() {
+document.getElementById('addCourseForm').style.display = 'block';
+}
+
+function hideAddCourseForm() {
+document.getElementById('addCourseForm').style.display = 'none';
+}
+
+function addNewCourse() {
+const title = document.getElementById('newCourseTitle').value;
+const teacher = document.getElementById('newCourseTeacher').value;
+const duration = document.getElementById('newCourseDuration').value;
+const students = document.getElementById('newCourseStudents').value;
+const price = document.getElementById('newCoursePrice').value;
+const image = document.getElementById('newCourseImage').value;
+const badge = document.getElementById('newCourseBadge').value;
+const details = document.getElementById('newCourseDetails').value.split(',').map(detail => detail.trim());
+// Create new course object
+const newCourse = {
+id: websiteData.courses.length > 0 ? Math.max(...websiteData.courses.map(c => c.id)) + 1 : 1,
+title,
+teacher,
+teacherAvatar: "https://randomuser.me/api/portraits/men/" + Math.floor(Math.random() * 70) + ".jpg",
+duration,
+students,
+price,
+image,
+badge,
+details
+};
+// Add to courses array
+websiteData.courses.push(newCourse);
+saveData();
+renderAllContent();
+hideAddCourseForm();
+showNotification('success', 'Curso Agregado', 'El nuevo curso ha sido agregado correctamente.');
+}
+
 function editCourse(id) {
 const course = websiteData.courses.find(c => c.id === id);
 if (course) {
@@ -3252,58 +3626,51 @@ showNotification('success', 'Curso Eliminado', 'El curso ha sido eliminado corre
 }
 }
 
-function showAddCourseForm() {
-document.getElementById('addCourseForm').style.display = 'block';
+// Pricing management
+function showAddPricingForm() {
+document.getElementById('addPricingForm').style.display = 'block';
 }
 
-function hideAddCourseForm() {
-document.getElementById('addCourseForm').style.display = 'none';
+function hideAddPricingForm() {
+document.getElementById('addPricingForm').style.display = 'none';
 }
 
-function addNewCourse() {
-const title = document.getElementById('newCourseTitle').value;
-const teacher = document.getElementById('newCourseTeacher').value;
-const duration = document.getElementById('newCourseDuration').value;
-const students = document.getElementById('newCourseStudents').value;
-const price = document.getElementById('newCoursePrice').value;
-const image = document.getElementById('newCourseImage').value;
-const badge = document.getElementById('newCourseBadge').value;
-// Create new course object
-const newCourse = {
-id: websiteData.courses.length > 0 ? Math.max(...websiteData.courses.map(c => c.id)) + 1 : 1,
-title,
-teacher,
-teacherAvatar: "https://randomuser.me/api/portraits/men/" + Math.floor(Math.random() * 70) + ".jpg",
-duration,
-students,
+function addNewPricing() {
+const course = document.getElementById('newPricingCourse').value;
+const price = document.getElementById('newPricingPrice').value;
+const schedule = document.getElementById('newPricingSchedule').value;
+const duration = document.getElementById('newPricingDuration').value;
+// Create new pricing object
+const newPricing = {
+id: websiteData.pricing.length > 0 ? Math.max(...websiteData.pricing.map(p => p.id)) + 1 : 1,
+course,
 price,
-image,
-badge,
-details: [
-"Detalles del curso a completar",
-"Más información próximamente"
-]
+schedule,
+duration
 };
-// Add to courses array
-websiteData.courses.push(newCourse);
+// Add to pricing array
+websiteData.pricing.push(newPricing);
 saveData();
 renderAllContent();
-hideAddCourseForm();
-showNotification('success', 'Curso Agregado', 'El nuevo curso ha sido agregado correctamente.');
+hideAddPricingForm();
+showNotification('success', 'Precio Agregado', 'El nuevo precio ha sido agregado correctamente.');
 }
 
-// Update pricing
-function updatePricing(e) {
-e.preventDefault();
-const pricingInputs = document.querySelectorAll('#pricingFormContainer input');
-pricingInputs.forEach(input => {
-const index = parseInt(input.dataset.index);
-const field = input.dataset.field;
-websiteData.pricing[index][field] = input.value;
-});
+function editPricing(id) {
+const pricing = websiteData.pricing.find(p => p.id === id);
+if (pricing) {
+// In a real application, this would open a modal with a form to edit the pricing
+alert(`Editar precio: ${pricing.course}\n\nEsta funcionalidad se implementaría con un modal de edición.`);
+}
+}
+
+function deletePricing(id) {
+if (confirm('¿Estás seguro de que quieres eliminar este precio?')) {
+websiteData.pricing = websiteData.pricing.filter(p => p.id !== id);
 saveData();
 renderAllContent();
-showNotification('success', 'Precios Actualizados', 'Los precios han sido actualizados correctamente.');
+showNotification('success', 'Precio Eliminado', 'El precio ha sido eliminado correctamente.');
+}
 }
 
 // Update contact
@@ -3315,6 +3682,100 @@ websiteData.contact.address = document.getElementById('contactAddressInput').val
 saveData();
 renderAllContent();
 showNotification('success', 'Contacto Actualizado', 'La información de contacto ha sido actualizada correctamente.');
+}
+
+// Live classes management
+function showAddLiveClassForm() {
+document.getElementById('addLiveClassForm').style.display = 'block';
+}
+
+function hideAddLiveClassForm() {
+document.getElementById('addLiveClassForm').style.display = 'none';
+}
+
+function addNewLiveClass() {
+const date = document.getElementById('newLiveClassDate').value;
+const time = document.getElementById('newLiveClassTime').value;
+const title = document.getElementById('newLiveClassTitle').value;
+const description = document.getElementById('newLiveClassDescription').value;
+// Create new live class object
+const newLiveClass = {
+id: websiteData.liveClasses.length > 0 ? Math.max(...websiteData.liveClasses.map(lc => lc.id)) + 1 : 1,
+date,
+time,
+title,
+description
+};
+// Add to live classes array
+websiteData.liveClasses.push(newLiveClass);
+saveData();
+renderAllContent();
+hideAddLiveClassForm();
+showNotification('success', 'Clase Agregada', 'La nueva clase en vivo ha sido agregada correctamente.');
+}
+
+function editLiveClass(id) {
+const liveClass = websiteData.liveClasses.find(lc => lc.id === id);
+if (liveClass) {
+// In a real application, this would open a modal with a form to edit the live class
+alert(`Editar clase en vivo: ${liveClass.title}\n\nEsta funcionalidad se implementaría con un modal de edición.`);
+}
+}
+
+function deleteLiveClass(id) {
+if (confirm('¿Estás seguro de que quieres eliminar esta clase en vivo?')) {
+websiteData.liveClasses = websiteData.liveClasses.filter(lc => lc.id !== id);
+saveData();
+renderAllContent();
+showNotification('success', 'Clase Eliminada', 'La clase en vivo ha sido eliminada correctamente.');
+}
+}
+
+// Calendar events management
+function showAddEventForm() {
+document.getElementById('addEventForm').style.display = 'block';
+}
+
+function hideAddEventForm() {
+document.getElementById('addEventForm').style.display = 'none';
+}
+
+function addNewEvent() {
+const date = document.getElementById('newEventDate').value;
+const time = document.getElementById('newEventTime').value;
+const title = document.getElementById('newEventTitle').value;
+const description = document.getElementById('newEventDescription').value;
+// Create new event object
+const newEvent = {
+id: websiteData.calendarEvents.length > 0 ? Math.max(...websiteData.calendarEvents.map(e => e.id)) + 1 : 1,
+date,
+time,
+title,
+description
+};
+// Add to events array
+websiteData.calendarEvents.push(newEvent);
+saveData();
+renderAllContent();
+hideAddEventForm();
+showNotification('success', 'Evento Agregado', 'El nuevo evento ha sido agregado correctamente.');
+}
+
+function editEvent(id) {
+const event = websiteData.calendarEvents.find(e => e.id === id);
+if (event) {
+// In a real application, this would open a modal with a form to edit the event
+alert(`Editar evento: ${event.title}\n\nEsta funcionalidad se implementaría con un modal de edición.`);
+}
+}
+
+function deleteEvent(id) {
+if (confirm('¿Estás seguro de que quieres eliminar este evento?')) {
+websiteData.calendarEvents = websiteData.calendarEvents.filter(e => e.id !== id);
+saveData();
+renderAllContent();
+showNotification('success', 'Evento Eliminado', 'El evento ha sido eliminado correctamente.');
+}
 }
 
 // Update banners
@@ -3333,9 +3794,6 @@ function resetForm(formType) {
 switch(formType) {
 case 'news':
 document.getElementById('newsInput').value = websiteData.news;
-break;
-case 'pricing':
-renderPricingAdmin();
 break;
 case 'contact':
 document.getElementById('contactEmailInput').value = websiteData.contact.email;
