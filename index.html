@@ -2848,7 +2848,7 @@ function handleLiveChatKeyPress(event) {
     }
 }
 
-// Función para mostrar secciones
+// Función para mostrar secciones con animación suave
 function showSection(sectionId) {
     // Verificar si es la sección de admin y si el usuario tiene permisos
     if (sectionId === 'admin' && !isAdminLoggedIn()) {
@@ -2856,14 +2856,29 @@ function showSection(sectionId) {
         return;
     }
     
-    // Ocultar todas las secciones
+    // Ocultar todas las secciones con animación de salida
     const sections = document.querySelectorAll('.section');
     sections.forEach(section => {
-        section.classList.remove('active');
+        section.style.opacity = '0';
+        section.style.transform = 'translateY(30px)';
+        
+        setTimeout(() => {
+            section.classList.remove('active');
+            section.style.display = 'none';
+        }, 300);
     });
     
-    // Mostrar la sección seleccionada
-    document.getElementById(sectionId).classList.add('active');
+    // Mostrar la sección seleccionada con animación de entrada
+    setTimeout(() => {
+        const selectedSection = document.getElementById(sectionId);
+        selectedSection.style.display = 'block';
+        
+        setTimeout(() => {
+            selectedSection.classList.add('active');
+            selectedSection.style.opacity = '1';
+            selectedSection.style.transform = 'translateY(0)';
+        }, 50);
+    }, 300);
     
     // Actualizar enlaces de navegación
     const navLinks = document.querySelectorAll('.nav-links a');
@@ -2874,23 +2889,38 @@ function showSection(sectionId) {
         }
     });
     
-    // Scroll al inicio de la sección
+    // Scroll al inicio de la sección con animación suave
     window.scrollTo({
         top: 0,
         behavior: 'smooth'
     });
 }
 
-// Función para mostrar pestañas de administrador
+// Función para mostrar pestañas de administrador con animación
 function showAdminTab(tabId) {
-    // Ocultar todos los contenidos de admin
+    // Ocultar todos los contenidos de admin con animación
     const adminContents = document.querySelectorAll('.admin-content');
     adminContents.forEach(content => {
-        content.classList.remove('active');
+        content.style.opacity = '0';
+        content.style.transform = 'translateY(20px)';
+        
+        setTimeout(() => {
+            content.classList.remove('active');
+            content.style.display = 'none';
+        }, 200);
     });
     
-    // Mostrar el contenido seleccionado
-    document.getElementById(`admin-${tabId}`).classList.add('active');
+    // Mostrar el contenido seleccionado con animación
+    setTimeout(() => {
+        const selectedContent = document.getElementById(`admin-${tabId}`);
+        selectedContent.style.display = 'block';
+        
+        setTimeout(() => {
+            selectedContent.classList.add('active');
+            selectedContent.style.opacity = '1';
+            selectedContent.style.transform = 'translateY(0)';
+        }, 50);
+    }, 200);
     
     // Actualizar tabs de admin
     const adminTabs = document.querySelectorAll('.admin-tab');
